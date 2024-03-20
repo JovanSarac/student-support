@@ -1,6 +1,86 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
 .full-navbar{
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 100%;
+    height: 100%;
+}
+
+.profile-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+}
+
+.navbar-inside{
+    width: 94%;
+    height: 97%;
+    margin: 3%;
+    background-color: white;
+    border-radius: 25px;
+}
+
+
+.profile-pic{
+    width: 100px;
+    height: 100px;
+    border:2px solid black;
+    border-radius: 50%;
+}
+
+.profile-pic img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.profile-content p{
+    margin-top: 2%;
+    font-size: 20px;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    height: 60%;
+    gap: 5px;
+}
+
+.logutbutton{
+    background-color: rgb(224, 62, 62);
+    color: white;
+    border-radius: 10px;
+    width: 50%;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    gap: 2%;
+}
+
+.logutbutton:hover{
+    background-color: rgb(136, 11, 11);
+}
+
+.logutbutton p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: auto;
+    font-size: 15px;
+}
+
+.outside{
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
 }

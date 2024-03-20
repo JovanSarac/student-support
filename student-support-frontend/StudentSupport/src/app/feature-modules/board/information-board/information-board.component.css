@@ -1,0 +1,104 @@
+.full-page-bg{
+    display: flex;
+    flex-direction: row;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../../assets/images/background.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.navbar-content{
+    width: 20%;
+}
+
+.information-board{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.events{
+    display: flex;
+    flex-direction: column;
+    margin-left: 25%;
+    width: 50%;
+    height: 100%;
+    gap: 2%;
+}
+
+.one-event{
+    width: 100%;
+    height: auto;
+    background-color: wheat;
+    border-radius: 15px;
+}
+
+.userpost{
+    display: flex;
+    flex-direction: row;
+    margin-left: 2%;
+    margin-top: 2%;
+
+}
+
+.userpost img{
+    width: 40px;
+    height: 40px;
+}
+
+
+
+.nameanddate{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 2%;
+}
+
+.nameanddate p{
+    height: 100%;
+    width: 100%;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    margin:auto;
+    display: flex;
+    
+}
+
+.nameanddate h6{
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100%;
+    margin:auto; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-post{
+    display: flex;
+    flex-direction: column;
+    gap: 3%;
+    margin: 2%;
+}
+
+.content-post p{
+    text-indent: 2%;
+}
+
+.content-post img{
+    height: auto;
+    width: auto;
+}
+
+.separator{
+    width: 100%;
+    border: 1px solid gray;
+
+}

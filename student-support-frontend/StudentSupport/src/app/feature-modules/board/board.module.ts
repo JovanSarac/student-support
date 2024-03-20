@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InformationBoardComponent } from './information-board/information-board.component';
+import { LayoutModule } from '../layout/layout.module';
 
 
 
@@ -9,7 +10,8 @@ import { InformationBoardComponent } from './information-board/information-board
     InformationBoardComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    LayoutModule
   ],
   exports:[
     InformationBoardComponent

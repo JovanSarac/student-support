@@ -1,8 +1,17 @@
 <div *ngIf="userRegister" class="full-navbar">
-    <p>StudentSupport</p>
-        <div id="buttons">
-            <button *ngIf="user && user.username === ''" color="accent" mat-raised-button [routerLink]="['login']">Login</button>
-            <button *ngIf="user && user.username !== ''" color="accent" mat-raised-button (click)="onLogout()">Logout</button>
-            <button color="primary" mat-raised-button [routerLink]="['home']">Home</button>
+    <div class="navbar-inside">
+
+    
+        <div class="profile-content">
+            <div class="profile-pic">
+                <img src="../../../../assets/images/profile-pic.jpg" alt="no picture">
+                
+            </div>
+            
+            <p>Naziv Studenta</p>
         </div>
+        <div class="buttons">
+            <div class="logutbutton" *ngIf="user && user.username !== ''" (click)="onLogout()"><i class="outside bi bi-box-arrow-left"></i> <p>Odjavi se</p></div>
+        </div>
+    </div>
 </div>
