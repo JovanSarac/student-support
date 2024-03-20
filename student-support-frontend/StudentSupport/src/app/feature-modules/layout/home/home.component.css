@@ -1,5 +1,113 @@
-p {
-    margin-left: 10px;
-    margin-top: 10px;
-    font-size: 20px;
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+.home-full-page-bg {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../../assets/images/background.png");
+    background-size: cover;
+    background-position: center;
+}
+
+
+.navbar-content{
+    background-color: white;
+    width: 80%;
+    height: 7%;
+    position: absolute;
+    margin-left: 10%;
+    margin-left: 10%;
+    margin-top: 2%;
+    border-radius: 15px;
+}
+
+.navbar-element{
+    display: flex;
+    flex-direction: row;
+    justify-content: center; 
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.navbar-element-nameapp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+
+.navbar-element-nameapp p{
+    margin:auto;  
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5%; 
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-style: italic;
+    font-size:xx-large;
+
+    background-image: url("../../../../assets/images/background.png"); /* Postavljamo sliku kao pozadinu teksta */
+    -webkit-background-clip: text; /* Postavljamo da se slika primjenjuje samo na tekst */
+    background-clip: text; /* Postavljamo da se slika primjenjuje samo na tekst */
+    color: transparent; /* Boja teksta postavljena na transparent */
+    
+}
+
+.navbar-button{
+    display: flex;
+    justify-content: right;
+    align-items: center;      
+    width: 50%;
+    height: 100%;
+    margin-right: 3%;
+}
+
+.navbar-separator {
+    width: 3px; 
+    height: 100%; 
+    background-image: url("../../../../assets/images/background.png");
+}
+
+.login-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 100%;
+    width: 20%;
+}
+
+
+.signup-button{
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    width: 20%;
+}
+
+.login-button p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 70%;
+    margin: auto;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    
+    background-image: url("../../../../assets/images/background.png"); 
+    color: white;
+    border-radius: 15px;
+
+}
+
+.login-button p:hover{
+    background-image: none;
+    background-color:rgb(18, 18, 99);
+    transition: 1.5s;
 }

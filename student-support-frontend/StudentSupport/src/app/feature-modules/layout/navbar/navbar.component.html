@@ -1,10 +1,8 @@
-<mat-toolbar color="primary">
-    <div>
-        <p>StudentSupport</p>
+<div *ngIf="userRegister" class="full-navbar">
+    <p>StudentSupport</p>
         <div id="buttons">
             <button *ngIf="user && user.username === ''" color="accent" mat-raised-button [routerLink]="['login']">Login</button>
             <button *ngIf="user && user.username !== ''" color="accent" mat-raised-button (click)="onLogout()">Logout</button>
             <button color="primary" mat-raised-button [routerLink]="['home']">Home</button>
         </div>
-    </div>
-</mat-toolbar>
+</div>

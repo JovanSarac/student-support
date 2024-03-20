@@ -1,16 +1,31 @@
-<form [formGroup]="loginForm" (ngSubmit)="login()">
-    <div>
-        <mat-form-field>
-            <mat-label>Username</mat-label>
-            <input matInput formControlName="username" type="text"/>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Password</mat-label>
-            <input matInput formControlName="password" type="password"/>
-        </mat-form-field>
-    <button color="primary" type="submit" mat-raised-button>Login</button>
-    <p>Don't have an account yet?<a href="/register">Sign Up</a></p>
+<div class="home-full-page-bg">
+    <div class="login-form-content">
+        <h2 class="title-login-form">Prijava</h2>
+            <div class="username-field">
+                <p>Korisnicko ime ili UNS mail:</p>
+                <input type="text" #usernameInput />
+            </div>
+            <div class="password-field">
+                <p>Lozinka:</p>
+                <div class="password-input">
+                    <input class="password" [type]="fieldTextType ? 'password' : 'text'" #passwordInput />
+                    <i
+                        (click)="changeBiEye()"
+                        class="bi"
+                        [ngClass]="{
+                            'bi-eye-slash-fill': fieldTextType,
+                            'bi-eye-fill': !fieldTextType
+                        }"
+                        ></i>
+                </div>
+                
+            </div>
+
+            <div class="button-login">
+                <button (click)="login(usernameInput.value, passwordInput.value)">Prijavi se</button>
+            </div>
+        
+        
+        
     </div>
-</form>
-
-
+</div>

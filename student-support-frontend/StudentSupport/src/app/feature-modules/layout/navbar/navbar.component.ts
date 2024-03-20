@@ -10,12 +10,19 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 export class NavbarComponent implements OnInit {
 
   user: User | undefined;
+  userRegister: boolean = false;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       this.user = user;
+      console.log(this.user)
+      if(this.user.username != ""){
+        this.userRegister = true;
+      }else {
+        this.userRegister = false;
+      }
     });
   }
 
