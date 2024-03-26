@@ -8,7 +8,7 @@
                 
             </div>
             
-            <p>Naziv Studenta</p>
+            <p>{{user.username}}</p>
         </div>
         <div class="buttons">
             <div class="logutbutton" *ngIf="user && user.username !== ''" (click)="onLogout()"><i class="outside bi bi-box-arrow-left"></i> <p>Odjavi se</p></div>

@@ -9,7 +9,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 })
 export class NavbarComponent implements OnInit {
 
-  user: User | undefined;
+  user !: User;
   userRegister: boolean = false;
 
   constructor(private authService: AuthService) {}

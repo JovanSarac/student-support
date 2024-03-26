@@ -12,9 +12,15 @@ export class HomeComponent {
   constructor(
     private router: Router
   ) {}
+
+
   loginClick() : void{
     this.router.navigate(['/login']);
   }
 
+
+  registerClick() : void{
+    this.router.navigate(['/register']);
+  }
 
 }

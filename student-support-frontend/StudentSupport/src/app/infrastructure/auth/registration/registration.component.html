@@ -1,27 +1,67 @@
-<form [formGroup]="registrationForm" (ngSubmit)="register()">
-    <div>
-        <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="name" type="text"/>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Surname</mat-label>
-            <input matInput formControlName="surname" type="text"/>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Username</mat-label>
-            <input matInput formControlName="username" type="text"/>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" type="text"/>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Password</mat-label>
-            <input matInput formControlName="password" type="password"/>
-        </mat-form-field>
-    <button color="primary" type="submit" mat-raised-button>Register</button>
-    </div>
-</form>
+<div class="home-full-page-bg">
+    <div class="register-form-content">
+        <h2 class="title-register-form">Registracija</h2>
+            <div class="name-and-surname">
+                <div class="name-field">
+                    <p>Ime:</p>
+                    <input type="text" #nameInput />
+                </div>
+                <div class="surname-field">
+                    <p>Prezime:</p>
+                    <input type="text" #surnameInput />
+                </div>
+            </div>
 
+            <div class="email-field">
+                <p>Email:</p>
+                <input type="email" #emailInput />
+            </div>
+
+            <div class="email-field">
+                <p>Korisnicko ime ili email:</p>
+                <input type="text" #usernameInput />
+            </div>
+            
+            <div class="password-field">
+                <div class="password-text">
+                    <p class="pass">Lozinka:</p>
+                    <p class="again-password">Ponovi lozinku:</p>
+                </div>
+                
+                <div class="password-input">
+                    <input class="password" [type]="fieldTextType ? 'password' : 'text'" #passwordInput />
+                    <i
+                        
+                        (click)="changeBiEye()"
+                        class="bi"
+                        [ngClass]="{
+                            'bi-eye-slash-fill': fieldTextType,
+                            'bi-eye-fill': !fieldTextType
+                        }"
+                    
+                    ></i>
+
+                    <input class="password" [type]="fieldTextType ? 'password' : 'text'" #passwordagainInput />
+                    <i
+                            
+                        (click)="changeBiEye()"
+                        class="bi-again"
+                        [ngClass]="{
+                            'bi-eye-slash-fill': fieldTextType,
+                            'bi-eye-fill': !fieldTextType
+                        }"
+                    
+                    ></i>
+                </div>
+                
+            </div>
+
+            <div class="button-login">
+                <button (click)="register(nameInput.value, surnameInput.value, emailInput.value , usernameInput.value, passwordInput.value, passwordagainInput.value)">Registruj se</button>
+            </div>
+        
+        
+        
+    </div>
+</div>
 

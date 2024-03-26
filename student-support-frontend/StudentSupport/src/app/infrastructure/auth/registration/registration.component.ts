@@ -11,12 +11,14 @@ import { Router } from '@angular/router';
 })
 export class RegistrationComponent {
 
+  fieldTextType : boolean = true;
+
   constructor(
     private authService: AuthService,
     private router: Router
   ) {}
 
-  registrationForm = new FormGroup({
+  /*registrationForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
@@ -40,5 +42,35 @@ export class RegistrationComponent {
         },
       });
     }
+  }*/
+
+
+  changeBiEye() : void{
+    if(this.fieldTextType == true){
+      this.fieldTextType = false;
+    }else{
+      this.fieldTextType = true;
+    }
+    
+  }
+
+  register(name: string, surname : string, email : string , username : string, password: string, passwordagain: string):void{
+
+    const registration: Registration = {
+      name: name || "",
+      surname: surname || "",
+      email: email || "",
+      username: username || "",
+      password: password || "",
+    };
+
+    if (password === passwordagain) {
+      this.authService.register(registration).subscribe({
+        next: () => {
+          this.router.navigate(['userprofile/' + this.authService.user$.getValue().id]);
+        },
+      });
+    }
+
   }
 }
