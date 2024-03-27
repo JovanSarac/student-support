@@ -16,8 +16,8 @@ public static class AuthConfiguration
     private static void ConfigureAuthentication(IServiceCollection services)
     {
         var key = Environment.GetEnvironmentVariable("JWT_KEY") ?? "studentsupport_secret_key";
-        var issuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "tudentsupport";
-        var audience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? "tudentsupport-front.com";
+        var issuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "studentsupport";
+        var audience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? "studentsupport-front.com";
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>

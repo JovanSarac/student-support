@@ -11,9 +11,9 @@ namespace StudentSupport.Stakeholders.Infrastructure.Authentication;
 
 public class JwtGenerator : ITokenGenerator
 {
-    private readonly string _key = Environment.GetEnvironmentVariable("JWT_KEY") ?? "explorer_secret_key";   
-    private readonly string _issuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "explorer";
-    private readonly string _audience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? "explorer-front.com";
+    private readonly string _key = Environment.GetEnvironmentVariable("JWT_KEY") ?? "studentsupport_secret_key";   
+    private readonly string _issuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "studentsupport";
+    private readonly string _audience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? "studentsupport-front.com";
 
     public Result<AuthenticationTokensDto> GenerateAccessToken(User user, long personId)
     {

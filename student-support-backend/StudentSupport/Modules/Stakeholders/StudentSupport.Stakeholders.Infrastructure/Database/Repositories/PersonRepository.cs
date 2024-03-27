@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentSupport.Stakeholders.Infrastructure.Database.Repositories
 {
@@ -21,6 +22,21 @@ namespace StudentSupport.Stakeholders.Infrastructure.Database.Repositories
         {
             var person = _dbContext.People.FirstOrDefault(x => x.UserId == userId);
             if (person == null) throw new KeyNotFoundException("Not found.");
+            return person;
+        }
+
+        public Person Update(Person person)
+        {
+            try
+            {
+                _dbContext.Update(person);
+                _dbContext.SaveChanges();
+            }
+            catch (DbUpdateException e)
+            {
+                throw new KeyNotFoundException(e.Message);
+            }
+
             return person;
         }
     }

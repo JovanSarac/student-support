@@ -9,5 +9,6 @@ namespace StudentSupport.Stakeholders.Core.Domain.RepositoryInterfaces
     public interface IPersonRepository
     {
         Person GetByUserId(long userId);
+        Person Update(Person person);
     }
 }

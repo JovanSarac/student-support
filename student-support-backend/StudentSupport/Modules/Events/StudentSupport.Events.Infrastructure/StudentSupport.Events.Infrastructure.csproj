@@ -12,7 +12,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\StudentSupport.BuildingBlocks.Infrastructure\StudentSupport.BuildingBlocks.Infrastructure.csproj" />
-    <ProjectReference Include="..\StudentSupport.Stakeholders.Core\StudentSupport.Stakeholders.Core.csproj" />
+    <ProjectReference Include="..\StudentSupport.Events.Core\StudentSupport.Events.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Database\Repositories\" />
   </ItemGroup>
 
 </Project>

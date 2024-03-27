@@ -11,5 +11,6 @@ namespace StudentSupport.Stakeholders.API.Public
     public interface IPersonService
     {
         Result<PersonDto> GetByUserId(int userId);
+        Result<PersonDto> Update(PersonDto personDto);
     }
 }

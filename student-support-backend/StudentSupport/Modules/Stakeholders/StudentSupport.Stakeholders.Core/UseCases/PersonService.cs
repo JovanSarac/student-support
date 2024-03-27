@@ -34,6 +34,22 @@ namespace StudentSupport.Stakeholders.Core.UseCases
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }
         }
- 
+
+        public Result<PersonDto> Update(PersonDto person)
+        {
+            try
+            {
+                var result = _personRepository.Update(MapToDomain(person));
+                return MapToDto(result);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+        }
     }
 }

@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using StudentSupport.Stakeholders.API.Dtos;
 using StudentSupport.Stakeholders.API.Public;
 
-namespace StudentSupport.API.Controllers
+namespace StudentSupport.API.Controllers.Author
 {
-    //[Authorize(Policy = "authorPolicy")]
+    [Authorize(Policy = "authorPolicy")]
     [Route("api/author/person")]
     public class PersonController : BaseApiController
     {
@@ -19,6 +19,13 @@ namespace StudentSupport.API.Controllers
         public ActionResult<PersonDto> GetByUserId(int userId)
         {
             var result = _personService.GetByUserId(userId);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("{id:int}")]
+        public ActionResult<PersonDto> Update([FromBody] PersonDto person)
+        {
+            var result = _personService.Update(person);
             return CreateResponse(result);
         }
     }
