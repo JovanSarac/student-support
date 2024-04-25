@@ -1,7 +1,8 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
+
 .home-full-page-bg {
-    position: relative;
+    /*position: relative;*/
     top: 0;
     left: 0;
     width: 100%;
@@ -9,17 +10,19 @@
     background-image: url("../../../../assets/images/background.png");
     background-size: cover;
     background-position: center;
+    display: flex;
+    flex-direction: column;
 }
 
 
 .navbar-content{
-    background-color: white;
+    background-color:rgb(2, 2, 100);
     width: 80%;
     height: 7%;
-    position: absolute;
+    /*position: absolute;*/
     margin-left: 10%;
     margin-left: 10%;
-    margin-top: 2%;
+    margin-top: 3%;
     border-radius: 15px;
 }
 
@@ -41,22 +44,28 @@
 }
 
 .navbar-element-nameapp p{
-    margin:auto;  
+    margin: auto;  
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-left: 5%; 
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-style: italic;
-    font-size:xx-large;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-style: normal;
+    font-size: 30px; 
+    font-weight: bold;
 
-    background-image: url("../../../../assets/images/background.png"); /* Postavljamo sliku kao pozadinu teksta */
-    -webkit-background-clip: text; /* Postavljamo da se slika primjenjuje samo na tekst */
-    background-clip: text; /* Postavljamo da se slika primjenjuje samo na tekst */
-    color: transparent; /* Boja teksta postavljena na transparent */
+    /*background-image: url("../../../../assets/images/background.png"); 
+    -webkit-background-clip: text; 
+    background-clip: text; 
+    color: transparent;*/ 
+
+    color: white;
     
 }
+
+
+
 
 .navbar-button{
     display: flex;
@@ -108,6 +117,89 @@
 
 .login-button p:hover{
     background-image: none;
-    background-color:rgb(18, 18, 99);
-    transition: 1.5s;
+    background-color:rgb(67, 67, 136);
 }
+
+.home-content{
+    width: 80%;
+    margin-left: 10%;
+    margin-left: 10%;
+    margin-top: 5%;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.description-app{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    opacity: 0;
+    animation: fadeIn 1.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(100px); /* Početni položaj teksta */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0); /* Krajnji položaj teksta */
+    }
+}
+
+.animation{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+
+.description-app h1 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-size: 45px; 
+    font-weight: bold; 
+    color: white; 
+}
+
+.description-app p{
+    font-family: "Roboto", sans-serif;
+    font-size: 15px; 
+    color: white; 
+    margin-top: 3%;
+    text-align: justify;
+    margin-right: 10%;
+}
+
+.google-play-button{
+    border: 2px solid white;
+    height: auto;
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    border-radius: 8%;
+    cursor: pointer;
+}
+
+.google-play-button p{
+    width: 100%;
+    height: 100%;
+    margin: 10px;
+    justify-content: center;
+    display: flex;
+    
+}
+
+.google-play-button p:hover{
+    color:rgb(2, 2, 100);
+    transition: 0.5s;
+    
+}
+
+.animation img{
+    background-color: transparent;
+}
+
