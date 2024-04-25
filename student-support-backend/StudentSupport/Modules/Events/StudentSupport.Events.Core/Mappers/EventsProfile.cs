@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using StudentSupport.Events.API.Dtos;
+using StudentSupport.Events.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,8 @@ namespace StudentSupport.Events.Core.Mappers
 {
     public class EventsProfile : Profile
     {
-        public EventsProfile() { }
+        public EventsProfile() {
+            CreateMap<Event, EventDto>().ReverseMap();
+        }
     }
 }

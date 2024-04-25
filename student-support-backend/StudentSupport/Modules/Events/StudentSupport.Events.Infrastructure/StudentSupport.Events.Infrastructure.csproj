@@ -15,8 +15,4 @@
     <ProjectReference Include="..\StudentSupport.Events.Core\StudentSupport.Events.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Database\Repositories\" />
-  </ItemGroup>
-
 </Project>

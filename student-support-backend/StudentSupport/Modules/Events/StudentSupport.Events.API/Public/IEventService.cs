@@ -1,0 +1,20 @@
+﻿using FluentResults;
+using StudentSupport.BuildingBlocks.Core.UseCases;
+using StudentSupport.Events.API.Dtos;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StudentSupport.Events.API.Public
+{
+    public interface IEventService
+    {
+        Result<PagedResult<EventDto>> GetPaged(int page, int pageSize);
+        Result<EventDto> Create(EventDto eventDto);
+        Result<EventDto> Update(EventDto eventDto);
+        Result Delete(int id);
+        Result<EventDto> Get(int id);
+    }
+}

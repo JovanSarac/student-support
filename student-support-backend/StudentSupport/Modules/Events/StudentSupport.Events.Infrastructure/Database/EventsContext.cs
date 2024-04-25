@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StudentSupport.Events.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace StudentSupport.Events.Infrastructure.Database
 {
     public class EventsContext : DbContext
     {
+        public DbSet<Event> Events { get; set; }
 
         public EventsContext(DbContextOptions<EventsContext> options) : base(options) { }
 
