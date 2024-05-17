@@ -130,7 +130,7 @@ input[type="email"] {
     width: 100%;
     padding: 10px; 
     margin: 5px 0; 
-    border: 1px solid #ccc; 
+    border: 2px solid #ccc; 
     border-radius: 10px; 
     box-sizing: border-box; 
     font-size: 15px;
@@ -223,4 +223,8 @@ input[type="email"]:focus {
 }
 .again-password{
     margin-left: 2%;
+}
+
+.red-border {
+    border: 2px solid red !important;
 }

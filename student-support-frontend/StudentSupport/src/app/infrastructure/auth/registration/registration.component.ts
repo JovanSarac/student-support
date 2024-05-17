@@ -12,38 +12,17 @@ import { Router } from '@angular/router';
 export class RegistrationComponent {
 
   fieldTextType : boolean = true;
+  validName: boolean = false;
+  validSurname: boolean = false;
+  validEmail: boolean = false;
+  validUsername: boolean = false;
+  validPassword: boolean = false;
+  samePassword: boolean = false;
 
   constructor(
     private authService: AuthService,
     private router: Router
   ) {}
-
-  /*registrationForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    surname: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
-    username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
-  });
-
-  register(): void {
-    const registration: Registration = {
-      name: this.registrationForm.value.name || "",
-      surname: this.registrationForm.value.surname || "",
-      email: this.registrationForm.value.email || "",
-      username: this.registrationForm.value.username || "",
-      password: this.registrationForm.value.password || "",
-    };
-
-    if (this.registrationForm.valid) {
-      this.authService.register(registration).subscribe({
-        next: () => {
-          this.router.navigate(['home']);
-        },
-      });
-    }
-  }*/
-
 
   changeBiEye() : void{
     if(this.fieldTextType == true){
@@ -55,7 +34,7 @@ export class RegistrationComponent {
   }
 
   register(name: string, surname : string, email : string , username : string, password: string, passwordagain: string):void{
-
+  
     const registration: Registration = {
       name: name || "",
       surname: surname || "",
@@ -64,13 +43,45 @@ export class RegistrationComponent {
       password: password || "",
     };
 
-    if (password === passwordagain) {
-      this.authService.register(registration).subscribe({
-        next: () => {
-          this.router.navigate(['userprofile/' + this.authService.user$.getValue().id]);
-        },
-      });
-    }
+    if(this.validate(registration, passwordagain)){
+      if (password === passwordagain) {
+        this.authService.register(registration).subscribe({
+          next: () => {
+            this.router.navigate(['userprofile/' + this.authService.user$.getValue().id]);
+          },
+        });
+      }
 
+    }
+  }
+
+  validate(registration: Registration, passwordagain: string):boolean{
+    this.validName = false;
+    this.validSurname = false;
+    this.validUsername = false;
+    this.validEmail=false;
+    this.validPassword = false;
+    this.samePassword = false;
+    if(registration.name == ""){
+      this.validName = true;
+    }
+    if(registration.surname == ""){
+      this.validSurname = true;
+    }
+    if(registration.email == ""){
+      this.validEmail = true;
+    }
+    if(registration.username == ""){
+      this.validUsername =true;
+    }
+    if(registration.password != passwordagain){
+      this.samePassword = true;
+    }else if(registration.password == "" || passwordagain ==""){
+      this.validPassword = true;
+    }
+    if(registration.name != "" && registration.surname != "" && registration.email != "" && registration.username != "" && registration.password != ""){
+      return true;
+    }
+    return false;
   }
 }

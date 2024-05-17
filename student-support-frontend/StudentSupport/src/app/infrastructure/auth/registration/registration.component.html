@@ -4,22 +4,26 @@
             <div class="name-and-surname">
                 <div class="name-field">
                     <p>Ime:</p>
-                    <input type="text" #nameInput />
+                    <input type="text" #nameInput [ngClass]="{'red-border': validName}"/>
+                    <p style="color: red; font-size: 12px;" *ngIf="validName">Unesi ime!</p>
                 </div>
                 <div class="surname-field">
                     <p>Prezime:</p>
-                    <input type="text" #surnameInput />
+                    <input type="text" #surnameInput [ngClass]="{'red-border': validSurname}"/>
+                    <p style="color: red; font-size: 12px;" *ngIf="validSurname">Unesi prezime!</p>
                 </div>
             </div>
 
             <div class="email-field">
                 <p>Email:</p>
-                <input type="email" #emailInput />
+                <input type="email" #emailInput [ngClass]="{'red-border': validEmail}"/>
+                <p style="color: red; font-size: 12px;" *ngIf="validEmail">Unesi email!</p>
             </div>
 
             <div class="email-field">
-                <p>Korisnicko ime ili email:</p>
-                <input type="text" #usernameInput />
+                <p>Korisnicko ime:</p>
+                <input type="text" #usernameInput [ngClass]="{'red-border': validUsername}"/>
+                <p style="color: red; font-size: 12px;" *ngIf="validUsername">Unesi korisnicko ime!</p>
             </div>
             
             <div class="password-field">
@@ -29,7 +33,7 @@
                 </div>
                 
                 <div class="password-input">
-                    <input class="password" [type]="fieldTextType ? 'password' : 'text'" #passwordInput />
+                    <input class="password" [type]="fieldTextType ? 'password' : 'text'" #passwordInput [ngClass]="{'red-border': validPassword || samePassword}"/>
                     <i
                         
                         (click)="changeBiEye()"
@@ -41,7 +45,7 @@
                     
                     ></i>
 
-                    <input class="password" [type]="fieldTextType ? 'password' : 'text'" #passwordagainInput />
+                    <input class="password" [type]="fieldTextType ? 'password' : 'text'" #passwordagainInput [ngClass]="{'red-border': validPassword || samePassword}"/>
                     <i
                             
                         (click)="changeBiEye()"
@@ -55,6 +59,8 @@
                 </div>
                 
             </div>
+            <p style="color: red; font-size: 12px; font-weight: bold; font-style: italic; font-family: Arial, Helvetica, sans-serif;" *ngIf="samePassword">Lozinke nisu iste!</p>
+            <p style="color: red; font-size: 12px; font-weight: bold; font-style: italic; font-family: Arial, Helvetica, sans-serif;" *ngIf="validPassword">Unesi lozinke!</p>
 
             <div class="button-login">
                 <button (click)="register(nameInput.value, surnameInput.value, emailInput.value , usernameInput.value, passwordInput.value, passwordagainInput.value)">Registruj se</button>
