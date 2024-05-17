@@ -13,6 +13,9 @@ import { Registration } from '../model/registration.model';
 })
 export class LoginComponent implements OnInit{
   fieldTextType : boolean = true;
+  validUsername: boolean = false;
+  validPassword: boolean = false;
+  wrongCredential: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -39,12 +42,33 @@ export class LoginComponent implements OnInit{
       password: password || "",
     };
 
-    this.authService.login(login).subscribe({
-      next: () => {
-        this.router.navigate(['/userprofile/' + this.authService.user$.getValue().id]);
-      },
-    });
+    if(this.validate(login)){
+      this.authService.login(login).subscribe({
+        next: () => {
+          this.router.navigate(['/userprofile/' + this.authService.user$.getValue().id]);
+        },error: (err:any)=>{
+          this.wrongCredential = true;
+        }
+      });
+      
+    }
   }
+
+  validate(login: Login): boolean {
+    this.validUsername = false;
+    this.validPassword = false;
+    if(login.username != "" && login.password != ""){
+      return true;
+    }
+    if(login.username == ""){
+      this.validUsername = true;
+    }
+    if(login.password == ""){
+      this.validPassword = true;
+    }
+    return false;
+  }
+  
 
   changeBiEye() : void{
     if(this.fieldTextType == true){

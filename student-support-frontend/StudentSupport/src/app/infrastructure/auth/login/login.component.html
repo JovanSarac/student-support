@@ -1,14 +1,16 @@
 <div class="home-full-page-bg">
+    <div class="validation-error" *ngIf="wrongCredential"><p>Korisnicko ime ili lozinka su neispravni ili nevažeći</p></div>
     <div class="login-form-content">
         <h2 class="title-login-form">Prijava</h2>
             <div class="username-field">
-                <p>Korisnicko ime ili UNS mail:</p>
-                <input type="text" #usernameInput />
+                <p>Korisnicko ime:</p>
+                <input type="text" #usernameInput [ngClass]="{'red-border': validUsername}"/>
+                <p style="color: red; font-size: 12px;" *ngIf="validUsername">Morate unijeti korisniko ime!</p>
             </div>
             <div class="password-field">
                 <p>Lozinka:</p>
                 <div class="password-input">
-                    <input class="password" [type]="fieldTextType ? 'password' : 'text'" #passwordInput />
+                    <input class="password" [type]="fieldTextType ? 'password' : 'text'" #passwordInput [ngClass]="{'red-border': validPassword}"/>
                     <i
                         (click)="changeBiEye()"
                         class="bi"
@@ -17,6 +19,7 @@
                             'bi-eye-fill': !fieldTextType
                         }"
                         ></i>
+                    <p style="color: red; font-size: 12px;" *ngIf="validPassword">Morate unijeti sifru!</p>
                 </div>
                 
             </div>
