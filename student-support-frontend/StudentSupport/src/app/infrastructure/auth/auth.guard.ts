@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
     private route: ActivatedRoute
   ) {}
 
-  /*canActivate():
+  canActivate():
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
     | boolean
@@ -33,8 +33,8 @@ export class AuthGuard implements CanActivate {
       return false;
     }
     return true;
-  }*/
-  canActivate(
+  }
+  /*canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -52,5 +52,5 @@ export class AuthGuard implements CanActivate {
       return false;
     }
     return true;
-  }
+  }*/
 }

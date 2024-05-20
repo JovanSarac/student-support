@@ -47,7 +47,7 @@ export class RegistrationComponent {
       if (password === passwordagain) {
         this.authService.register(registration).subscribe({
           next: () => {
-            this.router.navigate(['userprofile/' + this.authService.user$.getValue().id]);
+            this.router.navigate(['info-board']);
           },
         });
       }

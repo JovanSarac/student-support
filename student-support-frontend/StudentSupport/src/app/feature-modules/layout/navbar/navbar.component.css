@@ -29,6 +29,7 @@
     height: 100px;
     border:2px solid black;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .profile-pic img{
@@ -41,6 +42,7 @@
     margin-top: 2%;
     font-size: 20px;
 }
+
 
 .buttons{
     display: flex;
@@ -83,4 +85,71 @@
     justify-content: center;
     align-items: center;
     height: 100%;
+}
+
+.active-background {
+    background-color:  rgb(83, 83, 223) !important;
+}
+
+.info-board{
+    width: 100%;
+    background-color: rgb(122, 122, 197);
+    cursor: pointer;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.info-board p{
+    margin-left: 10%;
+    padding: 10% 5%;
+    font-size: 22px;
+    height: 100%;
+}
+
+
+.info-board:hover{
+    background-color: rgb(83, 83, 223);
+    transition: 1s;
+}
+
+.create-event{
+    width: 100%;
+    background-color: rgb(122, 122, 197);
+    cursor: pointer;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid black;
+}
+
+.create-event p{
+    margin-left: 10%;
+    padding: 10% 5%;
+    font-size: 22px;
+    height: 100%;
+}
+
+
+.create-event:hover{
+    background-color: rgb(83, 83, 223);
+    transition: 1s;
+}
+
+.create-event img{
+    width: 24px;
+    height: 24px;
+}
+
+
+.info-board, .info-board * {
+    margin: 0;
+    padding: 0;
+}
+
+.create-event, .create-event * {
+    margin: 0;
+    padding: 0;
 }

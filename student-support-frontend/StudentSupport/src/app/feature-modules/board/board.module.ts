@@ -2,16 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InformationBoardComponent } from './information-board/information-board.component';
 import { LayoutModule } from '../layout/layout.module';
+import { CreateEventComponent } from './create-event/create-event.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
   declarations: [
-    InformationBoardComponent
+    InformationBoardComponent,
+    CreateEventComponent
   ],
   imports: [
     CommonModule,
-    LayoutModule
+    LayoutModule,
+    ReactiveFormsModule,
   ],
   exports:[
     InformationBoardComponent

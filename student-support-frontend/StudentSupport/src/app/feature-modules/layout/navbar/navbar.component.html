@@ -10,6 +10,14 @@
             
             <p>{{user.username}}</p>
         </div>
+        <div [ngClass]="{'active-background': isCurrentRoute('/info-board')}" class="info-board" [routerLink]="['/info-board']">
+            <p><i class="bi bi-house-fill" style="margin-right: 3px;"></i>Oglasna tabla</p>
+        </div>
+        <div [ngClass]="{'active-background': isCurrentRoute('/create-event')}" class="create-event" [routerLink]="['/create-event']">
+            <p><img src="../../../../assets/images/event.png" alt="" style="margin-right: 3px;">Kreiraj događaj</p>
+        </div>
+
+    
         <div class="buttons">
             <div class="logutbutton" *ngIf="user && user.username !== ''" (click)="onLogout()"><i class="outside bi bi-box-arrow-left"></i> <p>Odjavi se</p></div>
         </div>

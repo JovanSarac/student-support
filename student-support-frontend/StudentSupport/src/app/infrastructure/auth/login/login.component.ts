@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit{
     if(this.validate(login)){
       this.authService.login(login).subscribe({
         next: () => {
-          this.router.navigate(['/userprofile/' + this.authService.user$.getValue().id]);
+          this.router.navigate(['info-board']);
         },error: (err:any)=>{
           this.wrongCredential = true;
         }
@@ -94,32 +94,7 @@ export class LoginComponent implements OnInit{
       if(payLoad.email_verified){
 
       }
-      
-      //navigate to home/browse
+    
     }
   }
-  /*constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
-
-  loginForm = new FormGroup({
-    username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
-  });
-
-  login(): void {
-    const login: Login = {
-      username: this.loginForm.value.username || "",
-      password: this.loginForm.value.password || "",
-    };
-
-    if (this.loginForm.valid) {
-      this.authService.login(login).subscribe({
-        next: () => {
-          this.router.navigate(['/']);
-        },
-      });
-    }
-  }*/
 }
