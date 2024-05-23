@@ -1,3 +1,6 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+
 .full-page-bg{
     display: flex;
     flex-direction: row;
@@ -36,6 +39,7 @@
     height: auto;
     background-color: wheat;
     border-radius: 15px;
+    margin: 3% 0%;
 }
 
 .userpost{
@@ -81,6 +85,22 @@
     justify-content: center;
 }
 
+.eventType{
+    display: flex;
+    margin-left: auto;
+    margin-right: 5%;
+  }
+  
+  .eventType p{
+    color: white;
+    padding: 8% 8%;
+    border-radius: 18px;
+    width: auto;
+    height: auto;
+    white-space: nowrap;
+  }
+
+
 .content-post{
     display: flex;
     flex-direction: column;
@@ -100,5 +120,35 @@
 .separator{
     width: 100%;
     border: 1px solid gray;
+
+}
+
+.show-more-text{
+  font-weight: bold; 
+  cursor: pointer;
+  margin-bottom: 3%;
+}
+
+.show-more-text:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.eventName{
+  color: rgb(83, 83, 223);
+  font-size: 1,2rem;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.address-date{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.eventAddress, .eventDate{
+  color: rgb(83, 83, 223);
+  font-size: 1,2rem;
 
 }

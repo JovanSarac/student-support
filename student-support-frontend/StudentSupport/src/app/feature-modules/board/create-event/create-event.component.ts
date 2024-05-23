@@ -65,14 +65,11 @@ export class CreateEventComponent implements OnInit {
       this.event.image = e.target.result; 
     };
     reader.readAsDataURL(file);
-    console.log(file)
   }
 
 
   viewOverview() {
     this.overview = true;
-    console.log(this.selectedFile)
-    console.log(this.selectedImage);
   }
 
   backToForm(){
@@ -120,14 +117,79 @@ export class CreateEventComponent implements OnInit {
     this.event.eventType = this.eventForm.value.type || '';
     this.event.datePublication = new Date();
 
-    console.log(this.event);
 
     this.service.createEvent(this.event).subscribe({
       next:(result:MyEvent)=>{
-        console.log(result);
         this.router.navigate(['info-board']);
       }
     })
+  }
+
+  getEventColors(eventType: string): string {
+    switch (eventType) {
+      case '1':
+        return 'linear-gradient(to right, rgb(255, 179, 179), rgb(255, 102, 102))';
+      case '2':
+        return 'linear-gradient(to right, rgb(179, 255, 179), rgb(102, 255, 102))';
+      case '3':
+        return 'linear-gradient(to right, rgb(255, 255, 179), rgb(255, 255, 102))';
+      case '4':
+        return 'linear-gradient(to right, rgb(179, 255, 255), rgb(102, 255, 255))';
+      case '5':
+        return 'linear-gradient(to right, rgb(217, 179, 255), rgb(179, 102, 255))';
+      case '6':
+        return 'linear-gradient(to right, rgb(209, 209, 224), rgb(164, 164, 193))';
+      case '7':
+        return 'linear-gradient(to right, rgb(198, 236, 217), rgb(140, 217, 179))';
+      case '8':
+        return 'linear-gradient(to right, rgb(236, 198, 198), rgb(217, 140, 140))';
+      case '9':
+        return 'linear-gradient(to right, rgb(255, 209, 179), rgb(255, 148, 77))';
+      default:
+        return 'linear-gradient(to right, rgb(151, 216, 134), rgb(63, 204, 82))'; // Default color
+    }
+  }
+
+  eventTypes: { [key: string]: string } = {
+    "1": "Akademske konferencije i seminari",
+    "2": "Radionice i kursevi",
+    "3": "Kultorološki događaj",
+    "4": "Sajamski događaj",
+    "5": "Humanitarni događaj",
+    "6": "Umjetničke izložbe i predstave",
+    "7": "Studentske žurke i društveni događaji",
+    "8": "Takmičenja",
+    "9": "Studentska putovanja"
+  };
+  
+  getEventType(number: string): string {
+    return this.eventTypes[number] || "Nepoznat tip događaja";
+  }
+
+  getEventTypeColor(eventType: string): string{
+    switch (eventType) {
+      case '1':
+        return 'rgb(255, 26, 26)';
+      case '2':
+        return 'rgb(0, 153, 0)';
+      case '3':
+        return 'rgb(153, 153, 0)';
+      case '4':
+        return 'rgb(0, 153, 153)';
+      case '5':
+        return 'rgb(77, 0, 153)';
+      case '6':
+        return 'rgb(62, 62, 91)';
+      case '7':
+        return 'rgb(38, 115, 77)';
+      case '8':
+        return 'rgb(115, 38, 38)';
+      case '9':
+        return 'rgb(153, 61, 0)';
+      default:
+        return 'rgb(0,0,0)'; 
+    }
+
   }
 }
 

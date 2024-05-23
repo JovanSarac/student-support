@@ -4,44 +4,29 @@
     </div>
     <div class="information-board">
         <div class="events">
-            <div class="one-event">
+            <div class="one-event" *ngFor="let e of events" [style.background]="getEventColors(e.eventType)">
                 <div class="userpost">
                     <img src="../../../../assets/images/profile-pic.jpg" alt="no picture">
                     <div class="nameanddate">
                         <p>Ime prezime</p>
-                        <h6>Datum objavljivanja: 01.01.2024 14:36</h6>
+                        <h6>Datum objavljivanja: {{formatDate(e.datePublication)}}</h6>
+                    </div>
+                    <div class="eventType">
+                        <p [style.background]="getEventTypeColor(e.eventType)">{{getEventType(e.eventType)}}</p>
                     </div>
                 </div>
                 <div class="content-post">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et dui at elit euismod molestie sed non turpis. 
-                        Nullam aliquam nisl nec lectus convallis suscipit. In consectetur, nibh ut varius maximus, felis magna ornare ligula, id dignissim enim magna in tellus.
-                         Maecenas laoreet nulla massa, ut rhoncus leo tincidunt posuere. In consectetur viverra nisl, nec accumsan eros pretium non. Vestibulum sed ornare lectus. 
-                         Nulla eget metus dapibus, ultrices dui at, auctor ex. Nulla consequat libero sit amet lorem hendrerit, vel euismod velit elementum. 
-                         Aenean viverra lobortis odio, ac dictum sem pharetra sed. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur elementum tellus
-                          nisi, id gravida enim cursus non.</p>
-                    <img src="https://cdn.socio.events/spai/q_glossy+w_966+to_avif+ret_img/socio.events/wp-content/uploads/2022/10/AdobeStock_503243650-2048x1184.jpeg" alt="no picture">
-                    <h5>Svidjanja : 123</h5>
-                    <div class="separator"></div>
-                </div>
-            </div>
-
-            <div class="one-event">
-                <div class="userpost">
-                    <img src="../../../../assets/images/profile-pic.jpg" alt="no picture">
-                    <div class="nameanddate">
-                        <p>Ime Prezime</p>
-                        <h6>Datum objavljivanja: 01.01.2024 14:36</h6>
+                    <h2 class="eventName">{{e.name}}</h2>
+                    <div class="address-date">
+                        <h3 class="eventAddress"><i class="bi bi-geo-alt-fill"></i>{{e.address}}</h3>
+                        <h3 class="eventDate"><i class="bi bi-calendar-event-fill"></i> {{formatDate(e.dateEvent)}}</h3>
                     </div>
-                </div>
-                <div class="content-post">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et dui at elit euismod molestie sed non turpis. 
-                        Nullam aliquam nisl nec lectus convallis suscipit. In consectetur, nibh ut varius maximus, felis magna ornare ligula, id dignissim enim magna in tellus.
-                         Maecenas laoreet nulla massa, ut rhoncus leo tincidunt posuere. In consectetur viverra nisl, nec accumsan eros pretium non. Vestibulum sed ornare lectus. 
-                         Nulla eget metus dapibus, ultrices dui at, auctor ex. Nulla consequat libero sit amet lorem hendrerit, vel euismod velit elementum. 
-                         Aenean viverra lobortis odio, ac dictum sem pharetra sed. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur elementum tellus
-                          nisi, id gravida enim cursus non.</p>
-                    <img src="https://cdn.socio.events/spai/q_glossy+w_966+to_avif+ret_img/socio.events/wp-content/uploads/2022/10/AdobeStock_503243650-2048x1184.jpeg" alt="no picture">
-                    <h5>Svidjanja : 123</h5>
+                    <p [innerHTML]="showFullDescription ? renderMarkdown(e.description) : renderTruncatedMarkdown(e.description, 450)">
+                    </p>
+                    <span *ngIf="e.description.length > 450" (click)="toggleDescription()" class="show-more-text">
+                        {{ showFullDescription ? 'Prikazi manje' : 'Prikazi vise' }}
+                    </span>
+                    <img src="{{e.image}}" alt="no picture">
                     <div class="separator"></div>
                 </div>
             </div>

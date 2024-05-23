@@ -65,12 +65,15 @@
     </div>
 
     <div class="overview-event" *ngIf="overview">
-        <div class="overview-event-container">
+        <div class="overview-event-container" [style.background]="getEventColors(eventForm.value.type!)">
             <div class="userpost">
                 <img src="../../../../assets/images/profile-pic.jpg" alt="no picture">
                 <div class="nameanddate">
                     <p>{{user.username}}</p>
                     <h6>Datum objavljivanja: {{formatDate(dateTimeNow)}}</h6>
+                </div>
+                <div class="eventType">
+                    <p [style.background]="getEventTypeColor(eventForm.value.type!)">{{getEventType(eventForm.value.type!)}}</p>
                 </div>
             </div>
             <div class="content-post">
