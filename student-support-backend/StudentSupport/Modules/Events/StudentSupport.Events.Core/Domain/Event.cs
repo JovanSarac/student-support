@@ -14,27 +14,34 @@ namespace StudentSupport.Events.Core.Domain
         public DateTime DateEvent { get; init; }
         public string Address {  get; init; }
         public EventType EventType { get; init; }
+        public DateTime DatePublication { get; init; }
+        public string Image {  get; init; }
         public Event()
         {
 
         }
-        public Event(string name, string description, DateTime dateEvent, string address, EventType eventType)
+        public Event(string name, string description, DateTime dateEvent, string address, EventType eventType, DateTime datePublication, string image)
         {
             Name = name;
             Description = description;
             DateEvent = dateEvent;
             Address = address;
             EventType = eventType;
+            DatePublication = datePublication;
+            Image = image;
         }
     }
 
     public enum EventType
     {
+        AcademicConferenceAndSeminars,
+        WorkshopsAndCourses,
+        CulturalEvent,
         Fair,
-        Humanitarian,
-        Artistic,
-        Sports,
-        StudentParties,
-        Trips
+        HumanitarianEvent,
+        ArtExhibitionsAndPerformances,
+        StudentPartiesAndSocialEvents,
+        Competitions,
+        StudentTrips
     }
 }

@@ -12,7 +12,7 @@ using StudentSupport.Events.Infrastructure.Database;
 namespace StudentSupport.Events.Infrastructure.Migrations
 {
     [DbContext(typeof(EventsContext))]
-    [Migration("20240425111918_Init")]
+    [Migration("20240523142518_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -41,12 +41,19 @@ namespace StudentSupport.Events.Infrastructure.Migrations
                     b.Property<DateTime>("DateEvent")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<DateTime>("DatePublication")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("EventType")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()

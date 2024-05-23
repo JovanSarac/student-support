@@ -14,5 +14,9 @@ namespace StudentSupport.Events.API.Dtos
         public DateTime DateEvent { get; set; }
         public string Address { get; set; }
         public string EventType { get; set; }
+
+        public DateTime DatePublication { get; set; }
+
+        public string Image { get;  set; }
     }
 }

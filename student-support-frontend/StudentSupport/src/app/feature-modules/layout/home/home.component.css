@@ -180,7 +180,7 @@
     width: 20%;
     display: flex;
     flex-direction: row;
-    border-radius: 8%;
+    border-radius: 12px;
     cursor: pointer;
 }
 
@@ -190,6 +190,7 @@
     margin: 10px;
     justify-content: center;
     display: flex;
+    padding: 3%;
     
 }
 

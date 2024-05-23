@@ -38,12 +38,19 @@ namespace StudentSupport.Events.Infrastructure.Migrations
                     b.Property<DateTime>("DateEvent")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<DateTime>("DatePublication")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("EventType")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()

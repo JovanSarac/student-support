@@ -26,7 +26,9 @@ namespace StudentSupport.Events.Infrastructure.Migrations
                     Description = table.Column<string>(type: "text", nullable: false),
                     DateEvent = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Address = table.Column<string>(type: "text", nullable: false),
-                    EventType = table.Column<int>(type: "integer", nullable: false)
+                    EventType = table.Column<int>(type: "integer", nullable: false),
+                    DatePublication = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Image = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {

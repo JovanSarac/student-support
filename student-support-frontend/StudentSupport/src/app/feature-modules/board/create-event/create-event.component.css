@@ -16,6 +16,14 @@
     width: 20%;
 }
 
+.page-content{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
 .create-event{
     width: 100%;
     height: 80%;
@@ -29,7 +37,7 @@
     flex-direction: column;
     margin-left: 10%;
     width: 80%;
-    height: 100%;
+    height: auto;
     border-radius: 15px;
     background-color: beige;
 }
@@ -218,8 +226,8 @@ body {
 }
 
 .selected-image {
-    width: 400px; 
-    height: 400px;
+    width: 100%; 
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -234,7 +242,8 @@ body {
 
 .buttons{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
+    margin: 3% 3%;
 }
 
 .next-btn{
@@ -264,8 +273,8 @@ body {
     display: flex;
     flex-direction: column;
     margin-left: 10%;
-    width: 80%;
-    height: 100%;
+    width: 50%;
+    height: auto;
     border-radius: 15px;
     background-color: beige;
 }
@@ -327,4 +336,34 @@ body {
 .content-post img{
     height: auto;
     width: auto;
+}
+
+.show-more-text{
+  font-weight: bold; 
+  cursor: pointer;
+  margin-bottom: 3%;
+}
+
+.show-more-text:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.eventName{
+  color: rgb(83, 83, 223);
+  font-size: 1,2rem;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.address-date{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.eventAddress, .eventDate{
+  color: rgb(83, 83, 223);
+  font-size: 1,2rem;
+
 }
