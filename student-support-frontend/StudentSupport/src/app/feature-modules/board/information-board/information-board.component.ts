@@ -26,9 +26,19 @@ export class InformationBoardComponent implements OnInit {
     this.user = this.authService.user$.getValue();
     this.service.getAllEvenets().subscribe({
       next: (result:PagedResults<MyEvent>)=>{
-        this.events = result.results
+        this.events = result.results;
+      }, complete : () => {
+        this.sortEventsByDate()
       }
     })
+  }
+
+  sortEventsByDate() {
+    this.events.sort((a, b) => {
+      const dateA = new Date(a.dateEvent);
+      const dateB = new Date(b.dateEvent);
+      return dateB.getTime() - dateA.getTime();
+    });
   }
 
   renderMarkdown(description: string): string {
@@ -66,23 +76,23 @@ export class InformationBoardComponent implements OnInit {
 
   getEventColors(eventType: string): string {
     switch (eventType) {
-      case '1':
+      case 'AcademicConferenceAndSeminars':
         return 'linear-gradient(to right, rgb(255, 179, 179), rgb(255, 102, 102))';
-      case '2':
+      case 'WorkshopsAndCourses':
         return 'linear-gradient(to right, rgb(179, 255, 179), rgb(102, 255, 102))';
-      case '3':
+      case 'CulturalEvent':
         return 'linear-gradient(to right, rgb(255, 255, 179), rgb(255, 255, 102))';
-      case '4':
+      case 'Fair':
         return 'linear-gradient(to right, rgb(179, 255, 255), rgb(102, 255, 255))';
-      case '5':
+      case 'HumanitarianEvent':
         return 'linear-gradient(to right, rgb(217, 179, 255), rgb(179, 102, 255))';
-      case '6':
+      case 'ArtExhibitionsAndPerformances':
         return 'linear-gradient(to right, rgb(209, 209, 224), rgb(164, 164, 193))';
-      case '7':
+      case 'StudentPartiesAndSocialEvents':
         return 'linear-gradient(to right, rgb(198, 236, 217), rgb(140, 217, 179))';
-      case '8':
+      case 'Competitions':
         return 'linear-gradient(to right, rgb(236, 198, 198), rgb(217, 140, 140))';
-      case '9':
+      case 'StudentTrips':
         return 'linear-gradient(to right, rgb(255, 209, 179), rgb(255, 148, 77))';
       default:
         return 'linear-gradient(to right, rgb(151, 216, 134), rgb(63, 204, 82))'; // Default color
@@ -102,7 +112,6 @@ export class InformationBoardComponent implements OnInit {
   };
   
   getEventType(number: string): string {
-    console.log(number)
     return this.eventTypes[number] || "Nepoznat tip događaja";
   }
 
@@ -112,7 +121,7 @@ export class InformationBoardComponent implements OnInit {
         return 'rgb(255, 26, 26)';
       case 'WorkshopsAndCourses':
         return 'rgb(0, 153, 0)';
-      case 'CulturalEvent3':
+      case 'CulturalEvent':
         return 'rgb(153, 153, 0)';
       case 'Fair':
         return 'rgb(0, 153, 153)';

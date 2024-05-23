@@ -12,7 +12,7 @@ using StudentSupport.Events.Infrastructure.Database;
 namespace StudentSupport.Events.Infrastructure.Migrations
 {
     [DbContext(typeof(EventsContext))]
-    [Migration("20240523142518_Init")]
+    [Migration("20240523184606_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -58,6 +58,9 @@ namespace StudentSupport.Events.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 

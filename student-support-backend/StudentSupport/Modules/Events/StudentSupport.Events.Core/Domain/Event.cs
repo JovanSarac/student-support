@@ -9,6 +9,7 @@ namespace StudentSupport.Events.Core.Domain
 {
     public class Event : Entity
     {
+        public long UserId { get; init; }
         public string Name { get; init; }
         public string Description { get; init; }
         public DateTime DateEvent { get; init; }
@@ -20,8 +21,9 @@ namespace StudentSupport.Events.Core.Domain
         {
 
         }
-        public Event(string name, string description, DateTime dateEvent, string address, EventType eventType, DateTime datePublication, string image)
+        public Event(long userId, string name, string description, DateTime dateEvent, string address, EventType eventType, DateTime datePublication, string image)
         {
+            UserId = userId;
             Name = name;
             Description = description;
             DateEvent = dateEvent;

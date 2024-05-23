@@ -22,6 +22,7 @@ namespace StudentSupport.Events.Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     DateEvent = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),

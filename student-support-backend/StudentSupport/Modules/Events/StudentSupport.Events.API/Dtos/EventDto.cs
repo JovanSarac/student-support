@@ -9,6 +9,7 @@ namespace StudentSupport.Events.API.Dtos
     public class EventDto
     {
         public long Id { get; set; }
+        public long UserId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime DateEvent { get; set; }

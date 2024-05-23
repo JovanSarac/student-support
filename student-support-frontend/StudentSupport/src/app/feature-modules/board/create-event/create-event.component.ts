@@ -29,7 +29,8 @@ export class CreateEventComponent implements OnInit {
     address: '',
     eventType: '',
     datePublication: new Date(),
-    image: ''
+    image: '',
+    userId: 0
   };
 
   dtn = new Date();
@@ -60,10 +61,49 @@ export class CreateEventComponent implements OnInit {
     this.selectedFile = file;
 
     const reader = new FileReader();
-    reader.onload = (e: any) => {
+    /*reader.onload = (e: any) => {
       this.selectedImage = reader.result; 
       this.event.image = e.target.result; 
+    };*/
+    reader.onload = (e: any) => {
+      const img = new Image();
+      img.src = e.target.result;
+      
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        
+        // Promenite ove vrednosti prema potrebi za smanjenje kvaliteta slike.
+        const maxWidth = 800;
+        const maxHeight = 600;
+        let width = img.width;
+        let height = img.height;
+    
+        if (width > height) {
+          if (width > maxWidth) {
+            height *= maxWidth / width;
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width *= maxHeight / height;
+            height = maxHeight;
+          }
+        }
+    
+        canvas.width = width;
+        canvas.height = height;
+    
+        ctx?.drawImage(img, 0, 0, width, height);
+        const compressedImageData = canvas.toDataURL('image/jpeg', 0.7); // Promenite 0.7 prema potrebi za kvalitet slike.
+        
+        this.selectedImage = compressedImageData; 
+        this.event.image = compressedImageData; 
+      };
     };
+
     reader.readAsDataURL(file);
   }
 
@@ -116,6 +156,7 @@ export class CreateEventComponent implements OnInit {
     this.event.address = this.eventForm.value.address || '';
     this.event.eventType = this.eventForm.value.type || '';
     this.event.datePublication = new Date();
+    this.event.userId = this.user.id;
 
 
     this.service.createEvent(this.event).subscribe({
@@ -127,23 +168,23 @@ export class CreateEventComponent implements OnInit {
 
   getEventColors(eventType: string): string {
     switch (eventType) {
-      case '1':
+      case '0':
         return 'linear-gradient(to right, rgb(255, 179, 179), rgb(255, 102, 102))';
-      case '2':
+      case '1':
         return 'linear-gradient(to right, rgb(179, 255, 179), rgb(102, 255, 102))';
-      case '3':
+      case '2':
         return 'linear-gradient(to right, rgb(255, 255, 179), rgb(255, 255, 102))';
-      case '4':
+      case '3':
         return 'linear-gradient(to right, rgb(179, 255, 255), rgb(102, 255, 255))';
-      case '5':
+      case '4':
         return 'linear-gradient(to right, rgb(217, 179, 255), rgb(179, 102, 255))';
-      case '6':
+      case '5':
         return 'linear-gradient(to right, rgb(209, 209, 224), rgb(164, 164, 193))';
-      case '7':
+      case '6':
         return 'linear-gradient(to right, rgb(198, 236, 217), rgb(140, 217, 179))';
-      case '8':
+      case '7':
         return 'linear-gradient(to right, rgb(236, 198, 198), rgb(217, 140, 140))';
-      case '9':
+      case '8':
         return 'linear-gradient(to right, rgb(255, 209, 179), rgb(255, 148, 77))';
       default:
         return 'linear-gradient(to right, rgb(151, 216, 134), rgb(63, 204, 82))'; // Default color
@@ -151,15 +192,15 @@ export class CreateEventComponent implements OnInit {
   }
 
   eventTypes: { [key: string]: string } = {
-    "1": "Akademske konferencije i seminari",
-    "2": "Radionice i kursevi",
-    "3": "Kultorološki događaj",
-    "4": "Sajamski događaj",
-    "5": "Humanitarni događaj",
-    "6": "Umjetničke izložbe i predstave",
-    "7": "Studentske žurke i društveni događaji",
-    "8": "Takmičenja",
-    "9": "Studentska putovanja"
+    "0": "Akademske konferencije i seminari",
+    "1": "Radionice i kursevi",
+    "2": "Kultorološki događaj",
+    "3": "Sajamski događaj",
+    "4": "Humanitarni događaj",
+    "5": "Umjetničke izložbe i predstave",
+    "6": "Studentske žurke i društveni događaji",
+    "7": "Takmičenja",
+    "8": "Studentska putovanja"
   };
   
   getEventType(number: string): string {
@@ -168,23 +209,23 @@ export class CreateEventComponent implements OnInit {
 
   getEventTypeColor(eventType: string): string{
     switch (eventType) {
-      case '1':
+      case '0':
         return 'rgb(255, 26, 26)';
-      case '2':
+      case '1':
         return 'rgb(0, 153, 0)';
-      case '3':
+      case '2':
         return 'rgb(153, 153, 0)';
-      case '4':
+      case '3':
         return 'rgb(0, 153, 153)';
-      case '5':
+      case '4':
         return 'rgb(77, 0, 153)';
-      case '6':
+      case '5':
         return 'rgb(62, 62, 91)';
-      case '7':
+      case '6':
         return 'rgb(38, 115, 77)';
-      case '8':
+      case '7':
         return 'rgb(115, 38, 38)';
-      case '9':
+      case '8':
         return 'rgb(153, 61, 0)';
       default:
         return 'rgb(0,0,0)'; 

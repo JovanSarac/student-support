@@ -56,6 +56,9 @@ namespace StudentSupport.Events.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
                     b.ToTable("Events", "events");
