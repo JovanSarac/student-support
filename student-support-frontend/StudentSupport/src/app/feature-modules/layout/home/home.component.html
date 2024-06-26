@@ -93,8 +93,16 @@
 
         <div class="cards">
             <div class="one-card" *ngFor="let event of pagedEvents" [ngStyle]="{'background-image': 'url(' + event.image + ')'}">
+                <div class="type-event">
+                    <p [ngStyle]="{'background-color': eventTypeColors[event.eventType]}"
+                            [innerText]="eventType[event.eventType] || event.eventType"></p>
+
+                </div>
                 <div class="overlay">
                     <p>{{ event.name }}</p>
+                    <p class="date-event">14.7.2024. 15:00</p>
+                    <p class="address">{{event.address}}</p>
+                    <p *ngIf="false" class="description" [innerHTML]="renderTruncatedMarkdown(event.description, 400)"></p>
                 </div>
             </div>
             
@@ -107,4 +115,36 @@
         </div>
 
     </div>
+
+    <footer class="footer">
+        <div class="waves">
+          <div class="wave" id="wave1"></div>
+          <div class="wave" id="wave2"></div>
+          <div class="wave" id="wave3"></div>
+          <div class="wave" id="wave4"></div>
+        </div>
+        <ul class="social-icon">
+            <li class="social-icon__item"><a class="social-icon__link" href="#">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a></li>
+            <li class="social-icon__item"><a class="social-icon__link" href="#">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a></li>
+            <li class="social-icon__item"><a class="social-icon__link" href="#">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a></li>
+            <li class="social-icon__item"><a class="social-icon__link" href="#">
+                <ion-icon name="logo-instagram"></ion-icon>
+              </a></li>
+          </ul>
+        <ul class="menu">
+          <li class="menu__item"><a class="menu__link" href="/">Home</a></li>
+          <li class="menu__item"><a class="menu__link" href="#">About</a></li>
+          <li class="menu__item"><a class="menu__link" href="#">Services</a></li>
+          <li class="menu__item"><a class="menu__link" href="#">Team</a></li>
+          <li class="menu__item"><a class="menu__link" href="#">Contact</a></li>
+    
+        </ul>
+        <p>&copy;2024 Student support | All Rights Reserved</p>
+    </footer>
 </div>

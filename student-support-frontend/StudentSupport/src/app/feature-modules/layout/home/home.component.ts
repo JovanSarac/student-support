@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MyEvent } from '../../board/model/myevent.model';
 import { LayoutService } from '../layout.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { marked } from 'marked';
 
 
 @Component({
@@ -22,6 +23,30 @@ export class HomeComponent  implements OnInit{
   pageSize = 12;
   pagedEvents: MyEvent[] = [];
   totalPages = 1;
+
+  eventType: { [key: string]: string } = {
+    'AcademicConferenceAndSeminars': 'Konferencije',
+    'WorkshopsAndCourses': 'Kursevi',
+    'CulturalEvent': 'Kulturni',
+    'Fair' : 'Sajamski',
+    'HumanitarianEvent' : 'Humanitarni',
+    'ArtExhibitionsAndPerformances' : 'Umjetnicki',
+    'StudentPartiesAndSocialEvents' : 'Drustveni',
+    'Competitions' : 'Takmicenja',
+    'StudentTrips' : 'Putovanja'
+  };
+
+  eventTypeColors: { [key: string]: string } = {
+    'AcademicConferenceAndSeminars': '#429D66',
+    'WorkshopsAndCourses': ' #FF4D4D',
+    'CulturalEvent': '#00BFFF',
+    'Fair' : '#FF9501',
+    'HumanitarianEvent' : '#FFD700',
+    'ArtExhibitionsAndPerformances' : '#DF80FF',
+    'StudentPartiesAndSocialEvents' : '#66CDAA',
+    'Competitions' : '#FFA07A',
+    'StudentTrips' : 'rgb(61,61,254)'
+  };
 
   ngOnInit() {
     this.service.getAllEvenets().subscribe({
@@ -58,6 +83,23 @@ export class HomeComponent  implements OnInit{
       this.currentPage--;
       this.updatePagedEvents();
     }
+  }
+
+  renderMarkdown(description: string): string {
+    let markdown: string = description || "";
+    return marked(markdown) as string;
+  }
+  
+  truncateText(text: string, limit: number): string {
+    if (text.length > limit) {
+      return text.slice(0, limit) + '...';
+    }
+    return text;
+  }
+
+  renderTruncatedMarkdown(description: string, limit: number): string {
+    const truncatedText = this.truncateText(description, limit);
+    return this.renderMarkdown(truncatedText);
   }
 
 
