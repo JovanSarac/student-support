@@ -36,4 +36,75 @@
             <img src="../../../../assets/images/picture.png" alt="">
         </div>
     </div>
+    <div class="events">
+        <p>Predstojeći događaji:</p>
+        <div class="tab-select">
+            <div class="tab" 
+                 [ngClass]="{'active': selectedTab === 'all'}" 
+                 (click)="selectTab('all')">
+                <p>Svi događaji</p>
+            </div>
+            <div class="tab" 
+                 [ngClass]="{'active': selectedTab === 'conference'}" 
+                 (click)="selectTab('conference')">
+                <p>Konferencije i seminari</p>
+            </div>
+            <div class="tab" 
+                 [ngClass]="{'active': selectedTab === 'workshops'}" 
+                 (click)="selectTab('workshops')">
+                <p>Radionice i kursevi</p>
+            </div>
+            <div class="tab" 
+                 [ngClass]="{'active': selectedTab === 'cultural'}" 
+                 (click)="selectTab('cultural')">
+                <p>Kultorološki</p>
+            </div>
+            <div class="tab" 
+                 [ngClass]="{'active': selectedTab === 'fair'}" 
+                 (click)="selectTab('fair')">
+                <p>Sajamski</p>
+            </div>
+            <div class="tab" 
+                 [ngClass]="{'active': selectedTab === 'charity'}" 
+                 (click)="selectTab('charity')">
+                <p>Humanitarni</p>
+            </div>
+            <div class="tab" 
+                 [ngClass]="{'active': selectedTab === 'exhibitions'}" 
+                 (click)="selectTab('exhibitions')">
+                <p>Izložbe i predstave</p>
+            </div>
+            <div class="tab" 
+                 [ngClass]="{'active': selectedTab === 'parties'}" 
+                 (click)="selectTab('parties')">
+                <p>Žurke i društveni događaji</p>
+            </div>
+            <div class="tab" 
+                 [ngClass]="{'active': selectedTab === 'competitions'}" 
+                 (click)="selectTab('competitions')">
+                <p>Takmičenja</p>
+            </div>
+            <div class="tab" 
+                 [ngClass]="{'active': selectedTab === 'travels'}" 
+                 (click)="selectTab('travels')">
+                <p>Putovanja</p>
+            </div>
+        </div>
+
+        <div class="cards">
+            <div class="one-card" *ngFor="let event of pagedEvents" [ngStyle]="{'background-image': 'url(' + event.image + ')'}">
+                <div class="overlay">
+                    <p>{{ event.name }}</p>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="pagination">
+            <button (click)="prevPage()" [disabled]="currentPage === 1">Prethodna</button>
+            <span>Strana {{ currentPage }} od {{ totalPages }}</span>
+            <button (click)="nextPage()" [disabled]="currentPage === totalPages">Sledeća</button>
+        </div>
+
+    </div>
 </div>

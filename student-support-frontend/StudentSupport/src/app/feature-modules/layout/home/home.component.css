@@ -6,7 +6,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: auto;
     background-image: url("../../../../assets/images/background.png");
     background-size: cover;
     background-position: center;
@@ -18,12 +18,13 @@
 .navbar-content{
     background-color:rgb(2, 2, 100);
     width: 80%;
-    height: 7%;
+    height: auto;
     /*position: absolute;*/
     margin-left: 10%;
     margin-left: 10%;
     margin-top: 3%;
     border-radius: 15px;
+    padding: 10px;
 }
 
 .navbar-element{
@@ -72,7 +73,7 @@
     justify-content: right;
     align-items: center;      
     width: 50%;
-    height: 100%;
+    height: auto;
     margin-right: 3%;
 }
 
@@ -87,29 +88,22 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    height: 100%;
+    height: auto;
     width: 20%;
 }
 
-
-.signup-button{
-    display: flex;
-    flex-direction: row;
-    cursor: pointer;
-    width: 20%;
-}
 
 .login-button p{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 80%;
-    height: 70%;
+    height: auto;
     margin: auto;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-    
-    background-image: url("../../../../assets/images/background.png"); 
+    padding: 10px;
+    background-image: url("../../../../assets/images/background.png");
     color: white;
     border-radius: 15px;
 
@@ -118,7 +112,11 @@
 .login-button p:hover{
     background-image: none;
     background-color:rgb(67, 67, 136);
+    /*color: rgb(67, 67, 136);
+    font-size: 1rem;*/
 }
+
+
 
 .home-content{
     width: 80%;
@@ -127,7 +125,7 @@
     margin-top: 5%;
     display: flex;
     flex-direction: row;
-    height: 100%;
+    height: auto;
 }
 
 .description-app{
@@ -204,3 +202,111 @@
     background-color: transparent;
 }
 
+
+.events {
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 8%;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+
+.events p {
+    font-size: 28px;
+    font-weight: 500;
+    color: white;
+}
+
+.tab-select {
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    margin: 2%;
+    gap: 2%;
+}
+
+.tab-select p {
+    font-size: 15px;
+    color: white; 
+}
+
+.tab-select div {
+    width: auto;
+    padding: 5px;
+}
+
+.tab-select div p:hover {
+    cursor: pointer;
+    color: rgb(2, 2, 100);
+}
+
+.tab.active p {
+    color: rgb(2, 2, 100);
+    border-bottom: 2px solid rgb(2, 2, 100);
+    font-size: 17px;
+}
+
+.separator{
+    border-bottom: 1px solid rgb(80, 80, 80);
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 2%;
+}
+
+.one-card {
+    position: relative;
+    width: calc(25% - 20px);
+    height: 400px;
+    border: 1px solid black;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(107, 107, 107, 0.5);
+    color: white;
+    text-align: left;
+    padding: 10px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.pagination button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    background-color: rgb(2, 2, 100);
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.pagination button[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination span {
+    font-size: 18px;
+}
