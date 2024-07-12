@@ -142,9 +142,4 @@ export class HomeComponent  implements OnInit{
     this.router.navigate(['/login']);
   }
 
-
-  registerClick() : void{
-    this.router.navigate(['/register']);
-  }
-
 }
