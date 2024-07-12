@@ -115,7 +115,7 @@
     width: 80%;
     height: auto;
     margin: auto;
-    font-weight: bold;
+    font-weight: 600;
     font-family: Arial, Helvetica, sans-serif;
     padding: 10px;
     background-color: #5271ff;
@@ -434,5 +434,127 @@
     }
     100% {
       background-positon-x: 0px;
+    }
+}
+
+
+
+/*RESPONZIVNOST VELICINE EKRANA */
+
+/*Ako je ekran manji od 1500px broj kartica u redu 3*/
+
+
+@media (max-width: 1300px) {
+    .one-card {
+        width: calc(50% - 20px); /* Dva u redu */
+    }
+}
+
+@media (max-width: 700px) {
+    .one-card {
+        width: calc(100% - 20px); /* Jedan u redu */
+    }
+}
+
+
+
+@media (max-width: 1170px) {
+    .home-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .description-app, .animation {
+        width: 100%;
+        text-align: center;
+    }
+
+    .description-app p {
+        margin-right: 0; /* Uklanjanje margine desno */
+    }
+
+    .navbar-item p{
+        font-size: 18px;
+    }
+}
+
+
+
+@media (max-width: 850px) {
+    .description-app h1 {
+        font-size: 35px; /* Smanjujemo font */
+    }
+
+    .description-app p {
+        font-size: 14px; /* Smanjujemo font */
+    }
+
+    .events p{
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 550px) {
+    .description-app h1 {
+        font-size: 25px; /* Smanjujemo font */
+    }
+
+    .description-app p {
+        font-size: 10px; /* Smanjujemo font */
+    }
+
+    .events p{
+        font-size: 14px;
+    }
+}
+
+
+.dropdown-content{
+    display: flex;
+    justify-content: right;
+    align-items: center;      
+    width: 50%;
+    height: auto;
+    margin-right: 3%;
+}
+
+
+.burger-icon {
+    font-size: 30px;
+    cursor: pointer;
+    color: #020264;
+}
+
+.dropdown-contentt {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 85px; 
+    background-color: rgba(90, 90, 90, 0.9);
+    border-radius: 15px;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.dropdown-contentt.show {
+    display: flex;
+}
+
+@media (max-width: 850px) {
+    .navbar-button {
+        display: none; /* Sakrivamo stare buttone */
+    }
+
+    .navbar-dropdown {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+
+    .navbar-dropdown select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
     }
 }

@@ -32,6 +32,19 @@
                     <p (click)="registerClick()">Registracija</p>
                 </div>-->
             </div>
+
+            <div class="dropdown-content" *ngIf="isDropdownVisible">
+                <div class="burger-icon" (click)="toggleDropdown()">
+                    <i class="bi bi-list"></i>
+                </div>
+                <div class="dropdown-contentt" [ngClass]="{'show': dropdownOpen}">
+                    <div class="navbar-item"><p>Događaji</p></div>
+                    <div class="navbar-item"><p>Funkcionalnosti</p></div>
+                    <div class="navbar-item"><p>FAQ</p></div>
+                    <div class="navbar-item"><p>O nama</p></div>
+                </div>
+            </div>
+            
         </div>
         
     </div>

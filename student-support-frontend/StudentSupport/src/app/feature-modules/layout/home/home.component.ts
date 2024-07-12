@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MyEvent } from '../../board/model/myevent.model';
 import { LayoutService } from '../layout.service';
@@ -20,9 +20,12 @@ export class HomeComponent  implements OnInit{
   selectedTab: string = 'all';
   events : MyEvent[] =  [];
   currentPage = 1;
-  pageSize = 12;
+  pageSize = 8;
   pagedEvents: MyEvent[] = [];
   totalPages = 1;
+
+  isDropdownVisible: boolean = false;
+  dropdownOpen = false;
 
   eventType: { [key: string]: string } = {
     'AcademicConferenceAndSeminars': 'Konferencije',
@@ -49,6 +52,8 @@ export class HomeComponent  implements OnInit{
   };
 
   ngOnInit() {
+    this.checkScreenWidth();
+    window.addEventListener('resize', this.checkScreenWidth.bind(this));
     this.service.getAllEvenets().subscribe({
       next: (result:PagedResults<MyEvent>)=>{
         this.events = result.results;
@@ -57,6 +62,35 @@ export class HomeComponent  implements OnInit{
       }
     })
   
+  }
+
+  checkScreenWidth() {
+    this.isDropdownVisible = window.innerWidth <= 850;
+  }
+
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (!(event.target as HTMLElement).closest('.burger-icon') && !(event.target as HTMLElement).closest('.dropdown-content')) {
+      this.dropdownOpen = false;
+    }
+  }
+
+  toggleDropdown() {
+      this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  navigate(event: Event) {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    if (selectedValue === 'događaji') {
+      // navigacija na događaje
+    } else if (selectedValue === 'funkcionalnosti') {
+      // navigacija na funkcionalnosti
+    } else if (selectedValue === 'faq') {
+      // navigacija na FAQ
+    } else if (selectedValue === 'o nama') {
+      // navigacija na O nama
+    }
   }
 
   selectTab(tab: string) {
