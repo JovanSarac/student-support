@@ -2,35 +2,43 @@
     <div class="navbar-content">
         <div class="navbar-element">
             <div class="navbar-element-nameapp">
-                <p><i class="bi bi-house-fill" style="margin-right: 10px;"></i>Student Support</p>
+                <!--<p><i class="bi bi-house-fill" style="margin-right: 10px;"></i>Student Support</p>-->
+                <p><img src="../../../../assets/logo/logo.svg" alt="no-picture"></p>
+                
             </div>
             <div class="navbar-button">
+                <img src="../../../../assets/images/separator.svg" alt="">
+                <div class="navbar-item">
+                    <p>Događaji</p>
+                </div>
+                <img src="../../../../assets/images/separator.svg" alt="">
+                <div class="navbar-item">
+                    <p>Funkcionalnosti</p>
+                </div>
+                <img src="../../../../assets/images/separator.svg" alt="">
+                <div class="navbar-item">
+                    <p>FAQ</p>
+                </div>
+                <img src="../../../../assets/images/separator.svg" alt="">
+                <div class="navbar-item">
+                    <p>O nama</p>
+                </div>
+                <img src="../../../../assets/images/separator.svg" alt="">
                 
                 <div class="login-button">
                     <p (click)="loginClick()">Prijava</p>
                 </div>
-                <div class="login-button">
+                <!--<div class="login-button">
                     <p (click)="registerClick()">Registracija</p>
-                </div>
+                </div>-->
             </div>
         </div>
         
     </div>
     <div class="home-content">
         <div class="description-app">
-            <h1>Dobrodošli na stranicu za</h1>
-            <h1> podršku studentima!</h1>
-            <p> Ova stranica je namjenjena prvenstveno za studente Univerziteta u Novom Sadu. Ona služi kako bi studentima olakšala njihov studentski život u Novom Sadu.
-                 Cilj je da vam pružimo podršku u svim aspektima studentskog života, bilo da je to akademska podrška, saveti za mentalno zdravlje,
-                  karijerno usmeravanje ili jednostavno mesto gde možete pronaći zajednicu koja vas podržava i informiše o raznim dešavanjima na kampusu 
-                  i u Novom Sadu.
-                <br>
-                <br>
-                Pored ove web stranice dostupna je i mobilna aplikacija za Android uređaje koje možete preuzeti putem Google Play-a:</p>
-                <div class="google-play-button">
-                    
-                    <p><i class="bi bi-google-play" style="margin-right: 5px;"></i>Google play</p>
-                </div>
+            <h1>Dobrodošli na stranicu za podršku studentima!</h1>
+            <p><span class="description-appname">UNSStudent</span> je aplikacija namjenjena za informisanje studenata o predstojećim događajima i dešavanjima u Novom Sadu.</p>
         </div>
         <div class="animation">
             <img src="../../../../assets/images/picture.png" alt="">
@@ -38,58 +46,7 @@
     </div>
     <div class="events">
         <p>Predstojeći događaji:</p>
-        <div class="tab-select">
-            <div class="tab" 
-                 [ngClass]="{'active': selectedTab === 'all'}" 
-                 (click)="selectTab('all')">
-                <p>Svi događaji</p>
-            </div>
-            <div class="tab" 
-                 [ngClass]="{'active': selectedTab === 'conference'}" 
-                 (click)="selectTab('conference')">
-                <p>Konferencije i seminari</p>
-            </div>
-            <div class="tab" 
-                 [ngClass]="{'active': selectedTab === 'workshops'}" 
-                 (click)="selectTab('workshops')">
-                <p>Radionice i kursevi</p>
-            </div>
-            <div class="tab" 
-                 [ngClass]="{'active': selectedTab === 'cultural'}" 
-                 (click)="selectTab('cultural')">
-                <p>Kultorološki</p>
-            </div>
-            <div class="tab" 
-                 [ngClass]="{'active': selectedTab === 'fair'}" 
-                 (click)="selectTab('fair')">
-                <p>Sajamski</p>
-            </div>
-            <div class="tab" 
-                 [ngClass]="{'active': selectedTab === 'charity'}" 
-                 (click)="selectTab('charity')">
-                <p>Humanitarni</p>
-            </div>
-            <div class="tab" 
-                 [ngClass]="{'active': selectedTab === 'exhibitions'}" 
-                 (click)="selectTab('exhibitions')">
-                <p>Izložbe i predstave</p>
-            </div>
-            <div class="tab" 
-                 [ngClass]="{'active': selectedTab === 'parties'}" 
-                 (click)="selectTab('parties')">
-                <p>Žurke i društveni događaji</p>
-            </div>
-            <div class="tab" 
-                 [ngClass]="{'active': selectedTab === 'competitions'}" 
-                 (click)="selectTab('competitions')">
-                <p>Takmičenja</p>
-            </div>
-            <div class="tab" 
-                 [ngClass]="{'active': selectedTab === 'travels'}" 
-                 (click)="selectTab('travels')">
-                <p>Putovanja</p>
-            </div>
-        </div>
+        
 
         <div class="cards">
             <div class="one-card" *ngFor="let event of pagedEvents" [ngStyle]="{'background-image': 'url(' + event.image + ')'}">
