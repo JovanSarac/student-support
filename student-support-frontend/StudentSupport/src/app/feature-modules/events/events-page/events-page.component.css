@@ -47,6 +47,69 @@
 }
 
 
+.filters-title{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 25px;
+    margin: 4%
+
+}
+
+.filter-date{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    margin-top: 10%;
+    margin-left: 5%;
+
+}
+
+
+:host ::ng-deep .p-calendar{ 
+    cursor: pointer;
+    border-radius: 10px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2% 5% 3% 5%;
+} 
+  
+:host ::ng-deep .p-calendar  
+    .p-datepicker table td.p-datepicker-today>span, 
+:host ::ng-deep .p-calendar .p-datepicker  
+    table td.p-datepicker-today>span:hover { 
+    background-color: #020264; 
+    color: white; 
+    font-weight: bold; 
+}
+
+
+.filter-type{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2% 5% 3% 5%;
+    width: 90%;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 38px;
+}
+
+option{
+    font-size: 18px;
+    padding: 4%;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+}
+
+
 .events {
     display: flex;
     flex-direction: column;

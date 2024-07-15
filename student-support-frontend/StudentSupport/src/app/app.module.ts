@@ -12,6 +12,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { BoardModule } from './feature-modules/board/board.module';
 import { IonicModule } from '@ionic/angular';
 import { EventsModule } from './feature-modules/events/events.module';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,8 @@ import { EventsModule } from './feature-modules/events/events.module';
     HttpClientModule,
     ReactiveFormsModule,
     IonicModule.forRoot(),
+    CalendarModule,
+    FormsModule,
 
   ],
   providers: [
