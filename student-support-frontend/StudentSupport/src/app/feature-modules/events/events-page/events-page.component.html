@@ -1,0 +1,46 @@
+<div class="full-page-bg">
+    <div class="navbar-content">
+        <xp-navbar></xp-navbar>
+    </div>
+    <div class="information-board">
+        <div class="topbar-content">
+            <xp-topbar></xp-topbar>
+    
+        </div>
+
+        <div class="page-container">
+            <div class="filters">
+
+            </div>
+
+            <div class="events">
+        
+                <div class="cards">
+                    <div class="one-card" *ngFor="let event of pagedEvents" [ngStyle]="{'background-image': 'url(' + event.image + ')'}">
+                        <div class="type-event">
+                            <p [ngStyle]="{'background-color': eventTypeColors[event.eventType]}"
+                                    [innerText]="eventType[event.eventType] || event.eventType"></p>
+        
+                        </div>
+                        <div class="overlay">
+                            <p>{{ event.name }}</p>
+                            <p class="date-event">14.7.2024. 15:00</p>
+                            <p class="address">{{event.address}}</p>
+                            <!--<p *ngIf="false" class="description" [innerHTML]="renderTruncatedMarkdown(event.description, 400)"></p>-->
+                        </div>
+                    </div>
+                    
+                </div>
+        
+                <div class="pagination">
+                    <button (click)="prevPage()" [disabled]="currentPage === 1">Prethodna</button>
+                    <span>Strana {{ currentPage }} od {{ totalPages }}</span>
+                    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Sledeća</button>
+                </div>
+        
+            </div>
+
+        </div>
+        
+    </div>
+</div>

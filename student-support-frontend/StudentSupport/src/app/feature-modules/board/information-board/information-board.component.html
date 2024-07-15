@@ -3,47 +3,10 @@
         <xp-navbar></xp-navbar>
     </div>
     <div class="information-board">
-        <div class="events">
-            <div class="one-event" *ngFor="let e of events" [style.background]="getEventColors(e.eventType)">
-                <div class="userpost">
-                    <img src="../../../../assets/images/profile-pic.jpg" alt="no picture">
-                    <div class="nameanddate">
-                        <p>Ime prezime</p>
-                        <h6>Datum objavljivanja: {{formatDate(e.datePublication)}}</h6>
-                    </div>
-                    <div class="eventType">
-                        <p [style.background]="getEventTypeColor(e.eventType)">{{getEventType(e.eventType)}}</p>
-                    </div>
-                </div>
-                <div class="content-post">
-                    <h2 class="eventName">{{e.name}}</h2>
-                    <div class="address-date">
-                        <h3 class="eventAddress"><i class="bi bi-geo-alt-fill"></i>{{e.address}}</h3>
-                        <h3 class="eventDate"><i class="bi bi-calendar-event-fill"></i> {{formatDate(e.dateEvent)}}</h3>
-                    </div>
-                    <p [innerHTML]="showFullDescription ? renderMarkdown(e.description) : renderTruncatedMarkdown(e.description, 450)">
-                    </p>
-                    <span *ngIf="e.description.length > 450" (click)="toggleDescription()" class="show-more-text">
-                        {{ showFullDescription ? 'Prikazi manje' : 'Prikazi vise' }}
-                    </span>
-                    <img src="{{e.image}}" alt="no picture">
-                    <div class="separator"></div>
-                </div>
-            </div>
+        <div class="topbar-content">
+            <xp-topbar></xp-topbar>
+    
         </div>
-        <div class="filtering">
-            <p>Svi tipovi događaji su označeni različitim bojama da možete lakše da pronađete šta Vas najviše interesuje. U nastavku slede označene boje po tipovima događaja, pa možete da ih filtrirate:</p>
-            <div class="filter-button">
-                <p class="one">Akademske konferencije i seminari</p>
-                <p class="two">Radionice i kursevi</p>
-                <p class="three">Kultorološki događaji</p>
-                <p class="four">Sajamski događaji</p>
-                <p class="five">Humanitarni događaji</p>
-                <p class="six">Umjetničke izložbe i predstave</p>
-                <p class="seven">Studentske žurke i društveni događaji</p>
-                <p class="eight">Takmičenja</p>
-                <p class="nine">Studentska putovanja</p>
-            </div>
-        </div>
+        
     </div>
 </div>

@@ -1,0 +1,163 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+.full-topbar{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    background-color: #020264;
+    border-bottom: 2px solid #A6A6A6;
+}
+
+.topbar-name{
+    display: flex;
+    justify-content: left;
+    color: white;
+    margin: 0;
+    padding: 15px 20px;
+    font-weight: 700;
+    font-size: 30px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container-logout{
+    display: flex;
+    position: relative;
+}
+
+.logutbutton{
+    position: absolute;
+    right: 20px;
+    background-color: rgb(224, 62, 62);
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 15px 0px 15px 0px;
+}
+
+.logutbutton:hover{
+    background-color: rgb(136, 11, 11);
+}
+
+.logutbutton p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 7px;
+    font-size: 15px;
+}
+
+
+
+.dropdown-content{
+    display: flex;
+    justify-content: left;
+    align-items: center;      
+    height: auto;
+    margin-right: 3%;
+    margin-left: 3%;
+}
+
+
+.burger-icon {
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+}
+
+.dropdown-contentt {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px; 
+    background-color: rgba(2, 2, 100);
+    border-radius: 15px;
+    border: 2px solid #ccc;
+    padding: 30px 40px;
+    z-index: 1000;
+    width: auto;
+}
+
+.button-template{
+    display: flex;
+    width: 100%;
+    cursor: pointer;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border-radius: 12px;
+}
+
+.button-template p{
+    font-size: 20px;
+    padding: 15px 10px;
+    height: 100%;
+    color: white;
+}
+
+
+.button-template:hover{
+    background-color: rgba(82,113,255,0.4);
+    transition: 0.2s;
+}
+
+.button-template, .button-template * {
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-contentt.show {
+    display: flex;
+}
+
+
+
+@media (max-width: 1400px){
+    .topbar-name{
+        font-size: 27px;
+    }
+}
+
+
+@media (max-width : 1100px){
+    .topbar-name{
+        font-size: 25px;
+    }
+
+    .logutbutton p {
+        font-size: 13px;
+        padding: 5px;
+    }
+}
+
+
+@media (max-width : 900px){
+    .topbar-name{
+        font-size: 22px;
+    }
+
+    .logutbutton p {
+        font-size: 13px;
+        padding: 4px;
+    }
+}
+
+@media (max-width : 750px){
+    .topbar-name{
+        font-size: 20px;
+    }
+
+    .navbar-dropdown {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+
+    .navbar-dropdown select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+    }
+}

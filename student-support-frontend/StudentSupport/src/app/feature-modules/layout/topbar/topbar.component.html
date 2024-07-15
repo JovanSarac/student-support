@@ -1,0 +1,32 @@
+<div class="full-topbar">
+    <div class="dropdown-content" *ngIf="isDropdownVisible">
+        <div class="burger-icon" (click)="toggleDropdown()">
+            <i class="bi bi-list"></i>
+        </div>
+        <div class="dropdown-contentt" [ngClass]="{'show': dropdownOpen}">
+            <div class="button-template" [routerLink]="['/info-board']">
+                <p><i class="bi bi-house-fill" style="margin-right: 5px;"></i>Početna</p>
+            </div>
+
+            <div class="button-template" [routerLink]="['/events-page']">
+                <p><i class="bi bi-heart-fill" style="margin-right: 5px;"></i>Događaji</p>
+            </div>
+
+            <div class="button-template">
+                <p><i class="bi bi-substack" style="margin-right: 5px;"></i>Klubovi</p>
+            </div>
+
+            <div class="button-template">
+                <p><i class="bi bi-person-square" style="margin-right: 5px;"></i> Moj profil</p>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="topbar-name">{{getCurrentRoute()}}</h1>
+
+    <div class="container-logut">
+        <div class="logutbutton" *ngIf="user && user.username !== ''" (click)="onLogout()"> <p><i class="outside bi bi-box-arrow-left" style="margin-right: 5px;"></i>Odjavi se</p></div>
+
+    </div>
+
+</div>

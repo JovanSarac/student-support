@@ -11,6 +11,7 @@ import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { BoardModule } from './feature-modules/board/board.module';
 import { IonicModule } from '@ionic/angular';
+import { EventsModule } from './feature-modules/events/events.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { IonicModule } from '@ionic/angular';
     AppRoutingModule,
     LayoutModule,
     BoardModule,
+    EventsModule,
     BrowserAnimationsModule,
     MaterialModule,
     AuthModule,

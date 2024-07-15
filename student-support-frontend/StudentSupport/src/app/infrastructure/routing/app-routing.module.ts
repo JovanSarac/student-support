@@ -6,13 +6,14 @@ import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
 import { InformationBoardComponent } from 'src/app/feature-modules/board/information-board/information-board.component';
 import { CreateEventComponent } from 'src/app/feature-modules/board/create-event/create-event.component';
+import { EventsPageComponent } from 'src/app/feature-modules/events/events-page/events-page.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'info-board', component: InformationBoardComponent, canActivate: [AuthGuard]},
-  {path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard]},
+  {path: 'events-page', component: EventsPageComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
