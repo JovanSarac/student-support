@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using StudentSupport.Stakeholders.API.Dtos;
 using StudentSupport.Stakeholders.API.Public;
 
-namespace StudentSupport.API.Controllers.Author
+namespace StudentSupport.API.Controllers.Student
 {
-    [Authorize(Policy = "authorPolicy")]
-    [Route("api/author/person")]
+    [Authorize(Policy = "studentPolicy")]
+    [Route("api/student/person")]
     public class PersonController : BaseApiController
     {
         private readonly IPersonService _personService;

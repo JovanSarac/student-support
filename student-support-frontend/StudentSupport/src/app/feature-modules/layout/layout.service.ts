@@ -14,6 +14,6 @@ export class LayoutService {
 
 
   getAllEvenets(): Observable<PagedResults<MyEvent>> {
-    return this.http.get<PagedResults<MyEvent>>(environment.apiHost + 'author/events');
+    return this.http.get<PagedResults<MyEvent>>(environment.apiHost + 'student/events');
 }
 }

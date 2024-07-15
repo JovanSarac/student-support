@@ -37,13 +37,13 @@ public class AuthenticationService : IAuthenticationService
         return _tokenGenerator.GenerateAccessToken(user, personId);
     }
 
-    public Result<AuthenticationTokensDto> RegisterAuthor(AccountRegistrationDto account)
+    public Result<AuthenticationTokensDto> RegisterStudent(AccountRegistrationDto account)
     {
         if(_userRepository.Exists(account.Username)) return Result.Fail(FailureCode.NonUniqueUsername);
 
         try
         {
-            var user = _userRepository.Create(new User(account.Username, account.Password, UserRole.Author, true));
+            var user = _userRepository.Create(new User(account.Username, account.Password, UserRole.Student, true));
             var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email));
 
             return _tokenGenerator.GenerateAccessToken(user, person.Id);

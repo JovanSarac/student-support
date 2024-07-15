@@ -65,22 +65,18 @@
 
 .events::-webkit-scrollbar-track {
     background: #f1f1f1;  /* Pozadina skrol trake */
+    border-radius: 15px;
 }
 
 .events::-webkit-scrollbar-thumb {
-    background: #888;  /* Boja skrol trake */
-    border-radius: 10px;  /* Zaobljeni uglovi skrol trake */
+    background: #5271ff;  /* Boja skrol trake */
+    border-radius: 15px;  /* Zaobljeni uglovi skrol trake */
 }
 
 .events::-webkit-scrollbar-thumb:hover {
-    background: #555;  /* Boja skrol trake pri hover efektu */
+    background: #020264;  /* Boja skrol trake pri hover efektu */
 }
 
-/* Za Firefox */
-.events {
-    scrollbar-width: thin;  /* Tanka skrol traka */
-    scrollbar-color: #888 #f1f1f1;  /* Boje skrol trake i pozadine */
-}
 
 .events p {
     font-size: 28px;

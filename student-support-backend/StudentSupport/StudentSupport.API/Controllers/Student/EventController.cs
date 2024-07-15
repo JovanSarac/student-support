@@ -5,10 +5,10 @@ using StudentSupport.Events.API.Dtos;
 using StudentSupport.Events.API.Public;
 using StudentSupport.Stakeholders.API.Public;
 
-namespace StudentSupport.API.Controllers.Author
+namespace StudentSupport.API.Controllers.Student
 {
-    [Authorize(Policy = "authorPolicy")]
-    [Route("api/author/events")]
+    [Authorize(Policy = "studentPolicy")]
+    [Route("api/student/events")]
     public class EventController : BaseApiController
     {
         private readonly IEventService _eventService;
