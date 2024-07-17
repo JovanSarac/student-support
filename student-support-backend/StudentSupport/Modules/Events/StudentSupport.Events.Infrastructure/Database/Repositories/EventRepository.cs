@@ -1,4 +1,5 @@
-﻿using StudentSupport.Events.Core.Domain.RepositoryInterfaces;
+﻿using StudentSupport.Events.Core.Domain;
+using StudentSupport.Events.Core.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace StudentSupport.Events.Infrastructure.Database.Repositories
         {
             _dbContext = dbContext;
         }
+
     }
 }

@@ -54,6 +54,8 @@ public static class AuthConfiguration
         {
             options.AddPolicy("administratorPolicy", policy => policy.RequireRole("administrator"));
             options.AddPolicy("studentPolicy", policy => policy.RequireRole("student"));
+            options.AddPolicy("authorPolicy", policy => policy.RequireRole("author"));
+
         });
     }
 }
