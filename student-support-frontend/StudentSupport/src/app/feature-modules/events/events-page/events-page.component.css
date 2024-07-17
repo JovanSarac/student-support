@@ -1,222 +1,216 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
-
-.full-page-bg{
-    display: flex;
-    flex-direction: row;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-image: url("../../../../assets/images/background.png");
-    background-size: cover;
-    background-position: center;
+.full-page-bg {
+  display: flex;
+  flex-direction: row;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  /* background-image: url("../../../../assets/images/background.png"); */
+  background-color: white;
+  background-size: cover;
+  background-position: center;
 }
 
-.navbar-content{
-    width: 20%;
+.navbar-content {
+  width: 20%;
 }
 
-.topbar-content{
-    width: 100%;
+.topbar-content {
+  width: 100%;
 }
 
-.information-board{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+.information-board {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-
-
-.page-container{
-    display: flex;
-    flex-direction: row;
-    width: 94%;
-    margin: 3%;
-    height: calc(100% - 150px);;
+.page-container {
+  display: flex;
+  flex-direction: row;
+  width: 94%;
+  margin: 3%;
+  height: calc(100% - 150px);
 }
 
-.filters{
-    width: 20%;
-    height: 100%;
-    border-radius: 15px;
-    background-color: rgba(131, 131, 131, 0.3);
-    border: 1px solid #ccc;
+.filters {
+  width: 20%;
+  height: 100%;
+  border-radius: 15px;
+  background-color: rgba(131, 131, 131, 0.3);
+  border: 1px solid #ccc;
 }
-
 
 .events {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    height: 100%;
-    overflow-y: auto;
-    background-color: rgba(131, 131, 131, 0.3);
-    border-radius: 15px;
-    border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 100%;
+  overflow-y: auto;
+  background-color: rgba(131, 131, 131, 0.3);
+  border-radius: 15px;
+  border: 1px solid #ccc;
 }
 
 /* Stilizacija skrol trake */
 .events::-webkit-scrollbar {
-    width: 12px;  /* Širina skrol trake */
+  width: 12px; /* Širina skrol trake */
 }
 
 .events::-webkit-scrollbar-track {
-    background: #f1f1f1;  /* Pozadina skrol trake */
+  background: #f1f1f1; /* Pozadina skrol trake */
 }
 
 .events::-webkit-scrollbar-thumb {
-    background: #888;  /* Boja skrol trake */
-    border-radius: 10px;  /* Zaobljeni uglovi skrol trake */
+  background: #888; /* Boja skrol trake */
+  border-radius: 10px; /* Zaobljeni uglovi skrol trake */
 }
 
 .events::-webkit-scrollbar-thumb:hover {
-    background: #555;  /* Boja skrol trake pri hover efektu */
+  background: #555; /* Boja skrol trake pri hover efektu */
 }
 
 /* Za Firefox */
 .events {
-    scrollbar-width: thin;  /* Tanka skrol traka */
-    scrollbar-color: #888 #f1f1f1;  /* Boje skrol trake i pozadine */
+  scrollbar-width: thin; /* Tanka skrol traka */
+  scrollbar-color: #888 #f1f1f1; /* Boje skrol trake i pozadine */
 }
 
 .events p {
-    font-size: 28px;
-    font-weight: 500;
-    color: white;
+  font-size: 28px;
+  font-weight: 500;
+  color: white;
 }
 
 .cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    margin: 2%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: 2%;
 }
 
 .one-card {
-    position: relative;
-    width: calc(25% - 20px);
-    height: 450px;
-    border: 1px solid black;
-    background-size: cover;
-    background-position: center;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  width: calc(25% - 20px);
+  height: 450px;
+  border: 1px solid black;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.one-card:hover{
-    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8);
-    cursor: pointer;
-    border: 2px solid black;
+.one-card:hover {
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  border: 2px solid black;
 }
 
-.type-event{
-    display: flex;
+.type-event {
+  display: flex;
 }
 
-.type-event p{
-    color: white;
-    font-size: 15px;
-    padding: 8px;
-    border-radius: 10px;
-    width: auto;
-    align-items: start;
-    justify-content: start;
-    margin: 5px;
+.type-event p {
+  color: white;
+  font-size: 15px;
+  padding: 8px;
+  border-radius: 10px;
+  width: auto;
+  align-items: start;
+  justify-content: start;
+  margin: 5px;
 }
 
 .overlay {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background: rgba(107, 107, 107, 0.7);
-    /*background-image:linear-gradient(rgba(82, 82, 82, 0.3), rgb(39, 39, 39, 0.8));*/
-    color: white;
-    text-align: left;
-    padding: 10px;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(107, 107, 107, 0.7);
+  /*background-image:linear-gradient(rgba(82, 82, 82, 0.3), rgb(39, 39, 39, 0.8));*/
+  color: white;
+  text-align: left;
+  padding: 10px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
-.overlay p{
-    font-size: 20px;
+.overlay p {
+  font-size: 20px;
 }
 
-.overlay .date-event{
-    color: rgb(76, 161, 231);
-    font-size: 15px;
-    font-weight: 500;
-    font-weight: bold;
-    margin: 5px 0;
+.overlay .date-event {
+  color: rgb(76, 161, 231);
+  font-size: 15px;
+  font-weight: 500;
+  font-weight: bold;
+  margin: 5px 0;
 }
 
-.overlay .address{
-    color: white;
-    font-size: 14px;
+.overlay .address {
+  color: white;
+  font-size: 14px;
 }
 
-.overlay .description{
-    font-size: 12px;
+.overlay .description {
+  font-size: 12px;
 }
 
 .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 .pagination button {
-    padding: 10px 20px;
-    margin: 0 10px;
-    border: none;
-    background-color: rgb(2, 2, 100);
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  background-color: rgb(2, 2, 100);
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .pagination button[disabled] {
-    background-color: #ccc;
-    cursor: not-allowed;
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .pagination span {
-    font-size: 18px;
+  font-size: 18px;
 }
 
-
-
-@media (max-width : 1600px){
-    .one-card {
-        width: calc(50% - 20px); /* Dva u redu */
-    }
+@media (max-width: 1600px) {
+  .one-card {
+    width: calc(50% - 20px); /* Dva u redu */
+  }
 }
 
-@media (max-width : 1000px){
-    .filters{
-        display: none;
-    }
+@media (max-width: 1000px) {
+  .filters {
+    display: none;
+  }
 
-    .events{
-        width: 100%;
-    }
+  .events {
+    width: 100%;
+  }
 }
 
-@media (max-width : 580px){
-    .one-card {
-        width: calc(100% - 20px); /* Jedan u redu */
-    }
+@media (max-width: 580px) {
+  .one-card {
+    width: calc(100% - 20px); /* Jedan u redu */
+  }
 }
 
-
-@media (max-width : 750px) {
-    .navbar-content{
-        display: none;
-    }
+@media (max-width: 750px) {
+  .navbar-content {
+    display: none;
+  }
 }

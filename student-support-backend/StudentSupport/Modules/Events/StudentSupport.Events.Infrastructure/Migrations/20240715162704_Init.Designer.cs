@@ -12,7 +12,7 @@ using StudentSupport.Events.Infrastructure.Database;
 namespace StudentSupport.Events.Infrastructure.Migrations
 {
     [DbContext(typeof(EventsContext))]
-    [Migration("20240523184606_Init")]
+    [Migration("20240715162704_Init")]
     partial class Init
     {
         /// <inheritdoc />
