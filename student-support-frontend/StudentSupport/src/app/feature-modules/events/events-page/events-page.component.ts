@@ -11,6 +11,8 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 })
 export class EventsPageComponent implements OnInit{
 
+  selected!: Date;  
+
   events : MyEvent[] =  [];
   currentPage = 1;
   pageSize = 8;
