@@ -279,13 +279,13 @@
 
 .overlay p {
     font-size: 20px;
-    color: #002f56;
+    color: white;
 
 }
 
 .overlay .date-event {
     /* color: rgb(76, 161, 231); */
-    color: rgb(224, 62, 62);
+    color: white;
     font-size: 15px;
     font-weight: 500;
     font-weight: bold;

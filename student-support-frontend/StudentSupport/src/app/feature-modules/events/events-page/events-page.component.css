@@ -75,14 +75,8 @@
   margin: 2% 5% 3% 5%;
 }
 
-:host ::ng-deep .p-calendar .p-datepicker table td.p-datepicker-today > span,
-:host
-  ::ng-deep
-  .p-calendar
-  .p-datepicker
-  table
-  td.p-datepicker-today
-  > span:hover {
+:host ::ng-deep .p-calendar .p-datepicker table td.p-datepicker-today>span,
+:host ::ng-deep .p-calendar .p-datepicker table td.p-datepicker-today>span:hover {
   background-color: #020264;
   color: white;
   font-weight: bold;
@@ -119,21 +113,26 @@ option {
 
 /* Stilizacija skrol trake */
 .events::-webkit-scrollbar {
-  width: 12px; /* Širina skrol trake */
+  width: 12px;
+  /* Širina skrol trake */
 }
 
 .events::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Pozadina skrol trake */
+  background: #f1f1f1;
+  /* Pozadina skrol trake */
   border-radius: 15px;
 }
 
 .events::-webkit-scrollbar-thumb {
-  background: #5271ff; /* Boja skrol trake */
-  border-radius: 15px; /* Zaobljeni uglovi skrol trake */
+  background: #5271ff;
+  /* Boja skrol trake */
+  border-radius: 15px;
+  /* Zaobljeni uglovi skrol trake */
 }
 
 .events::-webkit-scrollbar-thumb:hover {
-  background: #020264; /* Boja skrol trake pri hover efektu */
+  background: #020264;
+  /* Boja skrol trake pri hover efektu */
 }
 
 .events p {
@@ -187,7 +186,7 @@ option {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background: rgba(107, 107, 107, 0.7);
+  background: rgba(107, 107, 107, 0.9);
   /*background-image:linear-gradient(rgba(82, 82, 82, 0.3), rgb(39, 39, 39, 0.8));*/
   color: white;
   text-align: left;
@@ -201,7 +200,7 @@ option {
 }
 
 .overlay .date-event {
-  color: rgb(76, 161, 231);
+  color: white;
   font-size: 15px;
   font-weight: 500;
   font-weight: bold;
@@ -246,7 +245,8 @@ option {
 
 @media (max-width: 1600px) {
   .one-card {
-    width: calc(50% - 20px); /* Dva u redu */
+    width: calc(50% - 20px);
+    /* Dva u redu */
   }
 }
 
@@ -262,7 +262,8 @@ option {
 
 @media (max-width: 580px) {
   .one-card {
-    width: calc(100% - 20px); /* Jedan u redu */
+    width: calc(100% - 20px);
+    /* Jedan u redu */
   }
 }
 
