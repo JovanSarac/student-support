@@ -24,7 +24,13 @@ namespace StudentSupport.API.Controllers.Student
             var result = _eventService.GetPaged(page, pageSize);
             return CreateResponse(result);
         }
-      
+
+        [HttpGet("{id:int}")]
+        public ActionResult<EventDto> Get(int id)
+        {
+            var result = _eventService.Get(id);
+            return CreateResponse(result);
+        }
 
     }
 }

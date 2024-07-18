@@ -21,7 +21,7 @@
     position: sticky;
     top: 0;
     width: 100%;
-    height: 10dvh;
+    height: 8dvh;
     /*position: absolute;*/
     padding: 10px;
     z-index: 1000;
@@ -45,8 +45,8 @@
 }
 
 .navbar-element-nameapp img {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
 }
 
 .navbar-element-nameapp p {
@@ -117,13 +117,13 @@
     width: 80%;
     height: auto;
     margin: auto;
-    font-weight: 600;
+    font-weight: 700;
     font-family: 'Poppins', sans-serif;
     padding: 10px;
     background-color: rgb(224, 62, 62);
     color: white;
     border-radius: 15px;
-
+    transition: background-color 0.4s ease-in-out;
 }
 
 .login-button p:hover {
@@ -236,12 +236,15 @@
     margin-bottom: 20px;
     margin-right: 20px;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
 }
 
 .one-card:hover {
     box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8);
     cursor: pointer;
     border: 2px solid black;
+    transform: scale(1.05);
+    /* Ovo će povećati veličinu kartice */
 }
 
 .type-event {
@@ -647,7 +650,7 @@
 
 .banner {
     width: 100%;
-    height: 90dvh;
+    height: 92dvh;
     position: relative;
     overflow: hidden;
 }
@@ -655,7 +658,7 @@
 
 .slider {
     width: 100dvw;
-    height: 90dvh;
+    height: 92dvh;
     position: absolute;
     top: 0;
 }
@@ -672,7 +675,7 @@
 
 .overlay2 {
     width: 100%;
-    height: 90dvh;
+    height: 92dvh;
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
     position: absolute;
     top: 0;
