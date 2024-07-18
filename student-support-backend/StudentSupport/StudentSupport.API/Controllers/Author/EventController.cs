@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using StudentSupport.BuildingBlocks.Core.UseCases;
 using StudentSupport.Events.API.Dtos;
 using StudentSupport.Events.API.Public;
 
@@ -13,6 +14,20 @@ namespace StudentSupport.API.Controllers.Author
         public EventController(IEventService eventService)
         {
             _eventService = eventService;
+        }
+
+        [HttpGet]
+        public ActionResult<PagedResult<EventDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _eventService.GetPaged(page, pageSize);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("{id:int}")]
+        public ActionResult<EventDto> Get(int id)
+        {
+            var result = _eventService.Get(id);
+            return CreateResponse(result);
         }
 
         [HttpPost]
