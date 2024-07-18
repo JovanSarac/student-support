@@ -91,6 +91,7 @@
     color: white;
     font-weight: 700;
     font-size: 20px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .navbar-item p:hover {
@@ -203,16 +204,18 @@
 .events {
     width: 80%;
     margin-left: 10%;
-    margin-top: 8%;
+    margin-top: 3%;
     display: flex;
     flex-direction: column;
     height: auto;
 }
 
 .events p {
-    font-size: 28px;
-    font-weight: 500;
-    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    color: #002f56;
+    font-family: 'Poppins', sans-serif;
+    align-self: center;
 }
 
 .cards {
@@ -260,7 +263,7 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    background: rgba(107, 107, 107, 0.7);
+    background: rgba(107, 107, 107, 0.9);
     /*background-image:linear-gradient(rgba(82, 82, 82, 0.3), rgb(39, 39, 39, 0.8));*/
     color: white;
     text-align: left;
@@ -271,10 +274,13 @@
 
 .overlay p {
     font-size: 20px;
+    color: #002f56;
+
 }
 
 .overlay .date-event {
-    color: rgb(76, 161, 231);
+    /* color: rgb(76, 161, 231); */
+    color: rgb(224, 62, 62);
     font-size: 15px;
     font-weight: 500;
     font-weight: bold;

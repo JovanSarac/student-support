@@ -3,7 +3,7 @@
         <div class="navbar-element">
             <div class="navbar-element-nameapp">
                 <!--<p><i class="bi bi-house-fill" style="margin-right: 10px;"></i>Student Support</p>-->
-                <p><img src="../../../../assets/logo/logo_with_backgroung_cropped.svg" alt="no-picture"></p>
+                <p><img src="../../../../assets/logo/logo_with_backgroung.svg" alt="no-picture"></p>
 
             </div>
             <div class="navbar-button">
@@ -73,7 +73,7 @@
     </div>
 
     <div class="events">
-        <p>Predstojeći događaji:</p>
+        <p>PREDSTOJEĆI DOGAĐAJI</p>
 
 
         <div class="cards">
@@ -95,7 +95,7 @@
 
         </div>
 
-        <div class="pagination">
+        <div *ngIf="pagedEvents.length > 4" class="pagination">
             <button (click)="prevPage()" [disabled]="currentPage === 1">Prethodna</button>
             <span>Strana {{ currentPage }} od {{ totalPages }}</span>
             <button (click)="nextPage()" [disabled]="currentPage === totalPages">Sledeća</button>
