@@ -92,12 +92,14 @@
     font-weight: 700;
     font-size: 20px;
     font-family: 'Poppins', sans-serif;
+    transition: transform 0.3s ease;
 }
 
 .navbar-item p:hover {
     color: #5271ff;
     cursor: pointer;
     border-bottom: 2px solid #5271ff;
+    transform: scale(1.07);
 }
 
 .login-button {
