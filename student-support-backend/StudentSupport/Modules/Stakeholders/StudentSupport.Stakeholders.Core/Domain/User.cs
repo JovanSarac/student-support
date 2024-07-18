@@ -33,6 +33,7 @@ public class User : Entity
 public enum UserRole
 {
     Administrator,
-    Student
+    Student,
+    Author
 
 }
