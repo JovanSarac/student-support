@@ -35,6 +35,23 @@ namespace StudentSupport.Events.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Events", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Participations",
+                schema: "events",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    EventId = table.Column<long>(type: "bigint", nullable: false),
+                    StudentId = table.Column<long>(type: "bigint", nullable: false),
+                    EnrollmentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Type = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Participations", x => x.Id);
+                });
         }
 
         /// <inheritdoc />
@@ -42,6 +59,10 @@ namespace StudentSupport.Events.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Events",
+                schema: "events");
+
+            migrationBuilder.DropTable(
+                name: "Participations",
                 schema: "events");
         }
     }

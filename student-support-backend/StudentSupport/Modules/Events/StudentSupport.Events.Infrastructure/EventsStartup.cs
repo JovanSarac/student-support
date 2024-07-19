@@ -30,12 +30,14 @@ namespace StudentSupport.Events.Infrastructure
         private static void SetupCore(IServiceCollection services)
         {
             services.AddScoped<IEventService, EventService>();
+            services.AddScoped<IParticipationService, ParticipationService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
         {
             services.AddScoped(typeof(ICrudRepository<Event>), typeof(CrudDatabaseRepository<Event, EventsContext>));
             services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped(typeof(IParticipationRepository), typeof(ParticipationDatabaseRepository));
 
             services.AddDbContext<EventsContext>(opt =>
                 opt.UseNpgsql(DbConnectionStringBuilder.Build("events"),

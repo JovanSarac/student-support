@@ -12,6 +12,7 @@ namespace StudentSupport.Events.Infrastructure.Database
     public class EventsContext : DbContext
     {
         public DbSet<Event> Events { get; set; }
+        public DbSet<Participation> Participations { get; set; }
 
         public EventsContext(DbContextOptions<EventsContext> options) : base(options) { }
 

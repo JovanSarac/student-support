@@ -13,6 +13,7 @@ namespace StudentSupport.Events.Core.Mappers
     {
         public EventsProfile() {
             CreateMap<Event, EventDto>().ReverseMap();
+            CreateMap<Participation, ParticipationDto>().ReverseMap();
         }
     }
 }

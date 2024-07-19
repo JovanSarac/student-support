@@ -63,6 +63,31 @@ namespace StudentSupport.Events.Infrastructure.Migrations
 
                     b.ToTable("Events", "events");
                 });
+
+            modelBuilder.Entity("StudentSupport.Events.Core.Domain.Participation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("EnrollmentDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("EventId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Participations", "events");
+                });
 #pragma warning restore 612, 618
         }
     }
