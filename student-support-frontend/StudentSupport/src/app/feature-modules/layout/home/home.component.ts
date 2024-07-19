@@ -98,18 +98,18 @@ export class HomeComponent implements OnInit {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
-  navigate(event: Event) {
-    const selectedValue = (event.target as HTMLSelectElement).value;
-    if (selectedValue === 'događaji') {
-      // navigacija na događaje
-    } else if (selectedValue === 'funkcionalnosti') {
-      // navigacija na funkcionalnosti
-    } else if (selectedValue === 'faq') {
-      // navigacija na FAQ
-    } else if (selectedValue === 'o nama') {
-      // navigacija na O nama
-    }
-  }
+  // navigate(event: Event) {
+  //   const selectedValue = (event.target as HTMLSelectElement).value;
+  //   if (selectedValue === 'događaji') {
+  //     // navigacija na događaje
+  //   } else if (selectedValue === 'funkcionalnosti') {
+  //     // navigacija na funkcionalnosti
+  //   } else if (selectedValue === 'faq') {
+  //     // navigacija na FAQ
+  //   } else if (selectedValue === 'o nama') {
+  //     // navigacija na O nama
+  //   }
+  // }
 
   selectTab(tab: string) {
     this.selectedTab = tab;
@@ -157,13 +157,6 @@ export class HomeComponent implements OnInit {
   loginClick(): void {
     this.router.navigate(['/login']);
   }
-
-  // startSlider() {
-  //   setInterval(() => {
-  //     this.currentIndex = (this.currentIndex + 1) % this.images.length;
-  //     this.slideImg = this.images[this.currentIndex];
-  //   }, 3000);
-  // }
 
   startSlider() {
     setInterval(() => {
