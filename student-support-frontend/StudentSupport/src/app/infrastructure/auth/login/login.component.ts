@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit{
     if(this.validate(login)){
       this.authService.login(login).subscribe({
         next: () => {
-          this.router.navigate(['info-board']);
+          this.router.navigate(['/events-page']);
         },error: (err:any)=>{
           this.wrongCredential = true;
         }
