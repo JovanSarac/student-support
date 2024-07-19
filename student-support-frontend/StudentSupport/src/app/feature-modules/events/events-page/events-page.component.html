@@ -1,19 +1,18 @@
 <div class="full-page-bg">
-    <div class="navbar-content">
+    <!-- <div class="navbar-content">
         <xp-navbar></xp-navbar>
-    </div>
+    </div> -->
     <div class="information-board">
-        <div class="topbar-content">
+        <!-- <div class="topbar-content">
             <xp-topbar></xp-topbar>
-    
-        </div>
+
+        </div> -->
 
         <div class="page-container">
             <div class="filters">
                 <p class="filters-title"><i class="bi bi-funnel-fill" style="margin-right: 10px;"></i> Filtriraj po</p>
                 <p class="filter-date">Datumu:</p>
-                <p-calendar dateFormat="dd.mm.yy"
-                    [(ngModel)]="selected"> 
+                <p-calendar dateFormat="dd.mm.yy" [(ngModel)]="selected">
                 </p-calendar>
 
                 <p class="filter-date">Tipu događaja:</p>
@@ -28,7 +27,7 @@
                     <option value="">Putovanja</option>
                     <option value="">Umjetnicki</option>
                     <option value="">Drustveni</option>
-                
+
                 </select>
 
                 <p class="filter-date">Opsegu datuma</p>
@@ -37,13 +36,14 @@
             </div>
 
             <div class="events">
-        
+
                 <div class="cards">
-                    <div class="one-card" *ngFor="let event of pagedEvents" [ngStyle]="{'background-image': 'url(' + event.image + ')'}">
+                    <div class="one-card" *ngFor="let event of pagedEvents"
+                        [ngStyle]="{'background-image': 'url(' + event.image + ')'}">
                         <div class="type-event">
                             <p [ngStyle]="{'background-color': eventTypeColors[event.eventType]}"
-                                    [innerText]="eventType[event.eventType] || event.eventType"></p>
-        
+                                [innerText]="eventType[event.eventType] || event.eventType"></p>
+
                         </div>
                         <div class="overlay">
                             <p>{{ event.name }}</p>
@@ -52,18 +52,18 @@
                             <!--<p *ngIf="false" class="description" [innerHTML]="renderTruncatedMarkdown(event.description, 400)"></p>-->
                         </div>
                     </div>
-                    
+
                 </div>
-        
+
                 <div class="pagination">
                     <button (click)="prevPage()" [disabled]="currentPage === 1">Prethodna</button>
                     <span>Strana {{ currentPage }} od {{ totalPages }}</span>
                     <button (click)="nextPage()" [disabled]="currentPage === totalPages">Sledeća</button>
                 </div>
-        
+
             </div>
 
         </div>
-        
+
     </div>
 </div>

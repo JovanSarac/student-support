@@ -5,13 +5,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { TopbarComponent } from './topbar/topbar.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     NavbarComponent,
-    TopbarComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +19,6 @@ import { TopbarComponent } from './topbar/topbar.component';
   ],
   exports: [
     NavbarComponent,
-    TopbarComponent,
     HomeComponent
   ]
 })

@@ -1,30 +1,65 @@
-<div *ngIf="userRegister" class="full-navbar">
-
-    
-        <div class="profile-content">
-            <div class="profile-pic">
-                <img src="../../../../assets/images/profile-pic.jpg" alt="no picture">
-                
-            </div>
-            
-            <p>{{user.username}}</p>
-        </div>
-        <div class="buttons">
-            <div [ngClass]="{'active-background': isCurrentRoute('/info-board')}" class="button-template" [routerLink]="['/info-board']">
-                <p><i class="bi bi-house-fill" style="margin-right: 5px;"></i>Početna</p>
-            </div>
-
-            <div [ngClass]="{'active-background': isCurrentRoute('/events-page')}" class="button-template" [routerLink]="['/events-page']">
-                <p><i class="bi bi-heart-fill" style="margin-right: 5px;"></i>Događaji</p>
-            </div>
-
-            <div class="button-template">
-                <p><i class="bi bi-substack" style="margin-right: 5px;"></i>Klubovi</p>
-            </div>
-
-            <div class="button-template">
-                <p><i class="bi bi-person-square" style="margin-right: 5px;"></i> Moj profil</p>
-            </div>
+<div class="navbar-content">
+    <div class="navbar-element">
+        <div class="navbar-element-nameapp">
+            <p><img [routerLink]="['/']" src="../../../../assets/logo/logo_with_backgroung.svg" alt="no-picture"></p>
 
         </div>
+        <div class="navbar-button">
+            <div (click)="goToEvents()" class="navbar-item">
+                <p>Događaji</p>
+            </div>
+
+            <div (click)="goToClubs()" class="navbar-item">
+                <p>Klubovi</p>
+            </div>
+
+            <!-- <div class="navbar-item">
+                <p>FAQ</p>
+            </div>
+
+            <div class="navbar-item">
+                <p>O nama</p>
+            </div> -->
+
+            <div class="navbar-item" *ngIf="user && user.username !== ''">
+                <p>Moj profil</p>
+            </div>
+
+            <div class="login-button" *ngIf="user.username === ''">
+                <p (click)="loginClick()">Prijava</p>
+            </div>
+            <div class="login-button" *ngIf="user && user.username !== ''">
+                <p (click)="onLogout()"><i class="outside bi bi-box-arrow-left" style="margin-right: 5px;"></i>Odjavi se
+                </p>
+            </div>
+        </div>
+
+        <div class="dropdown-content" *ngIf="isDropdownVisible">
+            <div class="burger-icon" (click)="toggleDropdown()">
+                <i class="bi bi-list"></i>
+            </div>
+            <div class="dropdown-contentt" [ngClass]="{'show': dropdownOpen}">
+                <div class="navbar-item" (click)="goToEvents()">
+                    <p>Događaji</p>
+                </div>
+                <div class="navbar-item" (click)="goToClubs()">
+                    <p>Klubovi</p>
+                </div>
+                <!-- <div class="navbar-item">
+                    <p>FAQ</p>
+                </div>
+                <div class="navbar-item">
+                    <p>O nama</p>
+                </div> -->
+                <div class="navbar-item" *ngIf="user.username === ''" (click)="loginClick()">
+                    <p>Prijava</p>
+                </div>
+                <div class="navbar-item" *ngIf="user && user.username !== ''" (click)="onLogout()">
+                    <p>Odjavi se</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div>

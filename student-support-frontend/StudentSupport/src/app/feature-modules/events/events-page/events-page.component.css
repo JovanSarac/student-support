@@ -159,12 +159,14 @@ option {
   margin-bottom: 20px;
   margin-right: 20px;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
 }
 
 .one-card:hover {
   box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8);
   cursor: pointer;
   border: 2px solid black;
+  transform: scale(1.05);
 }
 
 .type-event {
