@@ -4,7 +4,7 @@ import { InformationBoardComponent } from './information-board/information-board
 import { LayoutModule } from '../layout/layout.module';
 import { CreateEventComponent } from './create-event/create-event.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     LayoutModule,
     ReactiveFormsModule,
+    SharedModule,
   ],
   exports:[
     InformationBoardComponent

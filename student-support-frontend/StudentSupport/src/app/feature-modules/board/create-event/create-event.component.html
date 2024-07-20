@@ -67,7 +67,14 @@
 
         </form>
 
-        <div class="overview-event" *ngIf="overview">
+        <div class="address-info">
+            <p>Unesi podatke o adresi dogadjaja:</p>
+            <app-map class="address-map"></app-map>
+
+        </div>
+
+
+        <!--<div class="overview-event" *ngIf="overview">
             <div class="overview-event-container" [style.background]="getEventColors(eventForm.value.type!)">
                 <div class="userpost">
                     <img src="../../../../assets/images/profile-pic.jpg" alt="no picture">
@@ -105,7 +112,7 @@
 
             </div>
 
-        </div>
+        </div>-->
     </div>
 
 </div>
