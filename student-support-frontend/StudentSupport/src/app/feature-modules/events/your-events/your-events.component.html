@@ -1,0 +1,43 @@
+<div class="full-page-bg">
+    <div class="page-content">
+        <button class="new-event" (click)="onCreateEventClick()"><i class="bi bi-plus-lg" style="margin-right: 5px;"></i>Napravi novi dogadjaj</button>
+
+        <div class="events">
+            <p>TVOJI DOGAĐAJI</p>
+    
+            <div *ngIf="events.length != 0">
+                <div class="cards">
+                    <div class="one-card" *ngFor="let event of pagedEvents"
+                        [ngStyle]="{'background-image': 'url(' + event.image + ')'}">
+                        <div class="type-event">
+                            <p [ngStyle]="{'background-color': eventTypeColors[event.eventType]}"
+                                [innerText]="eventType[event.eventType] || event.eventType"></p>
+        
+                        </div>
+                        <div class="overlay">
+                            <p>{{ event.name }}</p>
+                            <p class="date-event">14.7.2024. 15:00</p>
+                            <p class="address">{{event.address}}</p>
+                        </div>
+                    </div>
+        
+                </div>
+        
+                <div class="pagination">
+                    <button (click)="prevPage()" [disabled]="currentPage === 1">Prethodna</button>
+                    <span>Strana {{ currentPage }} od {{ totalPages }}</span>
+                    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Sledeća</button>
+                </div>
+
+            </div>
+
+            <div class="empty-page" *ngIf="events.length == 0">
+                <p>Trenutno nemas nijedan svoj dogadjaj. Napravi novi pritiskom na dugme 'Napravi novi dogadjaj'.</p>
+
+            </div>
+    
+        </div>
+
+    </div>
+
+</div>

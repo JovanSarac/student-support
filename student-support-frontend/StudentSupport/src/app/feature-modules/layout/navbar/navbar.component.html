@@ -25,6 +25,10 @@
                 <p>Moj profil</p>
             </div>
 
+            <div class="navbar-item" *ngIf="user && user.role == 'author'">
+                 <p (click)="yourEventClick()">Tvoji dogadjaji</p>
+            </div>
+
             <div class="login-button" *ngIf="user.username === ''">
                 <p (click)="loginClick()">Prijava</p>
             </div>

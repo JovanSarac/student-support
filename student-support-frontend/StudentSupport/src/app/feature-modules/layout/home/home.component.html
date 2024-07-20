@@ -91,7 +91,7 @@
 
         </div>
 
-        <div *ngIf="pagedEvents.length > 4" class="pagination">
+        <div class="pagination">
             <button (click)="prevPage()" [disabled]="currentPage === 1">Prethodna</button>
             <span>Strana {{ currentPage }} od {{ totalPages }}</span>
             <button (click)="nextPage()" [disabled]="currentPage === totalPages">Sledeća</button>

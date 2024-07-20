@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { MyEvent } from '../../board/model/myevent.model';
-import { EventsService } from '../events.service';
 import { Router } from '@angular/router';
+import { EventsService } from '../events.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
 
 @Component({
-  selector: 'app-events-page',
-  templateUrl: './events-page.component.html',
-  styleUrls: ['./events-page.component.css']
+  selector: 'app-your-events',
+  templateUrl: './your-events.component.html',
+  styleUrls: ['./your-events.component.css']
 })
-export class EventsPageComponent implements OnInit{
+export class YourEventsComponent  implements OnInit{
 
-  selected!: Date;  
-
+  user! : User;
+  
   events : MyEvent[] =  [];
   currentPage = 1;
   pageSize = 8;
@@ -46,17 +48,20 @@ export class EventsPageComponent implements OnInit{
   constructor(
     private router: Router,
     private service : EventsService,
+    private authService : AuthService,
   ) {}
 
-
   ngOnInit(): void {
-    this.service.getAllEvenets().subscribe({
-      next: (result:PagedResults<MyEvent>)=>{
-        this.events = result.results;
+    this.user = this.authService.user$.value;
+    this.service.getYoursEvents(this.user.id).subscribe({
+      next: (result:MyEvent[])=>{
+        this.events = result;
+        console.log(this.events)
         this.totalPages = Math.ceil(this.events.length / this.pageSize);
         this.updatePagedEvents();
       }
     })
+   
   }
 
   updatePagedEvents() {
@@ -79,6 +84,9 @@ export class EventsPageComponent implements OnInit{
     }
   }
 
+  onCreateEventClick():void{
+    this.router.navigate(['/create-event']);
+  }
 
 
 }

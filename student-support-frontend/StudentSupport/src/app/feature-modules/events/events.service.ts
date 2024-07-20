@@ -15,4 +15,8 @@ export class EventsService {
   getAllEvenets(): Observable<PagedResults<MyEvent>> {
     return this.http.get<PagedResults<MyEvent>>(environment.apiHost + 'student/events');
   }
+
+  getYoursEvents(userId : number): Observable<MyEvent[]>{
+    return this.http.get<MyEvent[]>(environment.apiHost + 'author/events/get_yours_events/' + userId);
+  }
 }

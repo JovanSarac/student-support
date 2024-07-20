@@ -30,6 +30,13 @@ namespace StudentSupport.API.Controllers.Author
             return CreateResponse(result);
         }
 
+        [HttpGet("get_yours_events/{id:long}")]
+        public ActionResult<List<EventDto>> GetYoursEvents(long id)
+        {
+            var result = _eventService.GetYoursEvents(id);
+            return CreateResponse(result);
+        }
+
         [HttpPost]
         public ActionResult<EventDto> Create([FromBody] EventDto eventDto)
         {

@@ -16,5 +16,7 @@ namespace StudentSupport.Events.API.Public
         Result<EventDto> Update(EventDto eventDto);
         Result Delete(int id);
         Result<EventDto> Get(int id);
+
+        Result<List<EventDto>> GetYoursEvents(long userId);
     }
 }
