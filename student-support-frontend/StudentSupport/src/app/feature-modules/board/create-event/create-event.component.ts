@@ -81,28 +81,23 @@ export class CreateEventComponent implements OnInit {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     this.selectedFile = file;
-
+  
     const reader = new FileReader();
-    /*reader.onload = (e: any) => {
-      this.selectedImage = reader.result; 
-      this.event.image = e.target.result; 
-    };*/
     reader.onload = (e: any) => {
       const img = new Image();
       img.src = e.target.result;
-      
+  
       img.onload = () => {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        
-        // Promenite ove vrednosti prema potrebi za smanjenje kvaliteta slike.
-        const maxWidth = 800;
-        const maxHeight = 600;
+  
+        // Podesi dimenzije na osnovu maksimalne veličine
+        const maxWidth = 700;
+        const maxHeight = 500;
         let width = img.width;
         let height = img.height;
-    
+  
+        // Proporcionalno smanjenje dimenzija
         if (width > height) {
           if (width > maxWidth) {
             height *= maxWidth / width;
@@ -114,21 +109,21 @@ export class CreateEventComponent implements OnInit {
             height = maxHeight;
           }
         }
-    
+  
         canvas.width = width;
         canvas.height = height;
-    
         ctx?.drawImage(img, 0, 0, width, height);
-        const compressedImageData = canvas.toDataURL('image/jpeg', 0.7); // Promenite 0.7 prema potrebi za kvalitet slike.
-        
-        this.selectedImage = compressedImageData; 
-        this.event.image = compressedImageData; 
+  
+        // Dalje smanjenje kvaliteta slike
+        const compressedImageData = canvas.toDataURL('image/webp', 0.7); // Pokušaj sa 0.3 za dalju kompresiju
+  
+        this.selectedImage = compressedImageData;
+        this.event.image = compressedImageData;
       };
     };
-
+  
     reader.readAsDataURL(file);
   }
-
 
   viewOverview() {
     this.overview = true;
