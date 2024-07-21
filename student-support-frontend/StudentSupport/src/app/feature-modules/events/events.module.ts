@@ -5,7 +5,7 @@ import { LayoutModule } from '../layout/layout.module';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 import { YourEventsComponent } from './your-events/your-events.component';
-import { SharedModule } from 'primeng/api';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 

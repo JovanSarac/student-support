@@ -32,15 +32,9 @@
                 </div>
 
                 <div class="form__group field">
-                    <input formControlName="address" type="input" class="form__field" placeholder="Adresa"
-                        name="address" id='address' required />
-                    <label for="address" class="form__label">Adresa događaja:</label>
-                </div>
-
-                <div class="form__group field">
                     <input formControlName="date" type="datetime-local" class="form__field" placeholder="Datum"
                         name="date" id='date' required />
-                    <label for="date" class="form__label">Izaberi datum događaja:</label>
+                    <label for="date" class="form__label">Izaberite datum početka događaja:</label>
                 </div>
 
             </div>
@@ -60,17 +54,39 @@
 
                     </div>
                 </div>
-                <div class="buttons"><button class="next-btn" (click)="viewOverview()">Nastavi<i
-                            class="bi bi-chevron-right"></i></button></div>
             </div>
 
 
         </form>
 
         <div class="address-info">
-            <p>Unesi podatke o adresi dogadjaja:</p>
-            <app-map class="address-map"></app-map>
+            <p>Izaberi na mapi adresu događaja:</p>
+            <div class="row-map-address">
+                <xp-map class="map" [mapId]="'address_map'" ></xp-map>
 
+                <div class="separator"></div>
+                <div class="city-street">
+                    <div class="form__group field">
+                        <input type="text" class="form__field" placeholder="Grad" required [(ngModel)]="city"/>
+                        <label  class="form__label">Grad:</label>
+                    </div>
+
+                    <div class="form__group field">
+                        <input type="text" class="form__field" placeholder="Ulica" required [(ngModel)]="street"/>
+                        <label  class="form__label">Ulica:</label>
+                    </div>
+                    <p>Možete grad i ulicu ručno izmjeniti, ukoliko prikazana adresa nije baš tačna!</p>
+
+                </div>
+
+
+            </div>
+            
+
+        </div>
+
+        <div class="create-button">
+            <p (click)="createEvent()">Kreiraj</p>
         </div>
 
 

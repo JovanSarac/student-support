@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
@@ -7,6 +7,7 @@ import { marked } from 'marked';
 import { BoardService } from '../board.service';
 import { MyEvent } from '../model/myevent.model';
 import { Router } from '@angular/router';
+import { MapComponent } from 'src/app/shared/map/map.component';
 
 @Component({
   selector: 'app-create-event',
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-event.component.css']
 })
 export class CreateEventComponent implements OnInit {
+  @ViewChild(MapComponent) mapComponent: MapComponent | undefined;
 
   selectedFile: File | null = null;
   selectedImage: string | ArrayBuffer | null = null;
@@ -21,6 +23,10 @@ export class CreateEventComponent implements OnInit {
   user !: User;
   formattedDescription: string = '';
   showFullDescription = false;
+  city: string = '';
+  street: string = '';
+  latitude: number = 0;
+  longitude: number = 0;
   event : MyEvent={
     id: 0,
     name: '',
@@ -30,7 +36,9 @@ export class CreateEventComponent implements OnInit {
     eventType: '',
     datePublication: new Date(),
     image: '',
-    userId: 0
+    userId: 0,
+    latitude: 0,
+    longitude: 0
   };
 
   dtn = new Date();
@@ -53,6 +61,20 @@ export class CreateEventComponent implements OnInit {
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       this.user = user;
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.mapComponent!.setStatus();
+    this.mapComponent!.registerOnClick();
+    this.mapComponent!.locationSelected.subscribe((location: { city: string, street: string }) => {
+      this.city = location.city;
+      this.street = location.street;
+    });
+    this.mapComponent!.locationLatLong.subscribe((locationLatLng: {lat: number, lng: number})=>{
+      this.latitude = locationLatLng.lat;
+      this.longitude = locationLatLng.lng;
+
     });
   }
 
@@ -153,7 +175,9 @@ export class CreateEventComponent implements OnInit {
     this.event.name = this.eventForm.value.name || '';
     this.event.description = this.eventForm.value.description || '';
     this.event.dateEvent = new Date(this.eventForm.value.date || '');
-    this.event.address = this.eventForm.value.address || '';
+    this.event.address = this.street + ', ' + this.city || '';
+    this.event.latitude = this.latitude;
+    this.event.longitude = this.longitude;
     this.event.eventType = this.eventForm.value.type || '';
     this.event.datePublication = new Date();
     this.event.userId = this.user.id;
@@ -161,7 +185,7 @@ export class CreateEventComponent implements OnInit {
 
     this.service.createEvent(this.event).subscribe({
       next:(result:MyEvent)=>{
-        this.router.navigate(['info-board']);
+        this.router.navigate(['your-events']);
       }
     })
   }

@@ -5,6 +5,8 @@ export interface MyEvent {
     description: string;
     dateEvent: Date;
     address: string;
+    latitude: number;
+    longitude: number;
     eventType: string;
     datePublication: Date;
     image : string;
