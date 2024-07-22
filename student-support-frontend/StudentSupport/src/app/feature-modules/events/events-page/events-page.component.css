@@ -171,6 +171,30 @@ option {
 
 .type-event {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.type-event button {
+  margin-right: 3%;
+  margin-top: 1%;
+  background: rgba(107, 107, 107, 0.9);
+  color: white;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 10px;
+  font-size: 17px;
+  transition: transform 0.3s, background-color 0.5s;
+}
+
+.type-event button:active {
+  transform: scale(0.95);
+}
+
+.type-event button:hover {
+  background: rgba(66, 66, 66, 0.9);
 }
 
 .type-event p {

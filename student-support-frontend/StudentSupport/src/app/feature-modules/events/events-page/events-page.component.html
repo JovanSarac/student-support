@@ -35,6 +35,12 @@
                         <div class="type-event">
                             <p [ngStyle]="{'background-color': eventTypeColors[event.eventType]}"
                                 [innerText]="eventType[event.eventType] || event.eventType"></p>
+                            <button *ngIf="!isAlreadyCheckedParticipate(event.id)"
+                                (click)="participateEvent(event.id)"><i class="bi bi-star"></i> Interested</button>
+                            <button *ngIf="isAlreadyCheckedParticipate(event.id)"
+                                (click)="cancelEventParticipation(event.id)"><i class="bi bi-star-fill"></i> Not
+                                Interested</button>
+
 
                         </div>
                         <div class="overlay">
