@@ -25,6 +25,13 @@ namespace StudentSupport.API.Controllers.Student
             return CreateResponse(result);
         }
 
+        [HttpGet("byStudentId/{studentId:int}")]
+        public ActionResult<PagedResult<ParticipationDto>> GetAllByStudentId(int studentId)
+        {
+            var result = _participationService.GetAllByStudentId(studentId);
+            return CreateResponse(result);
+        }
+
         [HttpGet("{id:int}")]
         public ActionResult<ParticipationDto> Get(int id)
         {
@@ -40,9 +47,16 @@ namespace StudentSupport.API.Controllers.Student
         }
 
         [HttpPut]
-        public ActionResult<List<ParticipationDto>> Update([FromBody] ParticipationDto participationDto)
+        public ActionResult<ParticipationDto> Update([FromBody] ParticipationDto participationDto)
         {
             var result = _participationService.Update(participationDto);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("cancel")]
+        public ActionResult<ParticipationDto> Update([FromBody] int id)
+        {
+            var result = _participationService.Cancel(id);
             return CreateResponse(result);
         }
 

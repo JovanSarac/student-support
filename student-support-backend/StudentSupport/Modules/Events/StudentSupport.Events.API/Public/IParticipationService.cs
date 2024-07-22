@@ -16,5 +16,7 @@ namespace StudentSupport.Events.API.Public
         Result<ParticipationDto> Create(ParticipationDto participationDto);
         Result<ParticipationDto> Update(ParticipationDto participationDto);
         Result Delete(int id);
+        Result<List<ParticipationDto>> GetAllByStudentId(int studentId);
+        Result<ParticipationDto> Cancel(int id);
     }
 }

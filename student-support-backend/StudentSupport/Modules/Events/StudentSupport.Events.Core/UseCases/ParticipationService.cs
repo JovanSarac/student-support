@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentResults;
 using StudentSupport.BuildingBlocks.Core.UseCases;
 using StudentSupport.Events.API.Dtos;
 using StudentSupport.Events.API.Public;
@@ -23,6 +24,31 @@ namespace StudentSupport.Events.Core.UseCases
             _mapper = mapper;
         }
 
+        public Result<List<ParticipationDto>> GetAllByStudentId(int studentId)
+        {
+            List<ParticipationDto> participations = new List<ParticipationDto>();
+            
+            foreach(var participation in _participationRepository.GetAllByStudentId(studentId))
+            {
+                participations.Add(MapToDto(participation));
+            }
 
+            return participations;
+        }
+
+        public Result<ParticipationDto> Cancel(int id)
+        {
+            try
+            {
+                Participation participation = _participationRepository.Get(id);
+                participation.Cancel();
+                _participationRepository.SaveChanges();
+                return MapToDto(participation);
+            }
+            catch(ArgumentException e)
+            {
+                return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
+            }
+        }
     }
 }
