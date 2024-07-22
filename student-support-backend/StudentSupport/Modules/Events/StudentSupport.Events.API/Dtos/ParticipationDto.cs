@@ -12,6 +12,6 @@ namespace StudentSupport.Events.API.Dtos
         public long EventId { get; set; }
         public long StudentId { get; set; }
         public DateTime EnrollmentDate { get; set; }
-        public string Type { get; set; }
+        public int Type { get; set; }
     }
 }
