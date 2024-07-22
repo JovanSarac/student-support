@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentResults;
 using StudentSupport.BuildingBlocks.Core.UseCases;
 using StudentSupport.Events.API.Dtos;
 using StudentSupport.Events.API.Public;
@@ -18,8 +19,13 @@ namespace StudentSupport.Events.Core.UseCases
 
         public EventService(ICrudRepository<Event> repository, IEventRepository eventRepository, IMapper mapper) : base(repository, mapper)
         {
-            _eventRepository = eventRepository; ;
+            _eventRepository = eventRepository; 
         }
 
+
+        public Result<List<EventDto>> GetYoursEvents(long userId)
+        {
+            return MapToDto(_eventRepository.GetYoursEvents(userId));
+        }
     }
 }

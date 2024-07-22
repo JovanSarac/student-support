@@ -1,78 +1,96 @@
 <div class="full-page-bg">
-    <!-- <div class="navbar-content">
-        <xp-navbar></xp-navbar>
-    </div> -->
     <div class="page-content">
-        <div class="create-event" *ngIf="!overview">
-            <div class="create-event-form">
-                <form [formGroup]="eventForm" class="input-form">
-                    <div class="text-info">
-                        <div class="form__group field">
-                            <select formControlName="type" type="input" class="form__field" placeholder="Vrsta"
-                                name="type" id='type' required>
-                                <option value="" selected disabled hidden></option>
-                                <option value="0">Akademske konferencije i seminari</option>
-                                <option value="1">Radionice i kursevi</option>
-                                <option value="2">Kultorološki događaj</option>
-                                <option value="3">Sajamski događaj</option>
-                                <option value="4">Humanitarni događaj</option>
-                                <option value="5">Umjetničke izložbe i predstave</option>
-                                <option value="6">Studentske žurke i društveni događaji</option>
-                                <option value="7">Takmičenja</option>
-                                <option value="8">Studentska putovanja</option>
-                            </select>
-                            <label for="type" class="form__label">Vrsta događaja:</label>
-                        </div>
-                        <div class="form__group field">
-                            <input formControlName="name" type="input" class="form__field" placeholder="Naziv"
-                                name="name" id='name' required />
-                            <label for="name" class="form__label">Naziv događaja:</label>
-                        </div>
+        <p>Kreiraj događaj:</p>
+        <form [formGroup]="eventForm" class="input-form">
+            <div class="text-info">
+                <div class="form__group field">
+                    <select formControlName="type" type="input" class="form__field" placeholder="Vrsta"
+                        name="type" id='type' required>
+                            <option value=""> </option>
+                            <option value="0">Akademske konferencije i seminari</option>
+                            <option value="1">Radionice i kursevi</option>
+                            <option value="2">Kultorološki događaj</option>
+                            <option value="3">Sajamski događaj</option>
+                            <option value="4">Humanitarni događaj</option>
+                            <option value="5">Umjetničke izložbe i predstave</option>
+                            <option value="6">Studentske žurke i društveni događaji</option>
+                            <option value="7">Takmičenja</option>
+                            <option value="8">Studentska putovanja</option>
+                    </select>
+                    <label for="type" class="form__label">Vrsta događaja:</label>
+                </div>
+                <div class="form__group field">
+                        <input formControlName="name" type="input" class="form__field" placeholder="Naziv"
+                            name="name" id='name' required />
+                        <label for="name" class="form__label">Naziv događaja:</label>
+                </div>
 
-                        <div class="form__group field">
-                            <textarea formControlName="description" type="input" class="description__field"
-                                placeholder="Opis" name="description" id='description' required></textarea>
-                            <label for="description" class="form__label">Opis događaja:</label>
-                        </div>
+                <div class="form__group field">
+                    <textarea formControlName="description" type="input" class="description__field"
+                        placeholder="Opis" name="description" id='description' required></textarea>
+                    <label for="description" class="form__label">Opis događaja:</label>
+                </div>
 
-                        <div class="form__group field">
-                            <input formControlName="address" type="input" class="form__field" placeholder="Adresa"
-                                name="address" id='address' required />
-                            <label for="address" class="form__label">Adresa događaja:</label>
-                        </div>
-
-                        <div class="form__group field">
-                            <input formControlName="date" type="datetime-local" class="form__field" placeholder="Datum"
-                                name="date" id='date' required />
-                            <label for="date" class="form__label">Izaberi datum događaja:</label>
-                        </div>
-
-                    </div>
-                    <div class="separator"></div>
-                    <div class="pictures">
-                        <div class="container-pictures">
-                            <div class="dialog-pictures" (click)="fileInput.click()">
-                                <p class="add-pictures" *ngIf="!selectedImage"><i class="bi bi-file-earmark-image-fill"
-                                        style="margin-right: 4px;"></i>Dodaj fotografiju</p>
-                                <input type="file" #fileInput (change)="onFileSelected($event)"
-                                    style="display: none;" />
-                                <div *ngIf="selectedImage" class="selected-image">
-                                    <img [src]="selectedImage" alt="Selected Image" class="preview" />
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="buttons"><button class="next-btn" (click)="viewOverview()">Nastavi<i
-                                    class="bi bi-chevron-right"></i></button></div>
-                    </div>
-
-
-                </form>
+                <div class="form__group field">
+                    <input formControlName="date" type="datetime-local" class="form__field" placeholder="Datum"
+                        name="date" id='date' required />
+                    <label for="date" class="form__label">Izaberite datum početka događaja:</label>
+                </div>
 
             </div>
+            
+            <div class="separator"></div>
+            
+            <div class="pictures">
+                <div class="container-pictures">
+                    <div class="dialog-pictures" (click)="fileInput.click()">
+                        <p class="add-pictures" *ngIf="!selectedImage"><i class="bi bi-file-earmark-image-fill"
+                                style="margin-right: 4px;"></i>Dodaj fotografiju</p>
+                        <input type="file" #fileInput (change)="onFileSelected($event)"
+                            style="display: none;" />
+                        <div *ngIf="selectedImage" class="selected-image">
+                            <img [src]="selectedImage" alt="Selected Image" class="preview" />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+
+        <div class="address-info">
+            <p>Izaberi na mapi adresu događaja:</p>
+            <div class="row-map-address">
+                <xp-map class="map" [mapId]="'address_map'" ></xp-map>
+
+                <div class="separator"></div>
+                <div class="city-street">
+                    <div class="form__group field">
+                        <input type="text" class="form__field" placeholder="Grad" required [(ngModel)]="city"/>
+                        <label  class="form__label">Grad:</label>
+                    </div>
+
+                    <div class="form__group field">
+                        <input type="text" class="form__field" placeholder="Ulica" required [(ngModel)]="street"/>
+                        <label  class="form__label">Ulica:</label>
+                    </div>
+                    <p>Možete grad i ulicu ručno izmjeniti, ukoliko prikazana adresa nije baš tačna!</p>
+
+                </div>
+
+
+            </div>
+            
+
         </div>
 
-        <div class="overview-event" *ngIf="overview">
+        <div class="create-button">
+            <p (click)="createEvent()">Kreiraj</p>
+        </div>
+
+
+        <!--<div class="overview-event" *ngIf="overview">
             <div class="overview-event-container" [style.background]="getEventColors(eventForm.value.type!)">
                 <div class="userpost">
                     <img src="../../../../assets/images/profile-pic.jpg" alt="no picture">
@@ -110,7 +128,7 @@
 
             </div>
 
-        </div>
+        </div>-->
     </div>
 
 </div>

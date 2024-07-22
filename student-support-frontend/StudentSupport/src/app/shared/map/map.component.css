@@ -1,0 +1,15 @@
+.map-frame {
+    display: block;
+    height: 100%;
+    border: 2px solid black;
+    width: 100%;
+    flex-direction: column;
+    border-radius: inherit;
+}
+
+.map {
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    font-family: 'Poppins', sans-serif;
+}

@@ -14,6 +14,8 @@ namespace StudentSupport.Events.Core.Domain
         public string Description { get; init; }
         public DateTime DateEvent { get; init; }
         public string Address {  get; init; }
+        public double Latitude { get; init; }
+        public double Longitude { get; init; }
         public EventType EventType { get; init; }
         public DateTime DatePublication { get; init; }
         public string Image {  get; init; }
@@ -21,13 +23,15 @@ namespace StudentSupport.Events.Core.Domain
         {
 
         }
-        public Event(long userId, string name, string description, DateTime dateEvent, string address, EventType eventType, DateTime datePublication, string image)
+        public Event(long userId, string name, string description, DateTime dateEvent, string address, double latitude, double longitude, EventType eventType, DateTime datePublication, string image)
         {
             UserId = userId;
             Name = name;
             Description = description;
             DateEvent = dateEvent;
             Address = address;
+            Latitude = latitude;
+            Longitude = longitude;
             EventType = eventType;
             DatePublication = datePublication;
             Image = image;

@@ -28,4 +28,8 @@ export class EventsService {
   getAllParticipationsByStudentId(studentId: number): Observable<Participation[]> {
     return this.http.get<Participation[]>(environment.apiHost + 'student/participations/byStudentId/' + studentId);
   }
+  
+  getYoursEvents(userId : number): Observable<MyEvent[]>{
+    return this.http.get<MyEvent[]>(environment.apiHost + 'author/events/get_yours_events/' + userId);
+  }
 }

@@ -11,7 +11,7 @@ using StudentSupport.Stakeholders.Infrastructure.Database;
 namespace StudentSupport.Stakeholders.Infrastructure.Migrations
 {
     [DbContext(typeof(StakeholdersContext))]
-    [Migration("20240718235632_Init")]
+    [Migration("20240722140100_Init")]
     partial class Init
     {
         /// <inheritdoc />

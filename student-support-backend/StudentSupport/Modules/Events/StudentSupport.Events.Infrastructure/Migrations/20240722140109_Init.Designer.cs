@@ -12,7 +12,7 @@ using StudentSupport.Events.Infrastructure.Database;
 namespace StudentSupport.Events.Infrastructure.Migrations
 {
     [DbContext(typeof(EventsContext))]
-    [Migration("20240718235640_Init")]
+    [Migration("20240722140109_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -54,6 +54,12 @@ namespace StudentSupport.Events.Infrastructure.Migrations
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("double precision");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -6,19 +6,11 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   /* background-image: url("../../../../assets/images/background.png"); */
   background-color: white;
   background-size: cover;
   background-position: center;
-}
-
-.navbar-content {
-  width: 20%;
-}
-
-.topbar-content {
-  width: 100%;
 }
 
 .information-board {
@@ -33,7 +25,8 @@
   flex-direction: row;
   width: 94%;
   margin: 3%;
-  height: calc(100% - 150px);
+  height: calc(100% - 100px);
+  gap: 10px;
 }
 
 .filters {
@@ -131,7 +124,7 @@ option {
 }
 
 .events::-webkit-scrollbar-thumb:hover {
-  background: #020264;
+  background: #002f56;
   /* Boja skrol trake pri hover efektu */
 }
 
@@ -176,7 +169,7 @@ option {
 }
 
 .type-event button {
-  margin-right: 3%;
+  margin-right: 2%;
   margin-top: 1%;
   background: rgba(107, 107, 107, 0.9);
   color: white;
@@ -187,6 +180,7 @@ option {
   border-radius: 10px;
   font-size: 17px;
   transition: transform 0.3s, background-color 0.5s;
+  font-family: "Poppins", sans-serif;
 }
 
 .type-event button:active {
@@ -231,6 +225,7 @@ option {
   font-weight: 500;
   font-weight: bold;
   margin: 5px 0;
+  text-decoration: underline;
 }
 
 .overlay .address {

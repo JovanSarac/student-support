@@ -8,5 +8,6 @@ namespace StudentSupport.Events.Core.Domain.RepositoryInterfaces
 {
     public interface IEventRepository
     {
+        List<Event>  GetYoursEvents(long userId);
     }
 }

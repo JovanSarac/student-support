@@ -141,7 +141,4 @@ export class EventsPageComponent implements OnInit{
       this.updatePagedEvents();
     }
   }
-
-
-
 }
