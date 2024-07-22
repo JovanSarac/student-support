@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { MyEvent } from '../board/model/myevent.model';
 import { environment } from 'src/env/environment';
+import { Participation } from 'src/app/shared/model/participation-model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,19 @@ export class EventsService {
 
   constructor(private http: HttpClient) { }
 
-  getAllEvenets(): Observable<PagedResults<MyEvent>> {
+  getAllEvents(): Observable<PagedResults<MyEvent>> {
     return this.http.get<PagedResults<MyEvent>>(environment.apiHost + 'student/events');
+  }
+
+  participateEvent(participation: Participation): Observable<Participation> {
+    return this.http.post<Participation>(environment.apiHost + 'student/participations', participation);
+  }
+
+  cancelParticipation(participationId: number): Observable<Participation> {
+    return this.http.put<Participation>(environment.apiHost + 'student/participations/cancel', participationId);
+  }
+
+  getAllParticipationsByStudentId(studentId: number): Observable<Participation[]> {
+    return this.http.get<Participation[]>(environment.apiHost + 'student/participations/byStudentId/' + studentId);
   }
 }
