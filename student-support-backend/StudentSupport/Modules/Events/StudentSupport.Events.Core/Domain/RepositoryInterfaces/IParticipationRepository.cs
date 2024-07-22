@@ -9,5 +9,7 @@ namespace StudentSupport.Events.Core.Domain.RepositoryInterfaces
 {
     public interface IParticipationRepository : ICrudRepository<Participation>
     {
+        List<Participation> GetAllByStudentId(int studentId);
+        void SaveChanges();
     }
 }

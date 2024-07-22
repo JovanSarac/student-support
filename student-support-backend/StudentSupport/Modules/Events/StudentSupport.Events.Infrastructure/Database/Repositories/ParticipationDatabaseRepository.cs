@@ -69,5 +69,14 @@ namespace StudentSupport.Events.Infrastructure.Database.Repositories
         {
             _eventsContext.SaveChanges();
         }
+
+        public List<Participation> GetAllByStudentId(int studentId)
+        {
+            List<Participation> participationList = _participations
+                    .Where(p => p.StudentId == studentId)
+                    .ToList();
+
+            return participationList;
+        }
     }
 }
