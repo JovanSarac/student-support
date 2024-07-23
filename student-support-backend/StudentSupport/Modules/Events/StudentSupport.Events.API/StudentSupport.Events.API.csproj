@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Internal\" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\StudentSupport.BuildingBlocks.Core\StudentSupport.BuildingBlocks.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BuildingBlocks\StudentSupport.BuildingBlocks.Core\StudentSupport.BuildingBlocks.Core.csproj" />
+    <Folder Include="Internal\" />
   </ItemGroup>
 
 </Project>

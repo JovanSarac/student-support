@@ -9,6 +9,6 @@ namespace StudentSupport.Events.API.Public
 {
     public interface IEmailService
     {
-        Task SendEmailAsync(ParticipationDto participationDto, EventDto eventDto/*, string receiversMail*/);
+        Task SendEmailAsync(ParticipationDto participationDto, EventDto eventDto, string receiversMail);
     }
 }

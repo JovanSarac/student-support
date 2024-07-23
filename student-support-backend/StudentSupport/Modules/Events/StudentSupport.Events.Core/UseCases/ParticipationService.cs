@@ -5,6 +5,8 @@ using StudentSupport.Events.API.Dtos;
 using StudentSupport.Events.API.Public;
 using StudentSupport.Events.Core.Domain;
 using StudentSupport.Events.Core.Domain.RepositoryInterfaces;
+using StudentSupport.Stakeholders.API.Dtos;
+using StudentSupport.Stakeholders.API.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +22,14 @@ namespace StudentSupport.Events.Core.UseCases
         private readonly IEventService _eventService;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
+        private readonly IInternalPersonService _internalPersonService;
 
-        public ParticipationService(IParticipationRepository participationRepository, IEventService eventService, IEmailService emailService, IMapper mapper) : base(participationRepository, mapper) 
+        public ParticipationService(IParticipationRepository participationRepository, IEventService eventService, IEmailService emailService,  IInternalPersonService internalPersonService, IMapper mapper) : base(participationRepository, mapper) 
         {
             _participationRepository = participationRepository;
             _eventService = eventService;
             _emailService = emailService;
+            _internalPersonService = internalPersonService;
             _mapper = mapper;
         }
 
@@ -69,7 +73,9 @@ namespace StudentSupport.Events.Core.UseCases
             {
                 EventDto eventDto =  _eventService.Get((int)participationDto.EventId).Value;
 
-                await _emailService.SendEmailAsync(participationDto, eventDto);
+                PersonDto personDto = _internalPersonService.GetByUserId((int)participationDto.StudentId).Value;
+
+                await _emailService.SendEmailAsync(participationDto, eventDto, personDto.Email);
 
                 return Create(participationDto);
             }

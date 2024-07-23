@@ -10,10 +10,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StudentSupport.Stakeholders.API.Internal;
 
 namespace StudentSupport.Stakeholders.Core.UseCases
 {
-    public class PersonService : BaseService<PersonDto, Person>, IPersonService
+    public class PersonService : BaseService<PersonDto, Person>, IPersonService, IInternalPersonService
     {
         private readonly IPersonRepository _personRepository;
         

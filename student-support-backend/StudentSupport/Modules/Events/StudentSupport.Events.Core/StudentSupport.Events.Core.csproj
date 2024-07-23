@@ -6,6 +6,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\..\Stakeholders\StudentSupport.Stakeholders.API\StudentSupport.Stakeholders.API.csproj" />
+		<ProjectReference Include="..\..\Stakeholders\StudentSupport.Stakeholders.Core\StudentSupport.Stakeholders.Core.csproj" />
+	</ItemGroup>
+	
   <ItemGroup>
     <ProjectReference Include="..\StudentSupport.Events.API\StudentSupport.Events.API.csproj" />
   </ItemGroup>

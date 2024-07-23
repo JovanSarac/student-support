@@ -13,11 +13,11 @@ namespace StudentSupport.Events.Core.UseCases
     public class EmailService : IEmailService
     {
 
-        public async Task SendEmailAsync(ParticipationDto participationDto, EventDto eventDto/*, string receiversMail*/)
+        public async Task SendEmailAsync(ParticipationDto participationDto, EventDto eventDto, string receiversMail)
         {
-            MailMessage mail = new MailMessage("unstudent@outlook.com", "jovanjokic555@gmail.com");
+            MailMessage mail = new MailMessage("unstudent@outlook.com", receiversMail);
             mail.Subject = eventDto.Name;
-            mail.Body = "YOUR CONTENT";
+            mail.Body = "Hvala vam što ste se prijavili za učešće u našem događaju putem sajta UNStudent! ";
 
             SmtpClient client = new SmtpClient("smtp-mail.outlook.com", 587);
             client.Credentials = new NetworkCredential("unstudent@outlook.com", "Studentskidogadjaji021!");
