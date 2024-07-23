@@ -28,19 +28,10 @@
 
 .new-event{
     width: 200px;
-    height: auto;
-    padding: 10px;
-    background-color: rgb(224, 62, 62);
-    color: white;
-    border-radius: 15px;
     margin-top: 15px;
     margin-left: 5%;
-    font-family: 'Poppins', 'sans-serif';
 }
 
-.new-event:hover{
-    background-color: rgb(136, 11, 11);
-}
 
 
 .events {

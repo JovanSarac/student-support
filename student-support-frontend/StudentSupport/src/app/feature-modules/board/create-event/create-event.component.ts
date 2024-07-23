@@ -23,8 +23,6 @@ export class CreateEventComponent implements OnInit {
   user !: User;
   formattedDescription: string = '';
   showFullDescription = false;
-  city: string = '';
-  street: string = '';
   latitude: number = 0;
   longitude: number = 0;
   event : MyEvent={
@@ -48,7 +46,8 @@ export class CreateEventComponent implements OnInit {
     type : new FormControl('', Validators.required),
     name: new FormControl('',Validators.required),
     description: new FormControl('',Validators.required),
-    address: new FormControl('', Validators.required),
+    city: new FormControl('', Validators.required), // Dodato
+    street: new FormControl('', Validators.required),
     date: new FormControl('', Validators.required),
   });
 
@@ -68,8 +67,10 @@ export class CreateEventComponent implements OnInit {
     this.mapComponent!.setStatus();
     this.mapComponent!.registerOnClick();
     this.mapComponent!.locationSelected.subscribe((location: { city: string, street: string }) => {
-      this.city = location.city;
-      this.street = location.street;
+      this.eventForm.patchValue({
+        city: location.city,
+        street: location.street
+      });
     });
     this.mapComponent!.locationLatLong.subscribe((locationLatLng: {lat: number, lng: number})=>{
       this.latitude = locationLatLng.lat;
@@ -170,7 +171,7 @@ export class CreateEventComponent implements OnInit {
     this.event.name = this.eventForm.value.name || '';
     this.event.description = this.eventForm.value.description || '';
     this.event.dateEvent = new Date(this.eventForm.value.date || '');
-    this.event.address = this.street + ', ' + this.city || '';
+    this.event.address =  this.eventForm.value.street + ', ' + this.eventForm.value.city || '';
     this.event.latitude = this.latitude;
     this.event.longitude = this.longitude;
     this.event.eventType = this.eventForm.value.type || '';

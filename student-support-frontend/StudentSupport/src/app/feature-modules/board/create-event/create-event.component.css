@@ -15,9 +15,9 @@
 .page-content{
   display: flex;
   flex-direction: column;
-  width: 80%;
-  margin-left: 10%;
-  margin-right: 10%;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
   margin-top: 3%;
   margin-bottom: 3%;
   border-radius: 15px;
@@ -38,12 +38,14 @@
 .input-form{
   display: flex;
   flex-direction: row;
-  height: 100%;
+  height: 80%;
+  margin-left: 3%;
+  margin-right: 3%;
 }
 .text-info{
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 35%;
   height: 100%;
 }
 
@@ -175,14 +177,16 @@
 }
 
 .pictures{
-    width: 50%;
-    height: 550px;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 100%;
 }
 
 .container-pictures{
     margin: 5% 10%;
     width: 80%;
-    height: 90%;
+    height: 100%;
     background-color: rgb(255, 255, 255);
     border-radius: 12px;
     border: 1px solid gray;
@@ -230,30 +234,34 @@
 .address-info{
   display: flex;
   flex-direction: column;
-  height: auto;
-  width: 100%;
+  height: 100%;
+  width: 35%;
+}
 
+.address-info p{
+  font-size: 15px;
 }
 
 .row-map-address{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: left;
   align-items: flex-start;
-  height: 400px;
+  height: 600px;
   width: 100%;
 }
 
-.map{
-  width: 45%;
-  height: 400px;
+.map-container{
+  width: 96%;
+  height: 50%;
   margin: 2%;
+
 }
 
 .city-street{
   display: flex;
   flex-direction: column;
-  width: 45%;
+  width: 96%;
   margin: 2%;
 }
 
@@ -267,7 +275,6 @@
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-
 }
 
 .create-button p{
@@ -280,6 +287,10 @@
   color: white;
   border-radius: 15px;
   transition: background-color 0.4s ease-in-out;
+  margin-right: 10%;
+  margin-bottom: 3%;
+  margin-left: 0;
+  margin-top: 0;
 }
 
 .create-button p:hover{
