@@ -10,30 +10,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace StudentSupport.Events.Core.UseCases
 {
     public class ParticipationService : CrudService<ParticipationDto, Participation>, IParticipationService
     {
         private readonly IParticipationRepository _participationRepository;
+        private readonly IEventService _eventService;
         private readonly IMapper _mapper;
+        private readonly IEmailService _emailService;
 
-        public ParticipationService(IParticipationRepository participationRepository, IMapper mapper) : base(participationRepository, mapper) 
+        public ParticipationService(IParticipationRepository participationRepository, IEventService eventService, IEmailService emailService, IMapper mapper) : base(participationRepository, mapper) 
         {
             _participationRepository = participationRepository;
+            _eventService = eventService;
+            _emailService = emailService;
             _mapper = mapper;
         }
 
         public Result<List<ParticipationDto>> GetAllByStudentId(int studentId)
         {
-            List<ParticipationDto> participations = new List<ParticipationDto>();
-            
-            foreach(var participation in _participationRepository.GetAllByStudentId(studentId))
+            try
             {
-                participations.Add(MapToDto(participation));
-            }
+                List<ParticipationDto> participations = new List<ParticipationDto>();
+            
+                foreach(var participation in _participationRepository.GetAllByStudentId(studentId))
+                {
+                    participations.Add(MapToDto(participation));
+                }
 
-            return participations;
+                return participations;
+            }
+            catch(ArgumentException e)
+            {
+                return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
+            }
         }
 
         public Result<ParticipationDto> Cancel(int id)
@@ -50,5 +62,35 @@ namespace StudentSupport.Events.Core.UseCases
                 return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
             }
         }
+
+        public Result<ParticipationDto> CreateWithEmail(ParticipationDto participationDto)
+        {
+            try
+            {
+                EventDto eventDto =  _eventService.Get((int)participationDto.EventId).Value;
+
+                /*string googleCalendarUrl = GenerateGoogleCalendarLink(eventDto);*/
+
+                _emailService.SendEmail(participationDto, eventDto);
+
+                return Create(participationDto);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
+            }
+        }
+
+        /*private string GenerateGoogleCalendarLink(EventDto eventDto)
+        {
+            string title = HttpUtility.UrlEncode(eventDto.Name);
+            string description = HttpUtility.UrlEncode(eventDto.Description);
+            string location = HttpUtility.UrlEncode(eventDto.Address);
+            string startDate = eventDto.DateEvent.ToString("yyyyMMddTHHmmssZ");
+            string endDate = eventDto.DateEvent.AddHours(1).ToString("yyyyMMddTHHmmssZ"); // Pretpostavljamo da događaj traje 1 sat
+
+            string url = $"https://www.google.com/calendar/render?action=TEMPLATE&text={title}&dates={startDate}/{endDate}&details={description}&location={location}";
+            return url;
+        }*/
     }
 }

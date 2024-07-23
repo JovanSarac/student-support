@@ -31,6 +31,7 @@ namespace StudentSupport.Events.Infrastructure
         {
             services.AddScoped<IEventService, EventService>();
             services.AddScoped<IParticipationService, ParticipationService>();
+            services.AddScoped<IEmailService, EmailService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
