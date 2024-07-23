@@ -6,13 +6,13 @@ import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
-    MapComponent
+    MapComponent,
   ],
   imports: [
     CommonModule
   ],
   exports:[
-    MapComponent
+    MapComponent,
   ]
 })
 export class SharedModule { }
