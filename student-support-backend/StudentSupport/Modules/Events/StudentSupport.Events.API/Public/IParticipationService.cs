@@ -18,6 +18,6 @@ namespace StudentSupport.Events.API.Public
         Result Delete(int id);
         Result<List<ParticipationDto>> GetAllByStudentId(int studentId);
         Result<ParticipationDto> Cancel(int id);
-        Result<ParticipationDto> CreateWithEmail(ParticipationDto participationDto);
+        Task<Result<ParticipationDto>> CreateWithEmail(ParticipationDto participationDto);
     }
 }

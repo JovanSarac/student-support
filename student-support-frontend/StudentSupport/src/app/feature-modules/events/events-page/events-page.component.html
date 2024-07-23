@@ -36,7 +36,12 @@
                             <p [ngStyle]="{'background-color': eventTypeColors[event.eventType]}"
                                 [innerText]="eventType[event.eventType] || event.eventType"></p>
                             <button *ngIf="!isAlreadyCheckedParticipate(event.id) && user.role === 'student'"
-                                (click)="participateEvent(event.id)"><i class="bi bi-star"></i> Interested</button>
+                                (click)="participateEvent(event.id)">
+                                <div *ngIf="isLoading" class="spinner-border text-light" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div *ngIf="!isLoading"><i class="bi bi-star"></i> Interested</div>
+                            </button>
                             <button *ngIf="isAlreadyCheckedParticipate(event.id) && user.role === 'student'"
                                 (click)="cancelEventParticipation(event.id)"><i class="bi bi-star-fill"></i> Not
                                 Interested</button>

@@ -30,6 +30,7 @@ export class EventsPageComponent implements OnInit{
     enrollmentDate: new Date(),
     type: ParticipationType.Active
   }
+  isLoading: boolean = false;
 
   eventType: { [key: string]: string } = {
     'AcademicConferenceAndSeminars': 'Konferencije',
@@ -78,6 +79,7 @@ export class EventsPageComponent implements OnInit{
   }
 
   getParticipationsByStudentId(): void{
+    this.isLoading = false;
     this.service.getAllParticipationsByStudentId(this.user.id).subscribe({
       next:(result: Participation[]) => {
         this.participations = result
@@ -94,6 +96,7 @@ export class EventsPageComponent implements OnInit{
   }
 
   participateEvent(eventId: number): void{
+    this.isLoading = true;
     this.participation.eventId = eventId
     this.participation.studentId = this.user.id
     this.service.participateEvent(this.participation).subscribe({

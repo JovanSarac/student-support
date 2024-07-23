@@ -43,7 +43,7 @@ namespace StudentSupport.API.Controllers.Student
         public ActionResult<ParticipationDto> Create([FromBody] ParticipationDto participationDto)
         {
             var result = _participationService.CreateWithEmail(participationDto);
-            return CreateResponse(result);
+            return CreateResponse(result.Result);
         }
 
         [HttpPut]

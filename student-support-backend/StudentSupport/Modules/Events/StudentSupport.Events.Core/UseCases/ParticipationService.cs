@@ -63,15 +63,13 @@ namespace StudentSupport.Events.Core.UseCases
             }
         }
 
-        public Result<ParticipationDto> CreateWithEmail(ParticipationDto participationDto)
+        public async Task<Result<ParticipationDto>> CreateWithEmail(ParticipationDto participationDto)
         {
             try
             {
                 EventDto eventDto =  _eventService.Get((int)participationDto.EventId).Value;
 
-                /*string googleCalendarUrl = GenerateGoogleCalendarLink(eventDto);*/
-
-                _emailService.SendEmail(participationDto, eventDto);
+                await _emailService.SendEmailAsync(participationDto, eventDto);
 
                 return Create(participationDto);
             }
@@ -80,17 +78,5 @@ namespace StudentSupport.Events.Core.UseCases
                 return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
             }
         }
-
-        /*private string GenerateGoogleCalendarLink(EventDto eventDto)
-        {
-            string title = HttpUtility.UrlEncode(eventDto.Name);
-            string description = HttpUtility.UrlEncode(eventDto.Description);
-            string location = HttpUtility.UrlEncode(eventDto.Address);
-            string startDate = eventDto.DateEvent.ToString("yyyyMMddTHHmmssZ");
-            string endDate = eventDto.DateEvent.AddHours(1).ToString("yyyyMMddTHHmmssZ"); // Pretpostavljamo da događaj traje 1 sat
-
-            string url = $"https://www.google.com/calendar/render?action=TEMPLATE&text={title}&dates={startDate}/{endDate}&details={description}&location={location}";
-            return url;
-        }*/
     }
 }
