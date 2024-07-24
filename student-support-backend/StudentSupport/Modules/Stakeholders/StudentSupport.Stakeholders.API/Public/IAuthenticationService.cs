@@ -7,4 +7,5 @@ public interface IAuthenticationService
 {
     Result<AuthenticationTokensDto> Login(CredentialsDto credentials);
     Result<AuthenticationTokensDto> RegisterStudent(AccountRegistrationDto account);
+    Result<AuthenticationTokensDto> LoginStudentGmail(AccountRegistrationGmailDto account);
 }

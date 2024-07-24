@@ -41,11 +41,12 @@ export class RegistrationComponent {
       email: email || "",
       username: username || "",
       password: password || "",
+      profilePic: "https://www.mtatravel.com.au/wp-content/uploads/2020/06/MTA-Placeholder-1.png",
     };
 
     if(this.validate(registration, passwordagain)){
       if (password === passwordagain) {
-        this.authService.register(registration).subscribe({
+        this.authService.registerStudent(registration).subscribe({
           next: () => {
             this.router.navigate(['/']);
           },

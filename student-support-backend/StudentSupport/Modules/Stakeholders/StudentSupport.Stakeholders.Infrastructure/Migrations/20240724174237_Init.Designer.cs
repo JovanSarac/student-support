@@ -11,7 +11,7 @@ using StudentSupport.Stakeholders.Infrastructure.Database;
 namespace StudentSupport.Stakeholders.Infrastructure.Migrations
 {
     [DbContext(typeof(StakeholdersContext))]
-    [Migration("20240722140100_Init")]
+    [Migration("20240724174237_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -38,6 +38,10 @@ namespace StudentSupport.Stakeholders.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProfilePic")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -70,6 +74,9 @@ namespace StudentSupport.Stakeholders.Infrastructure.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("RegisterWithEmail")
+                        .HasColumnType("boolean");
 
                     b.Property<int>("Role")
                         .HasColumnType("integer");

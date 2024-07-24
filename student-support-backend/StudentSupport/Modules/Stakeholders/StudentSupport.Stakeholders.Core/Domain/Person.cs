@@ -9,6 +9,7 @@ public class Person : Entity
     public string Name { get; init; }
     public string Surname { get; init; }
     public string Email { get; init; }
+    public string ProfilePic { get; init; }
 
     public Person(long userId, string name, string surname, string email)
     {
@@ -17,6 +18,11 @@ public class Person : Entity
         Surname = surname;
         Email = email;
         Validate();
+    }
+
+    public  Person(long userId, string name, string surname, string email, string profilePic) : this(userId, name, surname, email)
+    {
+        ProfilePic = profilePic;
     }
 
     private void Validate()

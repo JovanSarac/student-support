@@ -39,5 +39,18 @@ namespace StudentSupport.Stakeholders.Infrastructure.Database.Repositories
 
             return person;
         }
+
+        public Person? GetByEmailWithGmail(string email)
+        {
+            var query = from person in _dbContext.People
+                        join user in _dbContext.Users
+                        on person.UserId equals user.Id
+                        where person.Email == email && user.RegisterWithEmail
+                        select person;
+
+            var entity = query.FirstOrDefault();
+
+            return entity;
+        }
     }
 }

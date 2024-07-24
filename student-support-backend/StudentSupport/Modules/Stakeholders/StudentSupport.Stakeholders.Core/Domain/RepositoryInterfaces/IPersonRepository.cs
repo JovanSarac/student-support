@@ -10,5 +10,6 @@ namespace StudentSupport.Stakeholders.Core.Domain.RepositoryInterfaces
     {
         Person GetByUserId(long userId);
         Person Update(Person person);
+        Person? GetByEmailWithGmail(string email);
     }
 }

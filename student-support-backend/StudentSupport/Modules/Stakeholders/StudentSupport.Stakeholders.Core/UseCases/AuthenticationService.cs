@@ -12,12 +12,14 @@ public class AuthenticationService : IAuthenticationService
     private readonly ITokenGenerator _tokenGenerator;
     private readonly IUserRepository _userRepository;
     private readonly ICrudRepository<Person> _personRepository;
+    private readonly IPersonRepository _personRepositoryy;
 
-    public AuthenticationService(IUserRepository userRepository, ICrudRepository<Person> personRepository, ITokenGenerator tokenGenerator)
+    public AuthenticationService(IUserRepository userRepository, ICrudRepository<Person> personRepository, ITokenGenerator tokenGenerator, IPersonRepository personRepositoryy)
     {
         _tokenGenerator = tokenGenerator;
         _userRepository = userRepository;
         _personRepository = personRepository;
+        _personRepositoryy = personRepositoryy;
     }
 
     public Result<AuthenticationTokensDto> Login(CredentialsDto credentials)
@@ -43,15 +45,54 @@ public class AuthenticationService : IAuthenticationService
 
         try
         {
-            var user = _userRepository.Create(new User(account.Username, account.Password, UserRole.Student, true));
-            var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email));
+            var user = _userRepository.Create(new User(account.Username, account.Password, UserRole.Student, true, false));
+            var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email, account.ProfilePic));
 
             return _tokenGenerator.GenerateAccessToken(user, person.Id);
         }
         catch (ArgumentException e)
         {
             return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
-            // There is a subtle issue here. Can you find it?
         }
+    }
+
+    public Result<AuthenticationTokensDto> LoginStudentGmail(AccountRegistrationGmailDto account)
+    {
+        try
+        {
+            var personFromDatabase = _personRepositoryy.GetByEmailWithGmail(account.Email);
+            if (personFromDatabase == null)
+            {
+                string usernameForStudent = account.Name + account.Surname;
+                if(_userRepository.Exists(usernameForStudent))
+                {
+                    usernameForStudent = GenerateUsernameForStudent(usernameForStudent);
+                }
+                var user = _userRepository.Create(new User(usernameForStudent, "StudentGmail91#", UserRole.Student, true, true));
+                personFromDatabase = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email, account.ProfilePic));
+                return _tokenGenerator.GenerateAccessToken(user, personFromDatabase.Id);
+            }
+            else
+            {             
+                var user = _userRepository.GetById(personFromDatabase.Id);
+                return _tokenGenerator.GenerateAccessToken(user, personFromDatabase.Id);
+            }
+
+        }
+        catch (ArgumentException e)
+        {
+            return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+        }
+    }
+
+    private string GenerateUsernameForStudent(string usernameForStudent)
+    {
+        int i = 0;
+        while(_userRepository.Exists(usernameForStudent))
+        {
+            usernameForStudent +=  i.ToString();
+            i++;
+        }
+        return usernameForStudent;
     }
 }

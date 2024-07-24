@@ -14,10 +14,17 @@ public class AuthenticationController : BaseApiController
         _authenticationService = authenticationService;
     }
 
-    [HttpPost]
+    [HttpPost("student")]
     public ActionResult<AuthenticationTokensDto> RegisterStudent([FromBody] AccountRegistrationDto account)
     {
         var result = _authenticationService.RegisterStudent(account);
+        return CreateResponse(result);
+    }
+
+    [HttpPost("student/gmail")]
+    public ActionResult<AuthenticationTokensDto> LoginStudentGmail([FromBody] AccountRegistrationGmailDto account)
+    {
+        var result = _authenticationService.LoginStudentGmail(account);
         return CreateResponse(result);
     }
 

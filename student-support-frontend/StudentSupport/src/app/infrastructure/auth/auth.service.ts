@@ -8,7 +8,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Login } from './model/login.model';
 import { AuthenticationResponse } from './model/authentication-response.model';
 import { User } from './model/user.model';
-import { Registration } from './model/registration.model';
+import { Registration, RegistrationGmail } from './model/registration.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,9 +31,20 @@ export class AuthService {
       );
   }
 
-  register(registration: Registration): Observable<AuthenticationResponse> {
+  registerStudent(registration: Registration): Observable<AuthenticationResponse> {
     return this.http
-    .post<AuthenticationResponse>(environment.apiHost + 'users', registration)
+    .post<AuthenticationResponse>(environment.apiHost + 'users/student', registration)
+    .pipe(
+      tap((authenticationResponse) => {
+        this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
+        this.setUser();
+      })
+    );
+  }
+
+  loginStudentGmail(registration: RegistrationGmail): Observable<AuthenticationResponse> {
+    return this.http
+    .post<AuthenticationResponse>(environment.apiHost + 'users/student/gmail', registration)
     .pipe(
       tap((authenticationResponse) => {
         this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);

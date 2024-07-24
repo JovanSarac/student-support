@@ -4,7 +4,7 @@ import { FormBuilder,FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { Login } from '../model/login.model';
-import { Registration } from '../model/registration.model';
+import { Registration, RegistrationGmail } from '../model/registration.model';
 
 @Component({
   selector: 'xp-login',
@@ -86,12 +86,22 @@ export class LoginComponent implements OnInit{
     if(response){
       //decode the token
       const payLoad = this.decodeToken(response.credential)
-      //store in session
-      console.log(payLoad)
-      //sessionStorage.setItem("loggedInUser",JSON.stringify(payLoad));
-      console.log(payLoad.email_verified)
-      console.log(payLoad.name)
+
       if(payLoad.email_verified){
+
+        const registration: RegistrationGmail = {
+          name: payLoad.given_name || "",
+          surname: payLoad.family_name || "",
+          email: payLoad.email || "",
+          profilePic: payLoad.picture || "",
+        };
+        
+        this.authService.loginStudentGmail(registration).subscribe({
+          next: () => {
+            this.router.navigate(['/']);
+          },
+        });
+
 
       }
     
