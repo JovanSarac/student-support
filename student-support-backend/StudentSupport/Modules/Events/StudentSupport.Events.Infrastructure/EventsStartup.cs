@@ -9,6 +9,8 @@ using StudentSupport.Events.Core.Mappers;
 using StudentSupport.Events.Core.UseCases;
 using StudentSupport.Events.Infrastructure.Database;
 using StudentSupport.Events.Infrastructure.Database.Repositories;
+using StudentSupport.Stakeholders.API.Internal;
+using StudentSupport.Stakeholders.Core.UseCases;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +33,8 @@ namespace StudentSupport.Events.Infrastructure
         {
             services.AddScoped<IEventService, EventService>();
             services.AddScoped<IParticipationService, ParticipationService>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IInternalPersonService, PersonService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)

@@ -5,35 +5,51 @@ using StudentSupport.Events.API.Dtos;
 using StudentSupport.Events.API.Public;
 using StudentSupport.Events.Core.Domain;
 using StudentSupport.Events.Core.Domain.RepositoryInterfaces;
+using StudentSupport.Stakeholders.API.Dtos;
+using StudentSupport.Stakeholders.API.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace StudentSupport.Events.Core.UseCases
 {
     public class ParticipationService : CrudService<ParticipationDto, Participation>, IParticipationService
     {
         private readonly IParticipationRepository _participationRepository;
+        private readonly IEventService _eventService;
         private readonly IMapper _mapper;
+        private readonly IEmailService _emailService;
+        private readonly IInternalPersonService _internalPersonService;
 
-        public ParticipationService(IParticipationRepository participationRepository, IMapper mapper) : base(participationRepository, mapper) 
+        public ParticipationService(IParticipationRepository participationRepository, IEventService eventService, IEmailService emailService,  IInternalPersonService internalPersonService, IMapper mapper) : base(participationRepository, mapper) 
         {
             _participationRepository = participationRepository;
+            _eventService = eventService;
+            _emailService = emailService;
+            _internalPersonService = internalPersonService;
             _mapper = mapper;
         }
 
         public Result<List<ParticipationDto>> GetAllByStudentId(int studentId)
         {
-            List<ParticipationDto> participations = new List<ParticipationDto>();
-            
-            foreach(var participation in _participationRepository.GetAllByStudentId(studentId))
+            try
             {
-                participations.Add(MapToDto(participation));
-            }
+                List<ParticipationDto> participations = new List<ParticipationDto>();
+            
+                foreach(var participation in _participationRepository.GetAllByStudentId(studentId))
+                {
+                    participations.Add(MapToDto(participation));
+                }
 
-            return participations;
+                return participations;
+            }
+            catch(ArgumentException e)
+            {
+                return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
+            }
         }
 
         public Result<ParticipationDto> Cancel(int id)
@@ -46,6 +62,24 @@ namespace StudentSupport.Events.Core.UseCases
                 return MapToDto(participation);
             }
             catch(ArgumentException e)
+            {
+                return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
+            }
+        }
+
+        public async Task<Result<ParticipationDto>> CreateWithEmail(ParticipationDto participationDto)
+        {
+            try
+            {
+                EventDto eventDto =  _eventService.Get((int)participationDto.EventId).Value;
+
+                PersonDto personDto = _internalPersonService.GetByUserId((int)participationDto.StudentId).Value;
+
+                await _emailService.SendEmailAsync(participationDto, eventDto, personDto.Email);
+
+                return Create(participationDto);
+            }
+            catch (ArgumentException e)
             {
                 return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
             }
