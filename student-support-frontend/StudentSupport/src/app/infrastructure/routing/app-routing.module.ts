@@ -8,21 +8,41 @@ import { InformationBoardComponent } from 'src/app/feature-modules/board/informa
 import { CreateEventComponent } from 'src/app/feature-modules/board/create-event/create-event.component';
 import { EventsPageComponent } from 'src/app/feature-modules/events/events-page/events-page.component';
 import { YourEventsComponent } from 'src/app/feature-modules/events/your-events/your-events.component';
+import { SingleEventPageComponent } from 'src/app/feature-modules/events/single-event-page/single-event-page.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegistrationComponent},
-  {path: 'info-board', component: InformationBoardComponent, canActivate: [AuthGuard]},
-  {path: 'events-page', component: EventsPageComponent, canActivate: [AuthGuard]},
-  {path: 'your-events', component: YourEventsComponent, canActivate: [AuthGuard]},
-  {path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard]},
-  
-
+  { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegistrationComponent },
+  {
+    path: 'info-board',
+    component: InformationBoardComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'events-page',
+    component: EventsPageComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'your-events',
+    component: YourEventsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'create-event',
+    component: CreateEventComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'single-event/:eventId',
+    component: SingleEventPageComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

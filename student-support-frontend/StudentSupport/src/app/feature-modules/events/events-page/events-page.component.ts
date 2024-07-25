@@ -147,6 +147,10 @@ export class EventsPageComponent implements OnInit {
     return false;
   }
 
+  showSingleEvent(eventId: number): void {
+    this.router.navigate([`/single-event/${eventId}`]);
+  }
+
   selectTab(tab: string) {
     this.currentPage = 1; // Reset page to 1 when tab is selected
     this.updatePagedEvents();

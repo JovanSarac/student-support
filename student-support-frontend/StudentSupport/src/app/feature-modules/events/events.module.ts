@@ -6,13 +6,15 @@ import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 import { YourEventsComponent } from './your-events/your-events.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { SingleEventPageComponent } from './single-event-page/single-event-page.component';
 
 
 
 @NgModule({
   declarations: [
     EventsPageComponent,
-    YourEventsComponent
+    YourEventsComponent,
+    SingleEventPageComponent
   ],
   imports: [
     CommonModule,

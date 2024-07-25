@@ -32,6 +32,7 @@
             class="one-card"
             *ngFor="let event of pagedEvents"
             [ngStyle]="{ 'background-image': 'url(' + event.image + ')' }"
+            (click)="showSingleEvent(event.id)"
           >
             <div class="type-event">
               <p

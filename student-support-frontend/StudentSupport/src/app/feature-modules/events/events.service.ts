@@ -7,29 +7,48 @@ import { environment } from 'src/env/environment';
 import { Participation } from 'src/app/shared/model/participation-model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EventsService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAllEvents(): Observable<PagedResults<MyEvent>> {
-    return this.http.get<PagedResults<MyEvent>>(environment.apiHost + 'student/events');
+    return this.http.get<PagedResults<MyEvent>>(
+      environment.apiHost + 'student/events'
+    );
   }
 
   participateEvent(participation: Participation): Observable<Participation> {
-    return this.http.post<Participation>(environment.apiHost + 'student/participations', participation);
+    return this.http.post<Participation>(
+      environment.apiHost + 'student/participations',
+      participation
+    );
   }
 
   cancelParticipation(participationId: number): Observable<Participation> {
-    return this.http.put<Participation>(environment.apiHost + 'student/participations/cancel', participationId);
+    return this.http.put<Participation>(
+      environment.apiHost + 'student/participations/cancel',
+      participationId
+    );
   }
 
-  getAllParticipationsByStudentId(studentId: number): Observable<Participation[]> {
-    return this.http.get<Participation[]>(environment.apiHost + 'student/participations/byStudentId/' + studentId);
+  getAllParticipationsByStudentId(
+    studentId: number
+  ): Observable<Participation[]> {
+    return this.http.get<Participation[]>(
+      environment.apiHost + 'student/participations/byStudentId/' + studentId
+    );
   }
-  
-  getYoursEvents(userId : number): Observable<MyEvent[]>{
-    return this.http.get<MyEvent[]>(environment.apiHost + 'author/events/get_yours_events/' + userId);
+
+  getYoursEvents(userId: number): Observable<MyEvent[]> {
+    return this.http.get<MyEvent[]>(
+      environment.apiHost + 'author/events/get_yours_events/' + userId
+    );
+  }
+
+  getEventById(eventId: number): Observable<MyEvent> {
+    return this.http.get<MyEvent>(
+      environment.apiHost + 'student/events/' + eventId
+    );
   }
 }
