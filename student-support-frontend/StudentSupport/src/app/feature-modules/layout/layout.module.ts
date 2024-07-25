@@ -5,17 +5,21 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     HomeComponent,
     NavbarComponent,
+    MyProfileComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
     RouterModule,
-    IonicModule
+    IonicModule,
+    FormsModule
   ],
   exports: [
     NavbarComponent,
