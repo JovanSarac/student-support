@@ -33,6 +33,7 @@ export class EventsPageComponent implements OnInit {
     type: ParticipationType.Active,
   };
   isLoading: boolean = false;
+  eventIdForLoader: number = 0;
 
   eventType: { [key: string]: string } = {
     AcademicConferenceAndSeminars: 'Konferencije',
@@ -80,11 +81,9 @@ export class EventsPageComponent implements OnInit {
   }
 
   getParticipationsByStudentId(): void {
-    this.isLoading = false;
     this.service.getAllParticipationsByStudentId(this.user.id).subscribe({
       next: (result: Participation[]) => {
         this.participations = result;
-        console.log(this.participations);
       },
     });
   }
@@ -98,20 +97,23 @@ export class EventsPageComponent implements OnInit {
 
   participateEvent(eventId: number): void {
     this.isLoading = true;
+    this.eventIdForLoader = eventId;
     this.participation.eventId = eventId;
     this.participation.studentId = this.user.id;
     this.service.participateEvent(this.participation).subscribe({
       next: (result: Participation) => {
         this.getParticipationsByStudentId();
+        this.isLoading = false;
+        this.eventIdForLoader = 0;
       },
     });
   }
 
   cancelEventParticipation(eventId: number): void {
-    let cancelledParticipation = this.participations.find(
+    const cancelledParticipation = this.participations.find(
       (p) =>
         p.studentId === this.user.id &&
-        eventId === eventId &&
+        p.eventId === eventId &&
         p.type === ParticipationType.Active
     );
 
@@ -136,6 +138,13 @@ export class EventsPageComponent implements OnInit {
     const hours = ('0' + date.getHours()).slice(-2);
     const minutes = ('0' + date.getMinutes()).slice(-2);
     return `${day}.${month}.${year} ${hours}:${minutes}`;
+  }
+
+  shouldShowLoader(eventId: number): boolean {
+    if (this.eventIdForLoader === eventId) {
+      return true;
+    }
+    return false;
   }
 
   selectTab(tab: string) {

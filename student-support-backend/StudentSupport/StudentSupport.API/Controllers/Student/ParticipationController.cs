@@ -54,7 +54,7 @@ namespace StudentSupport.API.Controllers.Student
         }
 
         [HttpPut("cancel")]
-        public ActionResult<ParticipationDto> Update([FromBody] int id)
+        public ActionResult<ParticipationDto> CancelParticipation([FromBody] int id)
         {
             var result = _participationService.Cancel(id);
             return CreateResponse(result);
