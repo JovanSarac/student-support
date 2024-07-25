@@ -1,71 +1,96 @@
 <div class="full-page-bg">
-    <div class="information-board">
-        <div class="page-container">
-            <div class="filters">
-                <p class="filters-title"><i class="bi bi-funnel-fill" style="margin-right: 10px;"></i> Filtriraj po</p>
-                <p class="filter-date">Datumu:</p>
-                <p-calendar dateFormat="dd.mm.yy" [(ngModel)]="selected">
-                </p-calendar>
+  <div class="information-board">
+    <div class="page-container">
+      <div class="filters">
+        <p class="filters-title">
+          <i class="bi bi-funnel-fill" style="margin-right: 10px"></i> Filtriraj
+          po
+        </p>
+        <p class="filter-date">Datumu:</p>
+        <p-calendar dateFormat="dd.mm.yy" [(ngModel)]="selected"> </p-calendar>
 
-                <p class="filter-date">Tipu događaja:</p>
-                <select name="type-event" class="filter-type">
-                    <option value=""></option>
-                    <option value="Conference">Konferencije</option>
-                    <option value="Cultural">Kulturni</option>
-                    <option value="">Sajamski</option>
-                    <option value="">Humanitarni</option>
-                    <option value="">Kursevi</option>
-                    <option value="">Takmicenja</option>
-                    <option value="">Putovanja</option>
-                    <option value="">Umjetnicki</option>
-                    <option value="">Drustveni</option>
+        <p class="filter-date">Tipu događaja:</p>
+        <select name="type-event" class="filter-type">
+          <option value=""></option>
+          <option value="Conference">Konferencije</option>
+          <option value="Cultural">Kulturni</option>
+          <option value="">Sajamski</option>
+          <option value="">Humanitarni</option>
+          <option value="">Kursevi</option>
+          <option value="">Takmicenja</option>
+          <option value="">Putovanja</option>
+          <option value="">Umjetnicki</option>
+          <option value="">Drustveni</option>
+        </select>
 
-                </select>
+        <p class="filter-date">Opsegu datuma</p>
+      </div>
 
-                <p class="filter-date">Opsegu datuma</p>
-
-
-            </div>
-
-            <div class="events">
-
-                <div class="cards">
-                    <div class="one-card" *ngFor="let event of pagedEvents"
-                        [ngStyle]="{'background-image': 'url(' + event.image + ')'}">
-                        <div class="type-event">
-                            <p [ngStyle]="{'background-color': eventTypeColors[event.eventType]}"
-                                [innerText]="eventType[event.eventType] || event.eventType"></p>
-                            <button *ngIf="!isAlreadyCheckedParticipate(event.id) && user.role === 'student'"
-                                (click)="participateEvent(event.id)">
-                                <div *ngIf="isLoading" class="spinner-border text-light" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
-                                <div *ngIf="!isLoading"><i class="bi bi-star"></i> Interested</div>
-                            </button>
-                            <button *ngIf="isAlreadyCheckedParticipate(event.id) && user.role === 'student'"
-                                (click)="cancelEventParticipation(event.id)"><i class="bi bi-star-fill"></i> Not
-                                Interested</button>
-
-
-                        </div>
-                        <div class="overlay">
-                            <p>{{ event.name }}</p>
-                            <p class="date-event">14.7.2024. 15:00</p>
-                            <p class="address">{{event.address}}</p>
-                        </div>
-                    </div>
-
+      <div class="events">
+        <div class="cards">
+          <div
+            class="one-card"
+            *ngFor="let event of pagedEvents"
+            [ngStyle]="{ 'background-image': 'url(' + event.image + ')' }"
+          >
+            <div class="type-event">
+              <p
+                [ngStyle]="{
+                  'background-color': eventTypeColors[event.eventType]
+                }"
+                [innerText]="eventType[event.eventType] || event.eventType"
+              ></p>
+              <button
+                *ngIf="
+                  !isAlreadyCheckedParticipate(event.id) &&
+                  user.role === 'student'
+                "
+                (click)="participateEvent(event.id)"
+              >
+                <div
+                  *ngIf="isLoading && shouldShowLoader(event.id)"
+                  class="spinner-border text-light"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
                 </div>
-
-                <div class="pagination">
-                    <button (click)="prevPage()" [disabled]="currentPage === 1">Prethodna</button>
-                    <span>Strana {{ currentPage }} od {{ totalPages }}</span>
-                    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Sledeća</button>
+                <div *ngIf="!shouldShowLoader(event.id)">
+                  <i class="bi bi-star"></i> Interested
                 </div>
-
+              </button>
+              <button
+                *ngIf="
+                  isAlreadyCheckedParticipate(event.id) &&
+                  user.role === 'student'
+                "
+                (click)="cancelEventParticipation(event.id)"
+              >
+                <i class="bi bi-star-fill"></i> Not Interested
+              </button>
             </div>
-
+            <div class="overlay">
+              <p>{{ event.name }}</p>
+              <p class="date-event">
+                <i class="bi bi-compass-fill"></i>
+                {{ formatDate(event.dateEvent.toString()) }}
+              </p>
+              <p class="address">
+                <i class="bi bi-geo-alt-fill"></i> {{ event.address }}
+              </p>
+            </div>
+          </div>
         </div>
 
+        <div class="pagination">
+          <button (click)="prevPage()" [disabled]="currentPage === 1">
+            Prethodna
+          </button>
+          <span>Strana {{ currentPage }} od {{ totalPages }}</span>
+          <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+            Sledeća
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

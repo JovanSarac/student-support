@@ -68,8 +68,14 @@
   margin: 2% 5% 3% 5%;
 }
 
-:host ::ng-deep .p-calendar .p-datepicker table td.p-datepicker-today>span,
-:host ::ng-deep .p-calendar .p-datepicker table td.p-datepicker-today>span:hover {
+:host ::ng-deep .p-calendar .p-datepicker table td.p-datepicker-today > span,
+:host
+  ::ng-deep
+  .p-calendar
+  .p-datepicker
+  table
+  td.p-datepicker-today
+  > span:hover {
   background-color: #020264;
   color: white;
   font-weight: bold;
@@ -225,7 +231,6 @@ option {
   font-weight: 500;
   font-weight: bold;
   margin: 5px 0;
-  text-decoration: underline;
 }
 
 .overlay .address {
