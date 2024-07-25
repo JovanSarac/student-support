@@ -5,7 +5,7 @@ export interface Person {
     email: string;
     profilePic : string;
     registrationDate?: Date;
-    address?: Date;
+    address?: string;
     phoneNumber?: string;
     birthDate?: Date;
     biography?:string;

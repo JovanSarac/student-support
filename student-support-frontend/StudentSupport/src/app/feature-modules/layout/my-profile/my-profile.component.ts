@@ -21,13 +21,17 @@ export class MyProfileComponent  implements OnInit{
     email: '',
     profilePic: ''
   }
+  personForUpdate: Person={
+    id: 0,
+    name: '',
+    surname: '',
+    email: '',
+    profilePic: ''
+  }
   selectedProfilePic : string = ""
   defaultProfilePic :string = "../../assets/images/profile-pic.jpg"
-  name: string ="";
-  lastname: string = "";
-  email: string = "";
-  phonenumber : string = "";
-  biography: string = "";
+  city: string ="";
+  street: string = "";
 
   constructor(private authService:AuthService, private service: LayoutService, private datePipe: DatePipe){
 
@@ -39,12 +43,13 @@ export class MyProfileComponent  implements OnInit{
     this.service.getPersonByUser(this.user).subscribe({
       next:(result: Person)=>{
         this.person = result;
-        console.log(this.person)
-        this.name = this.person.name;
-        this.lastname = this.person.surname;
-        this.email = this.person.email;
-        this.phonenumber = this.person.phoneNumber || "";
-        this.biography = this.person.biography || "";
+        
+        if(this.person.address != null){
+          const parts = this.person.address.split(',');
+          this.street = parts[0]; 
+          this.city = parts[1]; 
+        }
+
       } 
     });
 
@@ -81,5 +86,25 @@ export class MyProfileComponent  implements OnInit{
     document.getElementById("biography")?.focus();
   }
 
+  focusCityInput() : void{
+    document.getElementById("city")?.focus();
+  }
+
+  focusStreetInput() : void{
+    document.getElementById("street")?.focus();
+  }
+
+
+  updateProfile() : void{
+    console.log(this.person.biography);
+    this.person.address = this.street + "," + this.city;
+
+    this.service.updatePerson(this.user,this.person).subscribe({
+      next:(result:Person)=>{
+        this.person = result;
+        console.log(result)
+      }
+    })
+  }
 
 }

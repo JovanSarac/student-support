@@ -7,8 +7,7 @@
   left: 0;
   width: 100%;
   height: 92dvh;
-  /*background-image: url("../../../../assets/images/background2.jpg");*/
-  background-color: white; 
+  background-image: url("../../../../assets/images/background2.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -54,7 +53,7 @@
 .left-side{
     display: flex;
     flex-direction: column;
-    width: 48%;
+    width: 49%;
     height: 100%;
 }
 
@@ -486,3 +485,270 @@
 }
 
 
+.right-side{
+    display: flex;
+    flex-direction: column;
+    width: 51%;
+    height: 100%;
+}
+
+.birthdate{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 38px;
+}
+     
+.birthdate__group {
+    position: relative;
+    padding: 20px 0 0;
+    margin: 0% 0%;
+    width: 100%;
+}
+
+.birthdate__field {
+    font-family: 'Poppins','sans-serif' !important;
+    width: 90%;
+    border: 0;
+    border-bottom: 1px solid #9b9b9b;
+    outline: 0;
+    font-size: 1.3rem;
+    color: rgb(83, 83, 223);
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+
+&::placeholder {
+    color: transparent;
+}
+
+&:placeholder-shown ~ .birthdate__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+}
+}
+
+.birthdate__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #838383;
+    font-family: 'Poppins', sans-serif;
+}
+
+.birthdate__field:focus {
+~ .birthdate__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: rgb(83, 83, 223);
+    font-weight:700;    
+}
+    padding-bottom: 6px;  
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, rgb(83, 83, 223),rgb(157, 157, 216));
+    border-image-slice: 1;
+}
+/* reset input */
+.birthdate__field{
+    &:required,&:invalid { box-shadow:none; }
+}
+
+.address{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin-left: 7%;
+    margin-right: 13%;
+    margin-top: 7%;
+}
+
+.address p{
+    font-family: 'Poppins', 'sans-serif';
+    font-size: 20px;
+    color: #002f56;
+}
+
+.city-street{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 92%;
+    margin: 4%;
+
+    .street__group {
+        position: relative;
+        padding: 20px 0 0;
+        width: 50%;
+    }
+    
+    .street__field {
+        font-family: 'Poppins','sans-serif' !important;
+        width: 100%;
+        border: 0;
+        border-bottom: 1px solid #9b9b9b;
+        outline: 0;
+        font-size: 1.3rem;
+        color: rgb(83, 83, 223);
+        padding: 7px 0;
+        background: transparent;
+        transition: border-color 0.2s;
+    
+    &::placeholder {
+        color: transparent;
+    }
+    
+    &:placeholder-shown ~ .street__label {
+        font-size: 1.3rem;
+        cursor: text;
+        top: 20px;
+    }
+    }
+    
+    .street__label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: #838383;
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    .street__field:focus {
+    ~ .street__label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: rgb(83, 83, 223);
+        font-weight:700;    
+    }
+        padding-bottom: 6px;  
+        font-weight: 700;
+        border-width: 3px;
+        border-image: linear-gradient(to right, rgb(83, 83, 223),rgb(157, 157, 216));
+        border-image-slice: 1;
+    }
+    /* reset input */
+    .street__field{
+        &:required,&:invalid { box-shadow:none; }
+    }
+
+    .edit-iconn {
+        position: absolute;
+        right: 0%;
+        top: 70%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #838383;
+        transition: color 0.2s;
+    }
+    .street__group:focus-within .edit-iconn {
+        color: rgb(83, 83, 223);
+    }
+
+
+    .city__group {
+        position: relative;
+        padding: 20px 0 0;
+        width: 45%;
+        margin-left: 5%;
+    }
+    
+    .city__field {
+        font-family: 'Poppins','sans-serif' !important;
+        width: 95%;
+        border: 0;
+        border-bottom: 1px solid #9b9b9b;
+        outline: 0;
+        font-size: 1.3rem;
+        color: rgb(83, 83, 223);
+        padding: 7px 0;
+        background: transparent;
+        transition: border-color 0.2s;
+    
+    &::placeholder {
+        color: transparent;
+    }
+    
+    &:placeholder-shown ~ .city__label {
+        font-size: 1.3rem;
+        cursor: text;
+        top: 20px;
+    }
+    }
+    
+    .city__label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: #838383;
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    .city__field:focus {
+    ~ .city__label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: rgb(83, 83, 223);
+        font-weight:700;    
+    }
+        padding-bottom: 6px;  
+        font-weight: 700;
+        border-width: 3px;
+        border-image: linear-gradient(to right, rgb(83, 83, 223),rgb(157, 157, 216));
+        border-image-slice: 1;
+    }
+    /* reset input */
+    .city__field{
+        &:required,&:invalid { box-shadow:none; }
+    }
+
+    .edit-icon {
+        position: absolute;
+        right: 5%;
+        top: 70%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #838383;
+        transition: color 0.2s;
+    }
+    .city__group:focus-within .edit-icon {
+        color: rgb(83, 83, 223);
+    }
+    
+}
+
+
+.button__container{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 80%;
+    margin: 10%;
+}
+
+.update-btn{
+    margin-right: 10%;
+    font-size: 20px;
+    padding: 15px;
+
+}
