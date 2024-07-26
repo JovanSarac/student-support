@@ -5,6 +5,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { MyEvent } from '../board/model/myevent.model';
 import { environment } from 'src/env/environment';
 import { Participation } from 'src/app/shared/model/participation-model';
+import { Person } from 'src/app/shared/model/person.model';
 
 @Injectable({
   providedIn: 'root',
@@ -49,6 +50,18 @@ export class EventsService {
   getEventById(eventId: number): Observable<MyEvent> {
     return this.http.get<MyEvent>(
       environment.apiHost + 'student/events/' + eventId
+    );
+  }
+
+  getPersonById(userId: number): Observable<Person> {
+    return this.http.get<Person>(
+      environment.apiHost + 'student/person/' + userId
+    );
+  }
+
+  countParticipationsByEventId(eventId: number): Observable<number> {
+    return this.http.get<number>(
+      environment.apiHost + 'student/participations/count/' + eventId
     );
   }
 }
