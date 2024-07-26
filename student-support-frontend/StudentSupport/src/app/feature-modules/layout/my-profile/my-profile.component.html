@@ -62,6 +62,10 @@
                         <textarea type="input" class="biography__field" name="biography" [(ngModel)]="person.biography" id='biography'></textarea>
                         <label for="biography" class="biography__label">Biografija:</label>
                         <i class="bi bi-pencil-fill edit-icon" tabindex="0" (click)="focusBiographyInput()"></i>
+                        <i class="bi bi-emoji-heart-eyes-fill emoji-picker" tabindex="0"  (click)="toggleEmojiPicker()"></i>
+                        <div class="emoji-mart" *ngIf="showEmojiPicker">
+                            <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart>
+                        </div>
                     </div>
 
                 </div>

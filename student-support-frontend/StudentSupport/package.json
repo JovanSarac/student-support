@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
     "@auth0/angular-jwt": "^5.1.2",
+    "@ctrl/ngx-emoji-mart": "^9.2.0",
     "@ionic/angular": "^8.2.2",
     "@types/leaflet": "^1.9.12",
     "bootstrap-icons": "^1.11.3",

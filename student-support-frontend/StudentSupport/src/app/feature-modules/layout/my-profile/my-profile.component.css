@@ -239,6 +239,9 @@
         color: #838383;
         transition: color 0.2s;
     }
+    .edit-icon:hover{
+        color: rgb(83, 83, 223);
+    }
     .form__group:focus-within .edit-icon {
         color: rgb(83, 83, 223);
     }
@@ -390,6 +393,9 @@
         color: #838383;
         transition: color 0.2s;
     }
+    .edit-icon:hover{
+        color: rgb(83, 83, 223);
+    }
     .form__group:focus-within .edit-icon {
         color: rgb(83, 83, 223);
     }
@@ -473,15 +479,46 @@
         .edit-icon {
             position: absolute;
             right: 2%;
-            top: 95%;
+            top: 92%;
             transform: translateY(-50%);
             cursor: pointer;
             color: #838383;
             transition: color 0.2s;
+            font-size: 20px;
+        }
+        .edit-icon:hover{
+            color: rgb(83, 83, 223);
         }
         .biography__group:focus-within .edit-icon {
             color: rgb(83, 83, 223);
         }
+
+        .emoji-picker {
+            position: absolute;
+            right: 10%;
+            top: 92%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #838383;
+            transition: color 0.2s;
+            font-size: 20px;
+        }
+        .emoji-picker:hover{
+            color: rgb(83, 83, 223);
+        }
+        .biography__group:focus-within .emoji-picker {
+            color: rgb(83, 83, 223);
+        }
+
+
+
+        .emoji-mart{
+            position: absolute;
+            left: 100%;
+            bottom: 0%;         
+        }
+
+
 }
 
 
@@ -656,6 +693,9 @@
         color: #838383;
         transition: color 0.2s;
     }
+    .edit-iconn:hover{
+        color: rgb(83, 83, 223);
+    }
     .street__group:focus-within .edit-iconn {
         color: rgb(83, 83, 223);
     }
@@ -730,6 +770,9 @@
         cursor: pointer;
         color: #838383;
         transition: color 0.2s;
+    }
+    .edit-icon:hover{
+        color: rgb(83, 83, 223);
     }
     .city__group:focus-within .edit-icon {
         color: rgb(83, 83, 223);

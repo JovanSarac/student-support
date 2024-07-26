@@ -13,6 +13,7 @@ import { BoardModule } from './feature-modules/board/board.module';
 import { IonicModule } from '@ionic/angular';
 import { EventsModule } from './feature-modules/events/events.module';
 import { CalendarModule } from 'primeng/calendar';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { CalendarModule } from 'primeng/calendar';
     IonicModule.forRoot(),
     CalendarModule,
     FormsModule,
-
+    PickerModule,
 
   ],
   providers: [

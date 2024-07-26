@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Person } from '../model/person.model';
@@ -32,6 +32,7 @@ export class MyProfileComponent  implements OnInit{
   defaultProfilePic :string = "../../assets/images/profile-pic.jpg"
   city: string ="";
   street: string = "";
+  showEmojiPicker: boolean = false;
 
   constructor(private authService:AuthService, private service: LayoutService, private datePipe: DatePipe){
 
@@ -105,6 +106,25 @@ export class MyProfileComponent  implements OnInit{
         console.log(result)
       }
     })
+  }
+
+  addEmoji(event: any) {
+    const emoji = event.emoji.native;
+    this.person.biography += emoji;
+  }
+
+  toggleEmojiPicker() {
+    this.showEmojiPicker = !this.showEmojiPicker;
+    document.getElementById("biography")?.focus();
+  }
+
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    if (target.closest('.emoji-mart') === null && target.closest('.biography') === null) {
+      this.showEmojiPicker = false;
+    }
   }
 
 }
