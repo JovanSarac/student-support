@@ -41,7 +41,7 @@ export class RegistrationComponent {
       email: email || "",
       username: username || "",
       password: password || "",
-      profilePic: "https://www.mtatravel.com.au/wp-content/uploads/2020/06/MTA-Placeholder-1.png",
+      profilePic: "",
     };
 
     if(this.validate(registration, passwordagain)){

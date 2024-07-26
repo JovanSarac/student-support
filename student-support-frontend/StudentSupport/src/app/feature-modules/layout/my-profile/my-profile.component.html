@@ -1,0 +1,119 @@
+<div class="full-page-bg">
+    <div class="page-content">
+        <div class="title-page">
+            <p><i class="bi bi-file-earmark-person-fill" style="margin-right: 7px;"></i>Lične informacije</p>
+        </div>
+        <div class="personal-info">
+            <div class="left-side">
+                <div class="picture-and-name">
+                    <div class="picture-container">
+                        <div class="profile-pic">
+                            <label class="-label" for="file">
+                              <span><i class="bi bi-file-earmark-image-fill"></i>Promeni sliku</span>
+                            </label>
+                            <input id="file" type="file" (change)="onImageSelected($event)"/>
+                            <img [src]="person.profilePic ? person.profilePic : defaultProfilePic" id="output" width="200"/>
+                        </div>
+                        <p>{{user.username}}</p>
+                        <h6>Član od {{ getFormattedDate(person.registrationDate!) }}</h6>
+    
+                    </div>
+
+                    <div class="email-andname">
+                        <div class="name-surname">
+                            <div class="form__group field">
+                                <input type="input" class="form__field" [ngModel]="person.name" placeholder="Ime" id="name" required />
+                                <label for="name" class="form__label">Ime:</label>
+                                <i class="bi bi-pencil-fill edit-icon" tabindex="0" (click)="focusNameInput()"></i>
+                            </div>
+                            <div class="form__group field">
+                                <input type="input" class="form__field" [ngModel]="person.surname" placeholder="Prezime" id="lastname" required />
+                                <label for="lastname" class="form__label">Prezime:</label>
+                                <i class="bi bi-pencil-fill edit-icon" tabindex="0" (click)="focusLastnameInput()"></i>
+                            </div>
+
+                        </div>
+
+                        <div class="email-input">
+                            <div class="form__group field">
+                                <input type="input" class="form__field" [ngModel]="person.email" placeholder="Email" id="email" required disabled matTooltip="Nije moguće menjati podatke o emailu."  matTooltipPosition="above"/>
+                                <label for="email" class="form__label"><i class="bi bi-envelope-at-fill" style="margin-right: 5px;"></i>Email:</label>
+                            </div>
+
+                        </div>
+
+                        <div class="phone-input">
+                            <div class="form__group field">
+                                <input type="input" class="form__field" [(ngModel)]="person.phoneNumber" id="phonenumber"/>
+                                <label for="phonenumber" class="form__label"><i class="bi bi-telephone-fill" style="margin-right: 5px;"></i>Broj telefona:</label>
+                                <i class="bi bi-pencil-fill edit-icon" tabindex="0" (click)="focusPhoneInput()"></i>
+                            </div>
+
+                        </div>
+
+                        
+
+                    </div>
+
+                </div>
+
+                <div class="biography">
+                    <div class="biography__group field">
+                        <textarea type="input" class="biography__field" name="biography" [(ngModel)]="person.biography" id='biography'></textarea>
+                        <label for="biography" class="biography__label">Biografija:</label>
+                        <i class="bi bi-pencil-fill edit-icon" tabindex="0" (click)="focusBiographyInput()"></i>
+                        <i class="bi bi-emoji-heart-eyes-fill emoji-picker" tabindex="0"  (click)="toggleEmojiPicker()"></i>
+                        <div class="emoji-mart" *ngIf="showEmojiPicker">
+                            <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+            <div class="separator"></div>
+
+            <div class="right-side">
+                <div class="birthdate">
+                 
+                    <div class="birthdate__group field">
+                        <input type="date" class="birthdate__field" [(ngModel)]="person.birthDate" id="birthdate"/>
+                        <label for="birthdate" class="birthdate__label"><i class="bi bi-cake2-fill" style="margin-right: 5px;"></i>Datum rodjenja:</label>
+                    </div>
+
+                </div>
+
+                <div class="address">
+                    <p><i class="bi bi-geo-alt-fill" style="margin-right: 5px;"></i>Podaci o adresi stanovanja:</p>
+
+                    <div class="city-street">
+                        <div class="street__group field">
+                            <input type="input" class="street__field" [(ngModel)]="street"  id="street" required />
+                            <label for="street" class="street__label">Ulica i broj:</label>
+                            <i class="bi bi-pencil-fill edit-iconn" tabindex="0" (click)="focusStreetInput()"></i>
+                        </div>
+
+                        <div class="city__group field">
+                            <input type="input" class="city__field" [(ngModel)]="city"  id="city" required />
+                            <label for="city" class="city__label">Grad:</label>
+                            <i class="bi bi-pencil-fill edit-icon" tabindex="0" (click)="focusCityInput()"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="button__container">
+                    <p class="btn-action update-btn" (click)="updateProfile()">Sacuvaj izmjene</p>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

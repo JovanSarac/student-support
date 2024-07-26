@@ -52,6 +52,10 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  goToMyProfile() : void{
+    this.router.navigate(['/my-profile'])
+  }
+
   onLogout(): void {
     this.authService.logout();
   }

@@ -9,6 +9,7 @@ import { CreateEventComponent } from 'src/app/feature-modules/board/create-event
 import { EventsPageComponent } from 'src/app/feature-modules/events/events-page/events-page.component';
 import { YourEventsComponent } from 'src/app/feature-modules/events/your-events/your-events.component';
 import { SingleEventPageComponent } from 'src/app/feature-modules/events/single-event-page/single-event-page.component';
+import { MyProfileComponent } from 'src/app/feature-modules/layout/my-profile/my-profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -37,6 +38,11 @@ const routes: Routes = [
   {
     path: 'single-event/:eventId',
     component: SingleEventPageComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'my-profile',
+    component: MyProfileComponent,
     canActivate: [AuthGuard],
   },
 ];

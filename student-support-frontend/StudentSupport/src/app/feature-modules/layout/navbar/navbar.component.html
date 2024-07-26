@@ -21,7 +21,7 @@
                 <p>O nama</p>
             </div> -->
 
-            <div class="navbar-item" *ngIf="user && user.username !== ''">
+            <div class="navbar-item" *ngIf="user && user.username !== ''" (click)="goToMyProfile()">
                 <p>Moj profil</p>
             </div>
 
@@ -33,7 +33,7 @@
                 <p (click)="loginClick()">Prijava</p>
             </div>
             <div class="login-button" *ngIf="user && user.username !== ''">
-                <p (click)="onLogout()"><i class="outside bi bi-box-arrow-left" style="margin-right: 5px;"></i>Odjavi se
+                <p (click)="onLogout()"><i class="outside bi bi-box-arrow-left" style="margin-right: 5px;"></i>Odjava
                 </p>
             </div>
         </div>

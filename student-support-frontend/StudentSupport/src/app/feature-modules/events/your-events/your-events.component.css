@@ -6,11 +6,12 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 90dvh;
+    height: 92dvh;
     background-image: url("../../../../assets/images/background2.jpg");
     /* background-color: white; */
     background-size: cover;
     background-position: center;
+    overflow-y: scroll;
 }
 
 .page-content {
