@@ -84,5 +84,19 @@ namespace StudentSupport.Events.Core.UseCases
                 return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
             }
         }
+
+        public Result<int> CountParticipationsByEventId(int eventId)
+        {
+            try
+            {
+                return _participationRepository.GetAllByEventId(eventId).Count(p => p.Type == ParticipationType.Active);
+
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+            
+        }
     }
 }
