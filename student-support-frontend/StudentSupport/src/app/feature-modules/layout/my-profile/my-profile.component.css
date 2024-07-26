@@ -515,7 +515,8 @@
         .emoji-mart{
             position: absolute;
             left: 100%;
-            bottom: 0%;         
+            bottom: 0%;  
+            z-index: 1000;       
         }
 
 
