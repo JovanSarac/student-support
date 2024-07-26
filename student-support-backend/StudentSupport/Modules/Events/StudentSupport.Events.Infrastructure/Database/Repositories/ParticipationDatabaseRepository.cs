@@ -78,5 +78,13 @@ namespace StudentSupport.Events.Infrastructure.Database.Repositories
 
             return participationList;
         }
+        public List<Participation> GetAllByEventId(int eventId)
+        {
+            List<Participation> participationList = _participations
+                    .Where(p => p.EventId == eventId)
+                    .ToList();
+
+            return participationList;
+        }
     }
 }

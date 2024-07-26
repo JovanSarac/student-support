@@ -11,5 +11,6 @@ namespace StudentSupport.Events.Core.Domain.RepositoryInterfaces
     {
         List<Participation> GetAllByStudentId(int studentId);
         void SaveChanges();
+        List<Participation> GetAllByEventId(int eventId);
     }
 }
