@@ -60,6 +60,14 @@ namespace StudentSupport.API.Controllers.Student
             return CreateResponse(result);
         }
 
+        [AllowAnonymous]
+        [HttpGet("count/{eventId:int}")]
+        public ActionResult<PagedResult<ParticipationDto>> CountByEventid(int eventId)
+        {
+            var result = _participationService.CountParticipationsByEventId(eventId);
+            return CreateResponse(result);
+        }
+
         [HttpDelete]
         public ActionResult Delete(int id)
         {

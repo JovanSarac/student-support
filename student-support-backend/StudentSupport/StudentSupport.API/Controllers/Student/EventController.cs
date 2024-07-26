@@ -25,6 +25,7 @@ namespace StudentSupport.API.Controllers.Student
             return CreateResponse(result);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id:int}")]
         public ActionResult<EventDto> Get(int id)
         {

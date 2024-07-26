@@ -15,6 +15,7 @@ namespace StudentSupport.API.Controllers.Student
             _personService = personService;
         }
 
+        [AllowAnonymous]
         [HttpGet("{userId:int}")]
         public ActionResult<PersonDto> GetByUserId(int userId)
         {
