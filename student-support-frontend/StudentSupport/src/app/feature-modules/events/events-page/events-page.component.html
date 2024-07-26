@@ -36,17 +36,19 @@
           >
             <div class="type-event">
               <p
+                class="event-type-style"
                 [ngStyle]="{
                   'background-color': eventTypeColors[event.eventType]
                 }"
                 [innerText]="eventType[event.eventType] || event.eventType"
               ></p>
-              <button
+              <div
+                class="participation-button"
                 *ngIf="
                   !isAlreadyCheckedParticipate(event.id) &&
                   user.role === 'student'
                 "
-                (click)="participateEvent(event.id)"
+                (click)="participateEvent($event, event.id)"
               >
                 <div
                   *ngIf="isLoading && shouldShowLoader(event.id)"
@@ -55,19 +57,25 @@
                 >
                   <span class="sr-only">Loading...</span>
                 </div>
-                <div *ngIf="!shouldShowLoader(event.id)">
-                  <i class="bi bi-star"></i> Interested
-                </div>
-              </button>
-              <button
+
+                <p *ngIf="!shouldShowLoader(event.id)">
+                  <i class="bi bi-star" style="margin-right: 5px"></i>Interested
+                </p>
+              </div>
+
+              <div
+                class="participation-button"
                 *ngIf="
                   isAlreadyCheckedParticipate(event.id) &&
                   user.role === 'student'
                 "
-                (click)="cancelEventParticipation(event.id)"
+                (click)="cancelEventParticipation($event, event.id)"
               >
-                <i class="bi bi-star-fill"></i> Not Interested
-              </button>
+                <p>
+                  <i class="bi bi-star-fill" style="margin-right: 5px"></i>Not
+                  Interested
+                </p>
+              </div>
             </div>
             <div class="overlay">
               <p>{{ event.name }}</p>

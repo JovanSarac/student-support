@@ -95,7 +95,8 @@ export class EventsPageComponent implements OnInit {
     });
   }
 
-  participateEvent(eventId: number): void {
+  participateEvent(event: Event, eventId: number): void {
+    event.stopPropagation();
     this.isLoading = true;
     this.eventIdForLoader = eventId;
     this.participation.eventId = eventId;
@@ -109,7 +110,8 @@ export class EventsPageComponent implements OnInit {
     });
   }
 
-  cancelEventParticipation(eventId: number): void {
+  cancelEventParticipation(event: Event, eventId: number): void {
+    event.stopPropagation();
     const cancelledParticipation = this.participations.find(
       (p) =>
         p.studentId === this.user.id &&

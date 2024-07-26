@@ -174,7 +174,7 @@ option {
   justify-content: space-between;
 }
 
-.type-event button {
+/* .type-event button {
   margin-right: 2%;
   margin-top: 1%;
   background: rgba(107, 107, 107, 0.9);
@@ -187,15 +187,15 @@ option {
   font-size: 17px;
   transition: transform 0.3s, background-color 0.5s;
   font-family: "Poppins", sans-serif;
-}
+} */
 
-.type-event button:active {
+/* .type-event button:active {
   transform: scale(0.95);
 }
 
 .type-event button:hover {
   background: rgba(66, 66, 66, 0.9);
-}
+} */
 
 .type-event p {
   color: white;
@@ -205,6 +205,10 @@ option {
   width: auto;
   align-items: start;
   justify-content: start;
+  /* margin: 5px; */
+}
+
+.event-type-style {
   margin: 5px;
 }
 
@@ -297,4 +301,32 @@ option {
   .navbar-content {
     display: none;
   }
+}
+
+.participation-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: rgb(224, 62, 62);
+  border-radius: 15px;
+  transition: background-color 0.4s ease-in-out;
+  min-width: 5dvw;
+  margin-top: 1%;
+  margin-right: 2%;
+}
+
+.participation-button p {
+  margin: auto;
+  font-weight: 700;
+  font-family: "Poppins", sans-serif;
+  color: white;
+}
+
+.participation-button:hover {
+  background-color: rgb(136, 11, 11);
+}
+
+.participation-button p:active {
+  transform: scale(0.95);
 }
