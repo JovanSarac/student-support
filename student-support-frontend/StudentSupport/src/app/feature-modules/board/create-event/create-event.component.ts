@@ -12,7 +12,7 @@ import { MapComponent } from 'src/app/shared/map/map.component';
 @Component({
   selector: 'app-create-event',
   templateUrl: './create-event.component.html',
-  styleUrls: ['./create-event.component.css']
+  styleUrls: ['./create-event.component.css'],
 })
 export class CreateEventComponent implements OnInit {
   @ViewChild(MapComponent) mapComponent: MapComponent | undefined;
@@ -20,12 +20,12 @@ export class CreateEventComponent implements OnInit {
   selectedFile: File | null = null;
   selectedImage: string | ArrayBuffer | null = null;
   overview: boolean = false;
-  user !: User;
+  user!: User;
   formattedDescription: string = '';
   showFullDescription = false;
   latitude: number = 0;
   longitude: number = 0;
-  event : MyEvent={
+  event: MyEvent = {
     id: 0,
     name: '',
     description: '',
@@ -36,29 +36,30 @@ export class CreateEventComponent implements OnInit {
     image: '',
     userId: 0,
     latitude: 0,
-    longitude: 0
+    longitude: 0,
+    isArchived: false,
   };
 
   dtn = new Date();
-  dateTimeNow :string = this.dtn.toString();
+  dateTimeNow: string = this.dtn.toString();
 
   eventForm = new FormGroup({
-    type : new FormControl('', Validators.required),
-    name: new FormControl('',Validators.required),
-    description: new FormControl('',Validators.required),
+    type: new FormControl('', Validators.required),
+    name: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
     city: new FormControl('', Validators.required), // Dodato
     street: new FormControl('', Validators.required),
     date: new FormControl('', Validators.required),
   });
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private authService: AuthService,
     private service: BoardService,
-    private router : Router,
-
+    private router: Router
   ) {}
   ngOnInit(): void {
-    this.authService.user$.subscribe(user => {
+    this.authService.user$.subscribe((user) => {
       this.user = user;
     });
   }
@@ -66,38 +67,41 @@ export class CreateEventComponent implements OnInit {
   ngAfterViewInit(): void {
     this.mapComponent!.setStatus();
     this.mapComponent!.registerOnClick();
-    this.mapComponent!.locationSelected.subscribe((location: { city: string, street: string }) => {
-      this.eventForm.patchValue({
-        city: location.city,
-        street: location.street
-      });
-    });
-    this.mapComponent!.locationLatLong.subscribe((locationLatLng: {lat: number, lng: number})=>{
-      this.latitude = locationLatLng.lat;
-      this.longitude = locationLatLng.lng;
-
-    });
+    this.mapComponent!.locationSelected.subscribe(
+      (location: { city: string; street: string }) => {
+        this.eventForm.patchValue({
+          city: location.city,
+          street: location.street,
+        });
+      }
+    );
+    this.mapComponent!.locationLatLong.subscribe(
+      (locationLatLng: { lat: number; lng: number }) => {
+        this.latitude = locationLatLng.lat;
+        this.longitude = locationLatLng.lng;
+      }
+    );
   }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     this.selectedFile = file;
-  
+
     const reader = new FileReader();
     reader.onload = (e: any) => {
       const img = new Image();
       img.src = e.target.result;
-  
+
       img.onload = () => {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
-  
+
         // Podesi dimenzije na osnovu maksimalne veličine
         const maxWidth = 700;
         const maxHeight = 500;
         let width = img.width;
         let height = img.height;
-  
+
         // Proporcionalno smanjenje dimenzija
         if (width > height) {
           if (width > maxWidth) {
@@ -110,19 +114,19 @@ export class CreateEventComponent implements OnInit {
             height = maxHeight;
           }
         }
-  
+
         canvas.width = width;
         canvas.height = height;
         ctx?.drawImage(img, 0, 0, width, height);
-  
+
         // Dalje smanjenje kvaliteta slike
         const compressedImageData = canvas.toDataURL('image/webp', 0.7); // Pokušaj sa 0.3 za dalju kompresiju
-  
+
         this.selectedImage = compressedImageData;
         this.event.image = compressedImageData;
       };
     };
-  
+
     reader.readAsDataURL(file);
   }
 
@@ -130,12 +134,12 @@ export class CreateEventComponent implements OnInit {
     this.overview = true;
   }
 
-  backToForm(){
+  backToForm() {
     this.overview = false;
   }
 
   renderMarkdown(description: string): string {
-    let markdown: string = description || "";
+    let markdown: string = description || '';
     return marked(markdown) as string;
   }
 
@@ -157,33 +161,33 @@ export class CreateEventComponent implements OnInit {
 
   formatDate(dateString: string) {
     const date = new Date(dateString);
-    
-    const day = date.getDate().toString().padStart(2, '0'); 
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
+
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
-    const hours = date.getHours().toString().padStart(2, '0'); 
-    const minutes = date.getMinutes().toString().padStart(2, '0'); 
-    
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+
     return `${day}.${month}.${year} ${hours}:${minutes}`;
   }
 
-  createEvent(){
+  createEvent() {
     this.event.name = this.eventForm.value.name || '';
     this.event.description = this.eventForm.value.description || '';
     this.event.dateEvent = new Date(this.eventForm.value.date || '');
-    this.event.address =  this.eventForm.value.street + ', ' + this.eventForm.value.city || '';
+    this.event.address =
+      this.eventForm.value.street + ', ' + this.eventForm.value.city || '';
     this.event.latitude = this.latitude;
     this.event.longitude = this.longitude;
     this.event.eventType = this.eventForm.value.type || '';
     this.event.datePublication = new Date();
     this.event.userId = this.user.id;
 
-
     this.service.createEvent(this.event).subscribe({
-      next:(result:MyEvent)=>{
+      next: (result: MyEvent) => {
         this.router.navigate(['your-events']);
-      }
-    })
+      },
+    });
   }
 
   getEventColors(eventType: string): string {
@@ -212,22 +216,22 @@ export class CreateEventComponent implements OnInit {
   }
 
   eventTypes: { [key: string]: string } = {
-    "0": "Akademske konferencije i seminari",
-    "1": "Radionice i kursevi",
-    "2": "Kultorološki događaj",
-    "3": "Sajamski događaj",
-    "4": "Humanitarni događaj",
-    "5": "Umjetničke izložbe i predstave",
-    "6": "Studentske žurke i društveni događaji",
-    "7": "Takmičenja",
-    "8": "Studentska putovanja"
+    '0': 'Akademske konferencije i seminari',
+    '1': 'Radionice i kursevi',
+    '2': 'Kultorološki događaj',
+    '3': 'Sajamski događaj',
+    '4': 'Humanitarni događaj',
+    '5': 'Umjetničke izložbe i predstave',
+    '6': 'Studentske žurke i društveni događaji',
+    '7': 'Takmičenja',
+    '8': 'Studentska putovanja',
   };
-  
+
   getEventType(number: string): string {
-    return this.eventTypes[number] || "Nepoznat tip događaja";
+    return this.eventTypes[number] || 'Nepoznat tip događaja';
   }
 
-  getEventTypeColor(eventType: string): string{
+  getEventTypeColor(eventType: string): string {
     switch (eventType) {
       case '0':
         return 'rgb(255, 26, 26)';
@@ -248,9 +252,7 @@ export class CreateEventComponent implements OnInit {
       case '8':
         return 'rgb(153, 61, 0)';
       default:
-        return 'rgb(0,0,0)'; 
+        return 'rgb(0,0,0)';
     }
-
   }
 }
-
