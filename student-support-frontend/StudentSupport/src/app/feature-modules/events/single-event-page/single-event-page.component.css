@@ -80,6 +80,7 @@
   padding: 10px;
   transition: background-color 0.4s ease-in-out;
   min-width: 5dvw;
+  margin-right: 2%;
 }
 
 .participation-button p {

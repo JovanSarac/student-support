@@ -8,6 +8,13 @@
         <h1>{{ event.name.toUpperCase() }}</h1>
         <p class="event-address-p">{{ event.address }}</p>
         <hr class="separator" />
+        <p
+          *ngIf="event.isArchived && user.role === 'author'"
+          class="event-date-time-p"
+        >
+          <i class="bi bi-exclamation-triangle-fill"></i> THIS EVENT HAS BEEN
+          ARCHIVED
+        </p>
       </div>
       <div class="action-button-container">
         <div
@@ -38,6 +45,24 @@
           <p>
             <i class="bi bi-star-fill" style="margin-right: 5px"></i>Not
             Interested
+          </p>
+        </div>
+
+        <div
+          class="participation-button"
+          *ngIf="isAuthor"
+          (click)="openEditEventPage()"
+        >
+          <p><i class="bi bi-pencil-fill" style="margin-right: 5px"></i>Edit</p>
+        </div>
+
+        <div
+          class="participation-button"
+          *ngIf="isAuthor && !event.isArchived"
+          (click)="archiveEvent()"
+        >
+          <p>
+            <i class="bi bi-trash3-fill" style="margin-right: 5px"></i>Archive
           </p>
         </div>
       </div>

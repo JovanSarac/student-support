@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MyEvent } from '../../board/model/myevent.model';
 import { EventsService } from '../events.service';
 import { Person } from 'src/app/shared/model/person.model';
@@ -24,6 +24,7 @@ export class SingleEventPageComponent implements OnInit {
   eventIdForLoader: number = 0;
   user!: User;
   participations: Participation[] = [];
+  isAuthor: boolean = false;
 
   participation: Participation = {
     id: 0,
@@ -45,6 +46,7 @@ export class SingleEventPageComponent implements OnInit {
     eventType: '',
     latitude: 0,
     longitude: 0,
+    isArchived: false,
   };
 
   author: Person = {
@@ -59,7 +61,8 @@ export class SingleEventPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private service: EventsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -113,6 +116,30 @@ export class SingleEventPageComponent implements OnInit {
     });
   }
 
+  checkIfUserIsAuthorOfEvent(): void {
+    if (this.user.role === 'author') {
+      this.service
+        .isAuthorOfEvent(this.user, this.event.id, this.user.id)
+        .subscribe({
+          next: (result: boolean) => {
+            this.isAuthor = result;
+          },
+        });
+    }
+  }
+
+  archiveEvent() {
+    this.service.archiveEvent(this.event.id).subscribe({
+      next: (result: MyEvent) => {
+        this.event = result;
+      },
+    });
+  }
+
+  openEditEventPage(): void {
+    this.router.navigate(['']); //TO-DO Spojiti samo putanju na Sarcevu stranicu za create/edit(kada napravi za edit)
+  }
+
   getParticipationsByStudentId(): void {
     this.service.getAllParticipationsByStudentId(this.user.id).subscribe({
       next: (result: Participation[]) => {
@@ -140,6 +167,7 @@ export class SingleEventPageComponent implements OnInit {
         this.event = result;
         this.getAuthor();
         this.countParticipationsByEventId();
+        this.checkIfUserIsAuthorOfEvent();
         this.setMarkerOnMap();
       },
     });
