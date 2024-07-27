@@ -115,13 +115,24 @@
 }
 
 .map-container {
+  display: flex;
+  flex-direction: column;
   border-radius: 15px;
   background-color: rgba(131, 131, 131, 0.5);
   border: 1px solid #ccc;
   padding: 1%;
   width: 48%;
-  height: auto;
-  max-height: 50dvh;
+  height: 52dvh;
+}
+
+.map-container p {
+  color: white;
+  font-size: 20px;
+}
+
+.map {
+  height: 80%;
+  margin-bottom: 5%;
 }
 
 .event-details h1 {
@@ -132,13 +143,31 @@
 .event-details p {
   color: white;
   font-size: 20px;
-  padding-bottom: 2%;
+  /* padding-bottom: 1%; */
 }
 
 .event-description {
-  margin-bottom: 2%;
-  overflow-y: scroll;
-  max-height: 20dvh;
+  margin-top: 1%;
+  height: 34dvh;
+  width: 90%;
+  border: 0px;
+  resize: none;
+  background-color: rgba(131, 131, 131, 0);
+  font-size: 20px;
+  font-family: "Poppins", "sans-serif";
+  color: white;
+  overflow: scroll;
+  scrollbar-width: none; /* Za Firefox */
+  -ms-overflow-style: none;
+}
+
+.event-description::-webkit-scrollbar {
+  display: none; /* Za Chrome, Safari i Opera */
+}
+
+.event-description:focus {
+  border: 0px;
+  outline: none;
 }
 
 .separator {
