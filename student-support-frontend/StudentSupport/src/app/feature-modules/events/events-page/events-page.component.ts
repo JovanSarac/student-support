@@ -91,7 +91,7 @@ export class EventsPageComponent implements OnInit {
   getLoggedUser(): void {
     this.authService.user$.subscribe((user) => {
       this.user = user;
-      this.getParticipationsByStudentId();
+      if (user.role === 'student') this.getParticipationsByStudentId();
     });
   }
 

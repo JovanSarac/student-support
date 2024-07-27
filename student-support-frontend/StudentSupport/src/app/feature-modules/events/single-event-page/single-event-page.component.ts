@@ -78,7 +78,7 @@ export class SingleEventPageComponent implements OnInit {
   getLoggedUser(): void {
     this.authService.user$.subscribe((user) => {
       this.user = user;
-      this.getParticipationsByStudentId();
+      if (user.role === 'student') this.getParticipationsByStudentId();
     });
   }
 
@@ -135,7 +135,7 @@ export class SingleEventPageComponent implements OnInit {
   }
 
   getEventById(): void {
-    this.service.getEventById(this.eventId).subscribe({
+    this.service.getEventById(this.user, this.eventId).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
         this.getAuthor();
@@ -146,7 +146,7 @@ export class SingleEventPageComponent implements OnInit {
   }
 
   getAuthor(): void {
-    this.service.getPersonById(this.event.userId).subscribe({
+    this.service.getPersonById(this.user, this.event.userId).subscribe({
       next: (result: Person) => {
         this.author = result;
       },
@@ -154,11 +154,13 @@ export class SingleEventPageComponent implements OnInit {
   }
 
   countParticipationsByEventId(): void {
-    this.service.countParticipationsByEventId(this.event.id).subscribe({
-      next: (result: number) => {
-        this.participationNumber = result;
-      },
-    });
+    this.service
+      .countParticipationsByEventId(this.user, this.event.id)
+      .subscribe({
+        next: (result: number) => {
+          this.participationNumber = result;
+        },
+      });
   }
 
   formatDate(dateString: string): string {

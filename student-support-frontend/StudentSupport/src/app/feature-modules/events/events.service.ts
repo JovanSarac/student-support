@@ -6,6 +6,7 @@ import { MyEvent } from '../board/model/myevent.model';
 import { environment } from 'src/env/environment';
 import { Participation } from 'src/app/shared/model/participation-model';
 import { Person } from 'src/app/shared/model/person.model';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -47,21 +48,24 @@ export class EventsService {
     );
   }
 
-  getEventById(eventId: number): Observable<MyEvent> {
+  getEventById(user: User, eventId: number): Observable<MyEvent> {
     return this.http.get<MyEvent>(
-      environment.apiHost + 'student/events/' + eventId
+      environment.apiHost + user.role + '/events/' + eventId
     );
   }
 
-  getPersonById(userId: number): Observable<Person> {
+  getPersonById(user: User, userId: number): Observable<Person> {
     return this.http.get<Person>(
-      environment.apiHost + 'student/person/' + userId
+      environment.apiHost + user.role + '/person/' + userId
     );
   }
 
-  countParticipationsByEventId(eventId: number): Observable<number> {
+  countParticipationsByEventId(
+    user: User,
+    eventId: number
+  ): Observable<number> {
     return this.http.get<number>(
-      environment.apiHost + 'student/participations/count/' + eventId
+      environment.apiHost + user.role + '/participations/count/' + eventId
     );
   }
 }
