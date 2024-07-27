@@ -25,7 +25,7 @@ namespace StudentSupport.API.Controllers.Student
             return CreateResponse(result);
         }
 
-        [HttpGet("byStudentId/{studentId:int}")]
+        [HttpGet("by_student_id/{studentId:int}")]
         public ActionResult<PagedResult<ParticipationDto>> GetAllByStudentId(int studentId)
         {
             var result = _participationService.GetAllByStudentId(studentId);

@@ -98,5 +98,20 @@ namespace StudentSupport.Events.Core.UseCases
             }
             
         }
+
+        public void CancelAllByEventId(int eventId)
+        {
+            try
+            {
+                foreach(Participation p in _participationRepository.GetAllByEventId(eventId)){
+                    p.Cancel();
+                    _participationRepository.SaveChanges();
+                }
+            }
+            catch(ArgumentException e)
+            {
+                Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
     }
 }

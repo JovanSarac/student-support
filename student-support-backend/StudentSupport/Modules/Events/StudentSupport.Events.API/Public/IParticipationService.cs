@@ -20,5 +20,6 @@ namespace StudentSupport.Events.API.Public
         Result<ParticipationDto> Cancel(int id);
         Task<Result<ParticipationDto>> CreateWithEmail(ParticipationDto participationDto);
         Result<int> CountParticipationsByEventId(int eventId);
+        void CancelAllByEventId(int eventId);
     }
 }

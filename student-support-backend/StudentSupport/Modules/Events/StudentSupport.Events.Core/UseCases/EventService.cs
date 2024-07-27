@@ -27,5 +27,42 @@ namespace StudentSupport.Events.Core.UseCases
         {
             return MapToDto(_eventRepository.GetYoursEvents(userId));
         }
+
+        public Result<bool> IsAuthorOfEvent(int authorId, int eventId)
+        {
+            try
+            {
+                var eventCount =  _eventRepository.GetAll().Count(e => e.Id == eventId && e.UserId == authorId);
+
+                if(eventCount == 0)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            catch (ArgumentException ex)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(ex.Message);
+            }
+        }
+
+
+        public Result<EventDto> Archive(int id)
+        {
+            try
+            {
+                Event eventTemp = _eventRepository.Get(id);
+                eventTemp.Archive();
+                _eventRepository.SaveChanges();
+
+                return MapToDto(eventTemp);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
     }
 }

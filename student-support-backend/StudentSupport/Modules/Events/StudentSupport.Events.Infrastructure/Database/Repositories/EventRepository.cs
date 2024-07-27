@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using StudentSupport.BuildingBlocks.Core.UseCases;
+using StudentSupport.BuildingBlocks.Infrastructure.Database;
 
 namespace StudentSupport.Events.Infrastructure.Database.Repositories
 {
@@ -19,9 +21,64 @@ namespace StudentSupport.Events.Infrastructure.Database.Repositories
             _dbSet = _dbContext.Set<Event>();
         }
 
+        public Event Create(Event entity)
+        {
+            _dbSet.Add(entity);
+            _dbContext.SaveChanges();
+            return entity;
+        }
+
+        public void Delete(long id)
+        {
+            var entity = Get(id);
+            _dbSet.Remove(entity);
+            _dbContext.SaveChanges();
+        }
+
+        public Event Get(long id)
+        {
+            var eventTemp = _dbSet
+                .Where(e => e.Id == id)
+                .FirstOrDefault();
+            return eventTemp ?? throw new KeyNotFoundException("Not found: " + id);
+        }
+
+        public PagedResult<Event> GetPaged(int page, int pageSize)
+        {
+            var task = _dbSet.GetPagedById(page, pageSize);
+            task.Wait();
+            return task.Result;
+        }
+
+        public Event Update(Event entity)
+        {
+            try
+            {
+                _dbContext.Update(entity);
+                _dbContext.SaveChanges();
+            }
+            catch (DbUpdateException e)
+            {
+                throw new KeyNotFoundException(e.Message);
+            }
+            return entity;
+        }
+
         public List<Event> GetYoursEvents(long userId)
         {
             return _dbSet.Where(e => e.UserId == userId).ToList(); 
+        }
+
+        public void SaveChanges()
+        {
+            _dbContext.SaveChanges();
+        }
+
+        public List<Event> GetAll()
+        {
+            List<Event> events = _dbSet.ToList();
+
+            return events;
         }
     }
 }

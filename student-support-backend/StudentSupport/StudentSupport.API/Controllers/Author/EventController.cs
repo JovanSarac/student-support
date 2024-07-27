@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StudentSupport.BuildingBlocks.Core.UseCases;
 using StudentSupport.Events.API.Dtos;
 using StudentSupport.Events.API.Public;
+using StudentSupport.Events.Core.UseCases;
 
 namespace StudentSupport.API.Controllers.Author
 {
@@ -11,9 +12,11 @@ namespace StudentSupport.API.Controllers.Author
     public class EventController  : BaseApiController
     {
         private readonly IEventService _eventService;
-        public EventController(IEventService eventService)
+        private readonly IParticipationService _participationService;
+        public EventController(IEventService eventService, IParticipationService participationService)
         {
             _eventService = eventService;
+            _participationService = participationService;
         }
 
         [HttpGet]
@@ -27,6 +30,26 @@ namespace StudentSupport.API.Controllers.Author
         public ActionResult<EventDto> Get(int id)
         {
             var result = _eventService.Get(id);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("is_author_of_event/{eventId:int}/{authorId:int}")]
+        public ActionResult<bool> IsAuthorOfEvent(int eventId, int authorId)
+        {
+            var result = _eventService.IsAuthorOfEvent(authorId, eventId);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("archive")]
+        public ActionResult<EventDto> ArchiveEvent([FromBody] int id)
+        {
+            var result = _eventService.Archive(id);
+
+            if(result.IsSuccess)
+            {
+                _participationService.CancelAllByEventId(id);
+            }
+
             return CreateResponse(result);
         }
 
