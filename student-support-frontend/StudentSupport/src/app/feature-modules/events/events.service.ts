@@ -38,7 +38,7 @@ export class EventsService {
     studentId: number
   ): Observable<Participation[]> {
     return this.http.get<Participation[]>(
-      environment.apiHost + 'student/participations/byStudentId/' + studentId
+      environment.apiHost + 'student/participations/by_student_id/' + studentId
     );
   }
 
@@ -66,6 +66,28 @@ export class EventsService {
   ): Observable<number> {
     return this.http.get<number>(
       environment.apiHost + user.role + '/participations/count/' + eventId
+    );
+  }
+
+  isAuthorOfEvent(
+    user: User,
+    eventId: number,
+    authorId: number
+  ): Observable<boolean> {
+    return this.http.get<boolean>(
+      environment.apiHost +
+        user.role +
+        '/events/is_author_of_event/' +
+        eventId +
+        '/' +
+        authorId
+    );
+  }
+
+  archiveEvent(eventId: number): Observable<MyEvent> {
+    return this.http.put<MyEvent>(
+      environment.apiHost + 'author/events/archive',
+      eventId
     );
   }
 }
