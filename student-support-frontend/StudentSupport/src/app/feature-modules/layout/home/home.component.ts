@@ -73,11 +73,15 @@ export class HomeComponent implements OnInit {
     this.startSlider();
     this.service.getAllEvenets().subscribe({
       next: (result: PagedResults<MyEvent>) => {
-        this.events = result.results;
+        this.events = result.results.filter((e) => !e.isArchived);
         this.totalPages = Math.ceil(this.events.length / this.pageSize);
         this.updatePagedEvents();
       },
     });
+  }
+
+  showSingleEvent(eventId: number): void {
+    this.router.navigate([`/single-event/${eventId}`]);
   }
 
   checkScreenWidth() {

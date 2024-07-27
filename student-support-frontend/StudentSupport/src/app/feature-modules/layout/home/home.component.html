@@ -1,133 +1,92 @@
 <div class="home-full-page-bg" onload="slider()">
-    <!-- <div class="navbar-content">
-        <div class="navbar-element">
-            <div class="navbar-element-nameapp">
-                <p><img src="../../../../assets/logo/logo_with_backgroung.svg" alt="no-picture"></p>
+  <div class="banner">
+    <div class="slider">
+      <img [src]="slideImg" id="slideImg" [class.fade]="isFading" />
+    </div>
+    <div class="overlay2">
+      <div [class.fade]="isFading" class="content">
+        <h1>{{ header1 }}</h1>
+        <h1>{{ header2 }}</h1>
+      </div>
+    </div>
+  </div>
 
-            </div>
-            <div class="navbar-button">
-                <img src="../../../../assets/images/separator.svg" alt="">
-                <div class="navbar-item">
-                    <p>Događaji</p>
-                </div>
-                <img src="../../../../assets/images/separator.svg" alt="">
-                <div class="navbar-item">
-                    <p>Klubovi</p>
-                </div>
-                <img src="../../../../assets/images/separator.svg" alt="">
-                <div class="navbar-item">
-                    <p>FAQ</p>
-                </div>
-                <img src="../../../../assets/images/separator.svg" alt="">
-                <div class="navbar-item">
-                    <p>O nama</p>
-                </div>
-                <img src="../../../../assets/images/separator.svg" alt="">
+  <div class="events">
+    <p>PREDSTOJEĆI DOGAĐAJI</p>
 
-                <div class="login-button">
-                    <p (click)="loginClick()">Prijava</p>
-                </div>
-            </div>
-
-            <div class="dropdown-content" *ngIf="isDropdownVisible">
-                <div class="burger-icon" (click)="toggleDropdown()">
-                    <i class="bi bi-list"></i>
-                </div>
-                <div class="dropdown-contentt" [ngClass]="{'show': dropdownOpen}">
-                    <div class="navbar-item">
-                        <p>Događaji</p>
-                    </div>
-                    <div class="navbar-item">
-                        <p>Klubovi</p>
-                    </div>
-                    <div class="navbar-item">
-                        <p>FAQ</p>
-                    </div>
-                    <div class="navbar-item">
-                        <p>O nama</p>
-                    </div>
-                    <div class="navbar-item" (click)="loginClick()">
-                        <p>Prijava</p>
-                    </div>
-                </div>
-            </div>
-
+    <div class="cards">
+      <div
+        (click)="showSingleEvent(event.id)"
+        class="one-card"
+        *ngFor="let event of pagedEvents"
+        [ngStyle]="{ 'background-image': 'url(' + event.image + ')' }"
+      >
+        <div class="type-event">
+          <p
+            [ngStyle]="{ 'background-color': eventTypeColors[event.eventType] }"
+            [innerText]="eventType[event.eventType] || event.eventType"
+          ></p>
         </div>
-
-    </div> -->
-
-    <div class="banner">
-        <div class="slider">
-            <img [src]="slideImg" id="slideImg" [class.fade]="isFading">
+        <div class="overlay">
+          <p>{{ event.name }}</p>
+          <p class="date-event">14.7.2024. 15:00</p>
+          <p class="address">{{ event.address }}</p>
+          <p
+            *ngIf="false"
+            class="description"
+            [innerHTML]="renderTruncatedMarkdown(event.description, 400)"
+          ></p>
         </div>
-        <div class="overlay2">
-            <div [class.fade]="isFading" class="content">
-                <h1>{{header1}}</h1>
-                <h1>{{header2}}</h1>
-            </div>
-        </div>
+      </div>
     </div>
 
-    <div class="events">
-        <p>PREDSTOJEĆI DOGAĐAJI</p>
-
-
-        <div class="cards">
-            <div class="one-card" *ngFor="let event of pagedEvents"
-                [ngStyle]="{'background-image': 'url(' + event.image + ')'}">
-                <div class="type-event">
-                    <p [ngStyle]="{'background-color': eventTypeColors[event.eventType]}"
-                        [innerText]="eventType[event.eventType] || event.eventType"></p>
-
-                </div>
-                <div class="overlay">
-                    <p>{{ event.name }}</p>
-                    <p class="date-event">14.7.2024. 15:00</p>
-                    <p class="address">{{event.address}}</p>
-                    <p *ngIf="false" class="description" [innerHTML]="renderTruncatedMarkdown(event.description, 400)">
-                    </p>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="pagination">
-            <button (click)="prevPage()" [disabled]="currentPage === 1">Prethodna</button>
-            <span>Strana {{ currentPage }} od {{ totalPages }}</span>
-            <button (click)="nextPage()" [disabled]="currentPage === totalPages">Sledeća</button>
-        </div>
-
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">
+        Prethodna
+      </button>
+      <span>Strana {{ currentPage }} od {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+        Sledeća
+      </button>
     </div>
+  </div>
 
-    <footer class="footer">
-        <div class="waves">
-            <div class="wave" id="wave1"></div>
-            <div class="wave" id="wave2"></div>
-            <div class="wave" id="wave3"></div>
-            <div class="wave" id="wave4"></div>
-        </div>
-        <ul class="social-icon">
-            <li class="social-icon__item"><a class="social-icon__link" href="#">
-                    <ion-icon name="logo-facebook"></ion-icon>
-                </a></li>
-            <li class="social-icon__item"><a class="social-icon__link" href="#">
-                    <ion-icon name="logo-twitter"></ion-icon>
-                </a></li>
-            <li class="social-icon__item"><a class="social-icon__link" href="#">
-                    <ion-icon name="logo-linkedin"></ion-icon>
-                </a></li>
-            <li class="social-icon__item"><a class="social-icon__link" href="#">
-                    <ion-icon name="logo-instagram"></ion-icon>
-                </a></li>
-        </ul>
-        <ul class="menu">
-            <li class="menu__item"><a class="menu__link" href="/">Home</a></li>
-            <li class="menu__item"><a class="menu__link" href="#">About</a></li>
-            <li class="menu__item"><a class="menu__link" href="#">Services</a></li>
-            <li class="menu__item"><a class="menu__link" href="#">Team</a></li>
-            <li class="menu__item"><a class="menu__link" href="#">Contact</a></li>
-
-        </ul>
-        <p>&copy;2024 Student support | All Rights Reserved</p>
-    </footer>
+  <footer class="footer">
+    <div class="waves">
+      <div class="wave" id="wave1"></div>
+      <div class="wave" id="wave2"></div>
+      <div class="wave" id="wave3"></div>
+      <div class="wave" id="wave4"></div>
+    </div>
+    <ul class="social-icon">
+      <li class="social-icon__item">
+        <a class="social-icon__link" href="#">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+      </li>
+      <li class="social-icon__item">
+        <a class="social-icon__link" href="#">
+          <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+      </li>
+      <li class="social-icon__item">
+        <a class="social-icon__link" href="#">
+          <ion-icon name="logo-linkedin"></ion-icon>
+        </a>
+      </li>
+      <li class="social-icon__item">
+        <a class="social-icon__link" href="#">
+          <ion-icon name="logo-instagram"></ion-icon>
+        </a>
+      </li>
+    </ul>
+    <ul class="menu">
+      <li class="menu__item"><a class="menu__link" href="/">Home</a></li>
+      <li class="menu__item"><a class="menu__link" href="#">About</a></li>
+      <li class="menu__item"><a class="menu__link" href="#">Services</a></li>
+      <li class="menu__item"><a class="menu__link" href="#">Team</a></li>
+      <li class="menu__item"><a class="menu__link" href="#">Contact</a></li>
+    </ul>
+    <p>&copy;2024 Student support | All Rights Reserved</p>
+  </footer>
 </div>
