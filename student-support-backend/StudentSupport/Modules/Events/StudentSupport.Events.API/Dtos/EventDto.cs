@@ -21,5 +21,6 @@ namespace StudentSupport.Events.API.Dtos
         public DateTime DatePublication { get; set; }
 
         public string Image { get;  set; }
+        public bool IsArchived { get; set; }
     }
 }

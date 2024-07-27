@@ -19,11 +19,12 @@ namespace StudentSupport.Events.Core.Domain
         public EventType EventType { get; init; }
         public DateTime DatePublication { get; init; }
         public string Image {  get; init; }
+        public bool IsArchived { get; set; }
         public Event()
         {
 
         }
-        public Event(long userId, string name, string description, DateTime dateEvent, string address, double latitude, double longitude, EventType eventType, DateTime datePublication, string image)
+        public Event(long userId, string name, string description, DateTime dateEvent, string address, double latitude, double longitude, EventType eventType, DateTime datePublication, string image, bool isArchived)
         {
             UserId = userId;
             Name = name;
@@ -35,7 +36,14 @@ namespace StudentSupport.Events.Core.Domain
             EventType = eventType;
             DatePublication = datePublication;
             Image = image;
+            IsArchived = isArchived;
         }
+
+        public void Archive()
+        {
+            IsArchived = true;
+        }
+
     }
 
     public enum EventType
