@@ -1,6 +1,6 @@
 <div class="full-page-bg">
     <div class="page-content">
-        <p>Kreiraj događaj:</p>
+        <p>{{title}}</p>
         <form [formGroup]="eventForm" class="input-form">
             <div class="text-info">
                 <div class="form__group field">
@@ -48,7 +48,7 @@
                 <p *ngIf="eventForm.get('type')?.value === '8'">Izaberite na mapi adresu za mjesto polaska:</p>
                 <div class="row-map-address">
                     <div class="map-container">
-                        <xp-map class="map" [mapId]="'address_map'" ></xp-map>
+                        <xp-map class="map" [mapId]="'address_createmap'" ></xp-map>
                     </div>
     
                     <div class="city-street">
@@ -64,11 +64,7 @@
                         <p>Možete grad i ulicu ručno izmjeniti, ukoliko prikazana adresa nije baš tačna!</p>
     
                     </div>
-    
-    
                 </div>
-                
-    
             </div>
 
             <div class="separator"></div>
@@ -87,57 +83,14 @@
                     </div>
                 </div>
                 <div class="create-button">
-                    <p (click)="createEvent()">Kreiraj</p>
+                    <p *ngIf="!isEditMode" (click)="createEvent()">Kreiraj</p>
+                    <p *ngIf="isEditMode" (click)="updateEvent()">Izmeni</p>
                 </div>
             </div>
 
 
         </form>
 
-       
-
-
-
-
-        <!--<div class="overview-event" *ngIf="overview">
-            <div class="overview-event-container" [style.background]="getEventColors(eventForm.value.type!)">
-                <div class="userpost">
-                    <img src="../../../../assets/images/profile-pic.jpg" alt="no picture">
-                    <div class="nameanddate">
-                        <p>{{user.username}}</p>
-                        <h6>Datum objavljivanja: {{formatDate(dateTimeNow)}}</h6>
-                    </div>
-                    <div class="eventType">
-                        <p [style.background]="getEventTypeColor(eventForm.value.type!)">
-                            {{getEventType(eventForm.value.type!)}}</p>
-                    </div>
-                </div>
-                <div class="content-post">
-                    <h2 class="eventName">{{eventForm.value.name}}</h2>
-                    <div class="address-date">
-                        <h3 class="eventAddress"><i class="bi bi-geo-alt-fill"></i>{{eventForm.value.address}}</h3>
-                        <h3 class="eventDate"><i class="bi bi-calendar-event-fill"></i>
-                            {{formatDate(eventForm.value.date!)}}</h3>
-                    </div>
-                    <p
-                        [innerHTML]="showFullDescription ? renderMarkdown(eventForm.value.description!) : renderTruncatedMarkdown(eventForm.value.description!, 450)">
-                    </p>
-                    <span *ngIf="eventForm.value.description!.length > 450" (click)="toggleDescription()"
-                        class="show-more-text">
-                        {{ showFullDescription ? 'Prikazi manje' : 'Prikazi vise' }}
-                    </span>
-                    <img [src]="selectedImage" alt="no picture">
-                </div>
-
-                <div class="buttons">
-                    <button class="next-btn" (click)="backToForm()"><i class="bi bi-chevron-left"></i>Nazad</button>
-                    <button class="next-btn" (click)="createEvent()">Kreiraj<i class="bi bi-chevron-right"></i></button>
-
-                </div>
-
-            </div>
-
-        </div>-->
     </div>
 
 </div>

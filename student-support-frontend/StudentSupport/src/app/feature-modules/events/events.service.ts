@@ -90,4 +90,10 @@ export class EventsService {
       eventId
     );
   }
+
+  updateEvent(event: MyEvent):Observable<MyEvent>{
+    return this.http.put<MyEvent>(
+      environment.apiHost + 'author/events', event
+    );
+  }
 }
