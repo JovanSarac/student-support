@@ -29,8 +29,13 @@
         </div>
         <div class="overlay">
           <p>{{ event.name }}</p>
-          <p class="date-event">14.7.2024. 15:00</p>
-          <p class="address">{{ event.address }}</p>
+          <p class="date-event">
+            <i class="bi bi-compass-fill"></i>
+            {{ formatDate(event.dateEvent.toString()) }}
+          </p>
+          <p class="address">
+            <i class="bi bi-geo-alt-fill"></i> {{ event.address }}
+          </p>
           <p
             *ngIf="false"
             class="description"
