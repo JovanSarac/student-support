@@ -121,7 +121,7 @@ export class MapComponent implements AfterViewInit {
   }
 
   addMarker(lat: number, lng: number): void {
-    const marker = L.marker([lat, lng], { draggable: true }).addTo(this.map);
+    const marker = L.marker([lat, lng], { draggable: false }).addTo(this.map);
 
     this.lastMarker = marker;
 
