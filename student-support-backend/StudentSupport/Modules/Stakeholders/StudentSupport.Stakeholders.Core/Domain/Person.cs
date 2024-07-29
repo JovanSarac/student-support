@@ -17,7 +17,7 @@ public class Person : Entity
     public string? Biography { get; init; }
 
 
-    public Person(long userId, string name, string surname, string email, string profilePic, DateOnly registrationDate)
+    public Person(long userId, string name, string surname, string email, string profilePic, DateOnly registrationDate, string biography)
     {
         UserId = userId;
         Name = name;
@@ -25,6 +25,7 @@ public class Person : Entity
         Email = email;
         ProfilePic = profilePic;
         RegistrationDate = registrationDate;
+        Biography = biography;
         Validate();
     }
 

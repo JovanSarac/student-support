@@ -25,10 +25,14 @@
                         <label for="name" class="form__label">Naziv događaja:</label>
                 </div>
 
-                <div class="form__group field">
+                <div class="description__group field">
                     <textarea formControlName="description" type="input" class="description__field"
-                        placeholder="Opis" name="description" id='description' required></textarea>
-                    <label for="description" class="form__label">Opis događaja:</label>
+                        placeholder="Opis" name="description" id='description' required #descriptionTextarea></textarea>
+                    <label for="description" class="description__label">Opis događaja:</label>
+                    <i class="bi bi-emoji-heart-eyes-fill emoji-picker" tabindex="0"  (click)="toggleEmojiPicker()"></i>
+                    <div class="emoji-mart" *ngIf="showEmojiPicker">
+                        <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart>
+                    </div>
                 </div>
 
                 <div class="form__group field">

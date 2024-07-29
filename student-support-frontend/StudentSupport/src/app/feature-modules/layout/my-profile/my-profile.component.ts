@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Person } from '../model/person.model';
@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe]
 })
 export class MyProfileComponent  implements OnInit{
+  @ViewChild('biographyTextarea') biographyTextarea!: ElementRef;
 
   user!: User;
   person :Person={
@@ -110,7 +111,14 @@ export class MyProfileComponent  implements OnInit{
 
   addEmoji(event: any) {
     const emoji = event.emoji.native;
-    this.person.biography += emoji;
+    const textarea = this.biographyTextarea.nativeElement;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    this.person.biography = this.person.biography!.slice(0, start) + emoji + this.person.biography!.slice(end);
+    setTimeout(() => {
+      textarea.setSelectionRange(start + emoji.length, start + emoji.length);
+      textarea.focus();
+    }, 0);
   }
 
   toggleEmojiPicker() {

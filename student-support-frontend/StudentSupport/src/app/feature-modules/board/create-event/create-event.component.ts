@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
@@ -17,6 +17,7 @@ import { EventsService } from '../../events/events.service';
 })
 export class CreateEventComponent implements OnInit {
   @ViewChild(MapComponent) mapComponentCreate: MapComponent | undefined;
+  @ViewChild('descriptionTextarea') descriptionTextarea!: ElementRef;
 
   selectedFile: File | null = null;
   selectedImage: string | ArrayBuffer | null = null;
@@ -39,17 +40,18 @@ export class CreateEventComponent implements OnInit {
     longitude: 0,
     isArchived: false,
   };
+  showEmojiPicker: boolean = false;
 
   eventTypeMap = [
     { value: 'AcademicConferenceAndSeminars', numericValue: '0' },
     { value: 'WorkshopsAndCourses', numericValue: '1' },
     { value: 'CulturalEvent', numericValue: '2' },
-    { value: 'FairEvent', numericValue: '3' },
+    { value: 'Fair', numericValue: '3' },
     { value: 'HumanitarianEvent', numericValue: '4' },
     { value: 'ArtExhibitionsAndPerformances', numericValue: '5' },
     { value: 'StudentPartiesAndSocialEvents', numericValue: '6' },
     { value: 'Competitions', numericValue: '7' },
-    { value: 'StudentTravels', numericValue: '8' },
+    { value: 'StudentTrips', numericValue: '8' },
   ];
 
   dtn = new Date();
@@ -226,6 +228,35 @@ export class CreateEventComponent implements OnInit {
 
     return `${day}.${month}.${year} ${hours}:${minutes}`;
   }
+
+
+  addEmoji(event: any) {
+    const emoji = event.emoji.native;
+    const textarea = this.descriptionTextarea.nativeElement;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    this.eventForm.patchValue({
+      description: this.eventForm.value.description!.slice(0, start) + emoji + this.eventForm.value.description!.slice(end)
+    });
+    setTimeout(() => {
+      textarea.setSelectionRange(start + emoji.length, start + emoji.length);
+      textarea.focus();
+    }, 0);
+  }
+
+  toggleEmojiPicker() {
+    this.showEmojiPicker = !this.showEmojiPicker;
+    document.getElementById("description")?.focus();
+  }
+
+
+  /*@HostListener('document:click', ['$event'])
+  onClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    if (target.closest('.emoji-mart') === null && target.closest('.description') === null) {
+      this.showEmojiPicker = false;
+    }
+  }*/
 
   createEvent() {
     this.event.name = this.eventForm.value.name || '';

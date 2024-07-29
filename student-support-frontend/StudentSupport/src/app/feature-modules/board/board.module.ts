@@ -6,6 +6,7 @@ import { CreateEventComponent } from './create-event/create-event.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CalendarModule } from 'primeng/calendar';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { CalendarModule } from 'primeng/calendar';
     CalendarModule,
     SharedModule,
     FormsModule,
+    PickerModule,
   ],
   exports:[
     InformationBoardComponent

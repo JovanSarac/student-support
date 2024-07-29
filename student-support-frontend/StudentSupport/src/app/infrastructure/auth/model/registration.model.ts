@@ -4,7 +4,7 @@ export interface Registration {
     email: string,
     username: string,
     password: string,
-    profilePic: string,
+    profilePic: string
 }
 
 export interface RegistrationGmail{

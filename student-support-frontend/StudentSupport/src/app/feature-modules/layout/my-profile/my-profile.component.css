@@ -431,6 +431,7 @@
         background: transparent;
         transition: border-color 0.2s;
         resize: none;
+        line-height: 1.5;
       
         &::placeholder {
           color: transparent;
@@ -478,7 +479,7 @@
     
         .edit-icon {
             position: absolute;
-            right: 2%;
+            right: 4%;
             top: 92%;
             transform: translateY(-50%);
             cursor: pointer;

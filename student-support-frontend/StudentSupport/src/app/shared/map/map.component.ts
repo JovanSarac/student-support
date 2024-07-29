@@ -51,6 +51,7 @@ export class MapComponent implements AfterViewInit {
     this.map = L.map(this.mapId, {
       center: [latitude, longitude],
       zoom: zoom,
+      zoomControl: false,
     });
     const tiles = L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -61,6 +62,11 @@ export class MapComponent implements AfterViewInit {
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }
     );
+
+    L.control.zoom({
+      position: 'topright'
+    }).addTo(this.map);
+    
     tiles.addTo(this.map);
     this.map.doubleClickZoom.disable();
   }
@@ -86,7 +92,6 @@ export class MapComponent implements AfterViewInit {
       const lng = coord.lng;
       this.locationLatLong.emit({ lat, lng });
       this.mapService.reverseSearch(lat, lng).subscribe((res) => {
-        console.log(res);
         const city = res.address.city;
         const street =
           res.address.road +
@@ -96,9 +101,7 @@ export class MapComponent implements AfterViewInit {
             : '');
         this.locationSelected.emit({ city, street });
       });
-      console.log(
-        'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
-      );
+      //console.log('You clicked the map at latitude: ' + lat + ' and longitude: ' + lng);
       if (this.clickStatus == 1) {
         this.clearMarkers();
       }
