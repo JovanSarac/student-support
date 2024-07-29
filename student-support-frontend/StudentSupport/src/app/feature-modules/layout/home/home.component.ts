@@ -102,18 +102,15 @@ export class HomeComponent implements OnInit {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
-  // navigate(event: Event) {
-  //   const selectedValue = (event.target as HTMLSelectElement).value;
-  //   if (selectedValue === 'događaji') {
-  //     // navigacija na događaje
-  //   } else if (selectedValue === 'funkcionalnosti') {
-  //     // navigacija na funkcionalnosti
-  //   } else if (selectedValue === 'faq') {
-  //     // navigacija na FAQ
-  //   } else if (selectedValue === 'o nama') {
-  //     // navigacija na O nama
-  //   }
-  // }
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const day = ('0' + date.getDate()).slice(-2);
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const year = date.getFullYear();
+    const hours = ('0' + date.getHours()).slice(-2);
+    const minutes = ('0' + date.getMinutes()).slice(-2);
+    return `${day}.${month}.${year} ${hours}:${minutes}`;
+  }
 
   selectTab(tab: string) {
     this.selectedTab = tab;

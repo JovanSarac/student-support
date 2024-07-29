@@ -1,19 +1,24 @@
 <div class="navbar-content">
-    <div class="navbar-element">
-        <div class="navbar-element-nameapp">
-            <p><img [routerLink]="['/']" src="../../../../assets/logo/logo_with_backgroung.svg" alt="no-picture"></p>
+  <div class="navbar-element">
+    <div class="navbar-element-nameapp">
+      <p>
+        <img
+          [routerLink]="['/']"
+          src="../../../../assets/logo/logo_with_backgroung.svg"
+          alt="no-picture"
+        />
+      </p>
+    </div>
+    <div class="navbar-button">
+      <div (click)="goToEvents()" class="navbar-item">
+        <p>Događaji</p>
+      </div>
 
-        </div>
-        <div class="navbar-button">
-            <div (click)="goToEvents()" class="navbar-item">
-                <p>Događaji</p>
-            </div>
+      <div (click)="goToClubs()" class="navbar-item">
+        <p>Klubovi</p>
+      </div>
 
-            <div (click)="goToClubs()" class="navbar-item">
-                <p>Klubovi</p>
-            </div>
-
-            <!-- <div class="navbar-item">
+      <!-- <div class="navbar-item">
                 <p>FAQ</p>
             </div>
 
@@ -21,49 +26,61 @@
                 <p>O nama</p>
             </div> -->
 
-            <div class="navbar-item" *ngIf="user && user.username !== ''" (click)="goToMyProfile()">
-                <p>Moj profil</p>
-            </div>
+      <div
+        class="navbar-item"
+        *ngIf="user && user.username !== ''"
+        (click)="goToMyProfile()"
+      >
+        <p>Moj profil</p>
+      </div>
 
-            <div class="navbar-item" *ngIf="user && user.role == 'author'">
-                 <p (click)="yourEventClick()">Tvoji događaji</p>
-            </div>
+      <div class="navbar-item" *ngIf="user && user.role == 'author'">
+        <p (click)="yourEventClick()">Moji događaji</p>
+      </div>
 
-            <div class="login-button" *ngIf="user.username === ''">
-                <p (click)="loginClick()">Prijava</p>
-            </div>
-            <div class="login-button" *ngIf="user && user.username !== ''">
-                <p (click)="onLogout()"><i class="outside bi bi-box-arrow-left" style="margin-right: 5px;"></i>Odjava
-                </p>
-            </div>
+      <div class="login-button" *ngIf="user.username === ''">
+        <p (click)="loginClick()">Prijava</p>
+      </div>
+      <div class="login-button" *ngIf="user && user.username !== ''">
+        <p (click)="onLogout()">
+          <i class="outside bi bi-box-arrow-left" style="margin-right: 5px"></i
+          >Odjava
+        </p>
+      </div>
+    </div>
+
+    <div class="dropdown-content" *ngIf="isDropdownVisible">
+      <div class="burger-icon" (click)="toggleDropdown()">
+        <i class="bi bi-list"></i>
+      </div>
+      <div class="dropdown-contentt" [ngClass]="{ show: dropdownOpen }">
+        <div class="navbar-item" (click)="goToEvents()">
+          <p>Događaji</p>
         </div>
-
-        <div class="dropdown-content" *ngIf="isDropdownVisible">
-            <div class="burger-icon" (click)="toggleDropdown()">
-                <i class="bi bi-list"></i>
-            </div>
-            <div class="dropdown-contentt" [ngClass]="{'show': dropdownOpen}">
-                <div class="navbar-item" (click)="goToEvents()">
-                    <p>Događaji</p>
-                </div>
-                <div class="navbar-item" (click)="goToClubs()">
-                    <p>Klubovi</p>
-                </div>
-                <!-- <div class="navbar-item">
+        <div class="navbar-item" (click)="goToClubs()">
+          <p>Klubovi</p>
+        </div>
+        <!-- <div class="navbar-item">
                     <p>FAQ</p>
                 </div>
                 <div class="navbar-item">
                     <p>O nama</p>
                 </div> -->
-                <div class="navbar-item" *ngIf="user.username === ''" (click)="loginClick()">
-                    <p>Prijava</p>
-                </div>
-                <div class="navbar-item" *ngIf="user && user.username !== ''" (click)="onLogout()">
-                    <p>Odjavi se</p>
-                </div>
-            </div>
+        <div
+          class="navbar-item"
+          *ngIf="user.username === ''"
+          (click)="loginClick()"
+        >
+          <p>Prijava</p>
         </div>
-
+        <div
+          class="navbar-item"
+          *ngIf="user && user.username !== ''"
+          (click)="onLogout()"
+        >
+          <p>Odjavi se</p>
+        </div>
+      </div>
     </div>
-
+  </div>
 </div>
