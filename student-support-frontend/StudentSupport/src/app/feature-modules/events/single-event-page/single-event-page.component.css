@@ -64,6 +64,8 @@
   font-family: "Poppins", "sans-serif";
   font-size: 45px;
   font-weight: bold;
+  line-height: 1;
+  /* text-align: center; */
 }
 
 .event-address-p {
@@ -103,6 +105,7 @@
 
 .event-image {
   border-radius: 10px;
+  margin-left: 3%;
   aspect-ratio: 1.77;
 }
 
@@ -156,13 +159,30 @@
   font-size: 20px;
   font-family: "Poppins", "sans-serif";
   color: white;
-  overflow: scroll;
-  scrollbar-width: none; /* Za Firefox */
-  -ms-overflow-style: none;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .event-description::-webkit-scrollbar {
-  display: none; /* Za Chrome, Safari i Opera */
+  width: 10px;
+}
+
+.event-description::-webkit-scrollbar-track {
+  background: rgba(131, 131, 131, 0.4);
+  border-radius: 15px;
+}
+
+.event-description::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 15px;
+}
+
+.event-description::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+}
+
+.event-description::-webkit-scrollbar-track:hover {
+  cursor: pointer;
 }
 
 .event-description:focus {
