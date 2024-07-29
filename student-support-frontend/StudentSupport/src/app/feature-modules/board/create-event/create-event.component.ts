@@ -250,13 +250,13 @@ export class CreateEventComponent implements OnInit {
   }
 
 
-  /*@HostListener('document:click', ['$event'])
+  @HostListener('document:click', ['$event'])
   onClickOutside(event: Event) {
     const target = event.target as HTMLElement;
-    if (target.closest('.emoji-mart') === null && target.closest('.description') === null) {
+    if (target.closest('.emoji-mart') === null && target.closest('.description__group') === null) {
       this.showEmojiPicker = false;
     }
-  }*/
+  }
 
   createEvent() {
     this.event.name = this.eventForm.value.name || '';

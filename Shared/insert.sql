@@ -7,8 +7,8 @@ VALUES
 -- Umetanje osoba
 INSERT INTO stakeholders."People" ("Id", "UserId", "Name", "Surname", "Email", "ProfilePic", "RegistrationDate", "Address", "PhoneNumber", "BirthDate", "Biography")
 VALUES
-(-1, -1, 'Jovan', 'Jokic', 'jovanjokic555@gmail.com', NULL, '2024-07-29', NULL, NULL, NULL, NULL),
-(-2, -2, 'Jovan', 'Sarac', 'saksa99saksa99@gmail.com', NULL, '2024-07-29', NULL, NULL, NULL, NULL);
+(-1, -1, 'Jovan', 'Jokic', 'jovanjokic555@gmail.com', NULL, '2024-07-29', NULL, NULL, NULL, ''),
+(-2, -2, 'Jovan', 'Sarac', 'saksa99saksa99@gmail.com', NULL, '2024-07-29', NULL, NULL, NULL, '');
 
 INSERT INTO events."Events" (
     "Id",
