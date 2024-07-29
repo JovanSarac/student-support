@@ -9,6 +9,7 @@ import { MyEvent } from '../model/myevent.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { EventsService } from '../../events/events.service';
+import { retry } from 'rxjs';
 
 @Component({
   selector: 'app-create-event',
@@ -41,6 +42,9 @@ export class CreateEventComponent implements OnInit {
     isArchived: false,
   };
   showEmojiPicker: boolean = false;
+  notMarker : boolean = false;
+  notPicture : boolean = false;
+  undefinedStreet : boolean = false;
 
   eventTypeMap = [
     { value: 'AcademicConferenceAndSeminars', numericValue: '0' },
@@ -61,7 +65,7 @@ export class CreateEventComponent implements OnInit {
     type: new FormControl('', Validators.required),
     name: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
-    city: new FormControl('', Validators.required), // Dodato
+    city: new FormControl('', Validators.required), 
     street: new FormControl('', Validators.required),
     date: new FormControl('', Validators.required),
   });
@@ -151,6 +155,10 @@ export class CreateEventComponent implements OnInit {
           city: location.city,
           street: location.street,
         });
+        this.undefinedStreet = false;
+        if(location.street == "undefined "){
+          this.undefinedStreet = true;
+        }
       }
     );
     this.mapComponentCreate!.locationLatLong.subscribe(
@@ -258,7 +266,51 @@ export class CreateEventComponent implements OnInit {
     }
   }
 
+  isControlInvalid(controlName: string): boolean {
+    const control = this.eventForm.get(controlName);
+    return (control?.invalid && (control.dirty || control.touched)) ?? false;
+  }
+
+  validateMarkerAndPicture() : boolean{
+    var br = 0;
+    this.notMarker = false;
+    this.notPicture = false;
+    this.undefinedStreet = false;
+
+    if(this.eventForm.value.street == undefined){
+      this.undefinedStreet = true;
+      br++;
+    }
+    if(this.latitude == 0 || this.longitude == 0){
+      br++;
+      this.notMarker = true;
+    }
+    if(this.event.image == ''){
+      this.notPicture = true;
+      br++;
+    }
+
+    if(br!=0)
+      return false;
+
+    return true;
+  }
+
+  private markAllControlsAsTouched(): void {
+    Object.values(this.eventForm.controls).forEach((control) => {
+      control.markAsTouched();
+    });
+  }
+
   createEvent() {
+    this.markAllControlsAsTouched();
+
+    if (!this.validateMarkerAndPicture())
+      return
+
+    if (this.eventForm.invalid) {
+      return;
+    }
     this.event.name = this.eventForm.value.name || '';
     this.event.description = this.eventForm.value.description || '';
     this.event.dateEvent = new Date(this.eventForm.value.date || '');
@@ -269,7 +321,6 @@ export class CreateEventComponent implements OnInit {
     this.event.datePublication = new Date();
     this.event.userId = this.user.id;
 
-    console.log(this.event)
 
     this.service.createEvent(this.event).subscribe({
       next: (result: MyEvent) => {
@@ -279,6 +330,14 @@ export class CreateEventComponent implements OnInit {
   }
 
   updateEvent(){
+    this.markAllControlsAsTouched();
+
+    if (!this.validateMarkerAndPicture())
+      return
+
+    if (this.eventForm.invalid) {
+      return;
+    }
     this.event.name = this.eventForm.value.name || '';
     this.event.description = this.eventForm.value.description || '';
     this.event.dateEvent = new Date(this.eventForm.value.date || '');

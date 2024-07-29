@@ -3,7 +3,7 @@
         <p>{{title}}</p>
         <form [formGroup]="eventForm" class="input-form">
             <div class="text-info">
-                <div class="form__group field">
+                <div class="form__group field" [ngClass]="{'has-error': isControlInvalid('type')}">
                     <select formControlName="type" type="input" class="form__field" placeholder="Vrsta"
                         name="type" id='type' required>
                             <option value=""> </option>
@@ -18,14 +18,16 @@
                             <option value="8">Studentska putovanja</option>
                     </select>
                     <label for="type" class="form__label">Vrsta događaja:</label>
+                    <div *ngIf="isControlInvalid('type')" class="error-message">Vrsta događaja je obavezna!</div>
                 </div>
-                <div class="form__group field">
+                <div class="form__group field" [ngClass]="{'has-error': isControlInvalid('name')}">
                         <input formControlName="name" type="input" class="form__field" placeholder="Naziv"
                             name="name" id='name' required />
                         <label for="name" class="form__label">Naziv događaja:</label>
+                        <div *ngIf="isControlInvalid('name')" class="error-message">Naziv događaja je obavezan!</div>
                 </div>
 
-                <div class="description__group field">
+                <div class="description__group field" [ngClass]="{'has-error': isControlInvalid('description')}">
                     <textarea formControlName="description" type="input" class="description__field"
                         placeholder="Opis" name="description" id='description' required #descriptionTextarea></textarea>
                     <label for="description" class="description__label">Opis događaja:</label>
@@ -33,13 +35,15 @@
                     <div class="emoji-mart" *ngIf="showEmojiPicker">
                         <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart>
                     </div>
+                    <div *ngIf="isControlInvalid('description')" class="error-message">Opis događaja je obavezan!</div>
                 </div>
 
-                <div class="form__group field">
+                <div class="form__group field"  [ngClass]="{'has-error': isControlInvalid('date')}">
                     <input formControlName="date" type="datetime-local" class="form__field" placeholder="Datum"
                         name="date" id='date' required />
                     <label *ngIf="eventForm.get('type')?.value !== '8'" for="date" class="form__label">Izaberite datum početka događaja:</label>
                     <label *ngIf="eventForm.get('type')?.value === '8'" for="date" class="form__label">Izaberite datum polaska:</label>
+                    <div *ngIf="isControlInvalid('date')" class="error-message">Datum događaja je obavezan!</div>
 
                 </div>
 
@@ -53,17 +57,21 @@
                 <div class="row-map-address">
                     <div class="map-container">
                         <xp-map class="map" [mapId]="'address_createmap'" ></xp-map>
+                        <div *ngIf="latitude == 0 && notMarker" class="error-message">Morate označiti marker na mapi klikom!</div>
                     </div>
     
                     <div class="city-street">
-                        <div class="form__group field">
+                        <div class="form__group field"  [ngClass]="{'has-error': isControlInvalid('city')}">
                             <input type="text" class="form__field" placeholder="Grad" required formControlName="city"/>
                             <label  class="form__label">Grad:</label>
+                            <div *ngIf="isControlInvalid('city')" class="error-message">Morate unijeti grad!</div>
                         </div>
     
-                        <div class="form__group field">
+                        <div class="form__group field" [ngClass]="{'has-error': isControlInvalid('street')}">
                             <input type="text" class="form__field" placeholder="Ulica" required formControlName="street"/>
                             <label  class="form__label">Ulica:</label>
+                            <div *ngIf="isControlInvalid('street')" class="error-message">Morate unijeti ulicu!</div>
+                            <div *ngIf="undefinedStreet" class="error-message">Ulica ne moze biti undefined!</div>
                         </div>
                         <p>Možete grad i ulicu ručno izmjeniti, ukoliko prikazana adresa nije baš tačna!</p>
     
@@ -85,6 +93,7 @@
                         </div>
 
                     </div>
+                    <div *ngIf="notPicture && event.image == ''" class="error-message" style="  margin-left: 5px;">Morate izabrati fotografiju za događaj!</div>
                 </div>
                 <div class="create-button">
                     <p *ngIf="!isEditMode" (click)="createEvent()">Kreiraj</p>

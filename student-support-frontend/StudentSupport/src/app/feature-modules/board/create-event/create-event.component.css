@@ -120,7 +120,7 @@
   .description__field {
     font-family: 'Poppins' , 'sans-serif';
     width: 100%;
-    height: 250px;
+    height: 240px;
     border-bottom: 1px solid #9b9b9b;
     outline: 0;
     font-size: 1.3rem;
@@ -329,3 +329,49 @@
   background-color: rgb(136, 11, 11);
   cursor: pointer;
 }
+
+
+.error-message{
+  color: rgb(224, 62, 62);
+  font-family: 'Poppins', sans-serif;
+}
+
+.has-error{
+
+  .form__field {
+    border-bottom: 1px solid rgb(224, 62, 62);
+  }
+
+  .form__label {
+    color: rgb(224, 62, 62);
+  }
+  
+  .form__field:focus {
+    ~ .form__label {
+      color: rgb(224, 62, 62);  
+    }
+  }
+
+  .description__field {
+    border: 1px solid rgb(224, 62, 62);
+  }
+
+  .description__label {
+    color: rgb(224, 62, 62);
+  }
+  
+  .description__field:focus {
+    border: 2px solid rgb(224, 62, 62);
+    ~ .description__label {
+      color: rgb(224, 62, 62);  
+    }
+  }
+
+  .emoji-picker {
+    top: 85%;
+
+  }
+}
+
+
+
