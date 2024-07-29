@@ -117,20 +117,20 @@ option {
 }
 
 .events::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: rgba(131, 131, 131, 0.4);
   /* Pozadina skrol trake */
   border-radius: 15px;
 }
 
 .events::-webkit-scrollbar-thumb {
-  background: #5271ff;
+  background: white;
   /* Boja skrol trake */
   border-radius: 15px;
   /* Zaobljeni uglovi skrol trake */
 }
 
 .events::-webkit-scrollbar-thumb:hover {
-  background: #002f56;
+  cursor: pointer;
   /* Boja skrol trake pri hover efektu */
 }
 
