@@ -11,13 +11,13 @@
     /* background-color: white; */
     background-size: cover;
     background-position: center;
-    overflow-y: scroll;
 }
 
 .page-content {
     display: flex;
     flex-direction: column;
     width: 90%;
+    height: 94%;
     margin-left: 5%;
     margin-right: 5%;
     margin-top: 3%;
@@ -25,6 +25,25 @@
     border-radius: 15px;
     background-color: rgba(131, 131, 131, 0.3);
     border: 1px solid #ccc;
+    overflow-y: auto;
+}
+
+.page-content::-webkit-scrollbar {
+    width: 12px;
+}
+
+.page-content::-webkit-scrollbar-track {
+    background: rgba(131, 131, 131, 0.4);
+    border-radius: 15px;
+}
+
+.page-content::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 15px;
+}
+
+.page-content::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
 }
 
 
