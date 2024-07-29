@@ -137,7 +137,7 @@ export class SingleEventPageComponent implements OnInit {
   }
 
   openEditEventPage(): void {
-    this.router.navigate(['']); //TO-DO Spojiti samo putanju na Sarcevu stranicu za create/edit(kada napravi za edit)
+    this.router.navigate(['/edit-event', this.eventId]);
   }
 
   getParticipationsByStudentId(): void {

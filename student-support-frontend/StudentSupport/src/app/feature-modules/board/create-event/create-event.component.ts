@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { marked } from 'marked';
 import { BoardService } from '../board.service';
 import { MyEvent } from '../model/myevent.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MapComponent } from 'src/app/shared/map/map.component';
+import { EventsService } from '../../events/events.service';
 
 @Component({
   selector: 'app-create-event',
@@ -15,16 +16,15 @@ import { MapComponent } from 'src/app/shared/map/map.component';
   styleUrls: ['./create-event.component.css'],
 })
 export class CreateEventComponent implements OnInit {
-  @ViewChild(MapComponent) mapComponent: MapComponent | undefined;
+  @ViewChild(MapComponent) mapComponentCreate: MapComponent | undefined;
 
   selectedFile: File | null = null;
   selectedImage: string | ArrayBuffer | null = null;
-  overview: boolean = false;
   user!: User;
-  formattedDescription: string = '';
-  showFullDescription = false;
   latitude: number = 0;
   longitude: number = 0;
+  title : string = "Kreiraj događaj";
+  isEditMode: boolean = false;
   event: MyEvent = {
     id: 0,
     name: '',
@@ -40,6 +40,18 @@ export class CreateEventComponent implements OnInit {
     isArchived: false,
   };
 
+  eventTypeMap = [
+    { value: 'AcademicConferenceAndSeminars', numericValue: '0' },
+    { value: 'WorkshopsAndCourses', numericValue: '1' },
+    { value: 'CulturalEvent', numericValue: '2' },
+    { value: 'FairEvent', numericValue: '3' },
+    { value: 'HumanitarianEvent', numericValue: '4' },
+    { value: 'ArtExhibitionsAndPerformances', numericValue: '5' },
+    { value: 'StudentPartiesAndSocialEvents', numericValue: '6' },
+    { value: 'Competitions', numericValue: '7' },
+    { value: 'StudentTravels', numericValue: '8' },
+  ];
+
   dtn = new Date();
   dateTimeNow: string = this.dtn.toString();
 
@@ -53,21 +65,85 @@ export class CreateEventComponent implements OnInit {
   });
 
   constructor(
-    private http: HttpClient,
     private authService: AuthService,
     private service: BoardService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private eventService : EventsService,
   ) {}
+
+
   ngOnInit(): void {
     this.authService.user$.subscribe((user) => {
       this.user = user;
     });
+
+    this.route.url.subscribe(([url]) => {
+      const { path } = url;
+  
+      if (path === 'edit-event') {
+        this.isEditMode = true;
+        this.title = 'Izmjeni događaj:';
+        
+        this.loadEvent();
+      }
+    });
+  }
+
+  loadEvent(): void {
+    const id = Number(this.route.snapshot.paramMap.get('eventId'));
+
+    if (id) {
+      this.eventService.getEventById(this.user, id).subscribe(event => {
+        this.event = event;
+        this.updateFormWithEventData();
+      });
+    }
+    
+  }
+
+  updateFormWithEventData(): void {
+    this.eventForm.patchValue({
+      type: this.getNumericValue(this.event.eventType),
+      name: this.event.name,
+      description: this.event.description,
+      city: this.getCityFromAddress(this.event.address),
+      street: this.getStreetFromAddress(this.event.address),
+      date: this.formatDateForInput(this.event.dateEvent.toString()),
+    });
+    this.latitude = this.event.latitude;
+    this.longitude = this.event.longitude;
+    this.selectedImage = this.event.image;
+    this.setMarkerOnMap()
+  }
+
+  getNumericValue(eventType: string): string {
+    const found = this.eventTypeMap.find(type => type.value === eventType);
+    return found ? found.numericValue : '';
+  }
+
+
+  setMarkerOnMap(): void {
+    if (this.mapComponentCreate) {
+      this.mapComponentCreate.addMarker(this.event.latitude, this.event.longitude);
+      this.mapComponentCreate.setView(this.event.latitude, this.event.longitude, 15);
+    }
+  }
+
+  formatDateForInput(date: string): string {
+    const dt = new Date(date);
+    const year = dt.getFullYear();
+    const month = String(dt.getMonth() + 1).padStart(2, '0');
+    const day = String(dt.getDate()).padStart(2, '0');
+    const hours = String(dt.getHours()).padStart(2, '0');
+    const minutes = String(dt.getMinutes()).padStart(2, '0');
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
 
   ngAfterViewInit(): void {
-    this.mapComponent!.setStatus();
-    this.mapComponent!.registerOnClick();
-    this.mapComponent!.locationSelected.subscribe(
+    this.mapComponentCreate!.setStatus();
+    this.mapComponentCreate!.registerOnClick();
+    this.mapComponentCreate!.locationSelected.subscribe(
       (location: { city: string; street: string }) => {
         this.eventForm.patchValue({
           city: location.city,
@@ -75,7 +151,7 @@ export class CreateEventComponent implements OnInit {
         });
       }
     );
-    this.mapComponent!.locationLatLong.subscribe(
+    this.mapComponentCreate!.locationLatLong.subscribe(
       (locationLatLng: { lat: number; lng: number }) => {
         this.latitude = locationLatLng.lat;
         this.longitude = locationLatLng.lng;
@@ -130,34 +206,14 @@ export class CreateEventComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  viewOverview() {
-    this.overview = true;
+  getCityFromAddress(address: string): string {
+    return address.split(', ')[1];
   }
 
-  backToForm() {
-    this.overview = false;
+  getStreetFromAddress(address: string): string {
+    return address.split(', ')[0];
   }
 
-  renderMarkdown(description: string): string {
-    let markdown: string = description || '';
-    return marked(markdown) as string;
-  }
-
-  truncateText(text: string, limit: number): string {
-    if (text.length > limit) {
-      return text.slice(0, limit) + '...';
-    }
-    return text;
-  }
-
-  renderTruncatedMarkdown(description: string, limit: number): string {
-    const truncatedText = this.truncateText(description, limit);
-    return this.renderMarkdown(truncatedText);
-  }
-
-  toggleDescription() {
-    this.showFullDescription = !this.showFullDescription;
-  }
 
   formatDate(dateString: string) {
     const date = new Date(dateString);
@@ -175,13 +231,14 @@ export class CreateEventComponent implements OnInit {
     this.event.name = this.eventForm.value.name || '';
     this.event.description = this.eventForm.value.description || '';
     this.event.dateEvent = new Date(this.eventForm.value.date || '');
-    this.event.address =
-      this.eventForm.value.street + ', ' + this.eventForm.value.city || '';
+    this.event.address = this.eventForm.value.street + ', ' + this.eventForm.value.city || '';
     this.event.latitude = this.latitude;
     this.event.longitude = this.longitude;
     this.event.eventType = this.eventForm.value.type || '';
     this.event.datePublication = new Date();
     this.event.userId = this.user.id;
+
+    console.log(this.event)
 
     this.service.createEvent(this.event).subscribe({
       next: (result: MyEvent) => {
@@ -190,69 +247,19 @@ export class CreateEventComponent implements OnInit {
     });
   }
 
-  getEventColors(eventType: string): string {
-    switch (eventType) {
-      case '0':
-        return 'linear-gradient(to right, rgb(255, 179, 179), rgb(255, 102, 102))';
-      case '1':
-        return 'linear-gradient(to right, rgb(179, 255, 179), rgb(102, 255, 102))';
-      case '2':
-        return 'linear-gradient(to right, rgb(255, 255, 179), rgb(255, 255, 102))';
-      case '3':
-        return 'linear-gradient(to right, rgb(179, 255, 255), rgb(102, 255, 255))';
-      case '4':
-        return 'linear-gradient(to right, rgb(217, 179, 255), rgb(179, 102, 255))';
-      case '5':
-        return 'linear-gradient(to right, rgb(209, 209, 224), rgb(164, 164, 193))';
-      case '6':
-        return 'linear-gradient(to right, rgb(198, 236, 217), rgb(140, 217, 179))';
-      case '7':
-        return 'linear-gradient(to right, rgb(236, 198, 198), rgb(217, 140, 140))';
-      case '8':
-        return 'linear-gradient(to right, rgb(255, 209, 179), rgb(255, 148, 77))';
-      default:
-        return 'linear-gradient(to right, rgb(151, 216, 134), rgb(63, 204, 82))'; // Default color
-    }
-  }
+  updateEvent(){
+    this.event.name = this.eventForm.value.name || '';
+    this.event.description = this.eventForm.value.description || '';
+    this.event.dateEvent = new Date(this.eventForm.value.date || '');
+    this.event.address = this.eventForm.value.street + ', ' + this.eventForm.value.city || '';
+    this.event.latitude = this.latitude;
+    this.event.longitude = this.longitude;
+    this.event.eventType = this.eventForm.value.type || '';
 
-  eventTypes: { [key: string]: string } = {
-    '0': 'Akademske konferencije i seminari',
-    '1': 'Radionice i kursevi',
-    '2': 'Kultorološki događaj',
-    '3': 'Sajamski događaj',
-    '4': 'Humanitarni događaj',
-    '5': 'Umjetničke izložbe i predstave',
-    '6': 'Studentske žurke i društveni događaji',
-    '7': 'Takmičenja',
-    '8': 'Studentska putovanja',
-  };
-
-  getEventType(number: string): string {
-    return this.eventTypes[number] || 'Nepoznat tip događaja';
-  }
-
-  getEventTypeColor(eventType: string): string {
-    switch (eventType) {
-      case '0':
-        return 'rgb(255, 26, 26)';
-      case '1':
-        return 'rgb(0, 153, 0)';
-      case '2':
-        return 'rgb(153, 153, 0)';
-      case '3':
-        return 'rgb(0, 153, 153)';
-      case '4':
-        return 'rgb(77, 0, 153)';
-      case '5':
-        return 'rgb(62, 62, 91)';
-      case '6':
-        return 'rgb(38, 115, 77)';
-      case '7':
-        return 'rgb(115, 38, 38)';
-      case '8':
-        return 'rgb(153, 61, 0)';
-      default:
-        return 'rgb(0,0,0)';
-    }
+    this.eventService.updateEvent(this.event).subscribe({
+      next: (result:MyEvent) =>{
+        this.event = result
+      }
+    })
   }
 }
