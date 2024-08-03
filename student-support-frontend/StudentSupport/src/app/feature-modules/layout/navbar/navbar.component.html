@@ -38,15 +38,36 @@
         <p (click)="yourEventClick()">Moji događaji</p>
       </div>
 
-      <div class="login-button" *ngIf="user.username === ''">
+      <xp-primary-button
+        *ngIf="user.username === ''"
+        class="prijava-button"
+        buttonId="prijava-button"
+        buttonType="button"
+        textValue="Prijava"
+        (OnClick)="loginClick()"
+      >
+      </xp-primary-button>
+
+      <xp-primary-button
+        *ngIf="user && user.username !== ''"
+        class="prijava-button"
+        buttonId="prijava-button"
+        buttonType="button"
+        textValue="Odjava"
+        (OnClick)="onLogout()"
+        iconClass="outside bi bi-box-arrow-left"
+      >
+      </xp-primary-button>
+
+      <!-- <div class="login-button" *ngIf="user.username === ''">
         <p (click)="loginClick()">Prijava</p>
-      </div>
-      <div class="login-button" *ngIf="user && user.username !== ''">
+      </div> -->
+      <!-- <div class="login-button" *ngIf="user && user.username !== ''">
         <p (click)="onLogout()">
           <i class="outside bi bi-box-arrow-left" style="margin-right: 5px"></i
           >Odjava
         </p>
-      </div>
+      </div> -->
     </div>
 
     <div class="dropdown-content" *ngIf="isDropdownVisible">

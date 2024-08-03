@@ -1,215 +1,192 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
+.prijava-button {
+  width: 8dvw;
+  margin-left: 3%;
+  margin-right: 2%;
+  font-size: 15px;
+  font-weight: 700;
+}
+
 .navbar-content {
-    background-color: #002f56;
-    position: sticky;
-    top: 0;
-    width: 100%;
-    height: 8dvh;
-    /*position: absolute;*/
-    padding: 10px;
-    z-index: 1000;
+  background-color: var(--primary-color);
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 8dvh;
+  /*position: absolute;*/
+  padding: 10px;
+  z-index: 1000;
 }
 
 .navbar-element {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .navbar-element-nameapp {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
 }
 
 .navbar-element-nameapp img {
-    width: 60px;
-    height: 60px;
-    transition: transform 0.3s ease;
+  width: 60px;
+  height: 60px;
+  transition: transform 0.3s ease;
 }
 
 .navbar-element-nameapp img:hover {
-    cursor: pointer;
-    transform: scale(1.07);
+  cursor: pointer;
+  transform: scale(1.07);
 }
 
 .navbar-element-nameapp p {
-    margin: auto;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 5%;
+  margin: auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5%;
 }
 
 .navbar-element-nameapp {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
 }
 
 .navbar-element-nameapp img {
-    width: 60px;
-    height: 60px;
+  width: 60px;
+  height: 60px;
 }
 
 .navbar-element-nameapp p {
-    margin: auto;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 5%;
+  margin: auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5%;
 }
 
 .navbar-button {
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    width: 50%;
-    height: auto;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 50%;
+  height: auto;
 }
 
 .navbar-button img {
-    height: 40px;
-    width: 5px;
+  height: 40px;
+  width: 5px;
 }
 
 @media (max-width: 850px) {
-    .navbar-button {
-        display: none;
-        /* Sakrivamo stare buttone */
-    }
+  .navbar-button {
+    display: none;
+    /* Sakrivamo stare buttone */
+  }
 
-    .navbar-dropdown {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%;
-    }
+  .navbar-dropdown {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
 
-    .navbar-dropdown select {
-        width: 100%;
-        padding: 10px;
-        font-size: 16px;
-    }
+  .navbar-dropdown select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+  }
 }
 
 .navbar-item {
-    display: flex;
-    height: 100%;
-    width: auto;
-    margin-left: 5px;
-    margin-right: 5px;
+  display: flex;
+  height: 100%;
+  width: auto;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .navbar-item p {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 3px;
-    margin: 5px;
-    color: white;
-    font-weight: 700;
-    font-size: 20px;
-    font-family: 'Poppins', sans-serif;
-    transition: transform 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+  margin: 5px;
+  color: var(--text-on-primary-color);
+  font-weight: 700;
+  font-size: 20px;
+  font-family: "Poppins", sans-serif;
+  transition: transform 0.3s ease;
 }
 
 .navbar-item p:hover {
-    color: #5271ff;
-    cursor: pointer;
-    /* border-bottom: 2px solid #5271ff; */
-    transform: scale(1.07);
+  color: var(--secondary-color);
+  cursor: pointer;
+  /* border-bottom: 2px solid #5271ff; */
+  transform: scale(1.07);
 }
 
 @media (max-width: 1170px) {
-    .home-content {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .description-app,
-    .animation {
-        width: 100%;
-        text-align: center;
-    }
-
-    .description-app p {
-        margin-right: 0;
-        /* Uklanjanje margine desno */
-    }
-
-    .navbar-item p {
-        font-size: 18px;
-    }
-}
-
-.login-button {
-    display: flex;
-    justify-content: center;
+  .home-content {
+    flex-direction: column;
     align-items: center;
-    cursor: pointer;
-    height: auto;
-    width: 20%;
-}
+  }
 
+  .description-app,
+  .animation {
+    width: 100%;
+    text-align: center;
+  }
 
-.login-button p {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    height: auto;
-    margin: auto;
-    font-weight: 700;
-    font-family: 'Poppins', sans-serif;
-    padding: 10px;
-    background-color: rgb(224, 62, 62);
-    color: white;
-    border-radius: 15px;
-    transition: background-color 0.4s ease-in-out;
-}
+  .description-app p {
+    margin-right: 0;
+    /* Uklanjanje margine desno */
+  }
 
-.login-button p:hover {
-    background-image: none;
-    background-color: rgb(136, 11, 11);
+  .navbar-item p {
+    font-size: 18px;
+  }
 }
 
 .dropdown-content {
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    width: 50%;
-    height: auto;
-    margin-right: 3%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 50%;
+  height: auto;
+  margin-right: 3%;
 }
 
 .dropdown-contentt {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 85px;
-    background-color: rgba(90, 90, 90, 0.9);
-    border-radius: 15px;
-    padding: 10px;
-    z-index: 1000;
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 85px;
+  background-color: rgba(90, 90, 90, 0.9);
+  border-radius: 15px;
+  padding: 10px;
+  z-index: 1000;
 }
 
 .dropdown-contentt.show {
-    display: flex;
+  display: flex;
 }
 
 .burger-icon {
-    font-size: 30px;
-    cursor: pointer;
-    color: white;
+  font-size: 30px;
+  cursor: pointer;
+  color: var(--text-on-primary-color);
 }

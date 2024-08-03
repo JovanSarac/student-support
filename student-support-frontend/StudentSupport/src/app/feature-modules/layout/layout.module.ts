@@ -8,13 +8,10 @@ import { IonicModule } from '@ionic/angular';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { FormsModule } from '@angular/forms';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    NavbarComponent,
-    MyProfileComponent,
-  ],
+  declarations: [HomeComponent, NavbarComponent, MyProfileComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -22,10 +19,8 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     IonicModule,
     FormsModule,
     PickerModule,
+    SharedModule,
   ],
-  exports: [
-    NavbarComponent,
-    HomeComponent
-  ]
+  exports: [NavbarComponent, HomeComponent],
 })
-export class LayoutModule { }
+export class LayoutModule {}
