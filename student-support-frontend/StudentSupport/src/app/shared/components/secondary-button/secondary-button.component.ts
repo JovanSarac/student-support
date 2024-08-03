@@ -14,6 +14,7 @@ export class SecondaryButtonComponent {
   @Input() iconClass = '';
   @Output() OnClick = new EventEmitter();
   @Input() isDisabled = false;
+  @Input() isCancelParticipationButton = false;
 
   emitEvent(): void {
     this.OnClick.emit();

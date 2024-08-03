@@ -4,6 +4,8 @@
   [disabled]="isDisabled"
   (click)="emitEvent()"
   class="btn btn-primary my-2 my-sm-0 secondary-button"
+  [class.primary-color]="!isCancelParticipationButton"
+  [class.selected-color]="isCancelParticipationButton"
 >
   <i *ngIf="iconClass" [class]="iconClass" style="margin-right: 5px"></i
   >{{ textValue }}
