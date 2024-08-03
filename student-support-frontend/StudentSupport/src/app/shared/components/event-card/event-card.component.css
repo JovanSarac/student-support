@@ -1,0 +1,110 @@
+.one-card {
+  position: relative;
+  /* width: calc(25dvw - 20px); */
+  width: 16.5vw;
+  height: 450px;
+  border: 1px solid var(--secondary-color);
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.one-card:hover {
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transform: scale(1.02);
+}
+
+/* .one-card:hover .overlay {
+  background-color: var(--secondary-hover-color);
+  transition: ease-in-out 300ms;
+} */
+
+.type-event {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.type-event p {
+  color: var(--text-on-primary-color);
+  font-size: 15px;
+  padding: 8px;
+  border-radius: 10px;
+  width: auto;
+  align-items: start;
+  justify-content: start;
+}
+
+.event-name {
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+.event-type-style {
+  margin: 5px;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--secondary-color);
+  color: white;
+  text-align: left;
+  padding: 10px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.overlay p {
+  font-size: 20px;
+  opacity: 1;
+}
+
+.overlay .date-event {
+  color: white;
+  font-size: 15px;
+  margin: 5px 0;
+}
+
+.overlay .address {
+  color: white;
+  font-size: 14px;
+}
+
+.overlay .description {
+  font-size: 12px;
+}
+
+.participation-button {
+  width: 100%;
+}
+
+.loader-container {
+  display: flex;
+  background-color: var(--primary-color);
+  justify-content: center;
+  border-radius: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+@media (max-width: 1600px) {
+  .one-card {
+    width: calc(50% - 20px);
+    /* Dva u redu */
+  }
+}
+
+@media (max-width: 580px) {
+  .one-card {
+    width: calc(100% - 20px);
+    /* Jedan u redu */
+  }
+}
