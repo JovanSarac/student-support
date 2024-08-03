@@ -28,66 +28,10 @@
 
       <div class="events">
         <div class="cards">
-          <div
-            class="one-card"
+          <xp-event-card
             *ngFor="let event of pagedEvents"
-            [ngStyle]="{ 'background-image': 'url(' + event.image + ')' }"
-            (click)="showSingleEvent(event.id)"
-          >
-            <div class="type-event">
-              <p
-                class="event-type-style"
-                [ngStyle]="{
-                  'background-color': eventTypeColors[event.eventType]
-                }"
-                [innerText]="eventType[event.eventType] || event.eventType"
-              ></p>
-              <div
-                class="participation-button"
-                *ngIf="
-                  !isAlreadyCheckedParticipate(event.id) &&
-                  user.role === 'student'
-                "
-                (click)="participateEvent($event, event.id)"
-              >
-                <div
-                  *ngIf="isLoading && shouldShowLoader(event.id)"
-                  class="spinner-border text-light"
-                  role="status"
-                >
-                  <span class="sr-only">Loading...</span>
-                </div>
-
-                <p *ngIf="!shouldShowLoader(event.id)">
-                  <i class="bi bi-star" style="margin-right: 5px"></i>Interested
-                </p>
-              </div>
-
-              <div
-                class="participation-button"
-                *ngIf="
-                  isAlreadyCheckedParticipate(event.id) &&
-                  user.role === 'student'
-                "
-                (click)="cancelEventParticipation($event, event.id)"
-              >
-                <p>
-                  <i class="bi bi-star-fill" style="margin-right: 5px"></i>Not
-                  Interested
-                </p>
-              </div>
-            </div>
-            <div class="overlay">
-              <p>{{ event.name }}</p>
-              <p class="date-event">
-                <i class="bi bi-compass-fill"></i>
-                {{ formatDate(event.dateEvent.toString()) }}
-              </p>
-              <p class="address">
-                <i class="bi bi-geo-alt-fill"></i> {{ event.address }}
-              </p>
-            </div>
-          </div>
+            [event]="event"
+          ></xp-event-card>
         </div>
 
         <div class="pagination">

@@ -5,10 +5,7 @@ import { Router } from '@angular/router';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import {
-  Participation,
-  ParticipationType,
-} from 'src/app/shared/model/participation-model';
+import { Participation } from 'src/app/shared/model/participation-model';
 
 @Component({
   selector: 'app-events-page',
@@ -17,7 +14,6 @@ import {
 })
 export class EventsPageComponent implements OnInit {
   selected!: Date;
-
   events: MyEvent[] = [];
   currentPage = 1;
   pageSize = 8;
@@ -25,39 +21,6 @@ export class EventsPageComponent implements OnInit {
   participations: Participation[] = [];
   totalPages = 1;
   user!: User;
-  participation: Participation = {
-    id: 0,
-    eventId: 0,
-    studentId: 0,
-    enrollmentDate: new Date(),
-    type: ParticipationType.Active,
-  };
-  isLoading: boolean = false;
-  eventIdForLoader: number = 0;
-
-  eventType: { [key: string]: string } = {
-    AcademicConferenceAndSeminars: 'Konferencije',
-    WorkshopsAndCourses: 'Kursevi',
-    CulturalEvent: 'Kulturni',
-    Fair: 'Sajamski',
-    HumanitarianEvent: 'Humanitarni',
-    ArtExhibitionsAndPerformances: 'Umjetnicki',
-    StudentPartiesAndSocialEvents: 'Drustveni',
-    Competitions: 'Takmicenja',
-    StudentTrips: 'Putovanja',
-  };
-
-  eventTypeColors: { [key: string]: string } = {
-    AcademicConferenceAndSeminars: '#429D66',
-    WorkshopsAndCourses: ' #FF4D4D',
-    CulturalEvent: '#00BFFF',
-    Fair: '#FF9501',
-    HumanitarianEvent: '#FFD700',
-    ArtExhibitionsAndPerformances: '#DF80FF',
-    StudentPartiesAndSocialEvents: '#66CDAA',
-    Competitions: '#FFA07A',
-    StudentTrips: 'rgb(61,61,254)',
-  };
 
   constructor(
     private router: Router,
@@ -97,64 +60,6 @@ export class EventsPageComponent implements OnInit {
       this.user = user;
       if (user.role === 'student') this.getParticipationsByStudentId();
     });
-  }
-
-  participateEvent(event: Event, eventId: number): void {
-    event.stopPropagation();
-    this.isLoading = true;
-    this.eventIdForLoader = eventId;
-    this.participation.eventId = eventId;
-    this.participation.studentId = this.user.id;
-    this.service.participateEvent(this.participation).subscribe({
-      next: (result: Participation) => {
-        this.getParticipationsByStudentId();
-        this.isLoading = false;
-        this.eventIdForLoader = 0;
-      },
-    });
-  }
-
-  cancelEventParticipation(event: Event, eventId: number): void {
-    event.stopPropagation();
-    const cancelledParticipation = this.participations.find(
-      (p) =>
-        p.studentId === this.user.id &&
-        p.eventId === eventId &&
-        p.type === ParticipationType.Active
-    );
-
-    this.service.cancelParticipation(cancelledParticipation?.id!).subscribe({
-      next: (result: Participation) => {
-        this.getParticipationsByStudentId();
-      },
-    });
-  }
-
-  isAlreadyCheckedParticipate(eventId: number): boolean {
-    return this.participations.some(
-      (p) => p.eventId === eventId && p.type === ParticipationType.Active
-    );
-  }
-
-  formatDate(dateString: string): string {
-    const date = new Date(dateString);
-    const day = ('0' + date.getDate()).slice(-2);
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const year = date.getFullYear();
-    const hours = ('0' + date.getHours()).slice(-2);
-    const minutes = ('0' + date.getMinutes()).slice(-2);
-    return `${day}.${month}.${year} ${hours}:${minutes}`;
-  }
-
-  shouldShowLoader(eventId: number): boolean {
-    if (this.eventIdForLoader === eventId) {
-      return true;
-    }
-    return false;
-  }
-
-  showSingleEvent(eventId: number): void {
-    this.router.navigate([`/single-event/${eventId}`]);
   }
 
   selectTab(tab: string) {
