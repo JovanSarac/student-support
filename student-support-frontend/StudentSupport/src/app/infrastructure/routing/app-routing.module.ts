@@ -10,6 +10,7 @@ import { EventsPageComponent } from 'src/app/feature-modules/events/events-page/
 import { YourEventsComponent } from 'src/app/feature-modules/events/your-events/your-events.component';
 import { SingleEventPageComponent } from 'src/app/feature-modules/events/single-event-page/single-event-page.component';
 import { MyProfileComponent } from 'src/app/feature-modules/layout/my-profile/my-profile.component';
+import { SecondaryButtonComponent } from 'src/app/shared/components/secondary-button/secondary-button.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -49,6 +50,10 @@ const routes: Routes = [
     path: 'my-profile',
     component: MyProfileComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'button',
+    component: SecondaryButtonComponent,
   },
 ];
 

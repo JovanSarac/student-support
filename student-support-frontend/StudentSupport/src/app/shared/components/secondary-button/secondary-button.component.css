@@ -1,0 +1,21 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+.secondary-button {
+  background-color: var(--primary-color);
+  color: var(--text-on-primary-color);
+  border: 0;
+  font-size: inherit;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 15px;
+  width: inherit;
+  height: inherit;
+  transition: 300ms ease-in;
+  font-weight: inherit;
+}
+
+.secondary-button:hover {
+  background-color: var(--secondary-hover-color);
+}

@@ -1,0 +1,11 @@
+<button
+  [type]="buttonType"
+  [id]="buttonId"
+  [disabled]="isDisabled"
+  (click)="emitEvent()"
+  class="btn btn-primary my-2 my-sm-0 secondary-button"
+>
+  <i *ngIf="iconClass" [class]="iconClass" style="margin-right: 5px"></i
+  >{{ textValue }}
+  <img *ngIf="imageSource && imageAlt" [src]="imageSource" [alt]="imageAlt" />
+</button>
