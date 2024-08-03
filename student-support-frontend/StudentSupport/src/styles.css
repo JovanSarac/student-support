@@ -1,28 +1,64 @@
 /* You can add global styles to this file, and also import other style files */
-html, body { height: 100%; }
-body {
-     margin: 0; 
-     font-family: 'Poppins', 'sans-serif';
 
+:root {
+  --primary-color: #002f56;
+  --secondary-color: #0073e6; /* sta sa ovim da radim*/
+  --error-color: #e03e3e;
+  --background-color: #ffffff;
+  --border-light-color: #d3d3d3;
+
+  --text-on-primary-color: white; /*background: primary-color*/
+  --text-on-secondary-color: white; /*background: secondary-color*/
+  --text-heading-color: #002f56; /* background: background-color*/
+  --text-color: black; /*background: background-color*/
+  --text-lighter-color: #666666; /*background: background-color*/
+  --text-placeholder-color: #aaaaaa; /*background: background-color*/
+  --primary-hover-color: #004080;
+  --secondary-hover-color: #005bb5;
+  --disabled-color: #cccccc; /*disabled element*/
+  --info-color: #17a2b8; /* Za informativne poruke i oznake */
+  --warning-color: #ffc107; /* Za upozorenja i informacije koje zahtevaju pažnju */
+  --success-color: #28a745; /* Za uspešne poruke i oznake */
+  --accent-color: #ff5733; /* Za isticanje ključnih elemenata na stranici */
 }
 
-h1,h2,h3,h4,h5,h6,p{
-    font-family: 'Poppins', 'sans-serif';
+* {
+  scroll-behavior: smooth !important;
+  font-family: "Poppins", "sans-serif";
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Poppins", "sans-serif";
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: "Poppins", "sans-serif";
 }
 
 .btn-action {
-    height: auto;
-    padding: 10px;
-    background-color: rgb(224, 62, 62);
-    color: white;
-    border-radius: 15px;
-    font-family: 'Poppins', 'sans-serif';
-    transition: background-color 0.4s ease-in-out;
+  height: auto;
+  padding: 10px;
+  background-color: rgb(224, 62, 62);
+  color: white;
+  border-radius: 15px;
+  font-family: "Poppins", "sans-serif";
+  transition: background-color 0.4s ease-in-out;
 }
 
-.btn-action:hover{
-    background-color: rgb(136, 11, 11);
-    cursor: pointer;
+.btn-action:hover {
+  background-color: rgb(136, 11, 11);
+  cursor: pointer;
 }
 
-@import '@ctrl/ngx-emoji-mart/picker';
+@import "@ctrl/ngx-emoji-mart/picker";
