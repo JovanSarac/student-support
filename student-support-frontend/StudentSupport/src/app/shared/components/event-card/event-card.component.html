@@ -12,7 +12,11 @@
       [innerText]="eventType[event.eventType] || event.eventType"
     ></p>
     <svg
-      *ngIf="isAlreadyCheckedParticipate(event.id) && user.role === 'student'"
+      *ngIf="
+        isAlreadyCheckedParticipate(event.id) &&
+        user.role === 'student' &&
+        this.router.url !== '/'
+      "
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       width="30"

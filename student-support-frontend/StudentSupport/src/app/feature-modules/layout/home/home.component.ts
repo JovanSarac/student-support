@@ -15,10 +15,6 @@ export class HomeComponent implements OnInit {
 
   selectedTab: string = 'all';
   events: MyEvent[] = [];
-  currentPage = 1;
-  pageSize = 8;
-  pagedEvents: MyEvent[] = [];
-  totalPages = 1;
   slideImg: string = '../../../../assets/images/students1.jpg';
   images: string[] = [
     '../../../../assets/images/students1.jpg',
@@ -43,39 +39,17 @@ export class HomeComponent implements OnInit {
   isDropdownVisible: boolean = false;
   dropdownOpen = false;
 
-  eventType: { [key: string]: string } = {
-    AcademicConferenceAndSeminars: 'Konferencije',
-    WorkshopsAndCourses: 'Kursevi',
-    CulturalEvent: 'Kulturni',
-    Fair: 'Sajamski',
-    HumanitarianEvent: 'Humanitarni',
-    ArtExhibitionsAndPerformances: 'Umjetnicki',
-    StudentPartiesAndSocialEvents: 'Drustveni',
-    Competitions: 'Takmicenja',
-    StudentTrips: 'Putovanja',
-  };
-
-  eventTypeColors: { [key: string]: string } = {
-    AcademicConferenceAndSeminars: '#429D66',
-    WorkshopsAndCourses: ' #FF4D4D',
-    CulturalEvent: '#00BFFF',
-    Fair: '#FF9501',
-    HumanitarianEvent: '#FFD700',
-    ArtExhibitionsAndPerformances: '#DF80FF',
-    StudentPartiesAndSocialEvents: '#66CDAA',
-    Competitions: '#FFA07A',
-    StudentTrips: 'rgb(61,61,254)',
-  };
-
   ngOnInit() {
     this.checkScreenWidth();
     window.addEventListener('resize', this.checkScreenWidth.bind(this));
     this.startSlider();
+    this.getAllEvents();
+  }
+
+  getAllEvents(): void {
     this.service.getAllEvenets().subscribe({
       next: (result: PagedResults<MyEvent>) => {
         this.events = result.results.filter((e) => !e.isArchived);
-        this.totalPages = Math.ceil(this.events.length / this.pageSize);
-        this.updatePagedEvents();
       },
     });
   }
@@ -102,40 +76,8 @@ export class HomeComponent implements OnInit {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
-  formatDate(dateString: string): string {
-    const date = new Date(dateString);
-    const day = ('0' + date.getDate()).slice(-2);
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const year = date.getFullYear();
-    const hours = ('0' + date.getHours()).slice(-2);
-    const minutes = ('0' + date.getMinutes()).slice(-2);
-    return `${day}.${month}.${year} ${hours}:${minutes}`;
-  }
-
   selectTab(tab: string) {
     this.selectedTab = tab;
-    this.currentPage = 1; // Reset page to 1 when tab is selected
-    this.updatePagedEvents();
-  }
-
-  updatePagedEvents() {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.pagedEvents = this.events.slice(startIndex, endIndex);
-  }
-
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updatePagedEvents();
-    }
-  }
-
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updatePagedEvents();
-    }
   }
 
   renderMarkdown(description: string): string {
@@ -153,10 +95,6 @@ export class HomeComponent implements OnInit {
   renderTruncatedMarkdown(description: string, limit: number): string {
     const truncatedText = this.truncateText(description, limit);
     return this.renderMarkdown(truncatedText);
-  }
-
-  loginClick(): void {
-    this.router.navigate(['/login']);
   }
 
   startSlider() {

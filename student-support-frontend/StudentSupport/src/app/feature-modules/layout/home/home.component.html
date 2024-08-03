@@ -15,54 +15,12 @@
     <p>PREDSTOJEĆI DOGAĐAJI</p>
 
     <div class="cards">
-      <div
-        (click)="showSingleEvent(event.id)"
-        class="one-card"
-        *ngFor="let event of pagedEvents"
-        [ngStyle]="{ 'background-image': 'url(' + event.image + ')' }"
-      >
-        <div class="type-event">
-          <p
-            [ngStyle]="{ 'background-color': eventTypeColors[event.eventType] }"
-            [innerText]="eventType[event.eventType] || event.eventType"
-          ></p>
-        </div>
-        <div class="overlay">
-          <p>{{ event.name }}</p>
-          <p class="date-event">
-            <i class="bi bi-compass-fill"></i>
-            {{ formatDate(event.dateEvent.toString()) }}
-          </p>
-          <p class="address">
-            <i class="bi bi-geo-alt-fill"></i> {{ event.address }}
-          </p>
-          <p
-            *ngIf="false"
-            class="description"
-            [innerHTML]="renderTruncatedMarkdown(event.description, 400)"
-          ></p>
-        </div>
-      </div>
-    </div>
-
-    <div class="pagination">
-      <button (click)="prevPage()" [disabled]="currentPage === 1">
-        Prethodna
-      </button>
-      <span>Strana {{ currentPage }} od {{ totalPages }}</span>
-      <button (click)="nextPage()" [disabled]="currentPage === totalPages">
-        Sledeća
-      </button>
+      <xp-event-card *ngFor="let event of events" [event]="event">
+      </xp-event-card>
     </div>
   </div>
 
   <footer class="footer">
-    <div class="waves">
-      <div class="wave" id="wave1"></div>
-      <div class="wave" id="wave2"></div>
-      <div class="wave" id="wave3"></div>
-      <div class="wave" id="wave4"></div>
-    </div>
     <ul class="social-icon">
       <li class="social-icon__item">
         <a class="social-icon__link" href="#">
