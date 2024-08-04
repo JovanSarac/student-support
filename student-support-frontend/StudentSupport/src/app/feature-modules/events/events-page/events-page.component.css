@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 92dvh;
+  overflow-y: auto;
   background-color: var(--background-color);
   background-size: cover;
   background-position: center;
@@ -15,25 +15,22 @@
 .page-container {
   display: flex;
   flex-direction: row;
-  width: 94%;
-  margin: 3%;
-  height: calc(100% - 100px);
-  gap: 10px;
+  width: 100%;
 }
 
 .filters {
   width: 20%;
   height: 100%;
-  border-radius: 15px;
-  background-color: rgba(131, 131, 131, 0.3);
-  border: 1px solid #ccc;
+  position: fixed;
+  border-right: 1px solid black;
+  top:8dvh;
 }
 
 .filters-title {
   display: flex;
   justify-content: left;
   align-items: center;
-  color: white;
+  color: var(--text-color);
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 25px;
@@ -44,7 +41,7 @@
   display: flex;
   justify-content: left;
   align-items: center;
-  color: white;
+  color: var(--text-color);
   font-family: "Poppins", sans-serif;
   font-size: 14px;
   margin-top: 10%;
@@ -95,11 +92,7 @@ option {
   display: flex;
   flex-direction: column;
   width: 80%;
-  height: 100%;
-  overflow-y: auto;
-  background-color: rgba(131, 131, 131, 0.3);
-  border-radius: 15px;
-  border: 1px solid #ccc;
+  margin-left: 20%;
 }
 
 /* Stilizacija skrol trake */
@@ -166,10 +159,10 @@ option {
   font-size: 18px;
 }
 
-@media (max-width: 1600px) {
+/*@media (max-width: 1600px) {
   .one-card {
     width: calc(50% - 20px);
-    /* Dva u redu */
+    //Dva u redu 
   }
 }
 
@@ -186,7 +179,7 @@ option {
 @media (max-width: 580px) {
   .one-card {
     width: calc(100% - 20px);
-    /* Jedan u redu */
+    // Jedan u redu 
   }
 }
 
@@ -194,4 +187,4 @@ option {
   .navbar-content {
     display: none;
   }
-}
+}*/

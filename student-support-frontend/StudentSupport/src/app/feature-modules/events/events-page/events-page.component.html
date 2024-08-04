@@ -1,48 +1,45 @@
 <div class="full-page-bg">
-  <div class="information-board">
-    <div class="page-container">
-      <div class="filters">
-        <p class="filters-title">
-          <i class="bi bi-funnel-fill" style="margin-right: 10px"></i> Filtriraj
-          po
-        </p>
-        <p class="filter-date">Datumu:</p>
-        <p-calendar dateFormat="dd.mm.yy" [(ngModel)]="selected"> </p-calendar>
+  <div class="page-container">
+    <div class="filters">
+      <p class="filters-title">
+        <i class="bi bi-funnel-fill" style="margin-right: 10px"></i> Filteri
+      </p>
+      <p class="filter-date">Datumu:</p>
+      <p-calendar dateFormat="dd.mm.yy" [(ngModel)]="selected"> </p-calendar>
 
-        <p class="filter-date">Tipu događaja:</p>
-        <select name="type-event" class="filter-type">
-          <option value=""></option>
-          <option value="Conference">Konferencije</option>
-          <option value="Cultural">Kulturni</option>
-          <option value="">Sajamski</option>
-          <option value="">Humanitarni</option>
-          <option value="">Kursevi</option>
-          <option value="">Takmicenja</option>
-          <option value="">Putovanja</option>
-          <option value="">Umjetnicki</option>
-          <option value="">Drustveni</option>
-        </select>
+      <p class="filter-date">Tipu događaja:</p>
+      <select name="type-event" class="filter-type">
+        <option value=""></option>
+        <option value="Conference">Konferencije</option>
+        <option value="Cultural">Kulturni</option>
+        <option value="">Sajamski</option>
+        <option value="">Humanitarni</option>
+        <option value="">Kursevi</option>
+        <option value="">Takmicenja</option>
+        <option value="">Putovanja</option>
+        <option value="">Umjetnicki</option>
+        <option value="">Drustveni</option>
+      </select>
 
-        <p class="filter-date">Opsegu datuma</p>
+      <p class="filter-date">Opsegu datuma</p>
+    </div>
+
+    <div class="events">
+      <div class="cards">
+        <xp-event-card
+          *ngFor="let event of pagedEvents"
+          [event]="event"
+        ></xp-event-card>
       </div>
 
-      <div class="events">
-        <div class="cards">
-          <xp-event-card
-            *ngFor="let event of pagedEvents"
-            [event]="event"
-          ></xp-event-card>
-        </div>
-
-        <div class="pagination">
-          <button (click)="prevPage()" [disabled]="currentPage === 1">
-            Prethodna
-          </button>
-          <span>Strana {{ currentPage }} od {{ totalPages }}</span>
-          <button (click)="nextPage()" [disabled]="currentPage === totalPages">
-            Sledeća
-          </button>
-        </div>
+      <div class="pagination">
+        <button (click)="prevPage()" [disabled]="currentPage === 1">
+          Prethodna
+        </button>
+        <span>Strana {{ currentPage }} od {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+          Sledeća
+        </button>
       </div>
     </div>
   </div>
