@@ -1,6 +1,10 @@
-<xp-navbar *ngIf="
+<xp-navbar
+  *ngIf="
     this.router.url !== '/login' &&
-    this.router.url !== '/register'
-    ">
+    this.router.url !== '/register' &&
+    this.router.url !== '/card'
+  "
+>
 </xp-navbar>
 <router-outlet></router-outlet>
+<app-footer *ngIf="this.router.url === '/'"></app-footer>
