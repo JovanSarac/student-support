@@ -1,0 +1,62 @@
+<div *ngIf="inputType !== 'password'" class="mb-2 input-container">
+  <label [for]="inputId" class="ml-2 form-label">{{ label }}</label>
+  <input
+    [type]="inputType"
+    [formControl]="control"
+    [class.invalid]="control.invalid && control.touched"
+    [ngClass]="{
+        'red-border': control.invalid && control.touched,
+      }"
+    class="form-control form-input p-3"
+    autocomplete="off"
+    [id]="inputId"
+    placeholder="{{ placeholderSentence }}"
+  />
+  <ng-container *ngIf="control.invalid && control.touched">
+    <span *ngFor="let err of control.errors | keyvalue" class="ml-2 red">{{
+      errorMessages[err.key]
+    }}</span>
+  </ng-container>
+</div>
+
+<div *ngIf="inputType === 'password'" class="mb-3 input-container">
+  <label [for]="inputId" class="form-label">{{ label }}</label>
+  <div class="input-group">
+    <input
+      [type]="fieldTextType ? 'text' : 'password'"
+      [formControl]="control"
+      [class.invalid]="control.invalid && control.touched"
+      [ngClass]="{
+          'red-border': control.invalid && control.touched,
+        }"
+      class="form-control form-input p-3"
+      autocomplete="off"
+      [id]="inputId"
+      placeholder="{{ placeholderSentence }}"
+    />
+    <div class="input-group-append">
+      <span
+        class="input-group-text eye-icon"
+        [ngClass]="{
+            'red-border': control.invalid && control.touched,
+          }"
+        (click)="toggleFieldTextType()"
+        (keyup)="toggleFieldTextType()"
+        tabindex="0"
+      >
+        <i
+          class="bi"
+          [ngClass]="{
+              'bi-eye-slash': fieldTextType,
+              'bi-eye': !fieldTextType,
+            }"
+        ></i>
+      </span>
+    </div>
+  </div>
+  <ng-container *ngIf="control.invalid && control.touched">
+    <span *ngFor="let err of control.errors | keyvalue" class="ml-2 red">{{
+      errorMessages[err.key]
+    }}</span>
+  </ng-container>
+</div>

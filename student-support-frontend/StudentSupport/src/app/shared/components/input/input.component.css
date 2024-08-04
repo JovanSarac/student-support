@@ -1,0 +1,67 @@
+.form-label {
+  color: var(--text-heading-color);
+  font-size: clamp(14px, 1vw, 28px);
+  margin-bottom: 0.5vh;
+}
+
+.form-input {
+  border-radius: 12px;
+  border: 2px solid var(--border-light-color);
+  height: inherit;
+  font-size: clamp(14px, 1vw, 28px);
+  color: var(--text-color);
+}
+
+.form-input:focus {
+  border: 2px solid var(--primary-color);
+}
+
+.form-input:hover {
+  border: 2px solid var(--primary-hover-color);
+}
+
+.form-input:valid {
+  color: var(--text-color);
+}
+
+.form-input:disabled {
+  color: var(--disabled-color);
+  border: 2px solid var(--disabled-color);
+}
+
+.form-input::placeholder {
+  color: var(--text-placeholder-color);
+  font-size: clamp(14px, 1vw, 28px);
+}
+
+.form-input:focus::placeholder {
+  opacity: 0.3;
+}
+
+.red-border {
+  border-color: var(--error-color);
+}
+
+.red {
+  color: var(--error-color);
+  font-size: smaller;
+}
+
+.input-container {
+  width: inherit;
+}
+
+.eye-icon {
+  cursor: pointer;
+  z-index: 100;
+  border-radius: 0px 12px 12px 0px;
+  border: 2px solid var(--border-light-color);
+  color: var(--text-color);
+  background-color: var(--background-color);
+  height: inherit;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}

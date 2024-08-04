@@ -5,6 +5,7 @@ import { PrimaryButtonComponent } from './components/primary-button/primary-butt
 import { ReactiveFormsModule } from '@angular/forms';
 import { SecondaryButtonComponent } from './components/secondary-button/secondary-button.component';
 import { EventCardComponent } from './components/event-card/event-card.component';
+import { InputComponent } from './components/input/input.component';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { EventCardComponent } from './components/event-card/event-card.component
     PrimaryButtonComponent,
     SecondaryButtonComponent,
     EventCardComponent,
+    InputComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [
@@ -19,6 +21,7 @@ import { EventCardComponent } from './components/event-card/event-card.component
     PrimaryButtonComponent,
     SecondaryButtonComponent,
     EventCardComponent,
+    InputComponent,
   ],
 })
 export class SharedModule {}

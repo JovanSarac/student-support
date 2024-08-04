@@ -1,109 +1,210 @@
 <div class="full-page-bg">
-    <div class="page-content">
-        <p>{{title}}</p>
-        <form [formGroup]="eventForm" class="input-form">
-            <div class="text-info">
-                <div class="form__group field" [ngClass]="{'has-error': isControlInvalid('type')}">
-                    <select formControlName="type" type="input" class="form__field" placeholder="Vrsta"
-                        name="type" id='type' required>
-                            <option value=""> </option>
-                            <option value="0">Akademske konferencije i seminari</option>
-                            <option value="1">Radionice i kursevi</option>
-                            <option value="2">Kultorološki događaj</option>
-                            <option value="3">Sajamski događaj</option>
-                            <option value="4">Humanitarni događaj</option>
-                            <option value="5">Umjetničke izložbe i predstave</option>
-                            <option value="6">Studentske žurke i društveni događaji</option>
-                            <option value="7">Takmičenja</option>
-                            <option value="8">Studentska putovanja</option>
-                    </select>
-                    <label for="type" class="form__label">Vrsta događaja:</label>
-                    <div *ngIf="isControlInvalid('type')" class="error-message">Vrsta događaja je obavezna!</div>
-                </div>
-                <div class="form__group field" [ngClass]="{'has-error': isControlInvalid('name')}">
+  <div class="page-content">
+    <p>{{ title }}</p>
+    <form [formGroup]="eventForm" class="input-form">
+      <div class="text-info">
+        <div
+          class="form__group field"
+          [ngClass]="{ 'has-error': isControlInvalid('type') }"
+        >
+          <select
+            formControlName="type"
+            type="input"
+            class="form__field"
+            placeholder="Vrsta"
+            name="type"
+            id="type"
+            required
+          >
+            <option value=""></option>
+            <option value="0">Akademske konferencije i seminari</option>
+            <option value="1">Radionice i kursevi</option>
+            <option value="2">Kultorološki događaj</option>
+            <option value="3">Sajamski događaj</option>
+            <option value="4">Humanitarni događaj</option>
+            <option value="5">Umjetničke izložbe i predstave</option>
+            <option value="6">Studentske žurke i društveni događaji</option>
+            <option value="7">Takmičenja</option>
+            <option value="8">Studentska putovanja</option>
+          </select>
+          <label for="type" class="form__label">Vrsta događaja:</label>
+          <div *ngIf="isControlInvalid('type')" class="error-message">
+            Vrsta događaja je obavezna!
+          </div>
+        </div>
+        <!-- <div class="form__group field" [ngClass]="{'has-error': isControlInvalid('name')}">
                         <input formControlName="name" type="input" class="form__field" placeholder="Naziv"
                             name="name" id='name' required />
                         <label for="name" class="form__label">Naziv događaja:</label>
                         <div *ngIf="isControlInvalid('name')" class="error-message">Naziv događaja je obavezan!</div>
-                </div>
+                </div> -->
+        <xp-input
+          style="width: 90%"
+          [control]="eventForm.controls.name"
+          inputType="text"
+          inputId="naziv"
+          label="Naziv dogadjaja"
+          placeholderSentence="Unesi ime dogadjaja ovde"
+        >
+        </xp-input>
+        <div
+          class="description__group field"
+          [ngClass]="{ 'has-error': isControlInvalid('description') }"
+        >
+          <textarea
+            formControlName="description"
+            type="input"
+            class="description__field"
+            placeholder="Opis"
+            name="description"
+            id="description"
+            required
+            #descriptionTextarea
+          ></textarea>
+          <label for="description" class="description__label"
+            >Opis događaja:</label
+          >
+          <i
+            class="bi bi-emoji-heart-eyes-fill emoji-picker"
+            tabindex="0"
+            (click)="toggleEmojiPicker()"
+          ></i>
+          <div class="emoji-mart" *ngIf="showEmojiPicker">
+            <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart>
+          </div>
+          <div *ngIf="isControlInvalid('description')" class="error-message">
+            Opis događaja je obavezan!
+          </div>
+        </div>
 
-                <div class="description__group field" [ngClass]="{'has-error': isControlInvalid('description')}">
-                    <textarea formControlName="description" type="input" class="description__field"
-                        placeholder="Opis" name="description" id='description' required #descriptionTextarea></textarea>
-                    <label for="description" class="description__label">Opis događaja:</label>
-                    <i class="bi bi-emoji-heart-eyes-fill emoji-picker" tabindex="0"  (click)="toggleEmojiPicker()"></i>
-                    <div class="emoji-mart" *ngIf="showEmojiPicker">
-                        <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart>
-                    </div>
-                    <div *ngIf="isControlInvalid('description')" class="error-message">Opis događaja je obavezan!</div>
-                </div>
+        <div
+          class="form__group field"
+          [ngClass]="{ 'has-error': isControlInvalid('date') }"
+        >
+          <input
+            formControlName="date"
+            type="datetime-local"
+            class="form__field"
+            placeholder="Datum"
+            name="date"
+            id="date"
+            required
+          />
+          <label
+            *ngIf="eventForm.get('type')?.value !== '8'"
+            for="date"
+            class="form__label"
+            >Izaberite datum početka događaja:</label
+          >
+          <label
+            *ngIf="eventForm.get('type')?.value === '8'"
+            for="date"
+            class="form__label"
+            >Izaberite datum polaska:</label
+          >
+          <div *ngIf="isControlInvalid('date')" class="error-message">
+            Datum događaja je obavezan!
+          </div>
+        </div>
+      </div>
 
-                <div class="form__group field"  [ngClass]="{'has-error': isControlInvalid('date')}">
-                    <input formControlName="date" type="datetime-local" class="form__field" placeholder="Datum"
-                        name="date" id='date' required />
-                    <label *ngIf="eventForm.get('type')?.value !== '8'" for="date" class="form__label">Izaberite datum početka događaja:</label>
-                    <label *ngIf="eventForm.get('type')?.value === '8'" for="date" class="form__label">Izaberite datum polaska:</label>
-                    <div *ngIf="isControlInvalid('date')" class="error-message">Datum događaja je obavezan!</div>
+      <div class="separator"></div>
 
-                </div>
-
+      <div class="address-info">
+        <p *ngIf="eventForm.get('type')?.value !== '8'">
+          Izaberi na mapi adresu događaja:
+        </p>
+        <p *ngIf="eventForm.get('type')?.value === '8'">
+          Izaberite na mapi adresu za mjesto polaska:
+        </p>
+        <div class="row-map-address">
+          <div class="map-container">
+            <xp-map class="map" [mapId]="'address_createmap'"></xp-map>
+            <div *ngIf="latitude == 0 && notMarker" class="error-message">
+              Morate označiti marker na mapi klikom!
             </div>
-            
-            <div class="separator"></div>
+          </div>
 
-            <div class="address-info">
-                <p *ngIf="eventForm.get('type')?.value !== '8'">Izaberi na mapi adresu događaja:</p>
-                <p *ngIf="eventForm.get('type')?.value === '8'">Izaberite na mapi adresu za mjesto polaska:</p>
-                <div class="row-map-address">
-                    <div class="map-container">
-                        <xp-map class="map" [mapId]="'address_createmap'" ></xp-map>
-                        <div *ngIf="latitude == 0 && notMarker" class="error-message">Morate označiti marker na mapi klikom!</div>
-                    </div>
-    
-                    <div class="city-street">
-                        <div class="form__group field"  [ngClass]="{'has-error': isControlInvalid('city')}">
-                            <input type="text" class="form__field" placeholder="Grad" required formControlName="city"/>
-                            <label  class="form__label">Grad:</label>
-                            <div *ngIf="isControlInvalid('city')" class="error-message">Morate unijeti grad!</div>
-                        </div>
-    
-                        <div class="form__group field" [ngClass]="{'has-error': isControlInvalid('street')}">
-                            <input type="text" class="form__field" placeholder="Ulica" required formControlName="street"/>
-                            <label  class="form__label">Ulica:</label>
-                            <div *ngIf="isControlInvalid('street')" class="error-message">Morate unijeti ulicu!</div>
-                            <div *ngIf="undefinedStreet" class="error-message">Ulica ne moze biti undefined!</div>
-                        </div>
-                        <p>Možete grad i ulicu ručno izmjeniti, ukoliko prikazana adresa nije baš tačna!</p>
-    
-                    </div>
-                </div>
+          <div class="city-street">
+            <div
+              class="form__group field"
+              [ngClass]="{ 'has-error': isControlInvalid('city') }"
+            >
+              <input
+                type="text"
+                class="form__field"
+                placeholder="Grad"
+                required
+                formControlName="city"
+              />
+              <label class="form__label">Grad:</label>
+              <div *ngIf="isControlInvalid('city')" class="error-message">
+                Morate unijeti grad!
+              </div>
             </div>
 
-            <div class="separator"></div>
-            
-            <div class="pictures">
-                <div class="container-pictures">
-                    <div class="dialog-pictures" (click)="fileInput.click()">
-                        <p class="add-pictures" *ngIf="!selectedImage"><i class="bi bi-file-earmark-image-fill"
-                                style="margin-right: 4px;"></i>Dodaj fotografiju</p>
-                        <input type="file" #fileInput (change)="onFileSelected($event)"
-                            style="display: none;" />
-                        <div *ngIf="selectedImage" class="selected-image">
-                            <img [src]="selectedImage" alt="Selected Image" class="preview" />
-                        </div>
-
-                    </div>
-                    <div *ngIf="notPicture && event.image == ''" class="error-message" style="  margin-left: 5px;">Morate izabrati fotografiju za događaj!</div>
-                </div>
-                <div class="create-button">
-                    <p *ngIf="!isEditMode" (click)="createEvent()">Kreiraj</p>
-                    <p *ngIf="isEditMode" (click)="updateEvent()">Izmeni</p>
-                </div>
+            <div
+              class="form__group field"
+              [ngClass]="{ 'has-error': isControlInvalid('street') }"
+            >
+              <input
+                type="text"
+                class="form__field"
+                placeholder="Ulica"
+                required
+                formControlName="street"
+              />
+              <label class="form__label">Ulica:</label>
+              <div *ngIf="isControlInvalid('street')" class="error-message">
+                Morate unijeti ulicu!
+              </div>
+              <div *ngIf="undefinedStreet" class="error-message">
+                Ulica ne moze biti undefined!
+              </div>
             </div>
+            <p>
+              Možete grad i ulicu ručno izmjeniti, ukoliko prikazana adresa nije
+              baš tačna!
+            </p>
+          </div>
+        </div>
+      </div>
 
+      <div class="separator"></div>
 
-        </form>
-
-    </div>
-
+      <div class="pictures">
+        <div class="container-pictures">
+          <div class="dialog-pictures" (click)="fileInput.click()">
+            <p class="add-pictures" *ngIf="!selectedImage">
+              <i
+                class="bi bi-file-earmark-image-fill"
+                style="margin-right: 4px"
+              ></i
+              >Dodaj fotografiju
+            </p>
+            <input
+              type="file"
+              #fileInput
+              (change)="onFileSelected($event)"
+              style="display: none"
+            />
+            <div *ngIf="selectedImage" class="selected-image">
+              <img [src]="selectedImage" alt="Selected Image" class="preview" />
+            </div>
+          </div>
+          <div
+            *ngIf="notPicture && event.image == ''"
+            class="error-message"
+            style="margin-left: 5px"
+          >
+            Morate izabrati fotografiju za događaj!
+          </div>
+        </div>
+        <div class="create-button">
+          <p *ngIf="!isEditMode" (click)="createEvent()">Kreiraj</p>
+          <p *ngIf="isEditMode" (click)="updateEvent()">Izmeni</p>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
