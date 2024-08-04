@@ -9,9 +9,15 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { FormsModule } from '@angular/forms';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-  declarations: [HomeComponent, NavbarComponent, MyProfileComponent],
+  declarations: [
+    HomeComponent,
+    NavbarComponent,
+    MyProfileComponent,
+    FooterComponent,
+  ],
   imports: [
     CommonModule,
     MaterialModule,
@@ -21,6 +27,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     PickerModule,
     SharedModule,
   ],
-  exports: [NavbarComponent, HomeComponent],
+  exports: [NavbarComponent, HomeComponent, FooterComponent],
 })
 export class LayoutModule {}
