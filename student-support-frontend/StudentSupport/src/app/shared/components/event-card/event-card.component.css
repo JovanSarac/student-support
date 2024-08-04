@@ -1,8 +1,8 @@
 .one-card {
   position: relative;
   /* width: calc(25dvw - 20px); */
-  width: 16.5vw;
-  height: 450px;
+  width: 17.4vw;
+  height: 420px;
   border: 1px solid var(--secondary-color);
   background-size: cover;
   background-position: center;

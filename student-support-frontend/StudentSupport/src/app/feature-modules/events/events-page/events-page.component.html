@@ -1,9 +1,38 @@
 <div class="full-page-bg">
   <div class="page-container">
-    <div class="filters">
-      <p class="filters-title">
-        <i class="bi bi-funnel-fill" style="margin-right: 10px"></i> Filteri
-      </p>
+    <div class="left-bar">
+
+      <p class="left-bar-title"> Događaji</p>
+      <div class="search-events">
+        <xp-input class="input-search"
+          [inputType]="'text'"
+          [label]="''"
+          [control]="searchControl"
+          inputId="searchInput"
+          placeholderSentence="Pretraži događaje"
+        ></xp-input>
+        <p>
+          <i class="bi bi-search"></i>
+        </p>
+      </div>
+
+      <div class="buttons-tab">
+        <p><i class="bi bi-calendar-event-fill" style="margin-right: 10px;"></i>Svi događaji</p>
+        <p><i class="bi bi-bookmark-star-fill" style="margin-right: 10px;"></i>Vaši događaji</p>
+        <p><i class="bi bi-star-fill" style="margin-right: 10px;"></i>Vaša interesovanja</p>
+
+        <xp-primary-button
+      
+          class="create-event"
+          buttonId="create-event-button"
+          buttonType="button"
+          textValue="Napravi novi događaj"
+          (OnClick)="createEvent()"
+        >
+        </xp-primary-button>
+
+      </div>
+
       <p class="filter-date">Datumu:</p>
       <p-calendar dateFormat="dd.mm.yy" [(ngModel)]="selected"> </p-calendar>
 
@@ -25,6 +54,9 @@
     </div>
 
     <div class="events">
+      <div class="tab">
+
+      </div>
       <div class="cards">
         <xp-event-card
           *ngFor="let event of pagedEvents"

@@ -6,6 +6,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Participation } from 'src/app/shared/model/participation-model';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-events-page',
@@ -21,7 +22,8 @@ export class EventsPageComponent implements OnInit {
   participations: Participation[] = [];
   totalPages = 1;
   user!: User;
-
+  searchControl = new FormControl('');
+  
   constructor(
     private router: Router,
     private service: EventsService,
@@ -85,5 +87,10 @@ export class EventsPageComponent implements OnInit {
       this.currentPage--;
       this.updatePagedEvents();
     }
+  }
+
+  createEvent(){
+    this.router.navigate(['create-event']);
+
   }
 }

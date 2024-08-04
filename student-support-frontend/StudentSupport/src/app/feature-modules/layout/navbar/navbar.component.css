@@ -37,36 +37,14 @@
 }
 
 .navbar-element-nameapp img {
-  width: 60px;
-  height: 60px;
+  width: 260px;
+  height: 50px;
   transition: transform 0.3s ease;
 }
 
 .navbar-element-nameapp img:hover {
   cursor: pointer;
   transform: scale(1.07);
-}
-
-.navbar-element-nameapp p {
-  margin: auto;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 5%;
-}
-
-.navbar-element-nameapp {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-  height: 100%;
-}
-
-.navbar-element-nameapp img {
-  width: 60px;
-  height: 60px;
 }
 
 .navbar-element-nameapp p {
