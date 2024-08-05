@@ -11,4 +11,5 @@ export interface MyEvent {
   datePublication: Date;
   image: string;
   isArchived: boolean;
+  price?: number;
 }

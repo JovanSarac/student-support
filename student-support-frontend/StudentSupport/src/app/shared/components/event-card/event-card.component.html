@@ -33,10 +33,18 @@
   </div>
   <div class="overlay">
     <p class="event-name">{{ event.name }}</p>
-    <p class="date-event">
-      <i class="bi bi-compass-fill"></i>
-      {{ formatDate(event.dateEvent.toString()) }}
-    </p>
+    <div class="price-date-container">
+      <p class="date-event">
+        <i class="bi bi-compass-fill"></i>
+        {{ formatDate(event.dateEvent.toString()) }}
+      </p>
+      <p *ngIf="event.price && event.price !== 0">
+        <i class="bi bi-tags-fill"></i> {{ event.price }} rsd
+      </p>
+      <p *ngIf="!event.price || event.price === 0">
+        <i class="bi bi-tags-fill"></i> FREE
+      </p>
+    </div>
     <p class="address">
       <i class="bi bi-geo-alt-fill"></i> {{ event.address }}
     </p>
