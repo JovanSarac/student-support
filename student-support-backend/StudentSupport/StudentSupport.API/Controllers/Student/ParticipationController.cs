@@ -67,6 +67,13 @@ namespace StudentSupport.API.Controllers.Student
             return CreateResponse(result);
         }
 
+        [HttpPost("resend_email/{eventId:int}/{studentId:int}")]
+        public async Task<ActionResult> ResendMail(int eventId, int studentId)
+        {
+            var result = await _participationService.ResendMail(eventId, studentId);
+            return CreateResponse(result);
+        }
+
         [HttpDelete]
         public ActionResult Delete(int id)
         {

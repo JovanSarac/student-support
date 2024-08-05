@@ -123,7 +123,7 @@ namespace StudentSupport.Events.Core.UseCases
                 mail.To.Add(email);
             }
 
-            mail.Subject = eventDto.Name + " - Ponovo aktivan dogadjaj!";
+            mail.Subject = eventDto.Name + " - Ponovo aktivan događaj!";
             mail.Body = "Otkazani događaj koji ste označili kao zanimljiv je ponovo aktivan, da li ste i dalje zainteresovani da učestvujete u ovom događaju?";
 
             SmtpClient client = new SmtpClient("smtp-mail.outlook.com", 587);

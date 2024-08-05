@@ -168,5 +168,24 @@ namespace StudentSupport.Events.Core.UseCases
                 Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }
         }
+
+        public async Task<Result> ResendMail(int eventId, int studentId)
+        {
+            try
+            {
+                EventDto eventDto = _eventService.Get(eventId).Value;
+
+                PersonDto personDto = _internalPersonService.GetByUserId(studentId).Value;
+
+                await _emailService.SendEmailAsync(eventDto, personDto.Email);
+
+                return Result.Ok();
+
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
     }
 }
