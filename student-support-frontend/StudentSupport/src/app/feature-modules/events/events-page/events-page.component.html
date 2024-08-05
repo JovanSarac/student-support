@@ -18,11 +18,11 @@
 
       <div class="buttons-tab">
         <p><i class="bi bi-calendar-event-fill" style="margin-right: 10px;"></i>Svi događaji</p>
-        <p><i class="bi bi-bookmark-star-fill" style="margin-right: 10px;"></i>Vaši događaji</p>
-        <p><i class="bi bi-star-fill" style="margin-right: 10px;"></i>Vaša interesovanja</p>
+        <p *ngIf="user.role ==='author'"><i class="bi bi-bookmark-star-fill" style="margin-right: 10px;"></i>Vaši događaji</p>
+        <p *ngIf="user.role ==='student'"><i class="bi bi-star-fill" style="margin-right: 10px;"></i>Vaša interesovanja</p>
 
         <xp-primary-button
-      
+          *ngIf="user.role ==='author'"
           class="create-event"
           buttonId="create-event-button"
           buttonType="button"

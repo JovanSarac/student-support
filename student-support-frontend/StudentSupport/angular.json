@@ -32,6 +32,7 @@
               "node_modules/primeicons/primeicons.css",
               "node_modules/@ctrl/ngx-emoji-mart/picker.css",
               "./node_modules/leaflet/dist/leaflet.css",
+              "node_modules/ngx-toastr/toastr.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -100,6 +101,7 @@
               "node_modules/primeicons/primeicons.css",
               "node_modules/@ctrl/ngx-emoji-mart/picker.css",
               "./node_modules/leaflet/dist/leaflet.css",
+              "node_modules/ngx-toastr/toastr.css",
               "src/styles.css"
             ],
             "scripts": []

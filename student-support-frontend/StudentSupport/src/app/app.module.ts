@@ -14,6 +14,7 @@ import { IonicModule } from '@ionic/angular';
 import { EventsModule } from './feature-modules/events/events.module';
 import { CalendarModule } from 'primeng/calendar';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,15 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     CalendarModule,
     FormsModule,
     PickerModule,
+    ToastrModule.forRoot({
+      timeOut: 4000,
+      extendedTimeOut:1000,
+      maxOpened:3,
+      positionClass:'toast-bottom-right',
+      progressBar:true,
+      progressAnimation:'increasing'
+    }),
+
 
   ],
   providers: [

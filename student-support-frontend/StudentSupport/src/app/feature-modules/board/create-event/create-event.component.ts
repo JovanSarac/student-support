@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { EventsService } from '../../events/events.service';
 import { retry } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-event',
@@ -76,6 +77,7 @@ export class CreateEventComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private eventService : EventsService,
+    private toastr: ToastrService
   ) {}
 
 
@@ -324,6 +326,7 @@ export class CreateEventComponent implements OnInit {
 
     this.service.createEvent(this.event).subscribe({
       next: (result: MyEvent) => {
+        this.toastr.success("Uspješno!", "Uspješno ste kreirali događaj!" )
         this.router.navigate(['your-events']);
       },
     });
