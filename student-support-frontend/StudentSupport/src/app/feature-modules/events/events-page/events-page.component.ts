@@ -23,6 +23,9 @@ export class EventsPageComponent implements OnInit {
   totalPages = 1;
   user!: User;
   searchControl = new FormControl('');
+  activeTab: string = 'allEvents';
+
+  filterCont = new FormControl('');
   
   constructor(
     private router: Router,
@@ -92,5 +95,22 @@ export class EventsPageComponent implements OnInit {
   createEvent(){
     this.router.navigate(['create-event']);
 
+  }
+
+  setActiveTab(tab: string) {
+    this.activeTab = tab;
+    console.log(tab)
+    if(tab == "allEvents"){
+      this.getAllEvents();
+    }else if(tab == "yourEvents"){
+      this.service.getYoursEvents(this.user.id).subscribe({
+        next: (result: MyEvent[]) => {
+          this.events = result;
+          console.log(this.events);
+          this.totalPages = Math.ceil(this.events.length / this.pageSize);
+          this.updatePagedEvents();
+        },
+      });
+    }
   }
 }

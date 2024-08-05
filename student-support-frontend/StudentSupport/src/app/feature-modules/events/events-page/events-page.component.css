@@ -95,6 +95,11 @@
   color: var(--secondary-hover-color);
 }
 
+.buttons-tab p.active {
+  background-color: aliceblue; /* ili neka druga boja */
+  color: var(--secondary-hover-color); /* ili neka druga boja */
+}
+
 .create-event{
   width: 100%;
   margin-top: 3%;
@@ -104,48 +109,57 @@
 }
 
 
-.filter-date {
+.filter-type-title {
   display: flex;
   justify-content: left;
   align-items: center;
   color: var(--text-color);
   font-family: "Poppins", sans-serif;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 900;
   margin-top: 10%;
   margin-left: 5%;
 }
 
-:host ::ng-deep .p-calendar {
-  cursor: pointer;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2% 5% 3% 5%;
-}
 
-:host ::ng-deep .p-calendar .p-datepicker table td.p-datepicker-today > span,
-:host
-  ::ng-deep
-  .p-calendar
-  .p-datepicker
-  table
-  td.p-datepicker-today
-  > span:hover {
-  background-color: #020264;
-  color: white;
-  font-weight: bold;
-}
-
-.filter-type {
+.checkboxs{
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2% 5% 3% 5%;
+  flex-direction: row;
   width: 90%;
-  border-radius: 5px;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.first-column{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.second-column{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.checkbox-input{
+  display: flex;
+  flex-direction: row;
+  width: 96%;
+  margin: 2%;
+}
+
+.checkbox-input input{
+  width: 20px;
+  height: 20px;
   cursor: pointer;
-  height: 38px;
+}
+
+.checkbox-input label{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
 }
 
 option {

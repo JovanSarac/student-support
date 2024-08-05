@@ -17,9 +17,9 @@
       </div>
 
       <div class="buttons-tab">
-        <p><i class="bi bi-calendar-event-fill" style="margin-right: 10px;"></i>Svi događaji</p>
-        <p *ngIf="user.role ==='author'"><i class="bi bi-bookmark-star-fill" style="margin-right: 10px;"></i>Vaši događaji</p>
-        <p *ngIf="user.role ==='student'"><i class="bi bi-star-fill" style="margin-right: 10px;"></i>Vaša interesovanja</p>
+        <p [ngClass]="{'active': activeTab === 'allEvents'}"  (click)="setActiveTab('allEvents')"><i class="bi bi-calendar-event-fill" style="margin-right: 10px;"></i>Svi događaji</p>
+        <p [ngClass]="{'active': activeTab === 'yourEvents'}" (click)="setActiveTab('yourEvents')" *ngIf="user.role ==='author'"><i class="bi bi-bookmark-star-fill" style="margin-right: 10px;"></i>Vaši događaji</p>
+        <p [ngClass]="{'active': activeTab === 'yourInterests'}"  (click)="setActiveTab('yourInterests')" *ngIf="user.role ==='student'"><i class="bi bi-star-fill" style="margin-right: 10px;"></i>Vaša interesovanja</p>
 
         <xp-primary-button
           *ngIf="user.role ==='author'"
@@ -33,24 +33,60 @@
 
       </div>
 
-      <p class="filter-date">Datumu:</p>
-      <p-calendar dateFormat="dd.mm.yy" [(ngModel)]="selected"> </p-calendar>
+      <p class="filter-type-title">Tipovi događaja:</p>
+      <div class="checkboxs">
+        <div class="first-column">
+          <div class="checkbox-input">
+            <input type="checkbox" id="conference" value="0">
+            <label for="conference">Konferencije</label>
+          </div>
+          <div class="checkbox-input">
+            <input type="checkbox" id="courses" value="1">
+            <label for="courses">Kursevi</label>
+          </div>
+          <div class="checkbox-input">
+            <input type="checkbox" id="cultural" value="2">
+            <label for="cultural">Kulturni</label>
+          </div>
+          <div class="checkbox-input">
+            <input type="checkbox" id="fair" value="3">
+            <label for="fair">Sajamski</label>
+          </div>
+          <div class="checkbox-input">
+            <input type="checkbox" id="humanitarian" value="4">
+            <label for="humanitarian">Humanitarni</label>
+          </div>
 
-      <p class="filter-date">Tipu događaja:</p>
-      <select name="type-event" class="filter-type">
-        <option value=""></option>
-        <option value="Conference">Konferencije</option>
-        <option value="Cultural">Kulturni</option>
-        <option value="">Sajamski</option>
-        <option value="">Humanitarni</option>
-        <option value="">Kursevi</option>
-        <option value="">Takmicenja</option>
-        <option value="">Putovanja</option>
-        <option value="">Umjetnicki</option>
-        <option value="">Drustveni</option>
-      </select>
+        </div>
 
-      <p class="filter-date">Opsegu datuma</p>
+        <div class="second-column">
+          <div class="checkbox-input">
+            <input type="checkbox" id="art" value="5">
+            <label for="art">Umjetnički</label>
+          </div>
+          <div class="checkbox-input">
+            <input type="checkbox" id="social" value="6">
+            <label for="social">Društveni</label>
+          </div>
+          <div class="checkbox-input">
+            <input type="checkbox" id="competition" value="7">
+            <label for="competition">Takmičenja</label>
+          </div>
+          <div class="checkbox-input">
+            <input type="checkbox" id="trip" value="8">
+            <label for="trip">Putovanja</label>
+          </div>
+          <div class="checkbox-input">
+            <input type="checkbox" id="others" value="9">
+            <label for="others">Ostalo</label>
+          </div>
+
+        </div>
+      
+  
+
+      </div>
+
     </div>
 
     <div class="events">
