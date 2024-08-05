@@ -75,7 +75,7 @@ namespace StudentSupport.Events.Core.UseCases
 
                 PersonDto personDto = _internalPersonService.GetByUserId((int)participationDto.StudentId).Value;
 
-                await _emailService.SendEmailAsync(participationDto, eventDto, personDto.Email);
+                await _emailService.SendEmailAsync(eventDto, personDto.Email);
 
                 return Create(participationDto);
             }
@@ -109,6 +109,61 @@ namespace StudentSupport.Events.Core.UseCases
                 }
             }
             catch(ArgumentException e)
+            {
+                Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        public async Task CancelAllByAuthor(int eventId)
+        {
+            EventDto eventDto = null;
+
+            try
+            {
+                List<string> emails = new List<string>();
+
+                foreach (Participation p in _participationRepository.GetAllByEventId(eventId))
+                {
+                    p.CancelByAuthor();
+                    _participationRepository.SaveChanges();
+
+                    eventDto = _eventService.Get((int)p.EventId).Value;
+
+                    PersonDto personDto = _internalPersonService.GetByUserId((int)p.StudentId).Value;
+                    emails.Add(personDto.Email);
+                }
+
+                await _emailService.SendCancellationEmailsAsync(eventDto, emails);
+            }
+            catch (ArgumentException e)
+            {
+                Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        public async Task SendMailAfterPublishingBack(int eventId)
+        {
+            EventDto eventDto = null;
+
+            try
+            {
+                List<string> emails = new List<string>();
+
+                foreach (Participation p in _participationRepository.GetAllByEventId(eventId))
+                {
+                    if(p.Type == ParticipationType.CancelledByAuthor)
+                    {
+                        eventDto = _eventService.Get((int)p.EventId).Value;
+                        PersonDto personDto = _internalPersonService.GetByUserId((int)p.StudentId).Value;
+
+                        emails.Add(personDto.Email);
+
+                    }
+                }
+
+                await _emailService.SendPublishedEmailsAsync(eventDto, emails);
+            }
+            catch (ArgumentException e)
             {
                 Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }

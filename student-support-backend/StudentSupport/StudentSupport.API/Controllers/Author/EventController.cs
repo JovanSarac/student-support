@@ -47,7 +47,20 @@ namespace StudentSupport.API.Controllers.Author
 
             if(result.IsSuccess)
             {
-                _participationService.CancelAllByEventId(id);
+                _participationService.CancelAllByAuthor(id);
+            }
+
+            return CreateResponse(result);
+        }
+
+        [HttpPut("publish")]
+        public ActionResult<EventDto> PublishEvent([FromBody] int id)
+        {
+            var result = _eventService.Publish(id);
+
+            if (result.IsSuccess)
+            {
+                _participationService.SendMailAfterPublishingBack(id);
             }
 
             return CreateResponse(result);

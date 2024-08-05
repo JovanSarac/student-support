@@ -64,5 +64,21 @@ namespace StudentSupport.Events.Core.UseCases
             }
         }
 
+        public Result<EventDto> Publish(int id)
+        {
+            try
+            {
+                Event eventTemp = _eventRepository.Get(id);
+                eventTemp.Publish();
+                _eventRepository.SaveChanges();
+
+                return MapToDto(eventTemp);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
     }
 }

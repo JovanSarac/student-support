@@ -18,6 +18,7 @@ namespace StudentSupport.Events.API.Public
         Result<EventDto> Get(int id);
         Result<bool> IsAuthorOfEvent(int authorId, int eventid);
         Result<EventDto> Archive(int id);
+        Result<EventDto> Publish(int id);
         Result<List<EventDto>> GetYoursEvents(long userId);
     }
 }

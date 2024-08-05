@@ -46,11 +46,18 @@ namespace StudentSupport.Events.Core.Domain
             Validate();
             Type = ParticipationType.Active;
         }
+
+        public void CancelByAuthor()
+        {
+            Validate();
+            Type = ParticipationType.CancelledByAuthor;
+        }
     }
 
     public enum ParticipationType
     {
         Active,
-        Cancelled
+        Cancelled,
+        CancelledByAuthor
     }
 }
