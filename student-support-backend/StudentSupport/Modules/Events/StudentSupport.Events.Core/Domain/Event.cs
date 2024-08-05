@@ -20,11 +20,12 @@ namespace StudentSupport.Events.Core.Domain
         public DateTime DatePublication { get; init; }
         public string Image {  get; init; }
         public bool IsArchived { get; set; }
+        public double? Price { get; set; }
         public Event()
         {
 
         }
-        public Event(long userId, string name, string description, DateTime dateEvent, string address, double latitude, double longitude, EventType eventType, DateTime datePublication, string image, bool isArchived)
+        public Event(long userId, string name, string description, DateTime dateEvent, string address, double latitude, double longitude, EventType eventType, DateTime datePublication, string image, bool isArchived, double price)
         {
             UserId = userId;
             Name = name;
@@ -37,11 +38,17 @@ namespace StudentSupport.Events.Core.Domain
             DatePublication = datePublication;
             Image = image;
             IsArchived = isArchived;
+            Price = price;
         }
 
         public void Archive()
         {
             IsArchived = true;
+        }
+
+        public void Publish()
+        {
+            IsArchived = false;
         }
 
     }
@@ -56,6 +63,7 @@ namespace StudentSupport.Events.Core.Domain
         ArtExhibitionsAndPerformances,
         StudentPartiesAndSocialEvents,
         Competitions,
-        StudentTrips
+        StudentTrips,
+        Other
     }
 }

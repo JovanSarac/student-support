@@ -22,7 +22,8 @@ INSERT INTO events."Events" (
     "EventType",
     "DatePublication",
     "Image",
-    "IsArchived"
+    "IsArchived",
+    "Price"
 ) VALUES
 (
 	-1,
@@ -40,7 +41,8 @@ INSERT INTO events."Events" (
     6, -- EventType (assuming 1 is a valid enum value)
     '2024-07-29 08:00:00', -- DatePublication (YYYY-MM-DD HH:MM:SS format)
     'https://wallpapergod.com/images/hd/party-1920X1080-wallpaper-el1y1iwqocrfqpxt.jpeg', -- Image
-    false -- IsArchived
+    false, -- IsArchived
+    NULL
 ),
 (
 	-2,
@@ -58,7 +60,8 @@ INSERT INTO events."Events" (
     4, -- EventType
     '2024-07-30 09:00:00', -- DatePublication
     'https://www.budihuman.rs/services/beneficiary-photo/1678/banner-2.png', -- Image
-    false -- IsArchived
+    false, -- IsArchived
+    200
 ),
 (
 	-3,
@@ -76,7 +79,8 @@ INSERT INTO events."Events" (
     7, -- EventType
     '2024-07-31 10:00:00', -- DatePublication
     'https://i.pinimg.com/originals/86/14/08/86140851db16b958dfeb08d09e8d978d.jpg', -- Image
-    false -- IsArchived
+    false, -- IsArchived
+    NULL
 ),
 (
 	-4,
@@ -94,7 +98,8 @@ INSERT INTO events."Events" (
     5, -- EventType
     '2024-08-01 11:00:00', -- DatePublication
     'https://c4.wallpaperflare.com/wallpaper/556/382/458/fantasy-art-artwork-fan-art-science-fiction-wallpaper-preview.jpg', -- Image
-    false -- IsArchived
+    false, -- IsArchived
+    NULL
 ),
 (
 	-5,
@@ -112,7 +117,8 @@ INSERT INTO events."Events" (
     8, -- EventType
     '2024-08-02 12:00:00', -- DatePublication
     'https://i.ytimg.com/vi/Rhm0fO2uqOs/maxresdefault.jpg', -- Image
-    false -- IsArchived
+    false, -- IsArchived
+    45000
 ),
 (
 	-6,
@@ -130,7 +136,8 @@ INSERT INTO events."Events" (
     0, -- EventType
     '2024-08-03 13:00:00', -- DatePublication
     'https://wallpapercave.com/wp/wp7544513.jpg', -- Image
-    false -- IsArchived
+    false, -- IsArchived
+    NULL
 ),
 (
 	-7,
@@ -148,6 +155,7 @@ INSERT INTO events."Events" (
     1, -- EventType
     '2024-08-04 14:00:00', -- DatePublication
     'https://radiotivat.com/wp-content/uploads/2024/07/envifHR5-1920x1080.jpeg', -- Image
-    false -- IsArchived
+    false, -- IsArchived
+    1000
 );
 
