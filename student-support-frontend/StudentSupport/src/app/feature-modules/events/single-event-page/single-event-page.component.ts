@@ -158,6 +158,7 @@ export class SingleEventPageComponent implements OnInit {
     this.service.archiveEvent(this.event.id).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
+        this.countParticipationsByEventId();
       },
     });
   }
@@ -234,5 +235,9 @@ export class SingleEventPageComponent implements OnInit {
 
   openEditEventPage(): void {
     this.router.navigate(['/edit-event', this.eventId]);
+  }
+
+  openProfile(): void {
+    this.router.navigate(['/my-profile/' + this.author.id]);
   }
 }

@@ -1,5 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
@@ -26,7 +33,7 @@ export class CreateEventComponent implements OnInit {
   user!: User;
   latitude: number = 0;
   longitude: number = 0;
-  title : string = "Kreiraj događaj";
+  title: string = 'Kreiraj događaj';
   isEditMode: boolean = false;
   event: MyEvent = {
     id: 0,
@@ -43,9 +50,9 @@ export class CreateEventComponent implements OnInit {
     isArchived: false,
   };
   showEmojiPicker: boolean = false;
-  notMarker : boolean = false;
-  notPicture : boolean = false;
-  undefinedStreet : boolean = false;
+  notMarker: boolean = false;
+  notPicture: boolean = false;
+  undefinedStreet: boolean = false;
 
   eventTypeMap = [
     { value: 'AcademicConferenceAndSeminars', numericValue: '0' },
@@ -66,7 +73,7 @@ export class CreateEventComponent implements OnInit {
     type: new FormControl('', Validators.required),
     name: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
-    city: new FormControl('', Validators.required), 
+    city: new FormControl('', Validators.required),
     street: new FormControl('', Validators.required),
     date: new FormControl('', Validators.required),
   });
@@ -76,10 +83,9 @@ export class CreateEventComponent implements OnInit {
     private service: BoardService,
     private router: Router,
     private route: ActivatedRoute,
-    private eventService : EventsService,
+    private eventService: EventsService,
     private toastr: ToastrService
   ) {}
-
 
   ngOnInit(): void {
     this.authService.user$.subscribe((user) => {
@@ -88,11 +94,11 @@ export class CreateEventComponent implements OnInit {
 
     this.route.url.subscribe(([url]) => {
       const { path } = url;
-  
+
       if (path === 'edit-event') {
         this.isEditMode = true;
         this.title = 'Izmjeni događaj:';
-        
+
         this.loadEvent();
       }
     });
@@ -102,12 +108,11 @@ export class CreateEventComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('eventId'));
 
     if (id) {
-      this.eventService.getEventById(this.user, id).subscribe(event => {
+      this.eventService.getEventById(this.user, id).subscribe((event) => {
         this.event = event;
         this.updateFormWithEventData();
       });
     }
-    
   }
 
   updateFormWithEventData(): void {
@@ -122,19 +127,25 @@ export class CreateEventComponent implements OnInit {
     this.latitude = this.event.latitude;
     this.longitude = this.event.longitude;
     this.selectedImage = this.event.image;
-    this.setMarkerOnMap()
+    this.setMarkerOnMap();
   }
 
   getNumericValue(eventType: string): string {
-    const found = this.eventTypeMap.find(type => type.value === eventType);
+    const found = this.eventTypeMap.find((type) => type.value === eventType);
     return found ? found.numericValue : '';
   }
 
-
   setMarkerOnMap(): void {
     if (this.mapComponentCreate) {
-      this.mapComponentCreate.addMarker(this.event.latitude, this.event.longitude);
-      this.mapComponentCreate.setView(this.event.latitude, this.event.longitude, 15);
+      this.mapComponentCreate.addMarker(
+        this.event.latitude,
+        this.event.longitude
+      );
+      this.mapComponentCreate.setView(
+        this.event.latitude,
+        this.event.longitude,
+        15
+      );
     }
   }
 
@@ -158,7 +169,7 @@ export class CreateEventComponent implements OnInit {
           street: location.street,
         });
         this.undefinedStreet = false;
-        if(location.street == "undefined "){
+        if (location.street == 'undefined ') {
           this.undefinedStreet = true;
         }
       }
@@ -226,7 +237,6 @@ export class CreateEventComponent implements OnInit {
     return address.split(', ')[0];
   }
 
-
   formatDate(dateString: string) {
     const date = new Date(dateString);
 
@@ -239,14 +249,16 @@ export class CreateEventComponent implements OnInit {
     return `${day}.${month}.${year} ${hours}:${minutes}`;
   }
 
-
   addEmoji(event: any) {
     const emoji = event.emoji.native;
     const textarea = this.descriptionTextarea.nativeElement;
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
     this.eventForm.patchValue({
-      description: this.eventForm.value.description!.slice(0, start) + emoji + this.eventForm.value.description!.slice(end)
+      description:
+        this.eventForm.value.description!.slice(0, start) +
+        emoji +
+        this.eventForm.value.description!.slice(end),
     });
     setTimeout(() => {
       textarea.setSelectionRange(start + emoji.length, start + emoji.length);
@@ -256,14 +268,16 @@ export class CreateEventComponent implements OnInit {
 
   toggleEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;
-    document.getElementById("description")?.focus();
+    document.getElementById('description')?.focus();
   }
-
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: Event) {
     const target = event.target as HTMLElement;
-    if (target.closest('.emoji-mart') === null && target.closest('.description__group') === null) {
+    if (
+      target.closest('.emoji-mart') === null &&
+      target.closest('.description__group') === null
+    ) {
       this.showEmojiPicker = false;
     }
   }
@@ -273,27 +287,26 @@ export class CreateEventComponent implements OnInit {
     return (control?.invalid && (control.dirty || control.touched)) ?? false;
   }
 
-  validateMarkerAndPicture() : boolean{
+  validateMarkerAndPicture(): boolean {
     var br = 0;
     this.notMarker = false;
     this.notPicture = false;
     this.undefinedStreet = false;
 
-    if(this.eventForm.value.street == undefined){
+    if (this.eventForm.value.street == undefined) {
       this.undefinedStreet = true;
       br++;
     }
-    if(this.latitude == 0 || this.longitude == 0){
+    if (this.latitude == 0 || this.longitude == 0) {
       br++;
       this.notMarker = true;
     }
-    if(this.event.image == ''){
+    if (this.event.image == '') {
       this.notPicture = true;
       br++;
     }
 
-    if(br!=0)
-      return false;
+    if (br != 0) return false;
 
     return true;
   }
@@ -307,8 +320,7 @@ export class CreateEventComponent implements OnInit {
   createEvent() {
     this.markAllControlsAsTouched();
 
-    if (!this.validateMarkerAndPicture())
-      return
+    if (!this.validateMarkerAndPicture()) return;
 
     if (this.eventForm.invalid) {
       return;
@@ -316,13 +328,13 @@ export class CreateEventComponent implements OnInit {
     this.event.name = this.eventForm.value.name || '';
     this.event.description = this.eventForm.value.description || '';
     this.event.dateEvent = new Date(this.eventForm.value.date || '');
-    this.event.address = this.eventForm.value.street + ', ' + this.eventForm.value.city || '';
+    this.event.address =
+      this.eventForm.value.street + ', ' + this.eventForm.value.city || '';
     this.event.latitude = this.latitude;
     this.event.longitude = this.longitude;
     this.event.eventType = this.eventForm.value.type || '';
     this.event.datePublication = new Date();
     this.event.userId = this.user.id;
-
 
     this.service.createEvent(this.event).subscribe({
       next: (result: MyEvent) => {
@@ -332,11 +344,10 @@ export class CreateEventComponent implements OnInit {
     });
   }
 
-  updateEvent(){
+  updateEvent() {
     this.markAllControlsAsTouched();
 
-    if (!this.validateMarkerAndPicture())
-      return
+    if (!this.validateMarkerAndPicture()) return;
 
     if (this.eventForm.invalid) {
       return;
@@ -344,15 +355,17 @@ export class CreateEventComponent implements OnInit {
     this.event.name = this.eventForm.value.name || '';
     this.event.description = this.eventForm.value.description || '';
     this.event.dateEvent = new Date(this.eventForm.value.date || '');
-    this.event.address = this.eventForm.value.street + ', ' + this.eventForm.value.city || '';
+    this.event.address =
+      this.eventForm.value.street + ', ' + this.eventForm.value.city || '';
     this.event.latitude = this.latitude;
     this.event.longitude = this.longitude;
     this.event.eventType = this.eventForm.value.type || '';
 
     this.eventService.updateEvent(this.event).subscribe({
-      next: (result:MyEvent) =>{
-        this.event = result
-      }
-    })
+      next: (result: MyEvent) => {
+        this.event = result;
+        this.router.navigate([`/single-event/${this.event.id}`]);
+      },
+    });
   }
 }

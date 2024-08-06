@@ -118,111 +118,12 @@
         odazvalo
       </p>
       <p>
-        <i class="bi bi-person-fill"></i> Dogadjaj kreirao
-        <b>{{ author.name }}</b
-        >&nbsp;<b>{{ author.surname }}</b>
+        <i class="bi bi-person-fill"></i> Događaj kreirao/la
+        <b class="author-name" (click)="openProfile()"
+          >{{ author.name }}&nbsp;{{ author.surname }}</b
+        >
       </p>
     </div>
   </div>
   <div class="event-description" [innerHTML]="convertedDescription"></div>
 </div>
-
-<!-- <div class="full-page-container">
-  <div class="info-image-container">
-    <div class="event-info-container">
-      <div>
-        <p class="event-date-time-p">
-          {{ formatDate(event.dateEvent.toString()) }} - 13.08.2024 21:00
-        </p>
-        <h1>{{ event.name.toUpperCase() }}</h1>
-        <p class="event-address-p">{{ event.address }}</p>
-        <hr class="separator" />
-        <p
-          *ngIf="event.isArchived && user.role === 'author'"
-          class="event-date-time-p"
-        >
-          <i class="bi bi-exclamation-triangle-fill"></i> THIS EVENT HAS BEEN
-          ARCHIVED
-        </p>
-      </div>
-      <div class="action-button-container">
-        <div
-          class="participation-button"
-          *ngIf="
-            !isAlreadyCheckedParticipate(event.id) && user.role === 'student'
-          "
-          (click)="participateEvent(event.id)"
-        >
-          <div
-            *ngIf="isLoading && shouldShowLoader(event.id)"
-            class="spinner-border text-light"
-            role="status"
-          >
-            <span class="sr-only">Loading...</span>
-          </div>
-
-          <p *ngIf="!shouldShowLoader(event.id)">
-            <i class="bi bi-star" style="margin-right: 5px"></i>Interested
-          </p>
-        </div>
-
-        <div
-          class="participation-button"
-          *ngIf="isAlreadyCheckedParticipate(event.id)"
-          (click)="cancelEventParticipation(event.id)"
-        >
-          <p>
-            <i class="bi bi-star-fill" style="margin-right: 5px"></i>Not
-            Interested
-          </p>
-        </div>
-
-        <div
-          class="participation-button"
-          *ngIf="isAuthor"
-          (click)="openEditEventPage()"
-        >
-          <p><i class="bi bi-pencil-fill" style="margin-right: 5px"></i>Edit</p>
-        </div>
-
-        <div
-          class="participation-button"
-          *ngIf="isAuthor && !event.isArchived"
-          (click)="archiveEvent()"
-        >
-          <p>
-            <i class="bi bi-trash3-fill" style="margin-right: 5px"></i>Archive
-          </p>
-        </div>
-      </div>
-    </div>
-    <img class="event-image" [src]="event.image" />
-  </div>
-  <div class="map-description-container">
-    <div class="event-details">
-      <h1>Detalji</h1>
-      <p>
-        <i class="bi bi-person-fill"></i> Dogadjaj kreirao
-        <b>{{ author.name }}</b
-        >&nbsp;<b>{{ author.surname }}</b>
-      </p>
-      <p>
-        <i class="bi bi-people-fill"></i> {{ participationNumber }} osoba se
-        odazvala
-      </p>
-      <textarea readonly class="event-description">
-        {{ event.description }}
-      </textarea>
-    </div>
-    <div class="map-container">
-      <xp-map class="map" [mapId]="'address_map'"></xp-map>
-      <p>
-        <i class="bi bi-geo-alt-fill"></i><b> {{ event.address }}</b>
-      </p>
-      <p>
-        <i class="bi bi-compass-fill"></i>
-        {{ formatDate(event.dateEvent.toString()) }} - 13.08.2024 21:00
-      </p>
-    </div>
-  </div>
-</div> -->
