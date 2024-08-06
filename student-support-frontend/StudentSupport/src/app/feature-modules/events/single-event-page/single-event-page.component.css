@@ -154,3 +154,9 @@
   cursor: pointer;
   transform: scale(1.15);
 }
+
+.address-archive-p-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

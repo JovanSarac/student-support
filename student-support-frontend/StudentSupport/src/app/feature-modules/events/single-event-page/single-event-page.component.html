@@ -77,9 +77,18 @@
   </div>
   <div class="heading-container">
     <h1>{{ event.name }}</h1>
-    <p class="event-address-p">
-      <i class="bi bi-geo-alt-fill"></i> {{ event.address }}
-    </p>
+    <div class="address-archive-p-container">
+      <p class="event-address-p">
+        <i class="bi bi-geo-alt-fill"></i> {{ event.address }}
+      </p>
+      <p
+        *ngIf="event.isArchived && user.role === 'author'"
+        class="event-date-time-p"
+      >
+        <i class="bi bi-exclamation-triangle-fill"></i> THIS EVENT HAS BEEN
+        ARCHIVED
+      </p>
+    </div>
     <hr class="separator" />
   </div>
   <img class="event-image" [src]="event.image" />
