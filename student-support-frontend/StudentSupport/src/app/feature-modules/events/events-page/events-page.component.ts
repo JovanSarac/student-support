@@ -6,7 +6,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Participation } from 'src/app/shared/model/participation-model';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-events-page',
@@ -26,11 +26,18 @@ export class EventsPageComponent implements OnInit {
   activeTab: string = 'allEvents';
 
   filterCont = new FormControl('');
+  selectedDateRange: string = '0';
+
+  form: FormGroup | undefined;
+  selectedDate = []
+
+  //range: DateRange = { start: new Date(), end: new Date() };
+  
   
   constructor(
     private router: Router,
     private service: EventsService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -99,7 +106,6 @@ export class EventsPageComponent implements OnInit {
 
   setActiveTab(tab: string) {
     this.activeTab = tab;
-    console.log(tab)
     if(tab == "allEvents"){
       this.getAllEvents();
     }else if(tab == "yourEvents"){
@@ -113,4 +119,6 @@ export class EventsPageComponent implements OnInit {
       });
     }
   }
+
+
 }

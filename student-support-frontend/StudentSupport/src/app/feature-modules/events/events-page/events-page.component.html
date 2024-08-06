@@ -2,7 +2,6 @@
   <div class="page-container">
     <div class="left-bar">
 
-      <p class="left-bar-title"> Događaji</p>
       <div class="search-events">
         <xp-input class="input-search"
           [inputType]="'text'"
@@ -82,10 +81,71 @@
           </div>
 
         </div>
-      
-  
+      </div>
+
+      <p class="filter-title">Datum događaja:</p>
+      <div class="date-events">
+        <select [(ngModel)]="selectedDateRange" name="dateevent" id="dateevent">
+          <option value="0">Bilo koji datum</option>
+          <option value="1">Danas</option>
+          <option value="2">Sutra</option>
+          <option value="3">Ove sedmice</option>
+          <option value="4">Ovaj mjesec</option>
+          <option value="5">Izaberi opseg</option>
+        </select>
+
+        <input
+          *ngIf="selectedDateRange == '5'"
+          class="daterangepicker"
+          ngxDaterangepickerMd
+          [locale]="{applyLabel: 'Ok', format: 'DD.MM.YYYY'}"
+          [opens]="'up'"
+          [singleDatePicker]="false"
+          placeholder="Izaberi opseg datuma"
+        />
+
 
       </div>
+
+      <p class="filter-title">Cena ulaznica (RSD):</p>
+
+      <div class="price-input">
+        <div class="checkbox-input">
+          <input type="checkbox" id="free" value="free">
+          <label for="free">Besplatno</label>
+        </div>
+
+        <div class="price-range">
+          <xp-input
+            class="input-form"
+            [inputType]="'number'"
+            [label]="''"
+            [control]="searchControl"
+            inputId="searchInput"
+            placeholderSentence="Od:"
+          ></xp-input>
+          <xp-input
+            [inputType]="'number'"
+            [label]="''"
+            [control]="searchControl"
+            inputId="searchInput"
+            placeholderSentence="Do:"
+          ></xp-input>
+        </div>
+
+      </div>
+
+      
+
+
+
+      <xp-primary-button
+          class="filtering-event"
+          buttonId="filter-button"
+          buttonType="button"
+          textValue="Primeni filtere"
+        >
+        </xp-primary-button>
 
     </div>
 

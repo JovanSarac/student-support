@@ -96,8 +96,8 @@
 }
 
 .buttons-tab p.active {
-  background-color: aliceblue; /* ili neka druga boja */
-  color: var(--secondary-hover-color); /* ili neka druga boja */
+  background-color: aliceblue;
+  color: var(--secondary-hover-color); 
 }
 
 .create-event{
@@ -163,11 +163,110 @@
   cursor: pointer;
 }
 
+
+.filter-title {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 900;
+  margin-top: 4%;
+  margin-left: 5%;
+}
+
+.date-events{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  position: relative;
+}
+
+.date-events select {
+  display: flex;
+  width: 100%;
+  border-radius: 12px;
+  border: 2px solid var(--border-light-color);
+  height: inherit;
+  color: var(--text-color);
+  padding: 10px;
+  cursor: pointer;
+  background-color: white;
+}
+
+.date-events select:hover {
+  border: 2px solid var(--primary-hover-color);
+}
+
+.date-events select:focus {
+  border: 2px solid var(--primary-color);
+  outline: none;
+}
+
+.date-events select option {
+  color: var(--text-color);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+.daterangepicker {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  z-index: 2000 ;
+  border-radius: 12px;
+  border: 2px solid var(--border-light-color);
+  height: inherit;
+  color: var(--text-color);
+  padding: 10px;
+  cursor: pointer;
+  background-color: white;
+  margin-top: 2%;
+  position: relative;
+}
+
+
+.daterangepicker .drp-calendar {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  left: 0;
+  z-index: 2000 !important; 
+}
+
+
 option {
   font-size: 18px;
   padding: 4%;
   font-weight: 400;
   font-family: "Poppins", sans-serif;
+}
+
+
+.price-input{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 4%;
+}
+
+.price-range{
+  display: flex;
+  flex-direction: row;
+  width: 98%;
+  gap: 2%;
+}
+
+
+.filtering-event{
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .events {
