@@ -235,4 +235,8 @@ export class SingleEventPageComponent implements OnInit {
   openEditEventPage(): void {
     this.router.navigate(['/edit-event', this.eventId]);
   }
+
+  openProfile(): void {
+    this.router.navigate(['/my-profile/' + this.author.id]);
+  }
 }

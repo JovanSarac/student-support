@@ -160,3 +160,9 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+.author-name:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--secondary-color);
+}
