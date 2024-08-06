@@ -8,5 +8,9 @@
 </xp-navbar>
 <router-outlet></router-outlet>
 <app-footer
-  *ngIf="this.router.url === '/' || this.router.url !== '/single-event'"
+  *ngIf="
+    this.router.url !== '/events-page' &&
+    this.router.url !== '/my-profile' &&
+    this.router.url !== '/your-events'
+  "
 ></app-footer>
