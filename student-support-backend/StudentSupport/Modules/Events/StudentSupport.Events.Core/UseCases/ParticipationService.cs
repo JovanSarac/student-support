@@ -122,7 +122,7 @@ namespace StudentSupport.Events.Core.UseCases
             {
                 List<string> emails = new List<string>();
 
-                foreach (Participation p in _participationRepository.GetAllByEventId(eventId))
+                foreach (Participation p in _participationRepository.GetAllByEventId(eventId).Where(p => p.Type != ParticipationType.Cancelled))
                 {
                     p.CancelByAuthor();
                     _participationRepository.SaveChanges();

@@ -4,12 +4,27 @@
   width: 17.4vw;
   height: 420px;
   border: 1px solid var(--secondary-color);
-  background-size: cover;
-  background-position: center;
+  /* background-size: cover; */
+  /* background-position: center; */
   border-radius: 12px;
   margin-bottom: 20px;
   margin-right: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.one-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 75%;
+  background-image: inherit;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
 }
 
 .one-card:hover {
@@ -22,6 +37,9 @@
   background-color: var(--secondary-hover-color);
   transition: ease-in-out 300ms;
 } */
+svg {
+  z-index: 2;
+}
 
 .type-event {
   display: flex;
@@ -37,6 +55,7 @@
   width: auto;
   align-items: start;
   justify-content: start;
+  z-index: 2;
 }
 
 .event-name {

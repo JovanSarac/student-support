@@ -8,14 +8,14 @@ import { YourEventsComponent } from './your-events/your-events.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SingleEventPageComponent } from './single-event-page/single-event-page.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
-
-
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
     EventsPageComponent,
     YourEventsComponent,
-    SingleEventPageComponent
+    SingleEventPageComponent,
   ],
   imports: [
     CommonModule,
@@ -25,9 +25,9 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
     SharedModule,
     NgxDaterangepickerMd.forRoot(),
     ReactiveFormsModule,
+    MatExpansionModule,
+    MatTooltipModule,
   ],
-  exports:[
-    EventsPageComponent
-  ]
+  exports: [EventsPageComponent],
 })
-export class EventsModule { }
+export class EventsModule {}
