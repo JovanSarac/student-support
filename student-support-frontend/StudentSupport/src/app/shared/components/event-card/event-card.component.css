@@ -2,7 +2,7 @@
   position: relative;
   /* width: calc(25dvw - 20px); */
   width: 17.4vw;
-  height: 420px;
+  height: 410px;
   border: 1px solid var(--secondary-color);
   /* background-size: cover; */
   /* background-position: center; */
@@ -61,6 +61,7 @@ svg {
 .event-name {
   font-weight: bold;
   line-height: 1.1;
+  margin-bottom: 5px;
 }
 
 .event-type-style {
