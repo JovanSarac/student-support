@@ -136,3 +136,21 @@
   height: 100%;
   width: 100%;
 }
+
+.action-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.action-buttons i {
+  font-size: 25px;
+  color: var(--text-placeholder-color);
+  transition: transform 0.2s ease-in;
+}
+
+.action-buttons i:hover {
+  color: var(--text-lighter-color);
+  cursor: pointer;
+  transform: scale(1.15);
+}

@@ -98,6 +98,17 @@ export class EventsService {
     );
   }
 
+  resendEmail(eventId: number, studentId: number): Observable<void> {
+    return this.http.post<void>(
+      environment.apiHost +
+        'student/participations/resend_email/' +
+        eventId +
+        '/' +
+        studentId,
+      {}
+    );
+  }
+
   updateEvent(event: MyEvent): Observable<MyEvent> {
     return this.http.put<MyEvent>(environment.apiHost + 'author/events', event);
   }

@@ -8,6 +8,7 @@ import { YourEventsComponent } from './your-events/your-events.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SingleEventPageComponent } from './single-event-page/single-event-page.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     FormsModule,
     SharedModule,
     MatExpansionModule,
+    MatTooltipModule,
   ],
   exports: [EventsPageComponent],
 })

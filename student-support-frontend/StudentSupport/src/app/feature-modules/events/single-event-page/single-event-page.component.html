@@ -57,7 +57,14 @@
         </div>
       </div>
 
+      <i
+        *ngIf="isAlreadyCheckedParticipate(event.id) && user.role === 'student'"
+        matTooltip="Resend email"
+        class="bi bi-envelope-arrow-up-fill"
+      ></i>
+
       <xp-secondary-button
+        style="margin-left: 15px"
         *ngIf="isAlreadyCheckedParticipate(event.id) && user.role === 'student'"
         buttonId="participation-button2"
         buttonType="button"

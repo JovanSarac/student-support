@@ -170,6 +170,14 @@ export class SingleEventPageComponent implements OnInit {
     });
   }
 
+  resendEmail(): void {
+    this.service.resendEmail(this.event.id, this.user.id).subscribe({
+      next: () => {
+        console.log('Mail resent.');
+      },
+    });
+  }
+
   checkIfUserIsAuthorOfEvent(): void {
     if (this.user.role === 'author') {
       this.service
