@@ -33,7 +33,6 @@ export class MyProfileComponent  implements OnInit{
   defaultProfilePic :string = "../../assets/images/profile-pic.jpg"
   city: string ="";
   street: string = "";
-  showEmojiPicker: boolean = false;
 
   constructor(private authService:AuthService, private service: LayoutService, private datePipe: DatePipe){
 
@@ -72,29 +71,6 @@ export class MyProfileComponent  implements OnInit{
     return this.datePipe.transform(date, 'dd MMM yyyy');
   }
 
-  focusPhoneInput(): void {
-    document.getElementById("phonenumber")?.focus();
-  }
-
-  focusNameInput(): void {
-    document.getElementById("name")?.focus();
-  }
-
-  focusLastnameInput(): void {
-    document.getElementById("lastname")?.focus();
-  }
-
-  focusBiographyInput() :void{
-    document.getElementById("biography")?.focus();
-  }
-
-  focusCityInput() : void{
-    document.getElementById("city")?.focus();
-  }
-
-  focusStreetInput() : void{
-    document.getElementById("street")?.focus();
-  }
 
 
   updateProfile() : void{
@@ -107,32 +83,6 @@ export class MyProfileComponent  implements OnInit{
         console.log(result)
       }
     })
-  }
-
-  addEmoji(event: any) {
-    const emoji = event.emoji.native;
-    const textarea = this.biographyTextarea.nativeElement;
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    this.person.biography = this.person.biography!.slice(0, start) + emoji + this.person.biography!.slice(end);
-    setTimeout(() => {
-      textarea.setSelectionRange(start + emoji.length, start + emoji.length);
-      textarea.focus();
-    }, 0);
-  }
-
-  toggleEmojiPicker() {
-    this.showEmojiPicker = !this.showEmojiPicker;
-    document.getElementById("biography")?.focus();
-  }
-
-
-  @HostListener('document:click', ['$event'])
-  onClickOutside(event: Event) {
-    const target = event.target as HTMLElement;
-    if (target.closest('.emoji-mart') === null && target.closest('.biography') === null) {
-      this.showEmojiPicker = false;
-    }
   }
 
 }

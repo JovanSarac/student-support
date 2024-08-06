@@ -6,7 +6,6 @@ import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
 import { CreateEventComponent } from 'src/app/feature-modules/board/create-event/create-event.component';
 import { EventsPageComponent } from 'src/app/feature-modules/events/events-page/events-page.component';
-import { YourEventsComponent } from 'src/app/feature-modules/events/your-events/your-events.component';
 import { SingleEventPageComponent } from 'src/app/feature-modules/events/single-event-page/single-event-page.component';
 import { MyProfileComponent } from 'src/app/feature-modules/layout/my-profile/my-profile.component';
 
@@ -17,11 +16,6 @@ const routes: Routes = [
   {
     path: 'events-page',
     component: EventsPageComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'your-events',
-    component: YourEventsComponent,
     canActivate: [AuthGuard],
   },
   {

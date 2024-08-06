@@ -6,69 +6,58 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 92dvh;
-  background-image: url("../../../../assets/images/background2.jpg");
-  background-size: cover;
-  background-position: center;
+  height: auto;
+  background-color: white;
 }
 
 .page-content {
     display: flex;
     flex-direction: column;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
     margin-top: 3%;
-    margin-bottom: 3%;
     border-radius: 15px;
-    background-color: rgba(131, 131, 131, 0.3);
     border: 1px solid #ccc;
 }
 
-.title-page{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    height: 10%;
-}
-
-.title-page p{
-    font-size: 30px;
-    font-weight: 900;
-    color: #002f56;
-    font-family: 'Poppins', sans-serif;
-    align-self: center;
-    margin-bottom: 2%;
-}
 
 .personal-info{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
-    height: 90%;
+    height: auto;
 }
 
+.title{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid var(--border-light-color);
+}
 
-.left-side{
+.title p{
+    font-size: 25px;
+    color: var(--primary-color);
+    padding: 15px;
+    font-weight: 900;
+    margin-left: 2%;
+}
+
+.full-side{
     display: flex;
     flex-direction: column;
-    width: 49%;
-    height: 100%;
+    width: 100%;
+    height: auto;
 }
 
-.separator{
-    height: 98%; 
-    background-color: #000;
-    width: 1px;  
-    margin-bottom: 2%;
-}
 
 .picture-and-name{
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 50%;
+    height: auto;
 }
 
 .picture-container{
@@ -161,6 +150,15 @@
     height: 100%;
 }
 
+.edit-information-button{
+    display: flex;
+    justify-content: flex-end;
+    width: 90%;
+    margin-right: 10%;
+    margin-top: 40px;
+    font-weight: 700;
+}
+
 .name-surname{
     display: flex;
     flex-direction: row;
@@ -177,26 +175,15 @@
     }
     
     .form__field {
-        font-family: 'Poppins','sans-serif' !important;
         width: 90%;
         border: 0;
         border-bottom: 1px solid #9b9b9b;
         outline: 0;
         font-size: 1.3rem;
-        color: rgb(83, 83, 223);
+        color: var(--primary-color);
         padding: 7px 0;
         background: transparent;
         transition: border-color 0.2s;
-    
-    &::placeholder {
-        color: transparent;
-    }
-    
-    &:placeholder-shown ~ .form__label {
-        font-size: 1.3rem;
-        cursor: text;
-        top: 20px;
-    }
     }
     
     .form__label {
@@ -206,49 +193,48 @@
         transition: 0.2s;
         font-size: 1rem;
         color: #838383;
-        font-family: 'Poppins', sans-serif;
     }
-    
-    .form__field:focus {
-    ~ .form__label {
-        position: absolute;
-        top: 0;
-        display: block;
-        transition: 0.2s;
-        font-size: 1rem;
-        color: rgb(83, 83, 223);
-        font-weight:700;    
-    }
-        padding-bottom: 6px;  
-        font-weight: 700;
-        border-width: 3px;
-        border-image: linear-gradient(to right, rgb(83, 83, 223),rgb(157, 157, 216));
-        border-image-slice: 1;
-    }
-    /* reset input */
-    .form__field{
-        &:required,&:invalid { box-shadow:none; }
-    }
-
-    .edit-icon {
-        position: absolute;
-        right: 10%;
-        top: 70%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        color: #838383;
-        transition: color 0.2s;
-    }
-    .edit-icon:hover{
-        color: rgb(83, 83, 223);
-    }
-    .form__group:focus-within .edit-icon {
-        color: rgb(83, 83, 223);
-    }
-    
     
 }
 
+.contact-and-address{
+    display: flex;
+    flex-direction: row;
+    width: 92%;
+    margin-left: 4%;
+    margin-right: 4%;
+    height: auto;
+}
+
+.contact{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 46%;
+    margin: 2%;
+}
+
+.contact p{
+    color: #838383;
+    font-style: italic;
+    font-weight: 600;
+}
+
+.address{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 46%;
+    margin: 2%;
+}
+
+.address p{
+    color: #838383;
+    font-style: italic;
+    font-weight: 600;
+}
 .email-input{
     display: flex;
     width: 94%;
@@ -263,26 +249,16 @@
     }
     
     .form__field {
-        font-family: 'Poppins','sans-serif' !important;
-        width: 90%;
+        width: 100%;
         border: 0;
         border-bottom: 1px solid #9b9b9b;
         outline: 0;
         font-size: 1.3rem;
-        color: rgb(83, 83, 223);
+        color: var(--primary-color);
         padding: 7px 0;
         background: transparent;
         transition: border-color 0.2s;
-    
-    &::placeholder {
-        color: transparent;
-    }
-    
-    &:placeholder-shown ~ .form__label {
-        font-size: 1.3rem;
-        cursor: text;
-        top: 20px;
-    }
+
     }
     
     .form__label {
@@ -292,29 +268,7 @@
         transition: 0.2s;
         font-size: 1rem;
         color: #838383;
-        font-family: 'Poppins', sans-serif;
     }
-    
-    .form__field:focus {
-    ~ .form__label {
-        position: absolute;
-        top: 0;
-        display: block;
-        transition: 0.2s;
-        font-size: 1rem;
-        color: rgb(83, 83, 223);
-        font-weight:700;    
-    }
-        padding-bottom: 6px;  
-        font-weight: 700;
-        border-width: 3px;
-        border-image: linear-gradient(to right, rgb(83, 83, 223),rgb(157, 157, 216));
-        border-image-slice: 1;
-    }
-    /* reset input */
-    .form__field{
-        &:required,&:invalid { box-shadow:none; }
-    } 
 }
 
 .phone-input{
@@ -331,26 +285,15 @@
     }
     
     .form__field {
-        font-family: 'Poppins','sans-serif' !important;
-        width: 90%;
+        width: 100%;
         border: 0;
         border-bottom: 1px solid #9b9b9b;
         outline: 0;
         font-size: 1.3rem;
-        color: rgb(83, 83, 223);
+        color: var(--primary-color);
         padding: 7px 0;
         background: transparent;
         transition: border-color 0.2s;
-    
-    &::placeholder {
-        color: transparent;
-    }
-    
-    &:placeholder-shown ~ .form__label {
-        font-size: 1.3rem;
-        cursor: text;
-        top: 20px;
-    }
     }
     
     .form__label {
@@ -360,44 +303,6 @@
         transition: 0.2s;
         font-size: 1rem;
         color: #838383;
-        font-family: 'Poppins', sans-serif;
-    }
-    
-    .form__field:focus {
-    ~ .form__label {
-        position: absolute;
-        top: 0;
-        display: block;
-        transition: 0.2s;
-        font-size: 1rem;
-        color: rgb(83, 83, 223);
-        font-weight:700;    
-    }
-        padding-bottom: 6px;  
-        font-weight: 700;
-        border-width: 3px;
-        border-image: linear-gradient(to right, rgb(83, 83, 223),rgb(157, 157, 216));
-        border-image-slice: 1;
-    }
-    /* reset input */
-    .form__field{
-        &:required,&:invalid { box-shadow:none; }
-    }
-
-    .edit-icon {
-        position: absolute;
-        right: 10%;
-        top: 70%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        color: #838383;
-        transition: color 0.2s;
-    }
-    .edit-icon:hover{
-        color: rgb(83, 83, 223);
-    }
-    .form__group:focus-within .edit-icon {
-        color: rgb(83, 83, 223);
     }
 }
 
@@ -406,7 +311,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 50%;
+    height: 250px;
 
     .biography__group {
         position: relative;
@@ -417,242 +322,95 @@
         margin-right: 7%;
         width: 86%;
         height: 94%;
-      }
+    }
     
     .biography__field {
-        font-family: 'Poppins' , 'sans-serif';
         width: 100%;
         height: 100%;
-        border-bottom: 1px solid #9b9b9b;
         outline: 0;
         font-size: 1.3rem;
-        color: rgb(83, 83, 223);
+        border: 1px solid #9b9b9b;
+        color: var(--primary-color);
         padding: 7px 0;
         background: transparent;
         transition: border-color 0.2s;
         resize: none;
         line-height: 1.5;
-      
-        &::placeholder {
-          color: transparent;
-        }
-      
-        &:placeholder-shown ~ .form__label {
-          font-size: 1.3rem;
-          cursor: text;
-          top: 20px;
-        }
-      }
-      
-      
-        .biography__label {
-          position: absolute;
-          top: -4px;
-          display: block;
-          transition: 0.2s;
-          font-size: 1rem;
-          color: #838383;
-          font-family: 'Poppins', sans-serif;
-        }
+
+    }
         
-        .biography__field:focus {
-          ~ .biography__label {
-            position: absolute;
-            top: -4px;
-            display: block;
-            transition: 0.2s;
-            font-size: 1rem;
-            color: rgb(83, 83, 223);
-            font-weight:700;    
-          }
-          padding-bottom: 6px;  
-          font-weight: 700;
-          border-width: 3px;
-          border-image: linear-gradient(to right, rgb(83, 83, 223),rgb(157, 157, 216));
-          border-image-slice: 1;
-        }
-        /* reset input */
-        .biography__field{
-          &:required,&:invalid { box-shadow:none; }
-        }
-    
-    
-        .edit-icon {
-            position: absolute;
-            right: 4%;
-            top: 92%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #838383;
-            transition: color 0.2s;
-            font-size: 20px;
-        }
-        .edit-icon:hover{
-            color: rgb(83, 83, 223);
-        }
-        .biography__group:focus-within .edit-icon {
-            color: rgb(83, 83, 223);
-        }
-
-        .emoji-picker {
-            position: absolute;
-            right: 10%;
-            top: 92%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #838383;
-            transition: color 0.2s;
-            font-size: 20px;
-        }
-        .emoji-picker:hover{
-            color: rgb(83, 83, 223);
-        }
-        .biography__group:focus-within .emoji-picker {
-            color: rgb(83, 83, 223);
-        }
-
-
-
-        .emoji-mart{
-            position: absolute;
-            left: 100%;
-            bottom: 0%;  
-            z-index: 1000;       
-        }
-
-
+    .biography__label {
+        position: absolute;
+        top: -4px;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: #838383;
+    }
 }
 
-
-.right-side{
-    display: flex;
-    flex-direction: column;
-    width: 51%;
-    height: 100%;
-}
 
 .birthdate{
     display: flex;
-    flex-direction: column;
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 38px;
-}
-     
-.birthdate__group {
-    position: relative;
-    padding: 20px 0 0;
-    margin: 0% 0%;
-    width: 100%;
-}
+    width: 94%;
+    margin: 3%;
+    margin-top: 25px;
 
-.birthdate__field {
-    font-family: 'Poppins','sans-serif' !important;
-    width: 90%;
-    border: 0;
-    border-bottom: 1px solid #9b9b9b;
-    outline: 0;
-    font-size: 1.3rem;
-    color: rgb(83, 83, 223);
-    padding: 7px 0;
-    background: transparent;
-    transition: border-color 0.2s;
-    cursor: pointer;
+    .birthdate__group {
+        position: relative;
+        padding: 12px 0 0;
+        margin: 0% 0%;
+        width: 100%;
+    }
+    
+    .birthdate__field {
+        width: 90%;
+        border: 0;
+        border-bottom: 1px solid #9b9b9b;
+        outline: 0;
+        font-size: 1.3rem;
+        color: var(--primary-color);
+        padding: 7px 0;
+        background: transparent;
+        transition: border-color 0.2s;
+    }
+    
+    .birthdate__label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: #838383;
+    }
+}
+    
 
-&::placeholder {
-    color: transparent;
-}
 
-&:placeholder-shown ~ .birthdate__label {
-    font-size: 1.3rem;
-    cursor: text;
-    top: 20px;
-}
-}
-
-.birthdate__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: #838383;
-    font-family: 'Poppins', sans-serif;
-}
-
-.birthdate__field:focus {
-~ .birthdate__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: rgb(83, 83, 223);
-    font-weight:700;    
-}
-    padding-bottom: 6px;  
-    font-weight: 700;
-    border-width: 3px;
-    border-image: linear-gradient(to right, rgb(83, 83, 223),rgb(157, 157, 216));
-    border-image-slice: 1;
-}
-/* reset input */
-.birthdate__field{
-    &:required,&:invalid { box-shadow:none; }
-}
-
-.address{
+.street-input{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    margin-left: 7%;
-    margin-right: 13%;
-    margin-top: 7%;
-}
-
-.address p{
-    font-family: 'Poppins', 'sans-serif';
-    font-size: 20px;
-    color: #002f56;
-}
-
-.city-street{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 92%;
-    margin: 4%;
+    width: 94%;
+    margin: 3%;
+    margin-top: 25px;
 
     .street__group {
         position: relative;
-        padding: 20px 0 0;
-        width: 50%;
+        padding: 12px 0 0;
+        margin: 0% 0%;
+        width: 100%;
     }
     
     .street__field {
-        font-family: 'Poppins','sans-serif' !important;
         width: 100%;
         border: 0;
         border-bottom: 1px solid #9b9b9b;
         outline: 0;
         font-size: 1.3rem;
-        color: rgb(83, 83, 223);
+        color: var(--primary-color);
         padding: 7px 0;
         background: transparent;
         transition: border-color 0.2s;
-    
-    &::placeholder {
-        color: transparent;
-    }
-    
-    &:placeholder-shown ~ .street__label {
-        font-size: 1.3rem;
-        cursor: text;
-        top: 20px;
-    }
+
     }
     
     .street__label {
@@ -662,75 +420,33 @@
         transition: 0.2s;
         font-size: 1rem;
         color: #838383;
-        font-family: 'Poppins', sans-serif;
     }
-    
-    .street__field:focus {
-    ~ .street__label {
-        position: absolute;
-        top: 0;
-        display: block;
-        transition: 0.2s;
-        font-size: 1rem;
-        color: rgb(83, 83, 223);
-        font-weight:700;    
-    }
-        padding-bottom: 6px;  
-        font-weight: 700;
-        border-width: 3px;
-        border-image: linear-gradient(to right, rgb(83, 83, 223),rgb(157, 157, 216));
-        border-image-slice: 1;
-    }
-    /* reset input */
-    .street__field{
-        &:required,&:invalid { box-shadow:none; }
-    }
+}
 
-    .edit-iconn {
-        position: absolute;
-        right: 0%;
-        top: 70%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        color: #838383;
-        transition: color 0.2s;
-    }
-    .edit-iconn:hover{
-        color: rgb(83, 83, 223);
-    }
-    .street__group:focus-within .edit-iconn {
-        color: rgb(83, 83, 223);
-    }
-
+.city-input{
+    display: flex;
+    width: 94%;
+    margin: 3%;
+    margin-top: 25px;
 
     .city__group {
         position: relative;
-        padding: 20px 0 0;
-        width: 45%;
-        margin-left: 5%;
+        padding: 12px 0 0;
+        margin: 0% 0%;
+        width: 100%;
     }
     
     .city__field {
-        font-family: 'Poppins','sans-serif' !important;
-        width: 95%;
+        width: 100%;
         border: 0;
         border-bottom: 1px solid #9b9b9b;
         outline: 0;
         font-size: 1.3rem;
-        color: rgb(83, 83, 223);
+        color: var(--primary-color);
         padding: 7px 0;
         background: transparent;
         transition: border-color 0.2s;
-    
-    &::placeholder {
-        color: transparent;
-    }
-    
-    &:placeholder-shown ~ .city__label {
-        font-size: 1.3rem;
-        cursor: text;
-        top: 20px;
-    }
+
     }
     
     .city__label {
@@ -740,60 +456,6 @@
         transition: 0.2s;
         font-size: 1rem;
         color: #838383;
-        font-family: 'Poppins', sans-serif;
     }
+}
     
-    .city__field:focus {
-    ~ .city__label {
-        position: absolute;
-        top: 0;
-        display: block;
-        transition: 0.2s;
-        font-size: 1rem;
-        color: rgb(83, 83, 223);
-        font-weight:700;    
-    }
-        padding-bottom: 6px;  
-        font-weight: 700;
-        border-width: 3px;
-        border-image: linear-gradient(to right, rgb(83, 83, 223),rgb(157, 157, 216));
-        border-image-slice: 1;
-    }
-    /* reset input */
-    .city__field{
-        &:required,&:invalid { box-shadow:none; }
-    }
-
-    .edit-icon {
-        position: absolute;
-        right: 5%;
-        top: 70%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        color: #838383;
-        transition: color 0.2s;
-    }
-    .edit-icon:hover{
-        color: rgb(83, 83, 223);
-    }
-    .city__group:focus-within .edit-icon {
-        color: rgb(83, 83, 223);
-    }
-    
-}
-
-
-.button__container{
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    width: 80%;
-    margin: 10%;
-}
-
-.update-btn{
-    margin-right: 10%;
-    font-size: 20px;
-    padding: 15px;
-
-}
