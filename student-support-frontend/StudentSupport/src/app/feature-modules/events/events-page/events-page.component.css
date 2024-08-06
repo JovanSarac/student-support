@@ -20,7 +20,7 @@
 
 .left-bar {
   width: 20%;
-  height: 100%;
+  height: calc(100% - 8dvh);
   position: fixed;
   border-right: 1px solid black;
   top: 8dvh;
@@ -181,7 +181,6 @@
   width: 90%;
   margin-left: 5%;
   margin-right: 5%;
-  position: relative;
 }
 
 .date-events select {
@@ -225,15 +224,12 @@
   cursor: pointer;
   background-color: white;
   margin-top: 2%;
-  position: relative;
 }
 
 
 .daterangepicker .drp-calendar {
   display: flex;
   flex-direction: row;
-  position: absolute;
-  left: 0;
   z-index: 2000 !important; 
 }
 
@@ -267,6 +263,7 @@ option {
   width: 90%;
   margin-left: 5%;
   margin-right: 5%;
+  margin-bottom: 4%;
 }
 
 .events {
