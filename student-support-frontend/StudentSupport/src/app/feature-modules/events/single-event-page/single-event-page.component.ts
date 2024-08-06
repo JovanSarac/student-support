@@ -158,6 +158,7 @@ export class SingleEventPageComponent implements OnInit {
     this.service.archiveEvent(this.event.id).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
+        this.countParticipationsByEventId();
       },
     });
   }
