@@ -85,8 +85,4 @@ export class NavbarComponent implements OnInit {
   // isCurrentRoute(route: string): boolean {
   //   return this.router.url === route;
   // }
-
-  yourEventClick(){
-    this.router.navigate(['/your-events'])
-  }
 }

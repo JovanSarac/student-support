@@ -8,12 +8,14 @@ import { MaterialModule } from './infrastructure/material/material.module';
 import { AuthModule } from './infrastructure/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BoardModule } from './feature-modules/board/board.module';
 import { IonicModule } from '@ionic/angular';
 import { EventsModule } from './feature-modules/events/events.module';
 import { CalendarModule } from 'primeng/calendar';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { ToastrModule } from 'ngx-toastr';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,15 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     CalendarModule,
     FormsModule,
     PickerModule,
-
+    NgxDaterangepickerMd.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 4000,
+      extendedTimeOut: 1000,
+      maxOpened: 3,
+      positionClass: 'toast-bottom-right',
+      progressBar: true,
+      progressAnimation: 'increasing'
+    })
   ],
   providers: [
     {
@@ -46,5 +56,6 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
 

@@ -6,7 +6,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Participation } from 'src/app/shared/model/participation-model';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-events-page',
@@ -17,17 +17,27 @@ export class EventsPageComponent implements OnInit {
   selected!: Date;
   events: MyEvent[] = [];
   currentPage = 1;
-  pageSize = 8;
+  pageSize = 20;
   pagedEvents: MyEvent[] = [];
   participations: Participation[] = [];
   totalPages = 1;
   user!: User;
   searchControl = new FormControl('');
+  activeTab: string = 'allEvents';
+
+  filterCont = new FormControl('');
+  selectedDateRange: string = '0';
+
+  form: FormGroup | undefined;
+  selectedDate = []
+
+  //range: DateRange = { start: new Date(), end: new Date() };
+  
   
   constructor(
     private router: Router,
     private service: EventsService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -93,4 +103,22 @@ export class EventsPageComponent implements OnInit {
     this.router.navigate(['create-event']);
 
   }
+
+  setActiveTab(tab: string) {
+    this.activeTab = tab;
+    if(tab == "allEvents"){
+      this.getAllEvents();
+    }else if(tab == "yourEvents"){
+      this.service.getYoursEvents(this.user.id).subscribe({
+        next: (result: MyEvent[]) => {
+          this.events = result;
+          console.log(this.events);
+          this.totalPages = Math.ceil(this.events.length / this.pageSize);
+          this.updatePagedEvents();
+        },
+      });
+    }
+  }
+
+
 }
