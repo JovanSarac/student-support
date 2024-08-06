@@ -63,10 +63,12 @@ export class MapComponent implements AfterViewInit {
       }
     );
 
-    L.control.zoom({
-      position: 'topright'
-    }).addTo(this.map);
-    
+    L.control
+      .zoom({
+        position: 'topright',
+      })
+      .addTo(this.map);
+
     tiles.addTo(this.map);
     this.map.doubleClickZoom.disable();
   }

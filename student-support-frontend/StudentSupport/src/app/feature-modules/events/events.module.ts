@@ -7,14 +7,13 @@ import { FormsModule } from '@angular/forms';
 import { YourEventsComponent } from './your-events/your-events.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SingleEventPageComponent } from './single-event-page/single-event-page.component';
-
-
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
     EventsPageComponent,
     YourEventsComponent,
-    SingleEventPageComponent
+    SingleEventPageComponent,
   ],
   imports: [
     CommonModule,
@@ -22,9 +21,8 @@ import { SingleEventPageComponent } from './single-event-page/single-event-page.
     CalendarModule,
     FormsModule,
     SharedModule,
+    MatExpansionModule,
   ],
-  exports:[
-    EventsPageComponent
-  ]
+  exports: [EventsPageComponent],
 })
-export class EventsModule { }
+export class EventsModule {}

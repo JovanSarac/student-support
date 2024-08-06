@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  ViewChild,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MyEvent } from '../../board/model/myevent.model';
 import { EventsService } from '../events.service';
@@ -10,6 +16,7 @@ import {
   Participation,
   ParticipationType,
 } from 'src/app/shared/model/participation-model';
+import { marked, options } from 'marked';
 
 @Component({
   selector: 'app-single-event-page',
@@ -25,7 +32,7 @@ export class SingleEventPageComponent implements OnInit {
   user!: User;
   participations: Participation[] = [];
   isAuthor: boolean = false;
-
+  isCollapsed: boolean = false;
   participation: Participation = {
     id: 0,
     eventId: 0,
@@ -62,7 +69,8 @@ export class SingleEventPageComponent implements OnInit {
     private route: ActivatedRoute,
     private service: EventsService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -71,11 +79,15 @@ export class SingleEventPageComponent implements OnInit {
     this.getEventById();
   }
 
-  setMarkerOnMap(): void {
-    if (this.mapComponent) {
-      this.mapComponent.addMarker(this.event.latitude, this.event.longitude);
-      this.mapComponent.setView(this.event.latitude, this.event.longitude, 15);
-    }
+  getEventById(): void {
+    this.service.getEventById(this.user, this.eventId).subscribe({
+      next: (result: MyEvent) => {
+        this.event = result;
+        this.getAuthor();
+        this.countParticipationsByEventId();
+        this.checkIfUserIsAuthorOfEvent();
+      },
+    });
   }
 
   getLoggedUser(): void {
@@ -83,6 +95,32 @@ export class SingleEventPageComponent implements OnInit {
       this.user = user;
       if (user.role === 'student') this.getParticipationsByStudentId();
     });
+  }
+
+  getAuthor(): void {
+    this.service.getPersonById(this.user, this.event.userId).subscribe({
+      next: (result: Person) => {
+        this.author = result;
+      },
+    });
+  }
+
+  getParticipationsByStudentId(): void {
+    this.service.getAllParticipationsByStudentId(this.user.id).subscribe({
+      next: (result: Participation[]) => {
+        this.participations = result;
+      },
+    });
+  }
+
+  countParticipationsByEventId(): void {
+    this.service
+      .countParticipationsByEventId(this.user, this.event.id)
+      .subscribe({
+        next: (result: number) => {
+          this.participationNumber = result;
+        },
+      });
   }
 
   participateEvent(eventId: number): void {
@@ -116,6 +154,22 @@ export class SingleEventPageComponent implements OnInit {
     });
   }
 
+  archiveEvent() {
+    this.service.archiveEvent(this.event.id).subscribe({
+      next: (result: MyEvent) => {
+        this.event = result;
+      },
+    });
+  }
+
+  publishEvent() {
+    this.service.publishEvent(this.event.id).subscribe({
+      next: (result: MyEvent) => {
+        this.event = result;
+      },
+    });
+  }
+
   checkIfUserIsAuthorOfEvent(): void {
     if (this.user.role === 'author') {
       this.service
@@ -126,26 +180,6 @@ export class SingleEventPageComponent implements OnInit {
           },
         });
     }
-  }
-
-  archiveEvent() {
-    this.service.archiveEvent(this.event.id).subscribe({
-      next: (result: MyEvent) => {
-        this.event = result;
-      },
-    });
-  }
-
-  openEditEventPage(): void {
-    this.router.navigate(['/edit-event', this.eventId]);
-  }
-
-  getParticipationsByStudentId(): void {
-    this.service.getAllParticipationsByStudentId(this.user.id).subscribe({
-      next: (result: Participation[]) => {
-        this.participations = result;
-      },
-    });
   }
 
   isAlreadyCheckedParticipate(eventId: number): boolean {
@@ -161,34 +195,19 @@ export class SingleEventPageComponent implements OnInit {
     return false;
   }
 
-  getEventById(): void {
-    this.service.getEventById(this.user, this.eventId).subscribe({
-      next: (result: MyEvent) => {
-        this.event = result;
-        this.getAuthor();
-        this.countParticipationsByEventId();
-        this.checkIfUserIsAuthorOfEvent();
-        this.setMarkerOnMap();
-      },
-    });
+  setMarkerOnMap(): void {
+    if (this.mapComponent) {
+      this.mapComponent.addMarker(this.event.latitude, this.event.longitude);
+      this.mapComponent.setView(this.event.latitude, this.event.longitude, 15);
+    } else {
+      console.log(this.mapComponent);
+    }
   }
 
-  getAuthor(): void {
-    this.service.getPersonById(this.user, this.event.userId).subscribe({
-      next: (result: Person) => {
-        this.author = result;
-      },
-    });
-  }
-
-  countParticipationsByEventId(): void {
-    this.service
-      .countParticipationsByEventId(this.user, this.event.id)
-      .subscribe({
-        next: (result: number) => {
-          this.participationNumber = result;
-        },
-      });
+  toggleCollapse() {
+    this.isCollapsed = !this.isCollapsed;
+    this.cdr.detectChanges();
+    this.setMarkerOnMap();
   }
 
   formatDate(dateString: string): string {
@@ -199,5 +218,13 @@ export class SingleEventPageComponent implements OnInit {
     const hours = ('0' + date.getHours()).slice(-2);
     const minutes = ('0' + date.getMinutes()).slice(-2);
     return `${day}.${month}.${year} ${hours}:${minutes}`;
+  }
+
+  get convertedDescription() {
+    return marked(this.event.description);
+  }
+
+  openEditEventPage(): void {
+    this.router.navigate(['/edit-event', this.eventId]);
   }
 }

@@ -91,9 +91,14 @@ export class EventsService {
     );
   }
 
-  updateEvent(event: MyEvent):Observable<MyEvent>{
+  publishEvent(eventId: number): Observable<MyEvent> {
     return this.http.put<MyEvent>(
-      environment.apiHost + 'author/events', event
+      environment.apiHost + 'author/events/publish',
+      eventId
     );
+  }
+
+  updateEvent(event: MyEvent): Observable<MyEvent> {
+    return this.http.put<MyEvent>(environment.apiHost + 'author/events', event);
   }
 }
