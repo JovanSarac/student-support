@@ -13,11 +13,16 @@ export class InputComponent {
   @Input() placeholderSentence = '';
   @Input() inputType = '';
   fieldTextType: boolean = false;
+  @Input() customErrorMessages: Record<string, string> = {};
 
   errorMessages: Record<string, string> = {
     required: 'This field is required',
     email: 'This e-mail is invalid',
   };
+
+  getErrorMessage(errorKey: string): string {
+    return this.customErrorMessages[errorKey] || this.errorMessages[errorKey] || 'Invalid field';
+  }
 
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;

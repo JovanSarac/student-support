@@ -269,44 +269,16 @@ option {
 .events {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 80%;
   margin-left: 20%;
 }
 
-/* Stilizacija skrol trake */
-.events::-webkit-scrollbar {
-  width: 12px;
-  /* Širina skrol trake */
-}
-
-.events::-webkit-scrollbar-track {
-  background: rgba(131, 131, 131, 0.4);
-  /* Pozadina skrol trake */
-  border-radius: 15px;
-}
-
-.events::-webkit-scrollbar-thumb {
-  background: white;
-  /* Boja skrol trake */
-  border-radius: 15px;
-  /* Zaobljeni uglovi skrol trake */
-}
-
-.events::-webkit-scrollbar-thumb:hover {
-  cursor: pointer;
-  /* Boja skrol trake pri hover efektu */
-}
-
-.events p {
-  font-size: 28px;
-  font-weight: 500;
-  color: white;
-}
 
 .cards {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
   margin: 2%;
 }
 

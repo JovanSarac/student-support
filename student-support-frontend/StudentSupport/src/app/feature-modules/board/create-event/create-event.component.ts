@@ -326,8 +326,8 @@ export class CreateEventComponent implements OnInit {
 
     this.service.createEvent(this.event).subscribe({
       next: (result: MyEvent) => {
-        this.toastr.success("Uspješno!", "Uspješno ste kreirali događaj!" )
-        this.router.navigate(['your-events']);
+        this.toastr.success("Uspješno!", "Kreirali ste događaj pod nazivom " +  result.name + " !" )
+        this.router.navigate(['events-page']);
       },
     });
   }

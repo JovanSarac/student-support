@@ -29,10 +29,6 @@
   border: 2px solid var(--disabled-color);
 }
 
-.form-input::placeholder {
-  color: var(--text-placeholder-color);
-  font-size: clamp(14px, 1vw, 28px);
-}
 
 .form-input:focus::placeholder {
   opacity: 0.3;

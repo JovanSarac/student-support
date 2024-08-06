@@ -51,159 +51,127 @@
 .form__group {
   position: relative;
   padding: 20px 0 0;
-  margin: 3% 5%;
+  margin: 3% 0%;
   width: 90%;
 }
 
 .form__field {
-  font-family: "Poppins", "sans-serif" !important;
   width: 100%;
-  border: 0;
-  border-bottom: 1px solid #9b9b9b;
+  border-radius: 12px; 
+  border: 2px solid var(--border-light-color); 
   outline: 0;
-  font-size: 1.3rem;
-  color: rgb(83, 83, 223);
-  padding: 7px 0;
-  background: transparent;
+  font-size: clamp(14px, 1vw, 28px); 
+  color: var(--text-color); 
+  padding: 14px; 
+  background: white;
   transition: border-color 0.2s;
+  box-sizing: border-box; 
+  height: inherit;
+}
 
-  &::placeholder {
-    color: transparent;
-  }
+.form__field:focus {
+  border: 2px solid var(--primary-color);
+}
 
-  &:placeholder-shown ~ .form__label {
-    font-size: 1.3rem;
-    cursor: text;
-    top: 20px;
-  }
+.form__field:hover {
+  border: 2px solid var(--primary-hover-color);
+}
+
+.form__field::placeholder {
+  color: var(--text-placeholder-color);
+  font-size: clamp(14px, 1vw, 28px);
+}
+
+.form__field:focus::placeholder {
+  opacity: 0.3; 
 }
 
 .form__label {
   position: absolute;
-  top: 0;
+  top: -10px; 
+  left: 10px; 
   display: block;
   transition: 0.2s;
-  font-size: 1rem;
-  color: #838383;
-  font-family: "Poppins", sans-serif;
+  color: var(--text-heading-color);
+  font-size: clamp(14px, 1vw, 28px);
+  margin-bottom: 0.5vh;
 }
 
-.form__field:focus {
-  ~ .form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: rgb(83, 83, 223);
-    font-weight: 700;
-  }
-  padding-bottom: 6px;
-  font-weight: 700;
-  border-width: 3px;
-  border-image: linear-gradient(to right, rgb(83, 83, 223), rgb(157, 157, 216));
-  border-image-slice: 1;
-}
-/* reset input */
-.form__field {
-  &:required,
-  &:invalid {
-    box-shadow: none;
-  }
+.error-message {
+  color: var(--error-color);
+  font-size: smaller;
+  margin-top: 5px;
 }
 
 .description__group {
   position: relative;
   padding: 20px 0 0;
-  margin: 3% 5%;
+  margin: 3% 0%;
   width: 90%;
+}
 
-  .description__field {
-    font-family: "Poppins", "sans-serif";
-    width: 100%;
-    height: 240px;
-    border-bottom: 1px solid #9b9b9b;
-    outline: 0;
-    font-size: 1.3rem;
-    color: rgb(83, 83, 223);
-    padding: 7px 0px;
-    background: transparent;
-    transition: border-color 0.2s;
-    resize: none;
-    line-height: 1.5;
+.description__field {
+  width: 100%;
+  border-radius: 12px; 
+  border: 2px solid var(--border-light-color); 
+  height: 240px;
+  outline: 0;
+  font-size: clamp(14px, 1vw, 28px); 
+  color: var(--text-color); 
+  padding: 14px; 
+  background: white;
+  transition: border-color 0.2s;
+  resize: none;
+  line-height: 1.5;
+  box-sizing: border-box; 
+}
 
-    &::placeholder {
-      color: transparent;
-    }
+.description__label {
+  position: absolute;
+  top: -10px; 
+  left: 10px; 
+  display: block;
+  transition: 0.2s;
+  color: var(--text-heading-color);
+  font-size: clamp(14px, 1vw, 28px);
+  margin-bottom: 0.5vh;
+}
 
-    &:placeholder-shown ~ .description__label {
-      font-size: 1.3rem;
-      cursor: text;
-      top: 20px;
-    }
-  }
+.description__field:focus {
+  border: 2px solid var(--primary-color);
+}
 
-  .description__label {
-    position: absolute;
-    top: -4px;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: #838383;
-    font-family: "Poppins", sans-serif;
-  }
+.description__field:hover {
+  border: 2px solid var(--primary-hover-color);
+}
 
-  .description__field:focus {
-    ~ .description__label {
-      position: absolute;
-      top: -4px;
-      display: block;
-      transition: 0.2s;
-      font-size: 1rem;
-      color: rgb(83, 83, 223);
-      font-weight: 700;
-    }
-    padding-bottom: 6px;
-    font-weight: 700;
-    border-width: 3px;
-    border-image: linear-gradient(
-      to right,
-      rgb(83, 83, 223),
-      rgb(157, 157, 216)
-    );
-    border-image-slice: 1;
-  }
-  /* reset input */
-  .description__field {
-    &:required,
-    &:invalid {
-      box-shadow: none;
-    }
-  }
 
-  .emoji-picker {
-    position: absolute;
-    right: 5%;
-    top: 90%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #838383;
-    transition: color 0.2s;
-    font-size: 20px;
-  }
-  .emoji-picker:hover {
-    color: rgb(83, 83, 223);
-  }
-  .description__group:focus-within .emoji-picker {
-    color: rgb(83, 83, 223);
-  }
+.description__field:focus::placeholder {
+  opacity: 0.3;
+}
 
-  .emoji-mart {
-    position: absolute;
-    left: 100%;
-    bottom: 0%;
-    z-index: 1000;
-  }
+.emoji-picker {
+  position: absolute;
+  right: 4%;
+  top: 90%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--border-light-color);
+  transition: color 0.2s;
+  font-size: 20px;
+}
+.emoji-picker:hover {
+  color: var(--primary-hover-color);
+}
+.description__group:focus-within .emoji-picker {
+  color: var(--primary-hover-color);
+}
+
+.emoji-mart {
+  position: absolute;
+  left: 100%;
+  bottom: 0%;
+  z-index: 1000;
 }
 
 .separator {
@@ -274,7 +242,8 @@
 }
 
 .address-info p {
-  font-size: 15px;
+  font-size: 18px;
+  color: var(--info-color);
 }
 
 .row-map-address {
@@ -300,37 +269,14 @@
 }
 
 .city-street p {
-  font-size: 12px;
-  color: #002f56;
-  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  color: var(--info-color);
 }
 
 .create-button {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-}
-
-.create-button p {
-  height: auto;
-  font-size: 30px;
-  font-weight: 700;
-  font-family: "Poppins", sans-serif;
-  padding: 20px;
-  background-color: rgb(224, 62, 62);
-  color: white;
-  border-radius: 15px;
-  transition: background-color 0.4s ease-in-out;
-  margin-right: 10%;
-  margin-bottom: 3%;
-  margin-left: 0;
-  margin-top: 0;
-}
-
-.create-button p:hover {
-  background-image: none;
-  background-color: rgb(136, 11, 11);
-  cursor: pointer;
 }
 
 .error-message {
@@ -340,32 +286,13 @@
 
 .has-error {
   .form__field {
-    border-bottom: 1px solid rgb(224, 62, 62);
+    border: 2px solid var(--error-color);
   }
 
-  .form__label {
-    color: rgb(224, 62, 62);
-  }
 
-  .form__field:focus {
-    ~ .form__label {
-      color: rgb(224, 62, 62);
-    }
-  }
 
   .description__field {
-    border: 1px solid rgb(224, 62, 62);
-  }
-
-  .description__label {
-    color: rgb(224, 62, 62);
-  }
-
-  .description__field:focus {
-    border: 2px solid rgb(224, 62, 62);
-    ~ .description__label {
-      color: rgb(224, 62, 62);
-    }
+    border: 2px solid var(--error-color);
   }
 
   .emoji-picker {

@@ -11,7 +11,7 @@
             formControlName="type"
             type="input"
             class="form__field"
-            placeholder="Vrsta"
+            placeholder="Unesite vrstu dogadjaja ovde"
             name="type"
             id="type"
             required
@@ -39,12 +39,13 @@
                         <div *ngIf="isControlInvalid('name')" class="error-message">Naziv događaja je obavezan!</div>
                 </div> -->
         <xp-input
-          style="width: 90%"
+          style="width: 95%"
           [control]="eventForm.controls.name"
           inputType="text"
           inputId="naziv"
           label="Naziv dogadjaja"
-          placeholderSentence="Unesi ime dogadjaja ovde"
+          placeholderSentence="Unesite ime dogadjaja ovde"
+          [customErrorMessages]="{ required: 'Naziv događaja je obavezan!', minlength: 'Naziv mora imati najmanje 3 karaktera' }"
         >
         </xp-input>
         <div
@@ -55,7 +56,7 @@
             formControlName="description"
             type="input"
             class="description__field"
-            placeholder="Opis"
+            placeholder="Unesite opis dogadjaja ovde"
             name="description"
             id="description"
             required
@@ -77,7 +78,7 @@
           </div>
         </div>
 
-        <div
+        <!--<div
           class="form__group field"
           [ngClass]="{ 'has-error': isControlInvalid('date') }"
         >
@@ -105,7 +106,29 @@
           <div *ngIf="isControlInvalid('date')" class="error-message">
             Datum događaja je obavezan!
           </div>
-        </div>
+        </div>-->
+        <xp-input
+          *ngIf="eventForm.get('type')?.value !== '8'"
+          style="width: 95%"
+          [control]="eventForm.controls.date"
+          inputType="datetime-local"
+          inputId="date"
+          label="Izaberite datum pocetka dogadjaja"
+          placeholderSentence="Unesi datum ovde"
+          [customErrorMessages]="{ required: 'Datum događaja je obavezan!'}"
+        >
+        </xp-input>
+        <xp-input
+          *ngIf="eventForm.get('type')?.value === '8'"
+          style="width: 95%"
+          [control]="eventForm.controls.date"
+          inputType="datetime-local"
+          inputId="date"
+          label="Izaberite datum polaska"
+          placeholderSentence="Unesi datum ovde"
+          [customErrorMessages]="{ required: 'Datum događaja je obavezan!'}"
+        >
+        </xp-input>
       </div>
 
       <div class="separator"></div>
@@ -126,7 +149,7 @@
           </div>
 
           <div class="city-street">
-            <div
+            <!--<div
               class="form__group field"
               [ngClass]="{ 'has-error': isControlInvalid('city') }"
             >
@@ -161,7 +184,27 @@
               <div *ngIf="undefinedStreet" class="error-message">
                 Ulica ne moze biti undefined!
               </div>
-            </div>
+            </div>-->
+            <xp-input
+              style="width: 95%; margin-left: 3%;"
+              [control]="eventForm.controls.city"
+              inputType="text"
+              inputId="city"
+              label="Grad:"
+              placeholderSentence="Unesi grad ovde"
+              [customErrorMessages]="{ required: 'Grad je obavezan!'}"
+            >
+            </xp-input>
+            <xp-input
+              style="width: 95%; margin-left: 3%;"
+              [control]="eventForm.controls.street"
+              inputType="text"
+              inputId="street"
+              label="Ulica:"
+              placeholderSentence="Unesi ulicu ovde"
+              [customErrorMessages]="{ required: 'Ulica je obavezna!'}"
+            >
+            </xp-input>
             <p>
               Možete grad i ulicu ručno izmjeniti, ukoliko prikazana adresa nije
               baš tačna!
@@ -201,8 +244,24 @@
           </div>
         </div>
         <div class="create-button">
-          <p *ngIf="!isEditMode" (click)="createEvent()">Kreiraj</p>
-          <p *ngIf="isEditMode" (click)="updateEvent()">Izmeni</p>
+          <xp-primary-button
+            *ngIf="!isEditMode"
+            (click)="createEvent()"
+            style="width: 90%;"
+            buttonId="filter-button"
+            buttonType="button"
+            textValue="Kreiraj događaj"
+          >
+          </xp-primary-button>
+          <xp-primary-button
+            *ngIf="isEditMode"
+            (click)="updateEvent()"
+            style="width: 90%;"
+            buttonId="filter-button"
+            buttonType="button"
+            textValue="Izmeni događaj"
+          >
+          </xp-primary-button>
         </div>
       </div>
     </form>
