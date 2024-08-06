@@ -17,7 +17,7 @@ export class EventsPageComponent implements OnInit {
   selected!: Date;
   events: MyEvent[] = [];
   currentPage = 1;
-  pageSize = 8;
+  pageSize = 20;
   pagedEvents: MyEvent[] = [];
   participations: Participation[] = [];
   totalPages = 1;

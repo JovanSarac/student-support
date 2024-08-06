@@ -34,10 +34,6 @@
         <p>Moj profil</p>
       </div>
 
-      <div class="navbar-item" *ngIf="user && user.role == 'author'">
-        <p (click)="yourEventClick()">Moji događaji</p>
-      </div>
-
       <xp-primary-button
         *ngIf="user.username === ''"
         class="prijava-button"

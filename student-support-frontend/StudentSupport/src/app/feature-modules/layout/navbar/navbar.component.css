@@ -10,8 +10,9 @@
 
 .navbar-content {
   background-color: var(--primary-color);
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   height: 8dvh;
   /*position: absolute;*/
