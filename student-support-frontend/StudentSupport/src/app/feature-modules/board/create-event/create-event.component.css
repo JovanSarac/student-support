@@ -57,15 +57,15 @@
 
 .form__field {
   width: 100%;
-  border-radius: 12px; 
-  border: 2px solid var(--border-light-color); 
+  border-radius: 12px;
+  border: 2px solid var(--border-light-color);
   outline: 0;
-  font-size: clamp(14px, 1vw, 28px); 
-  color: var(--text-color); 
-  padding: 14px; 
+  font-size: clamp(14px, 1vw, 28px);
+  color: var(--text-color);
+  padding: 14px;
   background: white;
   transition: border-color 0.2s;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   height: inherit;
 }
 
@@ -83,13 +83,13 @@
 }
 
 .form__field:focus::placeholder {
-  opacity: 0.3; 
+  opacity: 0.3;
 }
 
 .form__label {
   position: absolute;
-  top: -10px; 
-  left: 10px; 
+  top: -10px;
+  left: 10px;
   display: block;
   transition: 0.2s;
   color: var(--text-heading-color);
@@ -112,24 +112,24 @@
 
 .description__field {
   width: 100%;
-  border-radius: 12px; 
-  border: 2px solid var(--border-light-color); 
+  border-radius: 12px;
+  border: 2px solid var(--border-light-color);
   height: 240px;
   outline: 0;
-  font-size: clamp(14px, 1vw, 28px); 
-  color: var(--text-color); 
-  padding: 14px; 
+  font-size: clamp(14px, 1vw, 28px);
+  color: var(--text-color);
+  padding: 14px;
   background: white;
   transition: border-color 0.2s;
   resize: none;
   line-height: 1.5;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 .description__label {
   position: absolute;
-  top: -10px; 
-  left: 10px; 
+  top: -10px;
+  left: 10px;
   display: block;
   transition: 0.2s;
   color: var(--text-heading-color);
@@ -144,7 +144,6 @@
 .description__field:hover {
   border: 2px solid var(--primary-hover-color);
 }
-
 
 .description__field:focus::placeholder {
   opacity: 0.3;
@@ -243,7 +242,7 @@
 
 .address-info p {
   font-size: 18px;
-  color: var(--info-color);
+  color: var(--text-color);
 }
 
 .row-map-address {
@@ -288,8 +287,6 @@
   .form__field {
     border: 2px solid var(--error-color);
   }
-
-
 
   .description__field {
     border: 2px solid var(--error-color);
