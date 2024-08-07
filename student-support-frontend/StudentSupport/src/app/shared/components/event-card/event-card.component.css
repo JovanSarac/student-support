@@ -127,16 +127,8 @@ svg {
   padding-bottom: 5px;
 }
 
-@media (max-width: 1600px) {
+@media (max-width: 1950px) {
   .one-card {
-    width: calc(50% - 20px);
-    /* Dva u redu */
-  }
-}
-
-@media (max-width: 580px) {
-  .one-card {
-    width: calc(100% - 20px);
-    /* Jedan u redu */
+    width: 17.8vw
   }
 }
