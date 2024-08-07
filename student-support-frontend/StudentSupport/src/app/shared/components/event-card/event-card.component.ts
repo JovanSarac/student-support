@@ -8,6 +8,7 @@ import {
 } from '../../model/participation-model';
 import { EventsService } from 'src/app/feature-modules/events/events.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'xp-event-card',
@@ -46,7 +47,8 @@ export class EventCardComponent implements OnInit {
   constructor(
     public router: Router,
     private service: EventsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -81,6 +83,16 @@ export class EventCardComponent implements OnInit {
         this.getParticipationsByStudentId();
         this.isLoading = false;
         this.eventIdForLoader = 0;
+        this.toastrService.success(
+          "Uspešno ste se odazvali za događaj :" + this.event.name + "! <br>Kroz par trenutaka dobićete imejl i mogućnost dodavanja ovog događaja u Vaš Google Calendar.", 
+          "Uspešno",
+          {
+            timeOut: 10000, // Trajanje u milisekundama, ovde 10 sekundi
+            extendedTimeOut: 2000, // Vreme produžetka ako korisnik pređe mišem preko toast-a
+            closeButton: true, 
+            progressBar: true,
+            enableHtml: true 
+          });
       },
     });
   }
@@ -97,6 +109,15 @@ export class EventCardComponent implements OnInit {
     this.service.cancelParticipation(cancelledParticipation?.id!).subscribe({
       next: (result: Participation) => {
         this.getParticipationsByStudentId();
+        this.toastrService.success(
+          "Uspešno ste se odjavili sa događaja :" + this.event.name + "!", 
+          "Uspešno",
+          {
+            timeOut: 4000, // Trajanje u milisekundama, ovde 10 sekundi
+            extendedTimeOut: 2000, // Vreme produžetka ako korisnik pređe mišem preko toast-a
+            closeButton: true, 
+            progressBar: true,
+          });
       },
     });
   }
