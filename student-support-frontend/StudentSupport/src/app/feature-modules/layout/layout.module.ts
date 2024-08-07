@@ -6,7 +6,7 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { MyProfileComponent } from './my-profile/my-profile.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FooterComponent } from './footer/footer.component';
@@ -28,6 +28,7 @@ import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-d
     FormsModule,
     PickerModule,
     SharedModule,
+    ReactiveFormsModule,
   ],
   exports: [NavbarComponent, HomeComponent, FooterComponent],
 })

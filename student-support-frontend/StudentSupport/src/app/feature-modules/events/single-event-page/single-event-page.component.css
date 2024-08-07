@@ -6,6 +6,7 @@
   width: 100%;
   background-color: var(--background-color);
   align-items: center;
+  margin-top: 8dvh;
 }
 
 .heading-container {

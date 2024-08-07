@@ -72,9 +72,10 @@ export class MyProfileComponent  implements OnInit{
 
   openEditDialog(person: Person){
     let dialogRef = this.dialog.open(EditProfileDialogComponent, { 
-      width: '900px',
+      width: '800px',
       height: '700px', 
-      data: this.person 
+      data: this.person,
+      panelClass: 'custom-modalbox'
     }); 
   }
 

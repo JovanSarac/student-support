@@ -1,18 +1,72 @@
 .full-dialog{
     display: flex;
+    flex-direction: column;
     width: 100%;
-    height: auto;
-    z-index: 1500 !important;
-    justify-content: center;
-    align-items: center;
-    margin-top: -8dvh;
+    height: 100%;
 }
 
+.topbar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid var(--border-light-color);
+    justify-content: space-between;
+}
 
-.full-dialog p{
+.topbar p{
+    display: flex;
+    margin: 0;
+    align-items: center;
     font-size: 20px;
     color: var(--primary-color);
     font-weight: 700;
-    padding: 10px;
-    margin-top: 5px;
+    padding: 15px;
+    
+}
+
+.exit-icon{
+    font-size: 20px;
+    padding: 5px;
+    color: var(--text-color);
+}
+
+.exit-icon:hover{
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.dialog-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.person-form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+}
+
+.name-surname{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.other-inputs{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 2%;
 }

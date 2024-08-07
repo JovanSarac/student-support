@@ -8,6 +8,7 @@
   width: 100%;
   height: auto;
   background-color: white;
+  margin-top: 8dvh;
 }
 
 .page-content {
@@ -123,7 +124,6 @@
     font-size: 26px;
     padding: 10px;
     color: var(--secondary-color);
-    z-index: 1100;
     cursor: pointer;
     border: 2px solid var(--primary-color);
     background-color: white;

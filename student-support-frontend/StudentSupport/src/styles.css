@@ -31,7 +31,6 @@
 html,
 body {
   height: 100%;
-  margin-top: 8dvh;
 }
 body {
   margin: 0;
@@ -48,19 +47,8 @@ p {
   font-family: "Poppins", "sans-serif";
 }
 
-.btn-action {
-  height: auto;
-  padding: 10px;
-  background-color: rgb(224, 62, 62);
-  color: white;
-  border-radius: 15px;
-  font-family: "Poppins", "sans-serif";
-  transition: background-color 0.4s ease-in-out;
-}
-
-.btn-action:hover {
-  background-color: rgb(136, 11, 11);
-  cursor: pointer;
+::ng-deep .mat-dialog-container {
+  z-index: 3000 !important; 
 }
 
 @import "@ctrl/ngx-emoji-mart/picker";

@@ -1,4 +1,86 @@
-<div class="full-dialog">
-    <p><i class="bi bi-pencil-square" style="margin-right: 5px;"></i>Izmena ličnih informacija</p>
+<div class="full-dialog mat-dialog-container">
+    <div class="topbar">
+        <p><i class="bi bi-pencil-square" style="margin-right: 5px;"></i>Izmena ličnih informacija</p>
+        <i class="bi bi-x-circle exit-icon" (click)="closeDialog()" ></i>
+    </div>
+    <div class="dialog-container">
+        <form [formGroup]="personForm" class="person-form">
+            <div class="name-surname">
+                <xp-input
+                style="width: 100%;"
+                [control]="personForm.controls.name"
+                inputType="text"
+                inputId="name"
+                label="Ime:"
+                placeholderSentence="Ime"
+                [customErrorMessages]="{ required: 'Ime je obavezno!'}"
+                >
+                </xp-input>
+
+                <xp-input
+                style="width: 100%;"
+                [control]="personForm.controls.surname"
+                inputType="text"
+                inputId="surname"
+                label="Prezime:"
+                placeholderSentence="Prezime"
+                [customErrorMessages]="{ required: 'Prezime je obavezno!'}"
+                >
+                </xp-input>
+            </div>
+
+            <div class="other-inputs">
+                <xp-input
+                    style="width: 100%;"
+                    [control]="personForm.controls.birthdate"
+                    inputType="date"
+                    inputId="birth"
+                    label="Datum rođenja:"
+                    placeholderSentence="Datum rođenja"
+                    >
+                </xp-input>
+
+                <xp-input
+                    style="width: 100%;"
+                    [control]="personForm.controls.phonenumber"
+                    inputType="text"
+                    inputId="phonenumber"
+                    label="Broj telefona:"
+                    placeholderSentence="Broj telefona"
+                    >
+                </xp-input>
+                <div class="name-surname">
+                    <xp-input
+                    style="width: 100%;"
+                    [control]="personForm.controls.street"
+                    inputType="text"
+                    inputId="street"
+                    label="Ulica:"
+                    placeholderSentence="Ulica"
+                    >
+                    </xp-input>
+
+                    <xp-input
+                        style="width: 100%;"
+                        [control]="personForm.controls.city"
+                        inputType="text"
+                        inputId="city"
+                        label="Grad:"
+                        placeholderSentence="Grad"
+                        >
+                    </xp-input>
+
+                </div>
+
+            </div>
+
+    
+
+            
+
+        </form>
+
+
+    </div>
 
 </div>
