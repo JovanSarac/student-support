@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FooterComponent } from './footer/footer.component';
+import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FooterComponent } from './footer/footer.component';
     NavbarComponent,
     MyProfileComponent,
     FooterComponent,
+    EditProfileDialogComponent,
   ],
   imports: [
     CommonModule,

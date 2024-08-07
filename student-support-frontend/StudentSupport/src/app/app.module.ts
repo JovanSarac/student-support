@@ -16,6 +16,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
     CalendarModule,
     FormsModule,
     PickerModule,
+    MatDialogModule,
     NgxDaterangepickerMd.forRoot(),
     ToastrModule.forRoot({
       timeOut: 4000,

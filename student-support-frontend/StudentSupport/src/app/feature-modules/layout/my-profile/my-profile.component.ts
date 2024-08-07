@@ -4,6 +4,9 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Person } from '../model/person.model';
 import { LayoutService } from '../layout.service';
 import { DatePipe } from '@angular/common';
+import { DialogRef } from '@angular/cdk/dialog';
+import { EditProfileDialogComponent } from '../edit-profile-dialog/edit-profile-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-my-profile',
@@ -27,9 +30,12 @@ export class MyProfileComponent  implements OnInit{
   city: string ="";
   street: string = "";
 
-  constructor(private authService:AuthService, private service: LayoutService, private datePipe: DatePipe){
-
-  }
+  constructor(
+    private authService:AuthService, 
+    private service: LayoutService, 
+    private datePipe: DatePipe,
+    private dialog: MatDialog
+  ){}
 
 
   ngOnInit(): void {
@@ -65,7 +71,30 @@ export class MyProfileComponent  implements OnInit{
   }
 
   openEditDialog(person: Person){
-    
+    let dialogRef = this.dialog.open(EditProfileDialogComponent, { 
+      width: '900px',
+      height: '700px', 
+      data: this.person 
+    }); 
+  }
+
+  triggerFileInput() {
+    const fileInput = document.getElementById('file') as HTMLInputElement;
+    fileInput.click();
+  }
+
+  addHover() {
+    const label = document.querySelector('.profile-pic .-label');
+    if (label) {
+      label.classList.add('hover');
+    }
+  }
+  
+  removeHover() {
+    const label = document.querySelector('.profile-pic .-label');
+    if (label) {
+      label.classList.remove('hover');
+    }
   }
 
 }
