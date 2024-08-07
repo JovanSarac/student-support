@@ -22,13 +22,6 @@ export class MyProfileComponent  implements OnInit{
     email: '',
     profilePic: ''
   }
-  personForUpdate: Person={
-    id: 0,
-    name: '',
-    surname: '',
-    email: '',
-    profilePic: ''
-  }
   selectedProfilePic : string = ""
   defaultProfilePic :string = "../../assets/images/profile-pic.jpg"
   city: string ="";
@@ -71,18 +64,8 @@ export class MyProfileComponent  implements OnInit{
     return this.datePipe.transform(date, 'dd MMM yyyy');
   }
 
-
-
-  updateProfile() : void{
-    console.log(this.person.biography);
-    this.person.address = this.street + "," + this.city;
-
-    this.service.updatePerson(this.user,this.person).subscribe({
-      next:(result:Person)=>{
-        this.person = result;
-        console.log(result)
-      }
-    })
+  openEditDialog(person: Person){
+    
   }
 
 }

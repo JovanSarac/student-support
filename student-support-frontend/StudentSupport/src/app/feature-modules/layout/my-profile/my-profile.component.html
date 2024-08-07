@@ -13,7 +13,9 @@
                             </label>
                             <input id="file" type="file" (change)="onImageSelected($event)"/>
                             <img [src]="person.profilePic ? person.profilePic : defaultProfilePic" id="output" width="200"/>
+                            
                         </div>
+                        <span><i class="bi bi-patch-plus-fill plus-icon"></i></span>
                         <p>{{user.username}}</p>
                         <h6>Član od {{ getFormattedDate(person.registrationDate!) }}</h6>
     
@@ -22,6 +24,7 @@
                     <div class="email-andname">
                         <div class="edit-information-button">
                             <xp-primary-button
+                            (click)="openEditDialog(person)"
                             style="width: 80%; display: flex; justify-content: flex-end;"
                             buttonId="filter-button"
                             buttonType="button"

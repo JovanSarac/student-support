@@ -78,7 +78,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
   
   input {
     display: none;
@@ -125,7 +124,21 @@
     font-family: 'Poppins' , 'sans-serif';
     font-weight: bold;
   }
+}
 
+.plus-icon{
+    position: relative;
+    font-size: 40px;
+    left: 70px;
+    bottom: 50px;
+    color: var(--secondary-color);
+    z-index: 1500;
+    cursor: pointer;
+}
+
+.plus-icon:hover{
+    color: var(--secondary-hover-color);
+    transition: 0.2s;
 }
 
 .picture-container p{
