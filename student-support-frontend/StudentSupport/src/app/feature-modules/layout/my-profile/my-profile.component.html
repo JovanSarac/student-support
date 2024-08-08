@@ -22,13 +22,13 @@
                     <div class="email-andname">
                         <div class="edit-information-button">
                             <xp-primary-button
-                            (click)="openEditDialog(person)"
-                            style="width: 80%; display: flex; justify-content: flex-end;"
-                            buttonId="filter-button"
-                            buttonType="button"
-                            textValue="Izmeni lične informacije"
-                        >
-                        </xp-primary-button>
+                                (click)="openEditDialog(person)"
+                                style="width: 80%; display: flex; justify-content: flex-end;"
+                                buttonId="filter-button"
+                                buttonType="button"
+                                textValue="Izmeni lične informacije"
+                            >
+                            </xp-primary-button>
 
 
                         </div>
@@ -47,7 +47,7 @@
                         <div class="birthdate">
                  
                             <div class="birthdate__group field">
-                                <input type="text" class="birthdate__field" [(ngModel)]="person.birthDate" id="birthdate" disabled/>
+                                <input type="text" class="birthdate__field" [ngModel]="person.birthDate != undefined ? getFormattedDateClassic(person.birthDate) : person.birthDate" id="birthdate" disabled/>
                                 <label for="birthdate" class="birthdate__label"><i class="bi bi-cake2-fill" style="margin-right: 5px;"></i>Datum rodjenja:</label>
                             </div>
         
@@ -69,7 +69,7 @@
         
                         <div class="phone-input">
                             <div class="form__group field">
-                                <input type="input" class="form__field" [(ngModel)]="person.phoneNumber" id="phonenumber" disabled/>
+                                <input type="input" class="form__field" [ngModel]="person.phoneNumber" id="phonenumber" disabled/>
                                 <label for="phonenumber" class="form__label"><i class="bi bi-telephone-fill" style="margin-right: 5px;"></i>Broj telefona:</label>
                             </div>
         
@@ -79,14 +79,14 @@
                     <div class="address">
                         <div class="street-input">
                             <div class="street__group field">
-                                <input type="input" class="street__field" [(ngModel)]="street"  id="street" disabled />
+                                <input type="input" class="street__field" [ngModel]="street"  id="street" disabled />
                                 <label for="street" class="street__label">Ulica i broj:</label>
                             </div>
                         </div>
 
                         <div class="city-input">
                             <div class="city__group field">
-                                <input type="input" class="city__field" [(ngModel)]="city"  id="city" disabled />
+                                <input type="input" class="city__field" [ngModel]="city"  id="city" disabled />
                                 <label for="city" class="city__label">Grad:</label>
                             </div>
 
@@ -98,7 +98,7 @@
 
                 <div class="biography">
                     <div class="biography__group field">
-                        <textarea type="input" class="biography__field" name="biography" [(ngModel)]="person.biography" id='biography' #biographyTextarea disabled></textarea>
+                        <textarea type="input" class="biography__field" name="biography" [ngModel]="person.biography" id='biography' #biographyTextarea disabled></textarea>
                         <label for="biography" class="biography__label">Biografija:</label>
                     </div>
 

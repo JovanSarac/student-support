@@ -70,10 +70,14 @@ export class MyProfileComponent  implements OnInit{
     return this.datePipe.transform(date, 'dd MMM yyyy');
   }
 
+  getFormattedDateClassic(date: Date): string | null {
+    return this.datePipe.transform(date, 'dd.MM.yyyy');
+  }
+
   openEditDialog(person: Person){
     let dialogRef = this.dialog.open(EditProfileDialogComponent, { 
       width: '800px',
-      height: '700px', 
+      height: '800px', 
       data: this.person,
       panelClass: 'custom-modalbox'
     }); 

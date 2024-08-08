@@ -72,6 +72,42 @@
 
                 </div>
 
+                <div class="biography__group field">
+                    <textarea
+                        formControlName="biography"
+                        type="input"
+                        class="biography__field"
+                        placeholder="Biografija"
+                        name="biography"
+                        id="biography"
+                        #biographyTextarea
+                    ></textarea>
+                    <label for="biography" class="biography__label"
+                        >Biografija:</label
+                    >
+                    <i
+                        class="bi bi-emoji-heart-eyes-fill emoji-picker"
+                        tabindex="0"
+                        (click)="toggleEmojiPicker()"
+                    ></i>
+                    <div class="emoji-mart" *ngIf="showEmojiPicker">
+                        <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart>
+                    </div>
+                </div>
+
+                <div class="edit-button">
+                    <xp-primary-button
+                            (click)="editPerson()"
+                            style="width: 200px;"
+                            buttonId="edit-butt"
+                            buttonType="button"
+                            textValue="Izmeni"
+                        >
+                        </xp-primary-button>
+
+                </div>
+
+
             </div>
 
     

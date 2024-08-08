@@ -11,6 +11,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FooterComponent } from './footer/footer.component';
 import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-d
     PickerModule,
     SharedModule,
     ReactiveFormsModule,
+    MarkdownModule.forRoot(),
   ],
   exports: [NavbarComponent, HomeComponent, FooterComponent],
 })

@@ -70,3 +70,80 @@
     width: 100%;
     gap: 2%;
 }
+
+
+.biography__group {
+    position: relative;
+    padding: 20px 0 0;
+    margin-top: 2%;
+    width: 100%;
+  }
+  
+  .biography__field {
+    width: 100%;
+    border-radius: 12px;
+    border: 2px solid var(--border-light-color);
+    height: 200px;
+    outline: 0;
+    font-size: clamp(14px, 1vw, 28px);
+    color: var(--text-color);
+    padding: 14px;
+    background: white;
+    transition: border-color 0.2s;
+    resize: none;
+    line-height: 1.5;
+    box-sizing: border-box;
+  }
+  
+  .biography__label {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    display: block;
+    transition: 0.2s;
+    color: var(--text-heading-color);
+    font-size: clamp(14px, 1vw, 28px);
+    margin-bottom: 0.5vh;
+  }
+  
+  .biography__field:focus {
+    border: 2px solid var(--primary-color);
+  }
+  
+  .biography__field:hover {
+    border: 2px solid var(--primary-hover-color);
+  }
+  
+  .biography__field:focus::placeholder {
+    opacity: 0.3;
+  }
+  
+  .emoji-picker {
+    position: absolute;
+    right: 4%;
+    top: 90%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--border-light-color);
+    transition: color 0.2s;
+    font-size: 20px;
+  }
+  .emoji-picker:hover {
+    color: var(--primary-hover-color);
+  }
+  .biography__group:focus-within .emoji-picker {
+    color: var(--primary-hover-color);
+  }
+  
+  .emoji-mart {
+    position: absolute;
+    left: 0%;
+    top: 100%;
+    z-index: 3000;
+  }
+
+  .edit-button{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4%;
+  }

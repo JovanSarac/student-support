@@ -7,6 +7,6 @@ export interface Person {
     registrationDate?: Date;
     address?: string;
     phoneNumber?: string;
-    birthDate?: Date;
+    birthDate?: Date | null;
     biography?:string;
 }

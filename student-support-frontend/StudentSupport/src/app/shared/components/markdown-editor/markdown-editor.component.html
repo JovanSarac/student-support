@@ -1,6 +1,6 @@
-<div style="flex-grow: 1">
-    <div class="flex-row">
-      <div class="flex-row">
+<div style="display: flex; width: 100%;">
+    <div>
+      <div >
         <button mat-icon-button (click)="insertElement('bold')">
           <mat-icon>format_bold</mat-icon>
         </button>
@@ -27,7 +27,7 @@
           <mat-icon>link</mat-icon>
         </button>
       </div>
-      <span style="flex-grow: 1;"></span>
+      <span ></span>
       <button *ngIf="sidePreview && livePreview" mat-icon-button (click)="synchEnabled = !synchEnabled"  [matTooltip]="synchEnabled ? 'Ukini skrol sinhronizaciju' : 'Aktiviraj skrol sinhronizaciju'">
         <mat-icon>{{ synchEnabled ? 'sync_disabled' : 'sync' }}</mat-icon>
       </button>
