@@ -71,4 +71,19 @@ export class EditProfileDialogComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
+  markdownText = 'Initial text'; // Primer inicijalnog teksta
+
+  onSubmit(text: string | null) {
+    if (text) {
+      console.log('Submitted text:', text);
+    } else {
+      console.log('Discarded');
+    }
+  }
+
+  onTextChanged(newText: string) {
+    this.markdownText = newText;
+    console.log('Text changed:', newText);
+  }
+
 }
