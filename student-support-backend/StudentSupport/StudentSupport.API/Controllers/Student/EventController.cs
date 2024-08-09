@@ -17,7 +17,6 @@ namespace StudentSupport.API.Controllers.Student
             _eventService = eventService;
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public ActionResult<PagedResult<EventDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
         {

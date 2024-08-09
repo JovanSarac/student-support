@@ -46,7 +46,7 @@ export class EventsPageComponent implements OnInit {
   }
 
   getAllEvents(): void {
-    this.service.getAllEvents().subscribe({
+    this.service.getAllEvents(this.authService.user$.value).subscribe({
       next: (result: PagedResults<MyEvent>) => {
         if (this.user.role === 'student') {
           this.events = result.results.filter((e) => !e.isArchived);

@@ -12,5 +12,6 @@ namespace StudentSupport.Events.Core.Domain.RepositoryInterfaces
         List<Event>  GetYoursEvents(long userId);
         void SaveChanges();
         List<Event> GetAll();
+        List<Event> GetRandomFourEvents();
     }
 }

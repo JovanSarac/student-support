@@ -100,5 +100,10 @@ namespace StudentSupport.Events.Core.UseCases
             return MapToDto(events);
         }
 
+        public Result<List<EventDto>> GetRandomFourEvents()
+        {
+            return MapToDto(_eventRepository.GetRandomFourEvents());
+        }
+
     }
 }

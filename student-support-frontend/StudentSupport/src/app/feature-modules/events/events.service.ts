@@ -14,9 +14,9 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 export class EventsService {
   constructor(private http: HttpClient) {}
 
-  getAllEvents(): Observable<PagedResults<MyEvent>> {
+  getAllEvents(user: User): Observable<PagedResults<MyEvent>> {
     return this.http.get<PagedResults<MyEvent>>(
-      environment.apiHost + 'student/events'
+      environment.apiHost + user.role + '/events'
     );
   }
 
@@ -116,6 +116,12 @@ export class EventsService {
   getYoursParticipateEvents(userId: number): Observable<MyEvent[]> {
     return this.http.get<MyEvent[]>(
       environment.apiHost + 'student/events/get_yours_participate_events/' + userId
+    );
+  }
+
+  getRandomFourEvents(): Observable<MyEvent[]> {
+    return this.http.get<MyEvent[]>(
+      environment.apiHost + 'anonymus/events/get_random_four_events'
     );
   }
 }
