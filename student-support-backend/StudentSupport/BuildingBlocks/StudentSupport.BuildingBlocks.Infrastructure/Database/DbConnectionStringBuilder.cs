@@ -1,4 +1,6 @@
-﻿namespace StudentSupport.BuildingBlocks.Infrastructure.Database;
+﻿using System;
+
+namespace StudentSupport.BuildingBlocks.Infrastructure.Database;
 
 public static class DbConnectionStringBuilder
 {
