@@ -69,7 +69,7 @@ public class AuthenticationService : IAuthenticationService
                     usernameForStudent = GenerateUsernameForStudent(usernameForStudent);
                 }
                 var user = _userRepository.Create(new User(usernameForStudent, "StudentGmail91#", UserRole.Student, true, true));
-                personFromDatabase = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email, account.ProfilePic, DateOnly.FromDateTime(DateTime.Now), ""));
+                personFromDatabase = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email, Convert.FromBase64String(account.ProfilePic), DateOnly.FromDateTime(DateTime.Now), ""));
                 return _tokenGenerator.GenerateAccessToken(user, personFromDatabase.Id);
             }
             else

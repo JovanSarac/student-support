@@ -13,7 +13,7 @@ namespace StudentSupport.Stakeholders.API.Dtos
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
-        public string? ProfilePic { get; set; }
+        public string? ProfilePicBase64 { get; set; }
         public DateOnly RegistrationDate { get; set; }
         public string? Address { get; set; }
         public string? PhoneNumber { get; set; }

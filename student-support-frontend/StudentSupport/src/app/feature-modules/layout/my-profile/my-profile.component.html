@@ -9,7 +9,7 @@
                               <span><i class="bi bi-file-earmark-image-fill"></i>Promeni sliku</span>
                             </label>
                             <input id="file" type="file" (change)="onImageSelected($event)"/>
-                            <img [src]="person.profilePic ? person.profilePic : defaultProfilePic" id="output" width="200"/>
+                            <img [src]="person.profilePicBase64 ? person.profilePicBase64 : defaultProfilePic" id="output" width="200"/>
                         </div>
                         <div class="position-icon"  (mouseover)="addHover()" (mouseout)="removeHover()">
                             <i  class="bi bi-camera-fill plus-icon" (click)="triggerFileInput()"></i>

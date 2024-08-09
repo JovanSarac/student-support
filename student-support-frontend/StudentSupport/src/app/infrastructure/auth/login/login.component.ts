@@ -82,29 +82,46 @@ export class LoginComponent implements OnInit{
   private decodeToken(token: string){
     return JSON.parse(atob(token.split(".")[1]))
   }
-  handleLogin(response : any){
-    if(response){
-      //decode the token
-      const payLoad = this.decodeToken(response.credential)
 
-      if(payLoad.email_verified){
-
+  convertUrlToBase64(url: string): Promise<string> {
+    return fetch(url)
+      .then(response => response.blob())
+      .then(blob => new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      }));
+  }
+  
+  // U tvom kodu, nakon što dobiješ `profilePic` iz `payLoad`
+  handleLogin(response: any) {
+    if (response) {
+      const payLoad = this.decodeToken(response.credential);
+  
+      if (payLoad.email_verified) {
         const registration: RegistrationGmail = {
           name: payLoad.given_name || "",
           surname: payLoad.family_name || "",
           email: payLoad.email || "",
           profilePic: payLoad.picture || "",
         };
-        
-        this.authService.loginStudentGmail(registration).subscribe({
-          next: () => {
-            this.router.navigate(['/']);
-          },
+  
+        // Pretvori URL u Base64
+        this.convertUrlToBase64(registration.profilePic).then(base64Image => {
+          const base64Data = base64Image.split(',')[1];
+          registration.profilePic = base64Data;
+  
+          // Ako treba, možeš dodatno obraditi sliku ili je proslediti na server
+          this.authService.loginStudentGmail(registration).subscribe({
+            next: () => {
+              this.router.navigate(['/']);
+            },
+          });
+        }).catch(error => {
+          console.error('Error converting URL to Base64:', error);
         });
-
-
       }
-    
     }
   }
 

@@ -3,7 +3,7 @@ export interface Person {
     name: string;
     surname: string;
     email: string;
-    profilePic : string;
+    profilePicBase64 : string;
     registrationDate?: Date;
     address?: string;
     phoneNumber?: string;

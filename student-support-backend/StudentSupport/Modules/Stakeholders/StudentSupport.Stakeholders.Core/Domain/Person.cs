@@ -9,15 +9,19 @@ public class Person : Entity
     public string Name { get; init; }
     public string Surname { get; init; }
     public string Email { get; init; }
-    public string? ProfilePic { get; init; }
+    public byte[]? ProfilePic { get; init; }
     public DateOnly RegistrationDate { get; init; }
     public string? Address { get; init; }
     public string? PhoneNumber { get; init; }
     public DateOnly? BirthDate { get; init; }
     public string? Biography { get; init; }
 
+    public Person()
+    {
 
-    public Person(long userId, string name, string surname, string email, string profilePic, DateOnly registrationDate, string biography)
+    }
+
+    public Person(long userId, string name, string surname, string email, byte[]? profilePic, DateOnly registrationDate, string biography)
     {
         UserId = userId;
         Name = name;

@@ -18,7 +18,7 @@ export class EditProfileDialogComponent implements OnInit {
     name: '',
     surname: '',
     email: '',
-    profilePic: ''
+    profilePicBase64: ''
   }
 
   personForm = new FormGroup({
