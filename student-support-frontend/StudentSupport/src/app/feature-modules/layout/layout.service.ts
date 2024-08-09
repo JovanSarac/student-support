@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { MyEvent } from '../board/model/myevent.model';
 import { environment } from 'src/env/environment';
@@ -11,9 +11,10 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
   providedIn: 'root'
 })
 export class LayoutService {
+  private personSubject: BehaviorSubject<Person | null> = new BehaviorSubject<Person | null>(null);
+  public person$: Observable<Person | null> = this.personSubject.asObservable();
 
   constructor(private http: HttpClient) { }
-
 
   getAllEvenets(): Observable<PagedResults<MyEvent>> {
     return this.http.get<PagedResults<MyEvent>>(environment.apiHost + 'student/events');
@@ -23,7 +24,19 @@ export class LayoutService {
     return this.http.get<Person>(environment.apiHost + user.role + '/person/' + user.id);
   }
 
-  updatePerson(user: User, person: Person):Observable<Person>{
-    return this.http.put<Person>(environment.apiHost + user.role + '/person/' + person.id,  person);
+ updatePerson(user: User, person: Person): Observable<Person> {
+    return this.http.put<Person>(environment.apiHost + user.role + '/person/' + person.id, person).pipe(
+      tap((updatedPerson: Person) => {
+        this.personSubject.next(updatedPerson);
+      })
+    );
+  }
+
+  loadPerson(user: User): void {
+    this.getPersonByUser(user).subscribe({
+      next: (person: Person) => {
+        this.personSubject.next(person);
+      }
+    });
   }
 }

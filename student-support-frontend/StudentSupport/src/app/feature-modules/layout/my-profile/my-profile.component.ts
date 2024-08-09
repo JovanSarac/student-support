@@ -43,7 +43,18 @@ export class MyProfileComponent  implements OnInit{
 
   ngOnInit(): void {
     this.user = this.authService.user$.value;
-    this.service.getPersonByUser(this.user).subscribe({
+    this.service.loadPerson(this.user);
+    this.service.person$.subscribe(person => {
+      if (person) {
+        this.person = person;
+        if(this.person.address != null){
+          const parts = this.person.address.split(',');
+          this.street = parts[0]; 
+          this.city = parts[1]; 
+        }
+      }
+    });
+    /*this.service.getPersonByUser(this.user).subscribe({
       next:(result: Person)=>{
         this.person = result;
         console.log(this.person)
@@ -55,7 +66,7 @@ export class MyProfileComponent  implements OnInit{
         }
 
       } 
-    });
+    });*/
 
   }
 

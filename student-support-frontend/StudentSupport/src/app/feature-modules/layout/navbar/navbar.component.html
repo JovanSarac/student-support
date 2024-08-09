@@ -26,14 +26,6 @@
                 <p>O nama</p>
             </div> -->
 
-      <div
-        class="navbar-item"
-        *ngIf="user && user.username !== ''"
-        (click)="goToMyProfile()"
-      >
-        <p>Moj profil</p>
-      </div>
-
       <xp-primary-button
         *ngIf="user.username === ''"
         class="prijava-button"
@@ -44,26 +36,23 @@
       >
       </xp-primary-button>
 
-      <xp-primary-button
-        *ngIf="user && user.username !== ''"
-        class="prijava-button"
-        buttonId="prijava-button"
-        buttonType="button"
-        textValue="Odjava"
-        (OnClick)="onLogout()"
-        iconClass="outside bi bi-box-arrow-left"
-      >
-      </xp-primary-button>
+      <div class="navbar-item" *ngIf="user && user.username !== ''">
+        <div class="pic-image" (click)="vievMenu()">
+          <img [src]="person.profilePicBase64 ? person.profilePicBase64 : defaultProfilePic" width="60"> 
+          <i class="bi bi-caret-down-fill"></i>
+        </div>
 
-      <!-- <div class="login-button" *ngIf="user.username === ''">
-        <p (click)="loginClick()">Prijava</p>
-      </div> -->
-      <!-- <div class="login-button" *ngIf="user && user.username !== ''">
-        <p (click)="onLogout()">
-          <i class="outside bi bi-box-arrow-left" style="margin-right: 5px"></i
-          >Odjava
-        </p>
-      </div> -->
+        <div class="profile-menu" *ngIf="menuVisible">
+            <div class="menu-item" (click)="goToMyProfile()">
+              <p><i class="bi bi-person-circle" style="margin-right: 8px;"></i>Profil</p>
+            </div>
+            <div class="separator"></div>
+            <div class="menu-item" (click)="onLogout()">
+              <p><i class="bi bi-box-arrow-left" style="margin-right: 8px;"></i>Odjava</p>
+            </div>
+        </div>
+      </div>
+
     </div>
 
     <div class="dropdown-content" *ngIf="isDropdownVisible">
@@ -97,6 +86,7 @@
         >
           <p>Odjavi se</p>
         </div>
+
       </div>
     </div>
   </div>

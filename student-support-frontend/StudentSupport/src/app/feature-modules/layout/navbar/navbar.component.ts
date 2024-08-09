@@ -2,6 +2,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Person } from '../model/person.model';
+import { LayoutService } from '../layout.service';
 
 @Component({
   selector: 'xp-navbar',
@@ -11,12 +13,22 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 export class NavbarComponent implements OnInit {
 
   user !: User;
+  person :Person={
+    id: 0,
+    name: '',
+    surname: '',
+    email: '',
+    profilePicBase64: ''
+  }
   userRegister: boolean = false;
   isDropdownVisible: boolean = false;
   dropdownOpen = false;
+  defaultProfilePic :string = "../../assets/images/profile-pic.jpg"
+  menuVisible : boolean = false;
 
   constructor(
     private authService: AuthService,
+    private layoutService : LayoutService,
     private router: Router,
   ) {}
 
@@ -25,9 +37,14 @@ export class NavbarComponent implements OnInit {
     window.addEventListener('resize', this.checkScreenWidth.bind(this));
     this.authService.user$.subscribe(user => {
       this.user = user;
-      console.log(this.user)
       if(this.user.username != ""){
         this.userRegister = true;
+        this.layoutService.loadPerson(this.user);
+        this.layoutService.person$.subscribe(person => {
+          if (person) {
+            this.person = person;
+          }
+        });
       }else {
         this.userRegister = false;
       }
@@ -53,10 +70,12 @@ export class NavbarComponent implements OnInit {
   }
 
   goToMyProfile() : void{
+    this.menuVisible = false;
     this.router.navigate(['/my-profile'])
   }
 
   onLogout(): void {
+    this.menuVisible = false;
     this.authService.logout();
   }
 
@@ -80,9 +99,20 @@ export class NavbarComponent implements OnInit {
     ) {
       this.dropdownOpen = false;
     }
+
+    if (
+      !(event.target as HTMLElement).closest('.pic-image') &&
+      !(event.target as HTMLElement).closest('.profile-menu')
+    ) {
+      this.menuVisible = false;
+    }
   }
 
   // isCurrentRoute(route: string): boolean {
   //   return this.router.url === route;
   // }
+
+  vievMenu(){
+    this.menuVisible = !this.menuVisible;
+  }
 }
