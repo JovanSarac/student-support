@@ -53,7 +53,7 @@ export class EventCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLoggedUser();
-    this.getParticipationsByStudentId();
+    //this.getParticipationsByStudentId();
   }
 
   emitEvent(): void {

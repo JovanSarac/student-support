@@ -112,7 +112,14 @@ export class EventsPageComponent implements OnInit {
       this.service.getYoursEvents(this.user.id).subscribe({
         next: (result: MyEvent[]) => {
           this.events = result;
-          console.log(this.events);
+          this.totalPages = Math.ceil(this.events.length / this.pageSize);
+          this.updatePagedEvents();
+        },
+      });
+    }else if(tab =="yourInterests"){
+      this.service.getYoursParticipateEvents(this.user.id).subscribe({
+        next: (result: MyEvent[]) => {
+          this.events = result;
           this.totalPages = Math.ceil(this.events.length / this.pageSize);
           this.updatePagedEvents();
         },

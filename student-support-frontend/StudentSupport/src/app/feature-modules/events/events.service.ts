@@ -112,4 +112,10 @@ export class EventsService {
   updateEvent(event: MyEvent): Observable<MyEvent> {
     return this.http.put<MyEvent>(environment.apiHost + 'author/events', event);
   }
+
+  getYoursParticipateEvents(userId: number): Observable<MyEvent[]> {
+    return this.http.get<MyEvent[]>(
+      environment.apiHost + 'student/events/get_yours_participate_events/' + userId
+    );
+  }
 }

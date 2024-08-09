@@ -32,5 +32,12 @@ namespace StudentSupport.API.Controllers.Student
             return CreateResponse(result);
         }
 
+        [HttpGet("get_yours_participate_events/{student_id:int}")]
+        public ActionResult<List<EventDto>> GetYoursEvents(int student_id)
+        {
+            var result = _eventService.GetYoursParticipateEvents(student_id);
+            return CreateResponse(result);
+        }
+
     }
 }
