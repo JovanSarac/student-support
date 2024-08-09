@@ -20,6 +20,7 @@ export class EventCardComponent implements OnInit {
     id: 10,
     address: 'Novi Sad, Lasla Gala 28a',
     dateEvent: new Date(),
+    dateEndEvent: new Date(),
     datePublication: new Date(),
     description: '',
     eventType: 'ArtExhibitionsAndPerformances',

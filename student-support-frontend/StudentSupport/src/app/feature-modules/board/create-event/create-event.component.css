@@ -115,7 +115,7 @@
   width: 100%;
   border-radius: 12px;
   border: 2px solid var(--border-light-color);
-  height: 240px;
+  height: 400px;
   outline: 0;
   font-size: clamp(14px, 1vw, 28px);
   color: var(--text-color);
@@ -296,4 +296,25 @@
   .emoji-picker {
     top: 85%;
   }
+}
+
+
+.price-info{
+  display: flex;
+  width: 98%;
+}
+
+.price-info p{
+  font-size: 16px;
+  color: var(--info-color);
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.date-information{
+  display: flex;
+  flex-direction: column;
+  width: 96%;
+  margin: 2%;
+  gap: 10px;
 }

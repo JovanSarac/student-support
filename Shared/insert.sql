@@ -17,6 +17,7 @@ INSERT INTO events."Events" (
     "Name",
     "Description",
     "DateEvent",
+    "DateEndEvent",
     "Address",
     "Latitude",
     "Longitude",
@@ -36,6 +37,7 @@ Svi fakulteti će imati svoje predstavnike i tematske sekcije, stvarajući razno
 
 Ne propustite da zabeležite ovaj datum u svom kalendaru i pridružite nam se na **"Žurci svih fakulteta"**. Ulaznice će biti dostupne u prodaji od **29. jula 2024. godine**. Posetite našu web stranicu za više informacija i osigurajte svoje mesto na najvažnijoj studentskoj žurci ove godine. Vidimo se na žurci! 🎟️🎊', -- Description
     '2024-08-11 21:00:00', -- DateEvent
+    '2024-08-12 02:00:00', -- DateEndEvent
     'Novi Sad, Sutjeska 2', -- Address
     45.24708428320105, -- Latitude
     19.845306397487615, -- Longitude
@@ -55,6 +57,7 @@ Tokom događaja, moći ćete da uživate u ukusnoj kafi, zanimljivim razgovorima
 
 Ne propustite priliku da budete deo ovog plemenitog događaja. Vaše prisustvo i podrška znače mnogo, a svaki doprinos, bez obzira na veličinu, pravi razliku. Vidimo se **22. avgusta** da zajedno podignemo svest i podržimo Danijelu u njenoj borbi. Hvala vam unapred na vašem prisustvu i podršci! 🌟', -- Description
     '2024-08-22 18:30:00', -- DateEvent
+    '2024-08-22 22:00:00', -- DateEndEvent
     'Novi Sad, Dr Zorana Đinđića 1', -- Address
     45.24736, -- Latitude
     19.85415, -- Longitude
@@ -74,6 +77,7 @@ Tokom godina, FTN-ov šahovski turnir postao je simbol intelektualne izuzetnosti
 
 Pridružite nam se u proslavi stogodišnjice i postanite deo ove nezaboravne manifestacije. Ulaznice i informacije o prijavi dostupne su od **31. jula 2024. godine**. Ne propustite priliku da budete deo ovog istorijskog događaja i da se borite za prestižni naslov šahovskog šampiona. Vidimo se na turniru! ♔♚', -- Description
     '2024-10-03 09:00:00', -- DateEvent
+    '2024-10-03 16:30:00', -- DateEndEvent
     'Novi Sad, Sutjeska 2', -- Address
     45.24708428320105, -- Latitude
     19.845306397487615, -- Longitude
@@ -93,6 +97,7 @@ Izložba će predstaviti impresivne instalacije, interaktivne eksponate i fascin
 
 Ne propustite ovaj jedinstveni događaj koji spaja znanje i kreativnost na jedinstven način. Ulaz na izložbu je besplatan, a događaj je arhiviran kao deo bogate kulturne ponude Novog Sada. Pridružite nam se na **Beogradskom keju** i postanite deo ove inspirativne priče koja slavi umetnost i nauku. Vidimo se na izložbi! 🧬✨', -- Description
     '2024-09-15 17:00:00', -- DateEvent
+    '2024-09-15 23:00:00', -- DateEndEvent
     'Novi Sad, Beogradski kej bb', -- Address
     45.23611174252278, -- Latitude
     19.84788801746328, -- Longitude
@@ -112,6 +117,7 @@ Ekskurzija uključuje sve potrebne sadržaje za udobno putovanje, sa pratećim a
 
 Ne propustite ovu jedinstvenu priliku da proslavite završetak studija i stvorite uspomene za ceo život. Ulaznice će biti dostupne od **2. avgusta 2024. godine**, a broj mesta je ograničen. Osigurajte svoje mesto na ovom ekskluzivnom krstarenju i pridružite nam se na nezaboravnom putovanju. Vidimo se na krstarenju! 🌅🎉', -- Description
     '2025-05-10 14:00:00', -- DateEvent
+    '2024-05-21 23:00:00', -- DateEndEvent
     'Novi Sad, Bulevar Jaše Tomića 5', -- Address
     45.266084520284444, -- Latitude
     19.829445206325744, -- Longitude
@@ -131,6 +137,7 @@ Tokom seminara, vodiči i predavači će vam predstaviti različite aspekte AI t
 
 Ulaz na seminar je besplatan, ali je obavezna prethodna prijava. Prijave i više informacija možete pronaći na našoj web stranici. Vidimo se na seminaru i spremni smo da istražimo budućnost zajedno! 💡🌐', -- Description
     '2024-10-16 13:00:00', -- DateEvent
+    '2024-10-16 16:00:00', -- DateEndEvent
     'Novi Sad, Dr Zorana Đinđića 1', -- Address
     45.24736, -- Latitude
     19.85415, -- Longitude
@@ -150,6 +157,7 @@ Ovaj događaj pruža priliku za direktnu interakciju sa potencijalnim partnerima
 
 Ne propustite priliku da unapredite svoje poslovne kontakte i pronađete idealnog partnera za vaš startup. Ulaznice i prijave za radionicu dostupne su od **4. avgusta 2024. godine**. Pridružite nam se i napravite prvi korak ka uspehu. Vidimo se na radionici! 🎯📈', -- Description
     '2024-11-07 19:00:00', -- DateEvent
+    '2024-11-08 21:00:00', -- DateEndEvent
     'Novi Sad, Fruskogorska 1', -- Address
     45.24504807793493, -- Latitude
     19.847756787134188, -- Longitude

@@ -40,6 +40,7 @@ export class CreateEventComponent implements OnInit {
     name: '',
     description: '',
     dateEvent: new Date(),
+    dateEndEvent: new Date(),
     address: '',
     eventType: '',
     datePublication: new Date(),
@@ -48,6 +49,7 @@ export class CreateEventComponent implements OnInit {
     latitude: 0,
     longitude: 0,
     isArchived: false,
+    price: 0,
   };
   showEmojiPicker: boolean = false;
   notMarker: boolean = false;
@@ -76,6 +78,8 @@ export class CreateEventComponent implements OnInit {
     city: new FormControl('', Validators.required),
     street: new FormControl('', Validators.required),
     date: new FormControl('', Validators.required),
+    price: new FormControl(0.0, [Validators.required, Validators.min(0)]),
+    dateEnd: new FormControl('', Validators.required),
   });
 
   constructor(
@@ -123,6 +127,8 @@ export class CreateEventComponent implements OnInit {
       city: this.getCityFromAddress(this.event.address),
       street: this.getStreetFromAddress(this.event.address),
       date: this.formatDateForInput(this.event.dateEvent.toString()),
+      dateEnd: this.formatDateForInput(this.event.dateEndEvent.toString()),
+      price: this.event.price
     });
     this.latitude = this.event.latitude;
     this.longitude = this.event.longitude;
@@ -328,6 +334,7 @@ export class CreateEventComponent implements OnInit {
     this.event.name = this.eventForm.value.name || '';
     this.event.description = this.eventForm.value.description || '';
     this.event.dateEvent = new Date(this.eventForm.value.date || '');
+    this.event.dateEndEvent = new Date(this.eventForm.value.dateEnd || '');
     this.event.address =
       this.eventForm.value.street + ', ' + this.eventForm.value.city || '';
     this.event.latitude = this.latitude;
@@ -335,6 +342,7 @@ export class CreateEventComponent implements OnInit {
     this.event.eventType = this.eventForm.value.type || '';
     this.event.datePublication = new Date();
     this.event.userId = this.user.id;
+    this.event.price = this.eventForm.value.price!;
 
     this.service.createEvent(this.event).subscribe({
       next: (result: MyEvent) => {
@@ -355,11 +363,13 @@ export class CreateEventComponent implements OnInit {
     this.event.name = this.eventForm.value.name || '';
     this.event.description = this.eventForm.value.description || '';
     this.event.dateEvent = new Date(this.eventForm.value.date || '');
+    this.event.dateEndEvent = new Date(this.eventForm.value.dateEnd || '');
     this.event.address =
       this.eventForm.value.street + ', ' + this.eventForm.value.city || '';
     this.event.latitude = this.latitude;
     this.event.longitude = this.longitude;
     this.event.eventType = this.eventForm.value.type || '';
+    this.event.price = this.eventForm.value.price!;
 
     this.eventService.updateEvent(this.event).subscribe({
       next: (result: MyEvent) => {

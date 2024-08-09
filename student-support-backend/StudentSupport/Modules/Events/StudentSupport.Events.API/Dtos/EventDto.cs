@@ -13,6 +13,7 @@ namespace StudentSupport.Events.API.Dtos
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime DateEvent { get; set; }
+        public DateTime DateEndEvent { get; set; }
         public string Address { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }

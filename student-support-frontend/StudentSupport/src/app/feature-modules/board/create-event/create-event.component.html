@@ -43,8 +43,8 @@
           [control]="eventForm.controls.name"
           inputType="text"
           inputId="naziv"
-          label="Naziv dogadjaja"
-          placeholderSentence="Unesite ime dogadjaja ovde"
+          label="Naziv događaja:"
+          placeholderSentence="Unesite ime događaja ovde"
           [customErrorMessages]="{ required: 'Naziv događaja je obavezan!', minlength: 'Naziv mora imati najmanje 3 karaktera' }"
         >
         </xp-input>
@@ -56,7 +56,7 @@
             formControlName="description"
             type="input"
             class="description__field"
-            placeholder="Unesite opis dogadjaja ovde"
+            placeholder="Unesite opis događaja ovde"
             name="description"
             id="description"
             required
@@ -109,31 +109,87 @@
         </div>-->
         <xp-input
           *ngIf="eventForm.get('type')?.value !== '8'"
-          style="width: 95%"
-          [control]="eventForm.controls.date"
-          inputType="datetime-local"
-          inputId="date"
-          label="Izaberite datum pocetka dogadjaja"
-          placeholderSentence="Unesi datum ovde"
-          [customErrorMessages]="{ required: 'Datum događaja je obavezan!'}"
+          style="width: 95%; margin-top: 8px; margin-bottom: 8px;"
+          [control]="eventForm.controls.price"
+          inputType="number"
+          inputId="price"
+          label="Cena pojedinačne ulaznice (RSD):"
+          placeholderSentence="Unesite cenu ulaznice ovde"
+          [customErrorMessages]="{ required: 'Cena ulaznice za događaj je obavezna!'}"
         >
         </xp-input>
+
         <xp-input
           *ngIf="eventForm.get('type')?.value === '8'"
-          style="width: 95%"
-          [control]="eventForm.controls.date"
-          inputType="datetime-local"
-          inputId="date"
-          label="Izaberite datum polaska"
-          placeholderSentence="Unesi datum ovde"
-          [customErrorMessages]="{ required: 'Datum događaja je obavezan!'}"
+          style="width: 95%; margin-top: 8px; margin-bottom: 8px;"
+          [control]="eventForm.controls.price"
+          inputType="number"
+          inputId="price"
+          label="Ukupna cena aranžmana (RSD):"
+          placeholderSentence="Unesite cenu aranžmana ovde"
+          [customErrorMessages]="{ required: 'Ukupna cena aranžmana za događaj je obavezna!'}"
         >
         </xp-input>
+        <div class="price-info">
+          <p>
+            Ako je cena besplatna, ostavite 0 RSD kao vrednost za cenu dogadjaja!
+          </p>
+        </div>
+
       </div>
 
       <div class="separator"></div>
 
       <div class="address-info">
+        <div class="date-information">
+          <xp-input
+            *ngIf="eventForm.get('type')?.value !== '8'"
+            style="width: 95%; margin-left: 3%; height: auto;"
+            [control]="eventForm.controls.date"
+            inputType="datetime-local"
+            inputId="date"
+            label="Izaberite datum i vreme početka događaja:"
+            placeholderSentence="Unesite datum i vreme ovde"
+            [customErrorMessages]="{ required: 'Datum i vreme početka događaja je obavezno!'}"
+          >
+          </xp-input>
+          <xp-input
+            *ngIf="eventForm.get('type')?.value === '8'"
+            style="width: 95%; margin-left: 3%;"
+            [control]="eventForm.controls.date"
+            inputType="datetime-local"
+            inputId="date"
+            label="Izaberite datum i vreme polaska:"
+            placeholderSentence="Unesite datum i vreme ovde"
+            [customErrorMessages]="{ required: 'Datum i vreme polaska je obavezno!'}"
+          >
+          </xp-input>
+
+          <xp-input
+            *ngIf="eventForm.get('type')?.value !== '8'"
+            style="width: 95%; margin-left: 3%; height: auto;"
+            [control]="eventForm.controls.dateEnd"
+            inputType="datetime-local"
+            inputId="date"
+            label="Izaberite datum i vreme završetka događaja:"
+            placeholderSentence="Unesite datum i vreme ovde"
+            [customErrorMessages]="{ required: 'Datum i vreme završetka događaja je obavezno!'}"
+          >
+          </xp-input>
+          <xp-input
+            *ngIf="eventForm.get('type')?.value === '8'"
+            style="width: 95%; margin-left: 3%;"
+            [control]="eventForm.controls.dateEnd"
+            inputType="datetime-local"
+            inputId="date"
+            label="Izaberite datum i vreme dolaska:"
+            placeholderSentence="Unesite datum i vreme ovde"
+            [customErrorMessages]="{ required: 'Datum i vreme dolaska je obavezno!'}"
+          >
+          </xp-input>
+
+        </div>
+
         <p *ngIf="eventForm.get('type')?.value !== '8'">
           Izaberi na mapi adresu događaja:
         </p>
