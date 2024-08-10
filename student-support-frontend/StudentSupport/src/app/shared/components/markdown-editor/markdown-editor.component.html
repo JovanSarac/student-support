@@ -1,6 +1,8 @@
-<div style="display: flex; width: 100%;">
-    <div>
-      <div >
+<div class="full-component">
+    <div *ngIf="showEmojiPicker">
+      <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart>
+    </div>
+    <div class="buttons">
         <button mat-icon-button (click)="insertElement('bold')">
           <mat-icon>format_bold</mat-icon>
         </button>
@@ -26,7 +28,10 @@
         <button mat-icon-button (click)="insertElement('link')">
           <mat-icon>link</mat-icon>
         </button>
-      </div>
+        <mat-divider vertical="true"></mat-divider>
+        <button mat-icon-button (click)="toggleEmojiPicker()" >
+          <mat-icon>sentiment_satisfied_alt</mat-icon>
+        </button>
       <span ></span>
       <button *ngIf="sidePreview && livePreview" mat-icon-button (click)="synchEnabled = !synchEnabled"  [matTooltip]="synchEnabled ? 'Ukini skrol sinhronizaciju' : 'Aktiviraj skrol sinhronizaciju'">
         <mat-icon>{{ synchEnabled ? 'sync_disabled' : 'sync' }}</mat-icon>
@@ -44,25 +49,58 @@
         </button>
       </div>
     </div>
-    <div *ngIf="!sidePreview" class="flex-col">
-      <mat-form-field appearance="fill">
-        <mat-label>{{label}}</mat-label>
-        <textarea #textAreaElement matInput [(ngModel)]="text" [tabindex]="indextab"
+    <div class="textarea-inputs" *ngIf="!sidePreview">
+      <div class="textarea__group field" >
+        <textarea
+          #textAreaElement   [tabindex]="indextab"
           (select)="onSelect($event)" (click)="onClick($event)" (ngModelChange)="onChange()"
-          style="height: 290px;"></textarea>
-      </mat-form-field>
-      <small>
-        <markdown *ngIf="livePreview" [data]="text" lineNumbers></markdown>
-      </small>
+          [ngClass]="{
+            'red-border': control.invalid && control.touched,
+          }"
+          type="input"
+          [formControl]="control"
+          class="textarea__field"
+          id="textarea"
+          placeholder="{{ placeholderSentence }}">
+        </textarea>
+        <ng-container *ngIf="control.invalid && control.touched">
+          <span *ngFor="let err of control.errors | keyvalue" class="err-message">{{
+            getErrorMessage(err.key)
+          }}</span>
+        </ng-container>
+        <label for="description" class="textarea__label">{{label}}</label>
+      </div>
+
+      <div class="markdown-overview" *ngIf="livePreview">
+        <h2 class="mardown-title">Markdown pregled</h2>
+        <small>
+          <markdown  [data]="control.value" lineNumbers></markdown>
+        </small>
+      </div>
+      
     </div>
-    <div *ngIf="sidePreview" class="flex-row" style="height: 65vh; gap: 10px">
-      <mat-form-field appearance="fill" style="flex-grow: 1;">
-        <mat-label>{{label}}</mat-label>
-        <textarea #textAreaElement matInput [(ngModel)]="text" [tabindex]="indextab" style="height: calc(65vh - 40px); resize: none;"
-          (select)="onSelect($event)" (click)="onClick($event)" (ngModelChange)="onChange()"></textarea>
-      </mat-form-field>
+    <div class="textarea-inputs" *ngIf="sidePreview">
+      <div  class="textarea__group field">
+        <textarea
+          #textAreaElement matInput  [tabindex]="indextab" style="height: calc(65vh - 40px); resize: none;"
+          (select)="onSelect($event)" (click)="onClick($event)" (ngModelChange)="onChange()"
+          [ngClass]="{
+            'red-border': control.invalid && control.touched,
+          }"
+          type="input"
+          [formControl]="control"
+          class="textarea__field"
+          placeholder="{{ placeholderSentence }}">
+        </textarea>
+        <ng-container *ngIf="control.invalid && control.touched">
+          <span *ngFor="let err of control.errors | keyvalue" class="err-message">{{
+            getErrorMessage(err.key)
+          }}</span>
+        </ng-container>
+        <label for="description" class="textarea__label">{{label}}</label>
+      </div>
       <small #markdownContainerElement style="width: 50%; overflow-y: auto;" *ngIf="livePreview">
-        <markdown [data]="text" lineNumbers></markdown>
+        <markdown [data]="control.value" lineNumbers></markdown>
       </small>
     </div>
 </div>
