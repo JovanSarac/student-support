@@ -8,7 +8,7 @@ public class StakeholderProfile : Profile
 {
     public StakeholderProfile()
     {
-
+        CreateMap<User, UserDto>().ReverseMap();
         CreateMap<Person, PersonDto>()
             .ForMember(dest => dest.ProfilePicBase64, opt => opt.MapFrom(src =>
                 src.ProfilePic != null ? "data:image/webp;base64," + Convert.ToBase64String(src.ProfilePic) : null));

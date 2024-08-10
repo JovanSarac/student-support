@@ -64,6 +64,7 @@ export class CreateEventComponent implements OnInit {
     { value: 'StudentPartiesAndSocialEvents', numericValue: '6' },
     { value: 'Competitions', numericValue: '7' },
     { value: 'StudentTrips', numericValue: '8' },
+    { value: 'Other', numericValue: '9' },
   ];
 
   dtn = new Date();
@@ -71,7 +72,11 @@ export class CreateEventComponent implements OnInit {
 
   eventForm = new FormGroup({
     type: new FormControl('', Validators.required),
-    name: new FormControl('', Validators.required),
+    name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(50),
+    ]),
     description: new FormControl('', Validators.required),
     city: new FormControl('', Validators.required),
     street: new FormControl('', Validators.required),
@@ -338,7 +343,10 @@ export class CreateEventComponent implements OnInit {
 
     this.service.createEvent(this.event).subscribe({
       next: (result: MyEvent) => {
-        this.toastr.success("Uspješno!", "Kreirali ste događaj pod nazivom " +  result.name + " !" )
+        this.toastr.success(
+          'Uspješno!',
+          'Kreirali ste događaj pod nazivom ' + result.name + ' !'
+        );
         this.router.navigate(['events-page']);
       },
     });

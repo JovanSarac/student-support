@@ -11,7 +11,7 @@
             formControlName="type"
             type="input"
             class="form__field"
-            placeholder="Unesite vrstu dogadjaja ovde"
+            placeholder="Unesite vrstu događaja ovde"
             name="type"
             id="type"
             required
@@ -22,30 +22,29 @@
             <option value="2">Kultorološki događaj</option>
             <option value="3">Sajamski događaj</option>
             <option value="4">Humanitarni događaj</option>
-            <option value="5">Umjetničke izložbe i predstave</option>
+            <option value="5">Umetničke izložbe i predstave</option>
             <option value="6">Studentske žurke i društveni događaji</option>
             <option value="7">Takmičenja</option>
             <option value="8">Studentska putovanja</option>
+            <option value="9">Drugo</option>
           </select>
           <label for="type" class="form__label">Vrsta događaja:</label>
           <div *ngIf="isControlInvalid('type')" class="error-message">
             Vrsta događaja je obavezna!
           </div>
         </div>
-        <!-- <div class="form__group field" [ngClass]="{'has-error': isControlInvalid('name')}">
-                        <input formControlName="name" type="input" class="form__field" placeholder="Naziv"
-                            name="name" id='name' required />
-                        <label for="name" class="form__label">Naziv događaja:</label>
-                        <div *ngIf="isControlInvalid('name')" class="error-message">Naziv događaja je obavezan!</div>
-                </div> -->
         <xp-input
           style="width: 95%"
           [control]="eventForm.controls.name"
           inputType="text"
           inputId="naziv"
-          label="Naziv dogadjaja"
-          placeholderSentence="Unesite ime dogadjaja ovde"
-          [customErrorMessages]="{ required: 'Naziv događaja je obavezan!', minlength: 'Naziv mora imati najmanje 3 karaktera' }"
+          label="Naziv događaja"
+          placeholderSentence="Unesite ime događaja ovde"
+          [customErrorMessages]="{
+            required: 'Naziv događaja je obavezan!',
+            minlength: 'Naziv mora imati najmanje 3 karaktera',
+            maxlength: 'Naziv može imati najviše 50 karaktera'
+          }"
         >
         </xp-input>
         <div
@@ -56,7 +55,7 @@
             formControlName="description"
             type="input"
             class="description__field"
-            placeholder="Unesite opis dogadjaja ovde"
+            placeholder="Unesite opis događaja ovde"
             name="description"
             id="description"
             required
@@ -77,45 +76,15 @@
             Opis događaja je obavezan!
           </div>
         </div>
-
-        <!--<div
-          class="form__group field"
-          [ngClass]="{ 'has-error': isControlInvalid('date') }"
-        >
-          <input
-            formControlName="date"
-            type="datetime-local"
-            class="form__field"
-            placeholder="Datum"
-            name="date"
-            id="date"
-            required
-          />
-          <label
-            *ngIf="eventForm.get('type')?.value !== '8'"
-            for="date"
-            class="form__label"
-            >Izaberite datum početka događaja:</label
-          >
-          <label
-            *ngIf="eventForm.get('type')?.value === '8'"
-            for="date"
-            class="form__label"
-            >Izaberite datum polaska:</label
-          >
-          <div *ngIf="isControlInvalid('date')" class="error-message">
-            Datum događaja je obavezan!
-          </div>
-        </div>-->
         <xp-input
           *ngIf="eventForm.get('type')?.value !== '8'"
           style="width: 95%"
           [control]="eventForm.controls.date"
           inputType="datetime-local"
           inputId="date"
-          label="Izaberite datum pocetka dogadjaja"
+          label="Izaberite datum početka događaja"
           placeholderSentence="Unesi datum ovde"
-          [customErrorMessages]="{ required: 'Datum događaja je obavezan!'}"
+          [customErrorMessages]="{ required: 'Datum događaja je obavezan!' }"
         >
         </xp-input>
         <xp-input
@@ -126,7 +95,7 @@
           inputId="date"
           label="Izaberite datum polaska"
           placeholderSentence="Unesi datum ovde"
-          [customErrorMessages]="{ required: 'Datum događaja je obavezan!'}"
+          [customErrorMessages]="{ required: 'Datum događaja je obavezan!' }"
         >
         </xp-input>
       </div>
@@ -149,66 +118,27 @@
           </div>
 
           <div class="city-street">
-            <!--<div
-              class="form__group field"
-              [ngClass]="{ 'has-error': isControlInvalid('city') }"
-            >
-              <input
-                type="text"
-                class="form__field"
-                placeholder="Grad"
-                required
-                formControlName="city"
-              />
-              <label class="form__label">Grad:</label>
-              <div *ngIf="isControlInvalid('city')" class="error-message">
-                Morate unijeti grad!
-              </div>
-            </div>
-
-            <div
-              class="form__group field"
-              [ngClass]="{ 'has-error': isControlInvalid('street') }"
-            >
-              <input
-                type="text"
-                class="form__field"
-                placeholder="Ulica"
-                required
-                formControlName="street"
-              />
-              <label class="form__label">Ulica:</label>
-              <div *ngIf="isControlInvalid('street')" class="error-message">
-                Morate unijeti ulicu!
-              </div>
-              <div *ngIf="undefinedStreet" class="error-message">
-                Ulica ne moze biti undefined!
-              </div>
-            </div>-->
             <xp-input
-              style="width: 95%; margin-left: 3%;"
+              style="width: 95%; margin-left: 3%"
               [control]="eventForm.controls.city"
               inputType="text"
               inputId="city"
               label="Grad:"
               placeholderSentence="Unesi grad ovde"
-              [customErrorMessages]="{ required: 'Grad je obavezan!'}"
+              [customErrorMessages]="{ required: 'Grad je obavezan!' }"
             >
             </xp-input>
             <xp-input
-              style="width: 95%; margin-left: 3%;"
+              style="width: 95%; margin-left: 3%"
               [control]="eventForm.controls.street"
               inputType="text"
               inputId="street"
               label="Ulica:"
               placeholderSentence="Unesi ulicu ovde"
-              [customErrorMessages]="{ required: 'Ulica je obavezna!'}"
+              [customErrorMessages]="{ required: 'Ulica je obavezna!' }"
             >
             </xp-input>
-            <p>
-              Možete grad i ulicu ručno izmjeniti, ukoliko prikazana adresa nije
-              baš tačna!
-            </p>
+            <p>Ulicu i grad možete ručno uneti ukoliko niste zadovoljni.</p>
           </div>
         </div>
       </div>
@@ -247,7 +177,7 @@
           <xp-primary-button
             *ngIf="!isEditMode"
             (click)="createEvent()"
-            style="width: 90%;"
+            style="width: 90%"
             buttonId="filter-button"
             buttonType="button"
             textValue="Kreiraj događaj"
@@ -256,7 +186,7 @@
           <xp-primary-button
             *ngIf="isEditMode"
             (click)="updateEvent()"
-            style="width: 90%;"
+            style="width: 90%"
             buttonId="filter-button"
             buttonType="button"
             textValue="Izmeni događaj"
