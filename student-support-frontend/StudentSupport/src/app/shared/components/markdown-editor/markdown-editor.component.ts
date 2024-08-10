@@ -1,4 +1,5 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'cc-markdown-editor',
@@ -7,18 +8,22 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, 
 })
 export class MarkdownEditorComponent implements OnChanges, AfterViewInit {
   @Input() label = "";
-  @Input() text = "";
   @Input() sidePreview = false;
   synchEnabled = false;
   @Input() submitCtrls = false;
   @Input() indextab = 50;
   @Output() submit = new EventEmitter<string>();
   @Output() textChanged = new EventEmitter<string>();
+  @Input() control = new FormControl();
+  @Input() placeholderSentence = "";
+  @Input() customErrorMessages: Record<string, string> = {};
 
   @Input() livePreview = true;
   selection: any;
   @ViewChild('textAreaElement') textArea: ElementRef<HTMLTextAreaElement> | undefined;
   @ViewChild('markdownContainerElement') markdownContainer: ElementRef<HTMLElement> | undefined;
+
+  showEmojiPicker : boolean = false;
 
   constructor(private changeDetector: ChangeDetectorRef) {}
 
@@ -32,6 +37,10 @@ export class MarkdownEditorComponent implements OnChanges, AfterViewInit {
 
   ngAfterViewInit() {
     this.setupScrollSync();
+  }
+
+  getErrorMessage(errorKey: string): string {
+    return this.customErrorMessages[errorKey] || 'Neispravan podatak';
   }
 
   setupScrollSync() {
@@ -112,7 +121,7 @@ export class MarkdownEditorComponent implements OnChanges, AfterViewInit {
     }
     if (this.selection) {
       if (this.selection.selectionStart !== this.selection.selectionEnd) {
-        tagText = this.text.slice(
+        tagText = this.control.value.slice(
           this.selection.selectionStart,
           this.selection.selectionEnd
         );
@@ -122,14 +131,18 @@ export class MarkdownEditorComponent implements OnChanges, AfterViewInit {
 
     let selectionStart: number;
     if (this.selection) {
-      this.text =
-        this.text.slice(0, this.selection.selectionStart) +
+      this.control.setValue(
+        this.control.value.slice(0, this.selection.selectionStart) +
         text +
-        this.text.slice(this.selection.selectionEnd);
+        this.control.value.slice(this.selection.selectionEnd)
+      )
+        
       selectionStart = this.selection.selectionStart + tagBegin.length;
     } else {
-      selectionStart = this.text.length + tagBegin.length;
-      this.text += text;
+      selectionStart = this.control.value.length + tagBegin.length;
+      this.control.setValue(
+        this.control.value + text
+      ) 
     }
 
     // TODO: Usage of setTimeout() should be avoided. Find a better solution.
@@ -151,12 +164,42 @@ export class MarkdownEditorComponent implements OnChanges, AfterViewInit {
   }
 
   onChange(): void {
-    this.textChanged.emit(this.text);
+    this.textChanged.emit(this.control.value);
   }
 
   onSubmit(isDiscard: boolean): void {
     if(isDiscard) this.submit.emit();
-    else this.submit.emit(this.text);
+    else this.submit.emit(this.control.value);
   }
+
+  addEmoji(event: any) {
+    const emoji = event.emoji.native;
+    const textarea = this.textArea!.nativeElement;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    this.control.setValue(this.control.value.slice(0, start) + emoji + this.control.value.slice(end));
+    setTimeout(() => {
+      textarea.setSelectionRange(start + emoji.length, start + emoji.length);
+      textarea.focus();
+    }, 0);
+  }
+
+  toggleEmojiPicker() {
+    this.showEmojiPicker = !this.showEmojiPicker;
+    console.log(this.showEmojiPicker)
+    document.getElementById('textarea')?.focus();
+  }
+
+  /*@HostListener('document:click', ['$event'])
+  onClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    if (
+      target.closest('.buttons') === null &&
+      target.closest('.emoji-mart') === null 
+    ) {
+      this.showEmojiPicker = false;
+    }
+  }*/
+
 
 }

@@ -2,115 +2,237 @@
   <div class="page-content">
     <p>{{ title }}</p>
     <form [formGroup]="eventForm" class="input-form">
-      <div class="text-info">
-        <div
-          class="form__group field"
-          [ngClass]="{ 'has-error': isControlInvalid('type') }"
-        >
-          <select
-            formControlName="type"
-            type="input"
-            class="form__field"
-            placeholder="Unesite vrstu događaja ovde"
-            name="type"
-            id="type"
-            required
+      <div class="first-row">
+        <div class="text-info">
+          <div
+            class="form__group field"
+            [ngClass]="{ 'has-error': isControlInvalid('type') }"
           >
-            <option value=""></option>
-            <option value="0">Akademske konferencije i seminari</option>
-            <option value="1">Radionice i kursevi</option>
-            <option value="2">Kultorološki događaj</option>
-            <option value="3">Sajamski događaj</option>
-            <option value="4">Humanitarni događaj</option>
-            <option value="5">Umetničke izložbe i predstave</option>
-            <option value="6">Studentske žurke i društveni događaji</option>
-            <option value="7">Takmičenja</option>
-            <option value="8">Studentska putovanja</option>
-            <option value="9">Drugo</option>
-          </select>
-          <label for="type" class="form__label">Vrsta događaja:</label>
-          <div *ngIf="isControlInvalid('type')" class="error-message">
-            Vrsta događaja je obavezna!
+            <select
+              formControlName="type"
+              type="input"
+              class="form__field"
+              placeholder="Unesite vrstu dogadjaja ovde"
+              name="type"
+              id="type"
+              required
+            >
+              <option value=""></option>
+              <option value="0">Akademske konferencije i seminari</option>
+              <option value="1">Radionice i kursevi</option>
+              <option value="2">Kultorološki događaj</option>
+              <option value="3">Sajamski događaj</option>
+              <option value="4">Humanitarni događaj</option>
+              <option value="5">Umetničke izložbe i predstave</option>
+              <option value="6">Studentske žurke i društveni događaji</option>
+              <option value="7">Takmičenja</option>
+              <option value="8">Studentska putovanja</option>
+              <option value="9">Drugo</option>
+            </select>
+            <label for="type" class="form__label">Vrsta događaja:</label>
+            <div *ngIf="isControlInvalid('type')" class="error-message">
+              Vrsta događaja je obavezna!
+            </div>
+          </div>
+          <xp-input
+            style="width: 95%"
+            [control]="eventForm.controls.name"
+            inputType="text"
+            inputId="naziv"
+            label="Naziv događaja:"
+            placeholderSentence="Unesite ime događaja ovde"
+            [customErrorMessages]="{
+              required: 'Naziv događaja je obavezan!',
+              minlength: 'Naziv mora imati najmanje 3 karaktera',
+              maxlength: 'Naziv može imati najviše 50 karaktera'
+            }"
+          >
+          </xp-input>
+
+          <xp-input
+            *ngIf="eventForm.get('type')?.value !== '8'"
+            style="width: 95%; margin-top: 2%"
+            [control]="eventForm.controls.date"
+            inputType="datetime-local"
+            inputId="date"
+            [min]="minDate"
+            label="Izaberite datum i vreme početka događaja:"
+            placeholderSentence="Unesite datum i vreme ovde"
+            [customErrorMessages]="{
+              required: 'Datum i vreme početka događaja je obavezno!'
+            }"
+          >
+          </xp-input>
+          <xp-input
+            *ngIf="eventForm.get('type')?.value === '8'"
+            style="width: 95%; margin-top: 2%"
+            [control]="eventForm.controls.date"
+            inputType="datetime-local"
+            inputId="date"
+            [min]="minDate"
+            label="Izaberite datum i vreme polaska:"
+            placeholderSentence="Unesite datum i vreme ovde"
+            [customErrorMessages]="{
+              required: 'Datum i vreme polaska je obavezno!'
+            }"
+          >
+          </xp-input>
+
+          <xp-input
+            *ngIf="eventForm.get('type')?.value !== '8'"
+            style="width: 95%; margin-top: 2%"
+            [control]="eventForm.controls.dateEnd"
+            inputType="datetime-local"
+            inputId="date"
+            [min]="eventForm.get('date')?.value || ''"
+            label="Izaberite datum i vreme završetka događaja:"
+            placeholderSentence="Unesite datum i vreme ovde"
+            [customErrorMessages]="{
+              required: 'Datum i vreme završetka događaja je obavezno!',
+              invalidDate:
+                'Datum i vreme završetka mora biti nakon datuma početka!'
+            }"
+          >
+          </xp-input>
+          <xp-input
+            *ngIf="eventForm.get('type')?.value === '8'"
+            style="width: 95%; margin-top: 2%"
+            [control]="eventForm.controls.dateEnd"
+            inputType="datetime-local"
+            inputId="date"
+            [min]="eventForm.get('date')?.value || ''"
+            label="Izaberite datum i vreme dolaska:"
+            placeholderSentence="Unesite datum i vreme ovde"
+            [customErrorMessages]="{
+              required: 'Datum i vreme dolaska je obavezno!',
+              invalidDate:
+                'Datum i vreme dolaska mora biti nakon datuma polaska!'
+            }"
+          >
+          </xp-input>
+
+          <!--<div
+            class="description__group field"
+            [ngClass]="{ 'has-error': isControlInvalid('description') }"
+          >
+            <textarea
+              formControlName="description"
+              type="input"
+              class="description__field"
+              placeholder="Unesite opis događaja ovde"
+              name="description"
+              id="description"
+              required
+              #descriptionTextarea
+            ></textarea>
+            <label for="description" class="description__label"
+              >Opis događaja:</label
+            >
+            <i
+              class="bi bi-emoji-heart-eyes-fill emoji-picker"
+              tabindex="0"
+              (click)="toggleEmojiPicker()"
+            ></i>
+            <div class="emoji-mart" *ngIf="showEmojiPicker">
+              <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart>
+            </div>
+            <div *ngIf="isControlInvalid('description')" class="error-message">
+              Opis događaja je obavezan!
+            </div>
+          </div>-->
+
+          <xp-input
+            *ngIf="eventForm.get('type')?.value !== '8'"
+            style="width: 95%; margin-top: 8px; margin-bottom: 8px"
+            [control]="eventForm.controls.price"
+            inputType="number"
+            inputId="price"
+            label="Cena pojedinačne ulaznice (RSD):"
+            placeholderSentence="Unesite cenu ulaznice ovde"
+            [customErrorMessages]="{
+              required: 'Cena ulaznice za događaj je obavezna!'
+            }"
+          >
+          </xp-input>
+
+          <xp-input
+            *ngIf="eventForm.get('type')?.value === '8'"
+            style="width: 95%; margin-top: 8px; margin-bottom: 8px"
+            [control]="eventForm.controls.price"
+            inputType="number"
+            inputId="price"
+            label="Ukupna cena aranžmana (RSD):"
+            placeholderSentence="Unesite cenu aranžmana ovde"
+            [customErrorMessages]="{
+              required: 'Ukupna cena aranžmana za događaj je obavezna!'
+            }"
+          >
+          </xp-input>
+          <div class="price-info">
+            <p>
+              Ako je cena besplatna, ostavite 0 RSD kao vrednost za cenu
+              dogadjaja!
+            </p>
           </div>
         </div>
-        <xp-input
-          style="width: 95%"
-          [control]="eventForm.controls.name"
-          inputType="text"
-          inputId="naziv"
-          label="Naziv događaja"
-          placeholderSentence="Unesite ime događaja ovde"
-          [customErrorMessages]="{
-            required: 'Naziv događaja je obavezan!',
-            minlength: 'Naziv mora imati najmanje 3 karaktera',
-            maxlength: 'Naziv može imati najviše 50 karaktera'
-          }"
-        >
-        </xp-input>
-        <div
-          class="description__group field"
-          [ngClass]="{ 'has-error': isControlInvalid('description') }"
-        >
-          <textarea
-            formControlName="description"
-            type="input"
-            class="description__field"
-            placeholder="Unesite opis događaja ovde"
-            name="description"
-            id="description"
-            required
-            #descriptionTextarea
-          ></textarea>
-          <label for="description" class="description__label"
-            >Opis događaja:</label
-          >
-          <i
-            class="bi bi-emoji-heart-eyes-fill emoji-picker"
-            tabindex="0"
-            (click)="toggleEmojiPicker()"
-          ></i>
-          <div class="emoji-mart" *ngIf="showEmojiPicker">
-            <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart>
-          </div>
-          <div *ngIf="isControlInvalid('description')" class="error-message">
-            Opis događaja je obavezan!
+
+        <div class="picture-info">
+          <div class="pictures">
+            <div class="container-pictures">
+              <div class="dialog-pictures" (click)="fileInput.click()">
+                <p class="add-pictures" *ngIf="!selectedImage">
+                  <i
+                    class="bi bi-file-earmark-image-fill"
+                    style="margin-right: 4px"
+                  ></i
+                  >Dodaj fotografiju
+                </p>
+                <input
+                  type="file"
+                  #fileInput
+                  (change)="onFileSelected($event)"
+                  style="display: none"
+                />
+                <div *ngIf="selectedImage" class="selected-image">
+                  <img
+                    [src]="selectedImage"
+                    alt="Selected Image"
+                    class="preview"
+                  />
+                </div>
+              </div>
+              <div
+                *ngIf="notPicture && event.image == ''"
+                class="error-message"
+                style="margin-left: 5px"
+              >
+                Morate izabrati fotografiju za događaj!
+              </div>
+            </div>
           </div>
         </div>
-        <xp-input
-          *ngIf="eventForm.get('type')?.value !== '8'"
-          style="width: 95%"
-          [control]="eventForm.controls.date"
-          inputType="datetime-local"
-          inputId="date"
-          label="Izaberite datum početka događaja"
-          placeholderSentence="Unesi datum ovde"
-          [customErrorMessages]="{ required: 'Datum događaja je obavezan!' }"
-        >
-        </xp-input>
-        <xp-input
-          *ngIf="eventForm.get('type')?.value === '8'"
-          style="width: 95%"
-          [control]="eventForm.controls.date"
-          inputType="datetime-local"
-          inputId="date"
-          label="Izaberite datum polaska"
-          placeholderSentence="Unesi datum ovde"
-          [customErrorMessages]="{ required: 'Datum događaja je obavezan!' }"
-        >
-        </xp-input>
       </div>
 
-      <div class="separator"></div>
+      <div class="description-markdown">
+        <cc-markdown-editor
+          style="width: 100%"
+          [control]="eventForm.controls.description"
+          label="Opis dogadjaja"
+          placeholderSentence="Unesite opis događaja ovde"
+          [customErrorMessages]="{ required: 'Opis događaja je obavezan!' }"
+        >
+        </cc-markdown-editor>
+      </div>
 
-      <div class="address-info">
-        <p *ngIf="eventForm.get('type')?.value !== '8'">
-          Izaberi na mapi adresu događaja:
-        </p>
-        <p *ngIf="eventForm.get('type')?.value === '8'">
-          Izaberite na mapi adresu za mjesto polaska:
-        </p>
+      <div class="address-information">
         <div class="row-map-address">
           <div class="map-container">
+            <p *ngIf="eventForm.get('type')?.value !== '8'">
+              Izaberite na mapi adresu događaja:
+            </p>
+            <p *ngIf="eventForm.get('type')?.value === '8'">
+              Izaberite na mapi adresu za mjesto polaska:
+            </p>
             <xp-map class="map" [mapId]="'address_createmap'"></xp-map>
             <div *ngIf="latitude == 0 && notMarker" class="error-message">
               Morate označiti marker na mapi klikom!
@@ -119,7 +241,7 @@
 
           <div class="city-street">
             <xp-input
-              style="width: 95%; margin-left: 3%"
+              style="width: 95%; margin-left: 5%"
               [control]="eventForm.controls.city"
               inputType="text"
               inputId="city"
@@ -129,7 +251,7 @@
             >
             </xp-input>
             <xp-input
-              style="width: 95%; margin-left: 3%"
+              style="width: 95%; margin-left: 5%"
               [control]="eventForm.controls.street"
               inputType="text"
               inputId="street"
@@ -143,41 +265,12 @@
         </div>
       </div>
 
-      <div class="separator"></div>
-
-      <div class="pictures">
-        <div class="container-pictures">
-          <div class="dialog-pictures" (click)="fileInput.click()">
-            <p class="add-pictures" *ngIf="!selectedImage">
-              <i
-                class="bi bi-file-earmark-image-fill"
-                style="margin-right: 4px"
-              ></i
-              >Dodaj fotografiju
-            </p>
-            <input
-              type="file"
-              #fileInput
-              (change)="onFileSelected($event)"
-              style="display: none"
-            />
-            <div *ngIf="selectedImage" class="selected-image">
-              <img [src]="selectedImage" alt="Selected Image" class="preview" />
-            </div>
-          </div>
-          <div
-            *ngIf="notPicture && event.image == ''"
-            class="error-message"
-            style="margin-left: 5px"
-          >
-            Morate izabrati fotografiju za događaj!
-          </div>
-        </div>
-        <div class="create-button">
+      <div class="create-button">
+        <div style="width: 40%">
           <xp-primary-button
             *ngIf="!isEditMode"
             (click)="createEvent()"
-            style="width: 90%"
+            style="width: 100%"
             buttonId="filter-button"
             buttonType="button"
             textValue="Kreiraj događaj"
@@ -186,7 +279,7 @@
           <xp-primary-button
             *ngIf="isEditMode"
             (click)="updateEvent()"
-            style="width: 90%"
+            style="width: 100%"
             buttonId="filter-button"
             buttonType="button"
             textValue="Izmeni događaj"

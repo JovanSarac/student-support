@@ -20,5 +20,7 @@ namespace StudentSupport.Events.API.Public
         Result<EventDto> Archive(int id);
         Result<EventDto> Publish(int id);
         Result<List<EventDto>> GetYoursEvents(long userId);
+        Result<List<EventDto>> GetYoursParticipateEvents(int userId);
+        Result<List<EventDto>> GetRandomFourEvents();
     }
 }

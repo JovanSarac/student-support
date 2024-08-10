@@ -20,6 +20,7 @@ export class EventCardComponent implements OnInit {
     id: 10,
     address: '',
     dateEvent: new Date(),
+    dateEndEvent: new Date(),
     datePublication: new Date(),
     description: '',
     eventType: '',
@@ -52,7 +53,7 @@ export class EventCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLoggedUser();
-    this.getParticipationsByStudentId();
+    //this.getParticipationsByStudentId();
   }
 
   emitEvent(): void {

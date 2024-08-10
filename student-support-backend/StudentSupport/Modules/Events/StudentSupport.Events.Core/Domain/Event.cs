@@ -13,6 +13,7 @@ namespace StudentSupport.Events.Core.Domain
         public string Name { get; init; }
         public string Description { get; init; }
         public DateTime DateEvent { get; init; }
+        public DateTime DateEndEvent { get; init; }
         public string Address {  get; init; }
         public double Latitude { get; init; }
         public double Longitude { get; init; }
@@ -25,12 +26,13 @@ namespace StudentSupport.Events.Core.Domain
         {
 
         }
-        public Event(long userId, string name, string description, DateTime dateEvent, string address, double latitude, double longitude, EventType eventType, DateTime datePublication, string image, bool isArchived, double price)
+        public Event(long userId, string name, string description, DateTime dateEvent, DateTime dateEndEvent, string address, double latitude, double longitude, EventType eventType, DateTime datePublication, string image, bool isArchived, double price)
         {
             UserId = userId;
             Name = name;
             Description = description;
             DateEvent = dateEvent;
+            DateEndEvent = dateEndEvent;
             Address = address;
             Latitude = latitude;
             Longitude = longitude;
@@ -39,6 +41,24 @@ namespace StudentSupport.Events.Core.Domain
             Image = image;
             IsArchived = isArchived;
             Price = price;
+            Validate();
+        }
+
+        private void Validate()
+        {
+            if (string.IsNullOrWhiteSpace(Name)) throw new ArgumentException("Invalid Name");
+            if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid Description");
+            if (DateEvent == default) throw new ArgumentException("Invalid DateEvent");
+            if (DateEndEvent == default) throw new ArgumentException("Invalid DateEndEvent");
+            if (DateEvent > DateEndEvent) throw new ArgumentException("DateEvent must be earlier than DateEndEvent");
+            if (string.IsNullOrWhiteSpace(Address)) throw new ArgumentException("Invalid Address");
+            if (Latitude < -90 || Latitude > 90) throw new ArgumentException("Invalid Latitude");
+            if (Longitude < -180 || Longitude > 180) throw new ArgumentException("Invalid Longitude");
+            if (DatePublication == default) throw new ArgumentException("Invalid DatePublication");
+            if (Price < 0) throw new ArgumentException("Invalid Price");
+
+            if (!Enum.IsDefined(typeof(EventType), EventType))
+                throw new ArgumentException("Invalid EventType");
         }
 
         public void Archive()

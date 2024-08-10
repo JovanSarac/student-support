@@ -7,7 +7,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { marked } from 'marked';
@@ -40,6 +40,7 @@ export class CreateEventComponent implements OnInit {
     name: '',
     description: '',
     dateEvent: new Date(),
+    dateEndEvent: new Date(),
     address: '',
     eventType: '',
     datePublication: new Date(),
@@ -48,6 +49,7 @@ export class CreateEventComponent implements OnInit {
     latitude: 0,
     longitude: 0,
     isArchived: false,
+    price: 0,
   };
   showEmojiPicker: boolean = false;
   notMarker: boolean = false;
@@ -69,6 +71,7 @@ export class CreateEventComponent implements OnInit {
 
   dtn = new Date();
   dateTimeNow: string = this.dtn.toString();
+  minDate = new Date().toISOString().slice(0, 16);
 
   eventForm = new FormGroup({
     type: new FormControl('', Validators.required),
@@ -81,6 +84,8 @@ export class CreateEventComponent implements OnInit {
     city: new FormControl('', Validators.required),
     street: new FormControl('', Validators.required),
     date: new FormControl('', Validators.required),
+    price: new FormControl(0.0, [Validators.required, Validators.min(0)]),
+    dateEnd: new FormControl({ value: '', disabled: true }, Validators.required),
   });
 
   constructor(
@@ -107,6 +112,26 @@ export class CreateEventComponent implements OnInit {
         this.loadEvent();
       }
     });
+
+    this.eventForm.get('date')?.valueChanges.subscribe(value => {
+      if (value) {
+        this.eventForm.get('dateEnd')?.enable();
+        this.eventForm.get('dateEnd')?.setValidators([
+          Validators.required,
+          this.dateValidator(value)
+        ]);
+      } else {
+        this.eventForm.get('dateEnd')?.disable();
+      }
+      this.eventForm.get('dateEnd')?.updateValueAndValidity();
+    });
+  }
+
+  dateValidator(startDate: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const endDate = control.value;
+      return endDate && endDate < startDate ? { invalidDate: true } : null;
+    };
   }
 
   loadEvent(): void {
@@ -128,6 +153,8 @@ export class CreateEventComponent implements OnInit {
       city: this.getCityFromAddress(this.event.address),
       street: this.getStreetFromAddress(this.event.address),
       date: this.formatDateForInput(this.event.dateEvent.toString()),
+      dateEnd: this.formatDateForInput(this.event.dateEndEvent.toString()),
+      price: this.event.price
     });
     this.latitude = this.event.latitude;
     this.longitude = this.event.longitude;
@@ -333,6 +360,7 @@ export class CreateEventComponent implements OnInit {
     this.event.name = this.eventForm.value.name || '';
     this.event.description = this.eventForm.value.description || '';
     this.event.dateEvent = new Date(this.eventForm.value.date || '');
+    this.event.dateEndEvent = new Date(this.eventForm.value.dateEnd || '');
     this.event.address =
       this.eventForm.value.street + ', ' + this.eventForm.value.city || '';
     this.event.latitude = this.latitude;
@@ -340,6 +368,7 @@ export class CreateEventComponent implements OnInit {
     this.event.eventType = this.eventForm.value.type || '';
     this.event.datePublication = new Date();
     this.event.userId = this.user.id;
+    this.event.price = this.eventForm.value.price!;
 
     this.service.createEvent(this.event).subscribe({
       next: (result: MyEvent) => {
@@ -363,11 +392,13 @@ export class CreateEventComponent implements OnInit {
     this.event.name = this.eventForm.value.name || '';
     this.event.description = this.eventForm.value.description || '';
     this.event.dateEvent = new Date(this.eventForm.value.date || '');
+    this.event.dateEndEvent = new Date(this.eventForm.value.dateEnd || '');
     this.event.address =
       this.eventForm.value.street + ', ' + this.eventForm.value.city || '';
     this.event.latitude = this.latitude;
     this.event.longitude = this.longitude;
     this.event.eventType = this.eventForm.value.type || '';
+    this.event.price = this.eventForm.value.price!;
 
     this.eventService.updateEvent(this.event).subscribe({
       next: (result: MyEvent) => {

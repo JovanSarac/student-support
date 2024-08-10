@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MarkdownModule } from 'ngx-markdown';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { MarkdownModule } from 'ngx-markdown';
     MatButtonModule,
     MatInputModule,
     FormsModule,
-    MarkdownModule
+    MarkdownModule,
+    PickerModule
   ],
   exports: [
     MapComponent,

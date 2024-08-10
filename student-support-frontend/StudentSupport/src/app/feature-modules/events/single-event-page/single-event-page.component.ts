@@ -47,6 +47,7 @@ export class SingleEventPageComponent implements OnInit {
     userId: 0,
     description: '',
     dateEvent: new Date(),
+    dateEndEvent: new Date(),
     datePublication: new Date(),
     address: '',
     image: '',

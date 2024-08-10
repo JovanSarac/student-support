@@ -4,6 +4,7 @@ export interface MyEvent {
   name: string;
   description: string;
   dateEvent: Date;
+  dateEndEvent: Date;
   address: string;
   latitude: number;
   longitude: number;

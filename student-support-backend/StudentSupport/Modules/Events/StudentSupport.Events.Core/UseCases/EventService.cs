@@ -16,10 +16,12 @@ namespace StudentSupport.Events.Core.UseCases
     public class EventService : CrudService<EventDto,Event>, IEventService
     {
         private readonly IEventRepository _eventRepository;
+        private readonly IParticipationRepository _participationRepository;
 
-        public EventService(ICrudRepository<Event> repository, IEventRepository eventRepository, IMapper mapper) : base(repository, mapper)
+        public EventService(ICrudRepository<Event> repository, IEventRepository eventRepository, IParticipationRepository participationRepository, IMapper mapper) : base(repository, mapper)
         {
-            _eventRepository = eventRepository; 
+            _eventRepository = eventRepository;
+            _participationRepository = participationRepository;
         }
 
 
@@ -78,6 +80,29 @@ namespace StudentSupport.Events.Core.UseCases
             {
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }
+        }
+
+        public Result<List<EventDto>> GetYoursParticipateEvents(int userId)
+        {
+            var participations = _participationRepository.GetAllByStudentId(userId);
+
+            if (participations.Count == 0)
+            {
+                return new List<EventDto>();
+            }
+
+            var events = participations
+                .Where(p => p.Type == ParticipationType.Active)
+                .Select(p => _eventRepository.Get(p.EventId))
+                .Where(e => e != null)
+                .ToList();
+
+            return MapToDto(events);
+        }
+
+        public Result<List<EventDto>> GetRandomFourEvents()
+        {
+            return MapToDto(_eventRepository.GetRandomFourEvents());
         }
 
     }

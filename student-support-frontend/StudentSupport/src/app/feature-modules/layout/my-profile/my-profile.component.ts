@@ -10,7 +10,6 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Person } from '../model/person.model';
 import { LayoutService } from '../layout.service';
 import { DatePipe } from '@angular/common';
-import { DialogRef } from '@angular/cdk/dialog';
 import { EditProfileDialogComponent } from '../edit-profile-dialog/edit-profile-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';

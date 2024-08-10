@@ -4,6 +4,7 @@ import { MyEvent } from '../../board/model/myevent.model';
 import { LayoutService } from '../layout.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { marked } from 'marked';
+import { EventsService } from '../../events/events.service';
 
 @Component({
   selector: 'xp-home',
@@ -11,7 +12,11 @@ import { marked } from 'marked';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private router: Router, private service: LayoutService) {}
+  constructor(
+    private router: Router, 
+    private service: LayoutService,
+    private eventService: EventsService
+  ) {}
 
   selectedTab: string = 'all';
   events: MyEvent[] = [];
@@ -43,13 +48,13 @@ export class HomeComponent implements OnInit {
     this.checkScreenWidth();
     window.addEventListener('resize', this.checkScreenWidth.bind(this));
     this.startSlider();
-    this.getAllEvents();
+    this.getFourRandomEvents();
   }
 
-  getAllEvents(): void {
-    this.service.getAllEvenets().subscribe({
-      next: (result: PagedResults<MyEvent>) => {
-        this.events = result.results.filter((e) => !e.isArchived);
+  getFourRandomEvents(): void {
+    this.eventService.getRandomFourEvents().subscribe({
+      next: (result: MyEvent[]) => {
+        this.events = result;
       },
     });
   }

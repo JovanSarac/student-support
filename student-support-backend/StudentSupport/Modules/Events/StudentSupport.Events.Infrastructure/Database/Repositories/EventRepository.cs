@@ -80,5 +80,14 @@ namespace StudentSupport.Events.Infrastructure.Database.Repositories
 
             return events;
         }
+
+        public List<Event> GetRandomFourEvents()
+        {
+            var currentDate = DateTime.UtcNow;
+            return _dbSet
+                .Where(e => e.DateEvent > currentDate && e.IsArchived == false)
+                .Take(4) 
+                .ToList();
+        }
     }
 }
