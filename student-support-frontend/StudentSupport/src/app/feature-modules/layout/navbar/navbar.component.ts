@@ -6,54 +6,47 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 @Component({
   selector: 'xp-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-
-  user !: User;
+  user!: User;
   userRegister: boolean = false;
   isDropdownVisible: boolean = false;
   dropdownOpen = false;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.checkScreenWidth();
     window.addEventListener('resize', this.checkScreenWidth.bind(this));
-    this.authService.user$.subscribe(user => {
+    this.authService.user$.subscribe((user) => {
       this.user = user;
-      console.log(this.user)
-      if(this.user.username != ""){
+      if (this.user.username != '') {
         this.userRegister = true;
-      }else {
+      } else {
         this.userRegister = false;
       }
     });
   }
 
-  goToEvents(): void{
-    if(this.user.username === ''){
-      this.router.navigate(['/login'])
-    }
-    else{
-      this.router.navigate(['/events-page'])
-    }
-  }
-
-  goToClubs(): void{
-    if(this.user.username === ''){
-      this.router.navigate(['/login'])
-    }
-    else{
-      this.router.navigate(['/'])
+  goToEvents(): void {
+    if (this.user.username === '') {
+      this.router.navigate(['/login']);
+    } else {
+      this.router.navigate(['/events-page']);
     }
   }
 
-  goToMyProfile() : void{
-    this.router.navigate(['/my-profile'])
+  goToClubs(): void {
+    if (this.user.username === '') {
+      this.router.navigate(['/login']);
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
+
+  goToMyProfile(): void {
+    this.router.navigate(['/my-profile/' + this.user.id]);
   }
 
   onLogout(): void {

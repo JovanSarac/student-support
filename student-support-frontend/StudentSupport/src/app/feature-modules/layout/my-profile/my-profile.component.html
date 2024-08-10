@@ -1,115 +1,192 @@
 <div class="full-page-bg">
-    <div class="page-content">
-        <div class="personal-info">
-            <div class="full-side">
-                <div class="picture-and-name">
-                    <div class="picture-container">
-                        <div class="profile-pic">
-                            <label class="-label" for="file">
-                              <span><i class="bi bi-file-earmark-image-fill"></i>Promeni sliku</span>
-                            </label>
-                            <input id="file" type="file" (change)="onImageSelected($event)"/>
-                            <img [src]="person.profilePicBase64 ? person.profilePicBase64 : defaultProfilePic" id="output" width="200"/>
-                        </div>
-                        <div class="position-icon"  (mouseover)="addHover()" (mouseout)="removeHover()">
-                            <i  class="bi bi-camera-fill plus-icon" (click)="triggerFileInput()"></i>
-                        </div>
-                        <p>{{user.username}}</p>
-                        <h6>Član od {{ getFormattedDate(person.registrationDate!) }}</h6>
-    
-                    </div>
+  <div class="page-content">
+    <div class="personal-info">
+      <div class="full-side">
+        <div class="picture-and-name">
+          <div class="picture-container">
+            <div class="profile-pic">
+              <label
+                *ngIf="loggedUser.username === user.username"
+                class="-label"
+                for="file"
+              >
+                <span
+                  ><i class="bi bi-file-earmark-image-fill"></i>Promeni
+                  sliku</span
+                >
+              </label>
+              <input
+                *ngIf="loggedUser.username === user.username"
+                id="file"
+                type="file"
+                (change)="onImageSelected($event)"
+              />
+              <img
+                [src]="
+                  person.profilePicBase64
+                    ? person.profilePicBase64
+                    : defaultProfilePic
+                "
+                id="output"
+                width="200"
+              />
+            </div>
+            <div
+              *ngIf="loggedUser.username === user.username"
+              class="position-icon"
+              (mouseover)="addHover()"
+              (mouseout)="removeHover()"
+            >
+              <i
+                class="bi bi-camera-fill plus-icon"
+                (click)="triggerFileInput()"
+              ></i>
+            </div>
+            <p>{{ user.username }}</p>
+            <h6>Član od {{ getFormattedDate(person.registrationDate!) }}</h6>
+          </div>
 
-                    <div class="email-andname">
-                        <div class="edit-information-button">
-                            <xp-primary-button
-                                (click)="openEditDialog(person)"
-                                style="width: 80%; display: flex; justify-content: flex-end;"
-                                buttonId="filter-button"
-                                buttonType="button"
-                                textValue="Izmeni lične informacije"
-                            >
-                            </xp-primary-button>
-
-
-                        </div>
-                        <div class="name-surname">
-                            <div class="form__group field">
-                                <input type="input" class="form__field" [ngModel]="person.name" placeholder="Ime" id="name" disabled/>
-                                <label for="name" class="form__label">Ime:</label>
-                            </div>
-                            <div class="form__group field">
-                                <input type="input" class="form__field" [ngModel]="person.surname" placeholder="Prezime" id="lastname"  disabled/>
-                                <label for="lastname" class="form__label">Prezime:</label>
-                            </div>
-
-                        </div>
-
-                        <div class="birthdate">
-                 
-                            <div class="birthdate__group field">
-                                <input type="text" class="birthdate__field" [ngModel]="person.birthDate != undefined ? getFormattedDateClassic(person.birthDate) : person.birthDate" id="birthdate" disabled/>
-                                <label for="birthdate" class="birthdate__label"><i class="bi bi-cake2-fill" style="margin-right: 5px;"></i>Datum rodjenja:</label>
-                            </div>
-        
-                        </div>         
-
-                    </div>
-
-                </div>
-
-                <div class="contact-and-address">
-                    <div class="contact">
-                        <div class="email-input">
-                            <div class="form__group field">
-                                <input type="input" class="form__field" [ngModel]="person.email" placeholder="Email" id="email" disabled/>
-                                <label for="email" class="form__label"><i class="bi bi-envelope-at-fill" style="margin-right: 5px;"></i>Email:</label>
-                            </div>
-        
-                        </div>
-        
-                        <div class="phone-input">
-                            <div class="form__group field">
-                                <input type="input" class="form__field" [ngModel]="person.phoneNumber" id="phonenumber" disabled/>
-                                <label for="phonenumber" class="form__label"><i class="bi bi-telephone-fill" style="margin-right: 5px;"></i>Broj telefona:</label>
-                            </div>
-        
-                        </div>
-
-                    </div>
-                    <div class="address">
-                        <div class="street-input">
-                            <div class="street__group field">
-                                <input type="input" class="street__field" [ngModel]="street"  id="street" disabled />
-                                <label for="street" class="street__label">Ulica i broj:</label>
-                            </div>
-                        </div>
-
-                        <div class="city-input">
-                            <div class="city__group field">
-                                <input type="input" class="city__field" [ngModel]="city"  id="city" disabled />
-                                <label for="city" class="city__label">Grad:</label>
-                            </div>
-
-                        </div>
-    
-                    </div>
-
-                </div>
-
-                <div class="biography">
-                    <div class="biography__group field">
-                        <textarea type="input" class="biography__field" name="biography" [ngModel]="person.biography" id='biography' #biographyTextarea disabled></textarea>
-                        <label for="biography" class="biography__label">Biografija:</label>
-                    </div>
-
-                </div>
-
-
-
+          <div class="email-andname">
+            <div class="edit-information-button">
+              <xp-primary-button
+                *ngIf="loggedUser.username === user.username"
+                (click)="openEditDialog(person)"
+                style="width: 80%; display: flex; justify-content: flex-end"
+                buttonId="filter-button"
+                buttonType="button"
+                textValue="Izmeni lične informacije"
+              >
+              </xp-primary-button>
+            </div>
+            <div class="name-surname">
+              <div class="form__group field">
+                <input
+                  type="input"
+                  class="form__field"
+                  [ngModel]="person.name"
+                  placeholder="Ime"
+                  id="name"
+                  disabled
+                />
+                <label for="name" class="form__label">Ime:</label>
+              </div>
+              <div class="form__group field">
+                <input
+                  type="input"
+                  class="form__field"
+                  [ngModel]="person.surname"
+                  placeholder="Prezime"
+                  id="lastname"
+                  disabled
+                />
+                <label for="lastname" class="form__label">Prezime:</label>
+              </div>
             </div>
 
+            <div class="birthdate">
+              <div class="birthdate__group field">
+                <input
+                  type="text"
+                  class="birthdate__field"
+                  [ngModel]="
+                    person.birthDate != undefined
+                      ? getFormattedDateClassic(person.birthDate)
+                      : person.birthDate
+                  "
+                  id="birthdate"
+                  disabled
+                />
+                <label for="birthdate" class="birthdate__label"
+                  ><i class="bi bi-cake2-fill" style="margin-right: 5px"></i
+                  >Datum rodjenja:</label
+                >
+              </div>
+            </div>
+          </div>
         </div>
 
-    </div>
+        <div class="contact-and-address">
+          <div class="contact">
+            <div class="email-input">
+              <div class="form__group field">
+                <input
+                  type="input"
+                  class="form__field"
+                  [ngModel]="person.email"
+                  placeholder="Email"
+                  id="email"
+                  disabled
+                />
+                <label for="email" class="form__label"
+                  ><i
+                    class="bi bi-envelope-at-fill"
+                    style="margin-right: 5px"
+                  ></i
+                  >Email:</label
+                >
+              </div>
+            </div>
 
+            <div class="phone-input">
+              <div class="form__group field">
+                <input
+                  type="input"
+                  class="form__field"
+                  [ngModel]="person.phoneNumber"
+                  id="phonenumber"
+                  disabled
+                />
+                <label for="phonenumber" class="form__label"
+                  ><i class="bi bi-telephone-fill" style="margin-right: 5px"></i
+                  >Broj telefona:</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="address">
+            <div class="street-input">
+              <div class="street__group field">
+                <input
+                  type="input"
+                  class="street__field"
+                  [ngModel]="street"
+                  id="street"
+                  disabled
+                />
+                <label for="street" class="street__label">Ulica i broj:</label>
+              </div>
+            </div>
+
+            <div class="city-input">
+              <div class="city__group field">
+                <input
+                  type="input"
+                  class="city__field"
+                  [ngModel]="city"
+                  id="city"
+                  disabled
+                />
+                <label for="city" class="city__label">Grad:</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="biography">
+          <div class="biography__group field">
+            <textarea
+              type="input"
+              class="biography__field"
+              name="biography"
+              [ngModel]="person.biography"
+              id="biography"
+              #biographyTextarea
+              disabled
+            ></textarea>
+            <label for="biography" class="biography__label">Biografija:</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
