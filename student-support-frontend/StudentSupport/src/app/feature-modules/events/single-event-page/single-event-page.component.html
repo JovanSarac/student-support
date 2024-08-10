@@ -19,7 +19,7 @@
         *ngIf="user.role === 'author' && event.isArchived"
         buttonId="publish-button"
         buttonType="button"
-        textValue="Publiciraj"
+        textValue="Objavi"
         iconClass="bi bi-megaphone-fill"
         (click)="publishEvent()"
       ></xp-secondary-button>
@@ -42,13 +42,13 @@
         "
         buttonId="participation-button"
         buttonType="button"
-        textValue="Participate"
+        textValue="Prijavi se"
         iconClass="bi bi-star"
         (click)="participateEvent(event.id)"
       ></xp-secondary-button>
 
       <div
-        style="width: 7.5dvw"
+        style="width: 7dvw"
         class="loader-container"
         *ngIf="isLoading && shouldShowLoader(event.id)"
       >
@@ -69,7 +69,7 @@
         *ngIf="isAlreadyCheckedParticipate(event.id) && user.role === 'student'"
         buttonId="participation-button2"
         buttonType="button"
-        textValue="Participate"
+        textValue="Prijavi se"
         iconClass="bi bi-star-fill"
         [isCancelParticipationButton]="true"
         (click)="cancelEventParticipation(event.id)"
@@ -86,11 +86,9 @@
         *ngIf="event.isArchived && user.role === 'author'"
         class="event-date-time-p"
       >
-        <i class="bi bi-exclamation-triangle-fill"></i> THIS EVENT HAS BEEN
-        ARCHIVED
+        <i class="bi bi-exclamation-triangle-fill"></i> DOGAĐAJ JE ARHIVIRAN
       </p>
     </div>
-    <hr class="separator" />
   </div>
   <img class="event-image" [src]="event.image" />
   <div class="additional-info-container">
@@ -98,10 +96,10 @@
       <p><i class="bi bi-geo-alt-fill"></i> Location</p>
       <p>{{ event.address }}</p>
       <p class="show-map" *ngIf="!isCollapsed" (click)="toggleCollapse()">
-        Show map <i class="bi bi-chevron-compact-down"></i>
+        Prikaži mapu <i class="bi bi-chevron-compact-down"></i>
       </p>
       <p class="show-map" *ngIf="isCollapsed" (click)="toggleCollapse()">
-        Hide map <i class="bi bi-chevron-compact-up"></i>
+        Sakrij mapu <i class="bi bi-chevron-compact-up"></i>
       </p>
 
       <div *ngIf="isCollapsed" class="collapse-content">
