@@ -25,5 +25,5 @@
 }
 
 .selected-color {
-  background-color: var(--primary-hover-color);
+  background-color: var(--secondary-hover-color);
 }

@@ -17,6 +17,7 @@ import {
   ParticipationType,
 } from 'src/app/shared/model/participation-model';
 import { marked, options } from 'marked';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-single-event-page',
@@ -71,7 +72,8 @@ export class SingleEventPageComponent implements OnInit {
     private service: EventsService,
     private authService: AuthService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -135,6 +137,19 @@ export class SingleEventPageComponent implements OnInit {
         this.eventIdForLoader = 0;
         this.getParticipationsByStudentId();
         this.countParticipationsByEventId();
+        this.toastrService.success(
+          'Uspešno ste se odazvali za događaj: ' +
+            this.event.name +
+            '! <br>Kroz par trenutaka dobićete imejl i mogućnost dodavanja ovog događaja u Vaš Google Calendar.',
+          'Uspešno',
+          {
+            timeOut: 10000, // Trajanje u milisekundama, ovde 10 sekundi
+            extendedTimeOut: 2000, // Vreme produžetka ako korisnik pređe mišem preko toast-a
+            closeButton: true,
+            progressBar: true,
+            enableHtml: true,
+          }
+        );
       },
     });
   }
@@ -151,6 +166,16 @@ export class SingleEventPageComponent implements OnInit {
       next: (result: Participation) => {
         this.countParticipationsByEventId();
         this.getParticipationsByStudentId();
+        this.toastrService.success(
+          'Uspešno ste se odjavili sa događaja: ' + this.event.name + '!',
+          'Uspešno',
+          {
+            timeOut: 4000, // Trajanje u milisekundama, ovde 10 sekundi
+            extendedTimeOut: 2000, // Vreme produžetka ako korisnik pređe mišem preko toast-a
+            closeButton: true,
+            progressBar: true,
+          }
+        );
       },
     });
   }
@@ -160,6 +185,16 @@ export class SingleEventPageComponent implements OnInit {
       next: (result: MyEvent) => {
         this.event = result;
         this.countParticipationsByEventId();
+        this.toastrService.success(
+          'Uspešno ste arhivirali događaj.',
+          'Uspešno',
+          {
+            timeOut: 4000, // Trajanje u milisekundama, ovde 10 sekundi
+            extendedTimeOut: 2000, // Vreme produžetka ako korisnik pređe mišem preko toast-a
+            closeButton: true,
+            progressBar: true,
+          }
+        );
       },
     });
   }
@@ -168,6 +203,16 @@ export class SingleEventPageComponent implements OnInit {
     this.service.publishEvent(this.event.id).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
+        this.toastrService.success(
+          'Uspešno ste ponovno objavili događaj.',
+          'Uspešno',
+          {
+            timeOut: 4000, // Trajanje u milisekundama, ovde 10 sekundi
+            extendedTimeOut: 2000, // Vreme produžetka ako korisnik pređe mišem preko toast-a
+            closeButton: true,
+            progressBar: true,
+          }
+        );
       },
     });
   }
@@ -175,7 +220,16 @@ export class SingleEventPageComponent implements OnInit {
   resendEmail(): void {
     this.service.resendEmail(this.event.id, this.user.id).subscribe({
       next: () => {
-        console.log('Mail resent.');
+        this.toastrService.success(
+          'Uspešno ste zatražili ponovno slanje e-maila.',
+          'Uspešno',
+          {
+            timeOut: 4000, // Trajanje u milisekundama, ovde 10 sekundi
+            extendedTimeOut: 2000, // Vreme produžetka ako korisnik pređe mišem preko toast-a
+            closeButton: true,
+            progressBar: true,
+          }
+        );
       },
     });
   }
