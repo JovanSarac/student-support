@@ -16,12 +16,16 @@ export class InputComponent {
   @Input() customErrorMessages: Record<string, string> = {};
 
   errorMessages: Record<string, string> = {
-    required: 'This field is required',
-    email: 'This e-mail is invalid',
+    required: 'Ovo polje je obavezno',
+    email: 'Email nije unet u ispravnom formatu',
   };
 
   getErrorMessage(errorKey: string): string {
-    return this.customErrorMessages[errorKey] || this.errorMessages[errorKey] || 'Invalid field';
+    return (
+      this.customErrorMessages[errorKey] ||
+      this.errorMessages[errorKey] ||
+      'Invalid field'
+    );
   }
 
   toggleFieldTextType() {

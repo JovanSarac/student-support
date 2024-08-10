@@ -18,17 +18,16 @@ import { ToastrService } from 'ngx-toastr';
 export class EventCardComponent implements OnInit {
   @Input() event: MyEvent = {
     id: 10,
-    address: 'Novi Sad, Lasla Gala 28a',
+    address: '',
     dateEvent: new Date(),
     datePublication: new Date(),
     description: '',
-    eventType: 'ArtExhibitionsAndPerformances',
-    image:
-      'https://c4.wallpaperflare.com/wallpaper/556/382/458/fantasy-art-artwork-fan-art-science-fiction-wallpaper-preview.jpg',
+    eventType: '',
+    image: '',
     isArchived: false,
     latitude: 0,
     longitude: 0,
-    name: 'Art&Science Event - Spojimo nauku i umetnost kako to najbolje umemo',
+    name: '',
     userId: 0,
   };
   @Output() OnClick = new EventEmitter();
@@ -84,15 +83,18 @@ export class EventCardComponent implements OnInit {
         this.isLoading = false;
         this.eventIdForLoader = 0;
         this.toastrService.success(
-          "Uspešno ste se odazvali za događaj :" + this.event.name + "! <br>Kroz par trenutaka dobićete imejl i mogućnost dodavanja ovog događaja u Vaš Google Calendar.", 
-          "Uspešno",
+          'Uspešno ste se odazvali za događaj :' +
+            this.event.name +
+            '! <br>Kroz par trenutaka dobićete imejl i mogućnost dodavanja ovog događaja u Vaš Google Calendar.',
+          'Uspešno',
           {
             timeOut: 10000, // Trajanje u milisekundama, ovde 10 sekundi
             extendedTimeOut: 2000, // Vreme produžetka ako korisnik pređe mišem preko toast-a
-            closeButton: true, 
+            closeButton: true,
             progressBar: true,
-            enableHtml: true 
-          });
+            enableHtml: true,
+          }
+        );
       },
     });
   }
@@ -110,14 +112,15 @@ export class EventCardComponent implements OnInit {
       next: (result: Participation) => {
         this.getParticipationsByStudentId();
         this.toastrService.success(
-          "Uspešno ste se odjavili sa događaja :" + this.event.name + "!", 
-          "Uspešno",
+          'Uspešno ste se odjavili sa događaja :' + this.event.name + '!',
+          'Uspešno',
           {
             timeOut: 4000, // Trajanje u milisekundama, ovde 10 sekundi
             extendedTimeOut: 2000, // Vreme produžetka ako korisnik pređe mišem preko toast-a
-            closeButton: true, 
+            closeButton: true,
             progressBar: true,
-          });
+          }
+        );
       },
     });
   }
@@ -153,15 +156,15 @@ export class EventCardComponent implements OnInit {
   }
 
   eventType: { [key: string]: string } = {
-    AcademicConferenceAndSeminars: 'Konferencije',
-    WorkshopsAndCourses: 'Kursevi',
-    CulturalEvent: 'Kulturni',
-    Fair: 'Sajamski',
-    HumanitarianEvent: 'Humanitarni',
-    ArtExhibitionsAndPerformances: 'Umjetnicki',
-    StudentPartiesAndSocialEvents: 'Drustveni',
-    Competitions: 'Takmicenja',
-    StudentTrips: 'Putovanja',
+    AcademicConferenceAndSeminars: 'Konferencija',
+    WorkshopsAndCourses: 'Kurs',
+    CulturalEvent: 'Kultura',
+    Fair: 'Sajam',
+    HumanitarianEvent: 'Humanitarnost',
+    ArtExhibitionsAndPerformances: 'Umetnost',
+    StudentPartiesAndSocialEvents: 'Društvenost',
+    Competitions: 'Takmičenje',
+    StudentTrips: 'Putovanje',
   };
 
   eventTypeColors: { [key: string]: string } = {
