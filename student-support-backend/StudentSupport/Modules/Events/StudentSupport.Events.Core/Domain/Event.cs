@@ -41,6 +41,24 @@ namespace StudentSupport.Events.Core.Domain
             Image = image;
             IsArchived = isArchived;
             Price = price;
+            Validate();
+        }
+
+        private void Validate()
+        {
+            if (string.IsNullOrWhiteSpace(Name)) throw new ArgumentException("Invalid Name");
+            if (string.IsNullOrWhiteSpace(Description)) throw new ArgumentException("Invalid Description");
+            if (DateEvent == default) throw new ArgumentException("Invalid DateEvent");
+            if (DateEndEvent == default) throw new ArgumentException("Invalid DateEndEvent");
+            if (DateEvent > DateEndEvent) throw new ArgumentException("DateEvent must be earlier than DateEndEvent");
+            if (string.IsNullOrWhiteSpace(Address)) throw new ArgumentException("Invalid Address");
+            if (Latitude < -90 || Latitude > 90) throw new ArgumentException("Invalid Latitude");
+            if (Longitude < -180 || Longitude > 180) throw new ArgumentException("Invalid Longitude");
+            if (DatePublication == default) throw new ArgumentException("Invalid DatePublication");
+            if (Price < 0) throw new ArgumentException("Invalid Price");
+
+            if (!Enum.IsDefined(typeof(EventType), EventType))
+                throw new ArgumentException("Invalid EventType");
         }
 
         public void Archive()

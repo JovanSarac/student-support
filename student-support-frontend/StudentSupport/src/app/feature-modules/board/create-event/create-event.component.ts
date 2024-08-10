@@ -7,7 +7,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { marked } from 'marked';
@@ -70,6 +70,7 @@ export class CreateEventComponent implements OnInit {
 
   dtn = new Date();
   dateTimeNow: string = this.dtn.toString();
+  minDate = new Date().toISOString().slice(0, 16);
 
   eventForm = new FormGroup({
     type: new FormControl('', Validators.required),
@@ -79,7 +80,7 @@ export class CreateEventComponent implements OnInit {
     street: new FormControl('', Validators.required),
     date: new FormControl('', Validators.required),
     price: new FormControl(0.0, [Validators.required, Validators.min(0)]),
-    dateEnd: new FormControl('', Validators.required),
+    dateEnd: new FormControl({ value: '', disabled: true }, Validators.required),
   });
 
   constructor(
@@ -106,6 +107,26 @@ export class CreateEventComponent implements OnInit {
         this.loadEvent();
       }
     });
+
+    this.eventForm.get('date')?.valueChanges.subscribe(value => {
+      if (value) {
+        this.eventForm.get('dateEnd')?.enable();
+        this.eventForm.get('dateEnd')?.setValidators([
+          Validators.required,
+          this.dateValidator(value)
+        ]);
+      } else {
+        this.eventForm.get('dateEnd')?.disable();
+      }
+      this.eventForm.get('dateEnd')?.updateValueAndValidity();
+    });
+  }
+
+  dateValidator(startDate: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const endDate = control.value;
+      return endDate && endDate < startDate ? { invalidDate: true } : null;
+    };
   }
 
   loadEvent(): void {

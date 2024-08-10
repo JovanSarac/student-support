@@ -148,6 +148,7 @@
             [control]="eventForm.controls.date"
             inputType="datetime-local"
             inputId="date"
+            [min]="minDate"
             label="Izaberite datum i vreme početka događaja:"
             placeholderSentence="Unesite datum i vreme ovde"
             [customErrorMessages]="{ required: 'Datum i vreme početka događaja je obavezno!'}"
@@ -159,6 +160,7 @@
             [control]="eventForm.controls.date"
             inputType="datetime-local"
             inputId="date"
+            [min]="minDate"
             label="Izaberite datum i vreme polaska:"
             placeholderSentence="Unesite datum i vreme ovde"
             [customErrorMessages]="{ required: 'Datum i vreme polaska je obavezno!'}"
@@ -171,9 +173,11 @@
             [control]="eventForm.controls.dateEnd"
             inputType="datetime-local"
             inputId="date"
+            [min]="eventForm.get('date')?.value || ''"
             label="Izaberite datum i vreme završetka događaja:"
             placeholderSentence="Unesite datum i vreme ovde"
-            [customErrorMessages]="{ required: 'Datum i vreme završetka događaja je obavezno!'}"
+            [customErrorMessages]="{ required: 'Datum i vreme završetka događaja je obavezno!',
+                                     invalidDate: 'Datum i vreme završetka mora biti nakon datuma početka!'}"
           >
           </xp-input>
           <xp-input
@@ -182,9 +186,11 @@
             [control]="eventForm.controls.dateEnd"
             inputType="datetime-local"
             inputId="date"
+            [min]="eventForm.get('date')?.value || ''"
             label="Izaberite datum i vreme dolaska:"
             placeholderSentence="Unesite datum i vreme ovde"
-            [customErrorMessages]="{ required: 'Datum i vreme dolaska je obavezno!'}"
+            [customErrorMessages]="{ required: 'Datum i vreme dolaska je obavezno!',
+                                  invalidDate: 'Datum i vreme dolaska mora biti nakon datuma polaska!'}"
           >
           </xp-input>
 

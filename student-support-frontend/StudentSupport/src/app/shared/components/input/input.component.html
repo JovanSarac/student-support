@@ -10,6 +10,7 @@
     class="form-control form-input p-3"
     autocomplete="off"
     [id]="inputId"
+    [attr.min]="min"
     placeholder="{{ placeholderSentence }}"
   />
   <ng-container *ngIf="control.invalid && control.touched">
