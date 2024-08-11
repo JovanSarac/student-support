@@ -17,6 +17,13 @@
       <div (click)="goToClubs()" class="navbar-item">
         <p>Klubovi</p>
       </div>
+      <div
+        *ngIf="user.role === 'administrator'"
+        class="navbar-item"
+        (click)="goToAdminPanel()"
+      >
+        <p>Panel</p>
+      </div>
 
       <!-- <div class="navbar-item">
                 <p>FAQ</p>
@@ -38,21 +45,33 @@
 
       <div class="navbar-item" *ngIf="user && user.username !== ''">
         <div class="pic-image" (click)="vievMenu()">
-          <img [src]="person.profilePicBase64 ? person.profilePicBase64 : defaultProfilePic" width="60"> 
+          <img
+            [src]="
+              person.profilePicBase64
+                ? person.profilePicBase64
+                : defaultProfilePic
+            "
+            width="60"
+          />
           <i class="bi bi-caret-down-fill"></i>
         </div>
 
         <div class="profile-menu" *ngIf="menuVisible">
-            <div class="menu-item" (click)="goToMyProfile()">
-              <p><i class="bi bi-person-circle" style="margin-right: 8px;"></i>Profil</p>
-            </div>
-            <div class="separator"></div>
-            <div class="menu-item" (click)="onLogout()">
-              <p><i class="bi bi-box-arrow-left" style="margin-right: 8px;"></i>Odjava</p>
-            </div>
+          <div class="menu-item" (click)="goToMyProfile()">
+            <p>
+              <i class="bi bi-person-circle" style="margin-right: 8px"></i
+              >Profil
+            </p>
+          </div>
+          <div class="separator"></div>
+          <div class="menu-item" (click)="onLogout()">
+            <p>
+              <i class="bi bi-box-arrow-left" style="margin-right: 8px"></i
+              >Odjava
+            </p>
+          </div>
         </div>
       </div>
-
     </div>
 
     <div class="dropdown-content" *ngIf="isDropdownVisible">
@@ -65,6 +84,13 @@
         </div>
         <div class="navbar-item" (click)="goToClubs()">
           <p>Klubovi</p>
+        </div>
+        <div
+          *ngIf="user.role === 'administrator'"
+          class="navbar-item"
+          (click)="goToAdminPanel()"
+        >
+          <p>Panel</p>
         </div>
         <!-- <div class="navbar-item">
                     <p>FAQ</p>
@@ -86,7 +112,6 @@
         >
           <p>Odjavi se</p>
         </div>
-
       </div>
     </div>
   </div>

@@ -36,6 +36,7 @@ export class NavbarComponent implements OnInit {
     window.addEventListener('resize', this.checkScreenWidth.bind(this));
     this.authService.user$.subscribe((user) => {
       this.user = user;
+      console.log(this.user);
       if (this.user.username != '') {
         this.userRegister = true;
         this.layoutService.loadPerson(this.user);
@@ -69,6 +70,10 @@ export class NavbarComponent implements OnInit {
   goToMyProfile(): void {
     this.menuVisible = false;
     this.router.navigate(['/my-profile/' + this.user.id]);
+  }
+
+  goToAdminPanel(): void {
+    this.router.navigate(['/admin-panel']);
   }
 
   onLogout(): void {

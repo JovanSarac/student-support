@@ -36,6 +36,12 @@ public class User : Entity
         Validate();
         IsActive = true;
     }
+
+    public void DeactivateUser()
+    {
+        Validate();
+        IsActive = false;
+    }
 }
 
 public enum UserRole

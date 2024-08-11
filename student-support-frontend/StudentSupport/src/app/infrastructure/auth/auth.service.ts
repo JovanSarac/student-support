@@ -65,6 +65,17 @@ export class AuthService {
     );
   }
 
+  deactivateUser(userId: number): Observable<User> {
+    return this.http.put<User>(
+      environment.apiHost + 'users/deactivate_user',
+      userId
+    );
+  }
+
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(environment.apiHost + 'users/get_all_users');
+  }
+
   loginStudentGmail(
     registration: RegistrationGmail
   ): Observable<AuthenticationResponse> {
