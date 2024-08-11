@@ -56,6 +56,23 @@ public class AuthenticationService : IAuthenticationService
         }
     }
 
+    public Result<AuthenticationTokensDto> RegisterAuthor(AccountRegistrationDto account)
+    {
+        if (_userRepository.Exists(account.Username)) return Result.Fail(FailureCode.NonUniqueUsername);
+
+        try
+        {
+            var user = _userRepository.Create(new User(account.Username, account.Password, UserRole.Author, false, false));
+            var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email, null, DateOnly.FromDateTime(DateTime.Now), ""));
+
+            return _tokenGenerator.GenerateAccessToken(user, person.Id);
+        }
+        catch (ArgumentException e)
+        {
+            return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+        }
+    }
+
     public Result<AuthenticationTokensDto> LoginStudentGmail(AccountRegistrationGmailDto account)
     {
         try

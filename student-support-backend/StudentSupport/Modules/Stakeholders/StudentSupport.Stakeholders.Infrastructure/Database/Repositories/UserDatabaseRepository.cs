@@ -43,4 +43,9 @@ public class UserDatabaseRepository : IUserRepository
         var user = _dbContext.Users.FirstOrDefault(x => x.Id == id);
         return user;
     }
+
+    public void SaveChanges()
+    {
+        _dbContext.SaveChanges();
+    }
 }

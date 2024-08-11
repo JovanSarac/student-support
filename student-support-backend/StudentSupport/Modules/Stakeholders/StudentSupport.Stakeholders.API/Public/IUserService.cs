@@ -11,5 +11,6 @@ namespace StudentSupport.Stakeholders.API.Public
     public interface IUserService
     {
         Result<UserDto> GetByUserId(int userId);
+        Result<UserDto> ActivateUser(int userId);
     }
 }

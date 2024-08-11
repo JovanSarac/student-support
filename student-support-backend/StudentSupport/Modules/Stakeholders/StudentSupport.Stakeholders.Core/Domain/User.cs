@@ -30,6 +30,12 @@ public class User : Entity
     {
         return Role.ToString().ToLower();
     }
+
+    public void ActivateUser()
+    {
+        Validate();
+        IsActive = true;
+    }
 }
 
 public enum UserRole
