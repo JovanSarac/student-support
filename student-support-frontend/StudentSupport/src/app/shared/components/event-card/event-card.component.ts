@@ -24,7 +24,7 @@ export class EventCardComponent implements OnInit {
     datePublication: new Date(),
     description: '',
     eventType: '',
-    image: '',
+    images: [],
     isArchived: false,
     latitude: 0,
     longitude: 0,

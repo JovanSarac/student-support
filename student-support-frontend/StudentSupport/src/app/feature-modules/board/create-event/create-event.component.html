@@ -177,7 +177,7 @@
         </div>
 
         <div class="picture-info">
-          <div class="pictures">
+          <!--<div class="pictures">
             <div class="container-pictures">
               <div class="dialog-pictures" (click)="fileInput.click()">
                 <p class="add-pictures" *ngIf="!selectedImage">
@@ -209,7 +209,55 @@
                 Morate izabrati fotografiju za događaj!
               </div>
             </div>
+          </div>-->
+
+
+          <!-- Kontejner za galeriju slika -->
+          <div class="container">
+            <div class="add-pic-button">
+              <xp-primary-button
+                style="width: 100%"
+                (click)="fileInput.click()"
+                buttonId="filter-button"
+                buttonType="button"
+                textValue="Dodaj fotografije"
+                iconClass="bi bi-images"
+              >
+              <input
+                  type="file"
+                  #fileInput
+                  (change)="onFileSelected($event)"
+                  style="display: none"
+                />
+              </xp-primary-button>
+            </div>
+
+            <div class="fixed-container-pictures">
+              <div class="mySlides" *ngFor="let slide of event.images; let i = index">
+                <div class="numbertext">{{ i + 1 }} / {{ event.images.length }}</div>
+                <img [src]="slide" style="width: 100%;">
+              </div>
+  
+              <!-- Dugmad za sledeću i prethodnu sliku -->
+              <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+              <a class="next" (click)="plusSlides(1)">&#10095;</a>
+
+            </div>
+            <!-- Slike preko cele širine sa tekstom broja -->
+
+            <div class="pagination-picture">
+              <!-- Sličice slika -->
+    
+                <div class="column" *ngFor="let slide of event.images; let i = index">
+                  <img class="demo cursor" [src]="slide" style="width:100%" (click)="currentSlide(i + 1)" [alt]="slide">
+                </div>
+          
+            </div>
+          
           </div>
+          
+
+
         </div>
       </div>
 
