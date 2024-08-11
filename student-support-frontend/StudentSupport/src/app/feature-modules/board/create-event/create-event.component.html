@@ -232,7 +232,7 @@
               </xp-primary-button>
             </div>
 
-            <div class="fixed-container-pictures">
+            <div *ngIf="event.images.length != 0"  class="fixed-container-pictures">
               <div class="mySlides" *ngFor="let slide of event.images; let i = index">
                 <div class="numbertext">{{ i + 1 }} / {{ event.images.length }}</div>
                 <img [src]="slide" style="width: 100%;">
@@ -244,11 +244,15 @@
               <a class="next" (click)="plusSlides(1)">&#10095;</a>
 
             </div>
-            <!-- Slike preko cele širine sa tekstom broja -->
+
+            <div  *ngIf="event.images.length == 0" class="default-container-picture">
+              <img src="..\..\assets\images\no-image.png" alt="no-pic">
+              <p>Trenutno nema dodatih fotografija.</p>
+
+            </div>
 
             <div class="pagination-picture">
               <!-- Sličice slika -->
-    
                 <div class="column" *ngFor="let slide of event.images; let i = index">
                   <img class="demo cursor" [src]="slide" style="width:100%" (click)="currentSlide(i + 1)" [alt]="slide">
                 </div>
