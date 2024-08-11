@@ -1,73 +1,138 @@
 <div class="home-full-page-bg">
-    <div class="register-form-content">
-        <h2 class="title-register-form">Registracija</h2>
-            <div class="name-and-surname">
-                <div class="name-field">
-                    <p>Ime:</p>
-                    <input type="text" #nameInput [ngClass]="{'red-border': validName}"/>
-                    <p style="color: red; font-size: 12px;" *ngIf="validName">Unesi ime!</p>
-                </div>
-                <div class="surname-field">
-                    <p>Prezime:</p>
-                    <input type="text" #surnameInput [ngClass]="{'red-border': validSurname}"/>
-                    <p style="color: red; font-size: 12px;" *ngIf="validSurname">Unesi prezime!</p>
-                </div>
-            </div>
-
-            <div class="email-field">
-                <p>Email:</p>
-                <input type="email" #emailInput [ngClass]="{'red-border': validEmail}"/>
-                <p style="color: red; font-size: 12px;" *ngIf="validEmail">Unesi email!</p>
-            </div>
-
-            <div class="email-field">
-                <p>Korisnicko ime:</p>
-                <input type="text" #usernameInput [ngClass]="{'red-border': validUsername}"/>
-                <p style="color: red; font-size: 12px;" *ngIf="validUsername">Unesi korisnicko ime!</p>
-            </div>
-            
-            <div class="password-field">
-                <div class="password-text">
-                    <p class="pass">Lozinka:</p>
-                    <p class="again-password">Ponovi lozinku:</p>
-                </div>
-                
-                <div class="password-input">
-                    <input class="password" [type]="fieldTextType ? 'password' : 'text'" #passwordInput [ngClass]="{'red-border': validPassword || samePassword}"/>
-                    <i
-                        
-                        (click)="changeBiEye()"
-                        class="bi"
-                        [ngClass]="{
-                            'bi-eye-slash-fill': fieldTextType,
-                            'bi-eye-fill': !fieldTextType
-                        }"
-                    
-                    ></i>
-
-                    <input class="password" [type]="fieldTextType ? 'password' : 'text'" #passwordagainInput [ngClass]="{'red-border': validPassword || samePassword}"/>
-                    <i
-                            
-                        (click)="changeBiEye()"
-                        class="bi-again"
-                        [ngClass]="{
-                            'bi-eye-slash-fill': fieldTextType,
-                            'bi-eye-fill': !fieldTextType
-                        }"
-                    
-                    ></i>
-                </div>
-                
-            </div>
-            <p style="color: red; font-size: 12px; font-weight: bold; font-style: italic; font-family: Arial, Helvetica, sans-serif;" *ngIf="samePassword">Lozinke nisu iste!</p>
-            <p style="color: red; font-size: 12px; font-weight: bold; font-style: italic; font-family: Arial, Helvetica, sans-serif;" *ngIf="validPassword">Unesi lozinke!</p>
-
-            <div class="button-login">
-                <button (click)="register(nameInput.value, surnameInput.value, emailInput.value , usernameInput.value, passwordInput.value, passwordagainInput.value)">Registruj se</button>
-            </div>
-        
-        
-        
+  <div class="register-form-content">
+    <h2 class="title-register-form">Registracija</h2>
+    <div class="name-and-surname">
+      <div class="name-field">
+        <p>Ime:</p>
+        <input type="text" #nameInput [ngClass]="{ 'red-border': validName }" />
+        <p style="color: red; font-size: 12px" *ngIf="validName">Unesi ime!</p>
+      </div>
+      <div class="surname-field">
+        <p>Prezime:</p>
+        <input
+          type="text"
+          #surnameInput
+          [ngClass]="{ 'red-border': validSurname }"
+        />
+        <p style="color: red; font-size: 12px" *ngIf="validSurname">
+          Unesi prezime!
+        </p>
+      </div>
     </div>
-</div>
 
+    <div class="email-field">
+      <p>Email:</p>
+      <input
+        type="email"
+        #emailInput
+        [ngClass]="{ 'red-border': validEmail }"
+      />
+      <p style="color: red; font-size: 12px" *ngIf="validEmail">Unesi email!</p>
+    </div>
+
+    <div class="email-field">
+      <p>Korisnicko ime:</p>
+      <input
+        type="text"
+        #usernameInput
+        [ngClass]="{ 'red-border': validUsername }"
+      />
+      <p style="color: red; font-size: 12px" *ngIf="validUsername">
+        Unesi korisnicko ime!
+      </p>
+    </div>
+
+    <div class="password-field">
+      <div class="password-text">
+        <p class="pass">Lozinka:</p>
+        <p class="again-password">Ponovi lozinku:</p>
+      </div>
+
+      <div class="password-input">
+        <input
+          class="password"
+          [type]="fieldTextType ? 'password' : 'text'"
+          #passwordInput
+          [ngClass]="{ 'red-border': validPassword || samePassword }"
+        />
+        <i
+          (click)="changeBiEye()"
+          class="bi"
+          [ngClass]="{
+            'bi-eye-slash-fill': fieldTextType,
+            'bi-eye-fill': !fieldTextType
+          }"
+        ></i>
+
+        <input
+          class="password"
+          [type]="fieldTextType ? 'password' : 'text'"
+          #passwordagainInput
+          [ngClass]="{ 'red-border': validPassword || samePassword }"
+        />
+        <i
+          (click)="changeBiEye()"
+          class="bi-again"
+          [ngClass]="{
+            'bi-eye-slash-fill': fieldTextType,
+            'bi-eye-fill': !fieldTextType
+          }"
+        ></i>
+      </div>
+    </div>
+    <p
+      style="
+        color: red;
+        font-size: 12px;
+        font-weight: bold;
+        font-style: italic;
+        font-family: Arial, Helvetica, sans-serif;
+      "
+      *ngIf="samePassword"
+    >
+      Lozinke nisu iste!
+    </p>
+    <p
+      style="
+        color: red;
+        font-size: 12px;
+        font-weight: bold;
+        font-style: italic;
+        font-family: Arial, Helvetica, sans-serif;
+      "
+      *ngIf="validPassword"
+    >
+      Unesi lozinke!
+    </p>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        id="flexCheckDefault"
+        [(ngModel)]="isAuthor"
+      />
+      <label class="form-check-label checkbox-label" for="flexCheckDefault">
+        Želim da budem autor
+      </label>
+    </div>
+
+    <div class="button-login">
+      <button
+        (click)="
+          register(
+            nameInput.value,
+            surnameInput.value,
+            emailInput.value,
+            usernameInput.value,
+            passwordInput.value,
+            passwordagainInput.value
+          )
+        "
+      >
+        Registruj se
+      </button>
+    </div>
+  </div>
+</div>

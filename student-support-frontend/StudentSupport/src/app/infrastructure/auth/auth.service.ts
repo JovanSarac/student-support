@@ -11,14 +11,16 @@ import { User } from './model/user.model';
 import { Registration, RegistrationGmail } from './model/registration.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  user$ = new BehaviorSubject<User>({username: "", id: 0, role: "" });
+  user$ = new BehaviorSubject<User>({ username: '', id: 0, role: '' });
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private tokenStorage: TokenStorage,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   login(login: Login): Observable<AuthenticationResponse> {
     return this.http
@@ -31,34 +33,59 @@ export class AuthService {
       );
   }
 
-  registerStudent(registration: Registration): Observable<AuthenticationResponse> {
+  registerStudent(
+    registration: Registration
+  ): Observable<AuthenticationResponse> {
     return this.http
-    .post<AuthenticationResponse>(environment.apiHost + 'users/student', registration)
-    .pipe(
-      tap((authenticationResponse) => {
-        this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
-        this.setUser();
-      })
+      .post<AuthenticationResponse>(
+        environment.apiHost + 'users/student',
+        registration
+      )
+      .pipe(
+        tap((authenticationResponse) => {
+          this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
+          this.setUser();
+        })
+      );
+  }
+
+  registerAuthor(
+    registration: Registration
+  ): Observable<AuthenticationResponse> {
+    return this.http.post<AuthenticationResponse>(
+      environment.apiHost + 'users/author',
+      registration
     );
   }
 
-  loginStudentGmail(registration: RegistrationGmail): Observable<AuthenticationResponse> {
-    return this.http
-    .post<AuthenticationResponse>(environment.apiHost + 'users/student/gmail', registration)
-    .pipe(
-      tap((authenticationResponse) => {
-        this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
-        this.setUser();
-      })
+  activateUser(userId: number): Observable<User> {
+    return this.http.put<User>(
+      environment.apiHost + 'users/activate_user',
+      userId
     );
+  }
+
+  loginStudentGmail(
+    registration: RegistrationGmail
+  ): Observable<AuthenticationResponse> {
+    return this.http
+      .post<AuthenticationResponse>(
+        environment.apiHost + 'users/student/gmail',
+        registration
+      )
+      .pipe(
+        tap((authenticationResponse) => {
+          this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
+          this.setUser();
+        })
+      );
   }
 
   logout(): void {
-    this.router.navigate(['/']).then(_ => {
+    this.router.navigate(['/']).then((_) => {
       this.tokenStorage.clear();
-      this.user$.next({username: "", id: 0, role: "" });
-      }
-    );
+      this.user$.next({ username: '', id: 0, role: '' });
+    });
   }
 
   checkIfUserExists(): void {
@@ -71,7 +98,7 @@ export class AuthService {
 
   private setUser(): void {
     const jwtHelperService = new JwtHelperService();
-    const accessToken = this.tokenStorage.getAccessToken() || "";
+    const accessToken = this.tokenStorage.getAccessToken() || '';
     const user: User = {
       id: +jwtHelperService.decodeToken(accessToken).id,
       username: jwtHelperService.decodeToken(accessToken).username,

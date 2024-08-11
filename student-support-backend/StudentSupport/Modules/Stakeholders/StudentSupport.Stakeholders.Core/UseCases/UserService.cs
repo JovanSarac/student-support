@@ -34,5 +34,20 @@ namespace StudentSupport.Stakeholders.Core.UseCases
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }
         }
+
+        public Result<UserDto> ActivateUser(int userId)
+        {
+            try
+            {
+                var user = _userRepository.GetById(userId);
+                user.ActivateUser();
+                _userRepository.SaveChanges();
+                return MapToDto(user);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
     }
 }
