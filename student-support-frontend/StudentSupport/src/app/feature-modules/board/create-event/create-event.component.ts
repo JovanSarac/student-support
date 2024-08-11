@@ -77,6 +77,8 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
   dateTimeNow: string = this.dtn.toString();
   minDate = new Date().toISOString().slice(0, 16);
 
+  slideIndex = 1;
+
   eventForm = new FormGroup({
     type: new FormControl('', Validators.required),
     name: new FormControl('', [
@@ -100,46 +102,6 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     private eventService: EventsService,
     private toastr: ToastrService
   ) {}
-
-  slideIndex = 1;
-  caption = '';
-
-  /*slides = [
-    { src: 'https://www.cooliranje.com/images/t/t_1124435_slike_prirode___kompilacija_1_admin_cool_v.jpg', thumbnail: 'https://www.cooliranje.com/images/t/t_1124435_slike_prirode___kompilacija_1_admin_cool_v.jpg', alt: 'Šuma' },
-    { src: 'https://c4.wallpaperflare.com/wallpaper/362/276/920/nature-4k-pc-full-hd-wallpaper-preview.jpg', thumbnail: 'https://c4.wallpaperflare.com/wallpaper/362/276/920/nature-4k-pc-full-hd-wallpaper-preview.jpg', alt: 'Cinque Terre' },
-    { src: 'https://uploads.tapatalk-cdn.com/20190217/3ac959b85b8b2f4a68d00a19ac4daaa2.jpg', thumbnail: 'https://uploads.tapatalk-cdn.com/20190217/3ac959b85b8b2f4a68d00a19ac4daaa2.jpg', alt: 'Severna svetlost' },
-    { src: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiaOLElmt8cYFBCKI3j9fNVkrvJaAi-YELP8azESFWIpLB2ZraCje5j9o7hB4-oKQttkuyJdVIp28vh8ERGEEPZl9ac61ICZJMY0EWwG7qD5qjITsIZ7FRj_qWxP-ISApN4wQYvnWykeTo/s1600/priroda-pozadine-za-desktop-0083-planine-jezero.jpg', thumbnail: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiaOLElmt8cYFBCKI3j9fNVkrvJaAi-YELP8azESFWIpLB2ZraCje5j9o7hB4-oKQttkuyJdVIp28vh8ERGEEPZl9ac61ICZJMY0EWwG7qD5qjITsIZ7FRj_qWxP-ISApN4wQYvnWykeTo/s1600/priroda-pozadine-za-desktop-0083-planine-jezero.jpg', alt: 'Priroda i izlazak sunca' },
-
-  ];*/
-
-  plusSlides(n: number): void {
-    this.showSlides(this.slideIndex += n);
-  }
-
-  currentSlide(n: number): void {
-    this.showSlides(this.slideIndex = n);
-  }
-
-  showSlides(n: number): void {
-    var slides = document.getElementsByClassName('mySlides') as HTMLCollectionOf<HTMLElement>;
-    var dots = document.getElementsByClassName('demo');
-    
-    if (n > this.event.images.length) { this.slideIndex = 1; }
-    if (n < 1) { this.slideIndex = slides.length; }
-    for (let i = 0; i < slides.length; i++) {
-      slides[i].style.display = 'none';
-    }
-    for (let i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(' active', '');
-    }
-    slides[this.slideIndex - 1].style.display = 'block';
-    dots[this.slideIndex - 1].className += ' active';
-  
-    setTimeout(() => {
-      this.caption = dots[this.slideIndex - 1].getAttribute('alt')!;
-    });
-  }
-
 
   ngOnInit(): void {
     this.authService.user$.subscribe((user) => {
@@ -306,6 +268,40 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     };
 
     reader.readAsDataURL(file);
+  }
+
+  plusSlides(n: number): void {
+    this.showSlides(this.slideIndex += n);
+  }
+
+  currentSlide(n: number): void {
+    this.showSlides(this.slideIndex = n);
+  }
+
+  showSlides(n: number): void {
+    var slides = document.getElementsByClassName('mySlides') as HTMLCollectionOf<HTMLElement>;
+    var dots = document.getElementsByClassName('demo');
+    
+    if (n > this.event.images.length) { this.slideIndex = 1; }
+    if (n < 1) { this.slideIndex = slides.length; }
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.display = 'none';
+    }
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(' active', '');
+    }
+    slides[this.slideIndex - 1].style.display = 'block';
+    dots[this.slideIndex - 1].className += ' active';
+  
+  }
+
+  removeImage(index: number){
+    if (index > -1 && index < this.event.images.length) {
+      this.event.images.splice(index, 1);
+      setTimeout(() => {
+        this.showSlides(index+1);
+      }, 100);
+    }
   }
 
   getCityFromAddress(address: string): string {

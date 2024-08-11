@@ -236,6 +236,7 @@
               <div class="mySlides" *ngFor="let slide of event.images; let i = index">
                 <div class="numbertext">{{ i + 1 }} / {{ event.images.length }}</div>
                 <img [src]="slide" style="width: 100%;">
+                <div class="remove-image" (click)="removeImage(i)" matTooltip="Ukloni ovu fotografiju"><i class="bi bi-trash3-fill"></i></div>
               </div>
   
               <!-- Dugmad za sledeću i prethodnu sliku -->
