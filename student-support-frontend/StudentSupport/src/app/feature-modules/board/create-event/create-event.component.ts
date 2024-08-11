@@ -264,6 +264,10 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         const compressedImageData = canvas.toDataURL('image/webp', 0.7); // Pokušaj sa 0.3 za dalju kompresiju
 
         this.event.images.push(compressedImageData);
+        this.slideIndex = this.event.images.length;
+        setTimeout(() => {
+          this.showSlides(this.slideIndex);
+        }, 100);
       };
     };
 
@@ -298,9 +302,11 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
   removeImage(index: number){
     if (index > -1 && index < this.event.images.length) {
       this.event.images.splice(index, 1);
-      setTimeout(() => {
-        this.showSlides(index+1);
-      }, 100);
+      if(this.event.images.length > 0){
+        setTimeout(() => {
+          this.showSlides(index+1);
+        }, 100);
+      }
     }
   }
 
