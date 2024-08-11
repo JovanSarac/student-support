@@ -10,7 +10,7 @@ export interface MyEvent {
   longitude: number;
   eventType: string;
   datePublication: Date;
-  image: string;
+  images: string[];
   isArchived: boolean;
   price?: number;
 }

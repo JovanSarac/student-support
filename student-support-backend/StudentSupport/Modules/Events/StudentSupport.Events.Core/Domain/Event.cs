@@ -19,14 +19,14 @@ namespace StudentSupport.Events.Core.Domain
         public double Longitude { get; init; }
         public EventType EventType { get; init; }
         public DateTime DatePublication { get; init; }
-        public string Image {  get; init; }
+        public List<byte[]> Images {  get; init; }
         public bool IsArchived { get; set; }
         public double? Price { get; set; }
         public Event()
         {
-
+            Images = new List<byte[]>();
         }
-        public Event(long userId, string name, string description, DateTime dateEvent, DateTime dateEndEvent, string address, double latitude, double longitude, EventType eventType, DateTime datePublication, string image, bool isArchived, double price)
+        public Event(long userId, string name, string description, DateTime dateEvent, DateTime dateEndEvent, string address, double latitude, double longitude, EventType eventType, DateTime datePublication, List<byte[]> images, string image, bool isArchived, double price)
         {
             UserId = userId;
             Name = name;
@@ -38,7 +38,7 @@ namespace StudentSupport.Events.Core.Domain
             Longitude = longitude;
             EventType = eventType;
             DatePublication = datePublication;
-            Image = image;
+            Images = images ?? new List<byte[]>();
             IsArchived = isArchived;
             Price = price;
             Validate();

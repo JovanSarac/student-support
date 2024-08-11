@@ -19,7 +19,7 @@ namespace StudentSupport.Events.API.Dtos
         public double Longitude { get; set; }
         public string EventType { get; set; }
         public DateTime DatePublication { get; set; }
-        public string Image { get;  set; }
+        public List<string> Images { get;  set; }
         public bool IsArchived { get; set; }
         public double? Price { get; set; }
     }

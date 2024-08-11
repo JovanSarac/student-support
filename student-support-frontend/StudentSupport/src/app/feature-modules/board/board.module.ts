@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CalendarModule } from 'primeng/calendar';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { MatTooltip } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     SharedModule,
     FormsModule,
     PickerModule,
+    MatTooltip
   ],
   exports:[
     InformationBoardComponent

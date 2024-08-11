@@ -12,8 +12,13 @@ namespace StudentSupport.Events.Core.Mappers
     public class EventsProfile : Profile
     {
         public EventsProfile() {
-            CreateMap<Event, EventDto>().ReverseMap();
-            CreateMap<Participation, ParticipationDto>().ReverseMap();
+            CreateMap<Event, EventDto>()
+           .ForMember(dest => dest.Images, opt => opt.MapFrom(src =>
+               src.Images != null ?  src.Images.ConvertAll(image => "data:image/webp;base64," + Convert.ToBase64String(image)) : new List<string>()));
+
+            CreateMap<EventDto, Event>()
+                .ForMember(dest => dest.Images, opt => opt.MapFrom(src =>
+                    src.Images != null ? src.Images.ConvertAll(image => Convert.FromBase64String(image.Replace("data:image/webp;base64,", ""))) : new List<byte[]>()));
         }
     }
 }
