@@ -1,0 +1,35 @@
+.table-container {
+  /* overflow-x: auto; */
+  /* margin: 20px; */
+  padding-top: 5%;
+  height: 92dvh;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-light-color);
+}
+
+th {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+}
+
+tr:hover {
+  background-color: var(--primary-hover-color);
+  color: var(--background-color);
+}
+
+@media (max-width: 600px) {
+  th,
+  td {
+    padding: 8px;
+  }
+}

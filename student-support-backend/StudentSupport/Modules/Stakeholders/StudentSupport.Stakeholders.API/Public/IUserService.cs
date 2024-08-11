@@ -12,5 +12,7 @@ namespace StudentSupport.Stakeholders.API.Public
     {
         Result<UserDto> GetByUserId(int userId);
         Result<UserDto> ActivateUser(int userId);
+        Result<UserDto> DeactivateUser(int userId);
+        Result<List<UserDto>> GetAllUsers();
     }
 }

@@ -49,5 +49,33 @@ namespace StudentSupport.Stakeholders.Core.UseCases
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }
         }
+
+        public Result<UserDto> DeactivateUser(int userId)
+        {
+            try
+            {
+                var user = _userRepository.GetById(userId);
+                user.DeactivateUser();
+                _userRepository.SaveChanges();
+                return MapToDto(user);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        public Result<List<UserDto>> GetAllUsers()
+        {
+            try
+            {
+                var users = _userRepository.GetAll();
+                return MapToDto(users);
+            }
+            catch(KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@
 using StudentSupport.Stakeholders.API.Public;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using StudentSupport.Events.API.Public;
 
 namespace StudentSupport.API.Controllers;
 
@@ -10,11 +11,13 @@ public class AuthenticationController : BaseApiController
 {
     private readonly IAuthenticationService _authenticationService;
     private readonly IUserService _userService;
+    private readonly IEmailService _emailService;
 
-    public AuthenticationController(IAuthenticationService authenticationService, IUserService userService)
+    public AuthenticationController(IAuthenticationService authenticationService, IUserService userService, IEmailService emailService)
     {
         _authenticationService = authenticationService;
         _userService = userService;
+        _emailService = emailService;
     }
 
     [HttpPost("student")]
@@ -36,6 +39,34 @@ public class AuthenticationController : BaseApiController
     public ActionResult<UserDto> ActivateUser([FromBody] int userId)
     {
         var result = _userService.ActivateUser(userId);
+        
+        if (result.IsSuccess)
+        {
+            _emailService.SendActivationEmailAsync(result.Value.Username, (int)result.Value.Id, result.Value.Role);
+        }
+
+        return CreateResponse(result);
+    }
+
+    [Authorize(Policy = "administratorPolicy")]
+    [HttpPut("deactivate_user")]
+    public ActionResult<UserDto> DeactivateUser([FromBody] int userId)
+    {
+        var result = _userService.DeactivateUser(userId);
+
+        if (result.IsSuccess)
+        {
+            _emailService.SendDeactivationEmailAsync(result.Value.Username, (int)result.Value.Id, result.Value.Role);
+        }
+
+        return CreateResponse(result);
+    }
+
+    [Authorize(Policy = "administratorPolicy")]
+    [HttpGet("get_all_users")]
+    public ActionResult<List<UserDto>> GetUsers()
+    {
+        var result = _userService.GetAllUsers();
         return CreateResponse(result);
     }
 

@@ -1,0 +1,45 @@
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Active Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.username }}</td>
+        <td>
+          {{
+            user.role.toString() === "0"
+              ? "Admin"
+              : user.role.toString() === "1"
+              ? "Student"
+              : "Author"
+          }}
+        </td>
+        <td>{{ user.isActive }}</td>
+        <td>
+          <xp-primary-button
+            *ngIf="!user.isActive && user.role.toString() !== '0'"
+            buttonId="activate-user"
+            buttonType="button"
+            textValue="Aktiviraj"
+            (click)="activateUser(user.id)"
+          >
+          </xp-primary-button>
+          <xp-primary-button
+            *ngIf="user.isActive && user.role.toString() !== '0'"
+            buttonId="activate-user"
+            buttonType="button"
+            textValue="Deaktiviraj"
+            (click)="deactivateUser(user.id)"
+          >
+          </xp-primary-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

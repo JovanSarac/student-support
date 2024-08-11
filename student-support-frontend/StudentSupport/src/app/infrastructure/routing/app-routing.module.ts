@@ -8,6 +8,7 @@ import { CreateEventComponent } from 'src/app/feature-modules/board/create-event
 import { EventsPageComponent } from 'src/app/feature-modules/events/events-page/events-page.component';
 import { SingleEventPageComponent } from 'src/app/feature-modules/events/single-event-page/single-event-page.component';
 import { MyProfileComponent } from 'src/app/feature-modules/layout/my-profile/my-profile.component';
+import { AdminPanelComponent } from '../auth/administrator/admin-panel/admin-panel.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -36,6 +37,11 @@ const routes: Routes = [
   {
     path: 'my-profile/:userId',
     component: MyProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'admin-panel',
+    component: AdminPanelComponent,
     canActivate: [AuthGuard],
   },
 ];

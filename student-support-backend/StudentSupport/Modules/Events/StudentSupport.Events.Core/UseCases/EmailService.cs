@@ -7,11 +7,18 @@ using System.Net.Mail;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using StudentSupport.Stakeholders.API.Internal;
+using StudentSupport.Stakeholders.Core.Domain;
 
 namespace StudentSupport.Events.Core.UseCases
 {
     public class EmailService : IEmailService
     {
+        private readonly IInternalPersonService _internalPersonService;
+        public EmailService(IInternalPersonService internalPersonService)
+        {
+            _internalPersonService = internalPersonService;    
+        }
 
         public async Task SendEmailAsync(EventDto eventDto, string receiversMail)
         {
@@ -167,7 +174,62 @@ namespace StudentSupport.Events.Core.UseCases
             await client.SendMailAsync(mail);
         }
 
+        public async Task SendActivationEmailAsync(string username, int id, int role)
+        {
+            var person = _internalPersonService.GetByUserId(id);
 
+            MailMessage mail = new MailMessage("unstudent@outlook.com", person.Value.Email);
 
+            if(role == 2)
+            {
+                mail.Subject = "Aktivacija Vašeg naloga";
+                mail.Body = "Vaš zahtev za kreiranje autorskog naloga sa username-om: " + username + " je prihvaćen i od ovog momenta je vaš profil aktivan. \n" +
+                    "Hvala vam što ste se prijavili na naš sajt UNStudent! \n" +
+                    "Srećno formiranje novih događaja i klubova želi Vam naš UNStudent tim! \n";
+            }
+            else
+            {
+                mail.Subject = "Ponovna aktivacija Vašeg naloga";
+                mail.Body = "Vaš nalog sa username-om: " + username + " je ponovo aktivan. \n" +
+                    "Hvala vam što ste se prijavili na naš sajt UNStudent! \n";
+            }
+
+            
+
+            SmtpClient client = new SmtpClient("smtp-mail.outlook.com", 587);
+            client.Credentials = new NetworkCredential("unstudent@outlook.com", "Studentskidogadjaji021!");
+            client.EnableSsl = true;
+
+            await client.SendMailAsync(mail);
+
+        }
+
+        public async Task SendDeactivationEmailAsync(string username, int id, int role)
+        {
+            var person = _internalPersonService.GetByUserId(id);
+
+            MailMessage mail = new MailMessage("unstudent@outlook.com", person.Value.Email);
+            if(role == 2)
+            {
+                mail.Subject = "Deaktivacija Vašeg naloga";
+                mail.Body = "Vaš zahtev za kreiranje autorskog naloga sa username-om: " + username + " je odbijen. \n" +
+                    "Za više informacija kontaktirajte našu korisničku službu na unstudent@outlook.com. \n" +
+                    "Hvala vam što koristite naš sajt UNStudent! \n";
+            }
+            else
+            {
+                mail.Subject = "Deaktivacija Vašeg naloga";
+                mail.Body = "Vaš nalog sa username-om: " + username + " je deaktiviran. \n" +
+                    "Za više informacija kontaktirajte našu korisničku službu na unstudent@outlook.com. \n" +
+                    "Hvala vam što koristite naš sajt UNStudent! \n";
+            }
+            
+
+            SmtpClient client = new SmtpClient("smtp-mail.outlook.com", 587);
+            client.Credentials = new NetworkCredential("unstudent@outlook.com", "Studentskidogadjaji021!");
+            client.EnableSsl = true;
+
+            await client.SendMailAsync(mail);
+        }
     }
 }

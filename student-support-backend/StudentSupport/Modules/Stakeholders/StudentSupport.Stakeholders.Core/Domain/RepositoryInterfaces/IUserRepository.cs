@@ -8,4 +8,5 @@ public interface IUserRepository
     long GetPersonId(long userId);
     User GetById(long id);
     void SaveChanges();
+    List<User> GetAll();
 }
