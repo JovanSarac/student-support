@@ -18,6 +18,8 @@
   <ItemGroup>
     <ProjectReference Include="..\BuildingBlocks\StudentSupport.BuildingBlocks.Core\StudentSupport.BuildingBlocks.Core.csproj" />
     <ProjectReference Include="..\BuildingBlocks\StudentSupport.BuildingBlocks.Infrastructure\StudentSupport.BuildingBlocks.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules\Clubs\StudentSupport.Clubs.API\StudentSupport.Clubs.API.csproj" />
+    <ProjectReference Include="..\Modules\Clubs\StudentSupport.Clubs.Infrastructure\StudentSupport.Clubs.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\Events\StudentSupport.Events.API\StudentSupport.Events.API.csproj" />
     <ProjectReference Include="..\Modules\Events\StudentSupport.Events.Infrastructure\StudentSupport.Events.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\Stakeholders\StudentSupport.Stakeholders.API\StudentSupport.Stakeholders.API.csproj" />

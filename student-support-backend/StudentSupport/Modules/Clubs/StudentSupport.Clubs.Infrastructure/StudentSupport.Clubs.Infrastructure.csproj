@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Database\Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\StudentSupport.BuildingBlocks.Infrastructure\StudentSupport.BuildingBlocks.Infrastructure.csproj" />
+    <ProjectReference Include="..\StudentSupport.Clubs.Core\StudentSupport.Clubs.Core.csproj" />
+  </ItemGroup>
+
+</Project>

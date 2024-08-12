@@ -1,7 +1,6 @@
 using StudentSupport.Stakeholders.Infrastructure;
 using StudentSupport.Events.Infrastructure;
-
-
+using StudentSupport.Clubs.Infrastructure;
 
 namespace StudentSupport.API.Startup;
 
@@ -11,6 +10,7 @@ public static class ModulesConfiguration
     {
         services.ConfigureStakeholdersModule();
         services.ConfigureEventsModule();
+        services.ConfigureClubsModule();
 
         return services;
     }
