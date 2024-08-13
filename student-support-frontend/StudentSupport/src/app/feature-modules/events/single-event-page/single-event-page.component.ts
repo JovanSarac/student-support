@@ -1,9 +1,9 @@
 import {
-  AfterViewInit,
   Component,
   OnInit,
   ViewChild,
   ChangeDetectorRef,
+  AfterViewInit,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MyEvent } from '../../board/model/myevent.model';
@@ -18,6 +18,8 @@ import {
 } from 'src/app/shared/model/participation-model';
 import { marked, options } from 'marked';
 import { ToastrService } from 'ngx-toastr';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-single-event-page',
@@ -80,6 +82,7 @@ export class SingleEventPageComponent implements OnInit {
     this.eventId = Number(this.route.snapshot.paramMap.get('eventId'));
     this.getLoggedUser();
     this.getEventById();
+    // ($('#carouselExampleIndicators') as any).carousel();
   }
 
   getEventById(): void {
@@ -89,6 +92,7 @@ export class SingleEventPageComponent implements OnInit {
         this.getAuthor();
         this.countParticipationsByEventId();
         this.checkIfUserIsAuthorOfEvent();
+        (jQuery('#carouselExampleIndicators') as any).carousel();
       },
     });
   }

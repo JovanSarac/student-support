@@ -2,7 +2,8 @@
   <div class="date-action-button-container">
     <p class="event-date-time-p">
       <i class="bi bi-compass-fill"></i>
-      {{ formatDate(event.dateEvent.toString()) }} - {{ formatDate(event.dateEndEvent.toString()) }}
+      {{ formatDate(event.dateEvent.toString()) }} -
+      {{ formatDate(event.dateEndEvent.toString()) }}
     </p>
 
     <div class="action-buttons">
@@ -90,7 +91,48 @@
       </p>
     </div>
   </div>
-  <img class="event-image" [src]="event.images[0]" />
+
+  <div
+    id="carouselExampleIndicators"
+    class="carousel slide image-carousel"
+    data-ride="carousel"
+  >
+    <ol class="carousel-indicators">
+      <li
+        *ngFor="let image of event.images; let i = index"
+        [attr.data-slide-to]="i"
+        [class.active]="i === 0"
+      ></li>
+    </ol>
+    <div class="carousel-inner single-image-carousel">
+      <div
+        *ngFor="let image of event.images; let i = index"
+        class="carousel-item"
+        [class.active]="i === 0"
+      >
+        <img class="d-block w-100" [src]="image" alt="Slide {{ i + 1 }}" />
+      </div>
+    </div>
+    <a
+      class="carousel-control-prev"
+      href="#carouselExampleIndicators"
+      role="button"
+      data-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a
+      class="carousel-control-next"
+      href="#carouselExampleIndicators"
+      role="button"
+      data-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
   <div class="additional-info-container">
     <div class="location-map-container">
       <p><i class="bi bi-geo-alt-fill"></i> Location</p>

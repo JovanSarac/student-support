@@ -19,6 +19,7 @@ namespace StudentSupport.Events.Core.Mappers
             CreateMap<EventDto, Event>()
                 .ForMember(dest => dest.Images, opt => opt.MapFrom(src =>
                     src.Images != null ? src.Images.ConvertAll(image => Convert.FromBase64String(image.Replace("data:image/webp;base64,", ""))) : new List<byte[]>()));
+            CreateMap<Participation, ParticipationDto>().ReverseMap();
         }
     }
 }
