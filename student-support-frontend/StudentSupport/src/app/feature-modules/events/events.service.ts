@@ -15,9 +15,15 @@ export class EventsService {
   constructor(private http: HttpClient) {}
 
   getAllEvents(user: User): Observable<PagedResults<MyEvent>> {
-    return this.http.get<PagedResults<MyEvent>>(
-      environment.apiHost + user.role + '/events'
-    );
+    if (user.role === 'student') {
+      return this.http.get<PagedResults<MyEvent>>(
+        environment.apiHost + user.role + '/events/get_all_incoming_events'
+      );
+    } else {
+      return this.http.get<PagedResults<MyEvent>>(
+        environment.apiHost + user.role + '/events'
+      );
+    }
   }
 
   participateEvent(participation: Participation): Observable<Participation> {
@@ -115,7 +121,9 @@ export class EventsService {
 
   getYoursParticipateEvents(userId: number): Observable<MyEvent[]> {
     return this.http.get<MyEvent[]>(
-      environment.apiHost + 'student/events/get_yours_participate_events/' + userId
+      environment.apiHost +
+        'student/events/get_yours_participate_events/' +
+        userId
     );
   }
 

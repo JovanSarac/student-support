@@ -89,5 +89,29 @@ namespace StudentSupport.Events.Infrastructure.Database.Repositories
                 .Take(4) 
                 .ToList();
         }
+
+        public PagedResult<Event> GetIncomingPagedEvents(int page, int pageSize)
+        {
+            var currentDate = DateTime.UtcNow;
+
+            var query = _dbSet
+                .Where(e => e.DateEvent >= currentDate && !e.IsArchived);
+
+            var totalCount = query.Count();
+
+            if (pageSize == 0 && page == 0)
+            {
+                return new PagedResult<Event>(query.ToList(), totalCount);
+            }
+
+            var pagedEvents = query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return new PagedResult<Event>(pagedEvents, totalCount);
+        }
+
+
     }
 }

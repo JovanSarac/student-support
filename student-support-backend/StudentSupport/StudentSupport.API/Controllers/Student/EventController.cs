@@ -24,6 +24,13 @@ namespace StudentSupport.API.Controllers.Student
             return CreateResponse(result);
         }
 
+        [HttpGet("get_all_incoming_events")]
+        public ActionResult<PagedResult<EventDto>> GetAllIncomingEvents([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _eventService.GetIncomingEventsPaged(page, pageSize);
+            return CreateResponse(result);
+        }
+
         [HttpGet("{id:int}")]
         public ActionResult<EventDto> Get(int id)
         {

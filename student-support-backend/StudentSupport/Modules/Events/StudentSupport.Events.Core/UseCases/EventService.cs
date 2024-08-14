@@ -105,5 +105,11 @@ namespace StudentSupport.Events.Core.UseCases
             return MapToDto(_eventRepository.GetRandomFourEvents());
         }
 
+
+        public Result<PagedResult<EventDto>> GetIncomingEventsPaged(int page, int pageSize)
+        {
+            var result = _eventRepository.GetIncomingPagedEvents(page, pageSize);
+            return MapToDto(result);
+        }
     }
 }

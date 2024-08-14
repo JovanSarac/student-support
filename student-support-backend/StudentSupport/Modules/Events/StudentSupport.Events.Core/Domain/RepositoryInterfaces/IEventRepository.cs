@@ -13,5 +13,6 @@ namespace StudentSupport.Events.Core.Domain.RepositoryInterfaces
         void SaveChanges();
         List<Event> GetAll();
         List<Event> GetRandomFourEvents();
+        PagedResult<Event> GetIncomingPagedEvents(int page, int pageSize);
     }
 }

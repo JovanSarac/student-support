@@ -12,6 +12,7 @@ namespace StudentSupport.Events.API.Public
     public interface IEventService
     {
         Result<PagedResult<EventDto>> GetPaged(int page, int pageSize);
+        Result<PagedResult<EventDto>> GetIncomingEventsPaged(int page, int pageSize);
         Result<EventDto> Create(EventDto eventDto);
         Result<EventDto> Update(EventDto eventDto);
         Result Delete(int id);
