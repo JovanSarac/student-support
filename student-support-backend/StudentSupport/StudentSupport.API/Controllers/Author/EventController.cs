@@ -100,5 +100,12 @@ namespace StudentSupport.API.Controllers.Author
             var result = _eventService.GetEventsBySearchName(eventDtos, name);
             return CreateResponse(result);
         }
+
+        [HttpPost("filter_events")]
+        public ActionResult<List<EventDto>> GetEventsByFilters([FromBody] FilterEventsRequestDto request)
+        {
+            var result = _eventService.GetEventsByFilters(request.EventDtos, request.TypeOfEvents);
+            return CreateResponse(result);
+        }
     }
 }

@@ -163,4 +163,27 @@ export class EventsPageComponent implements OnInit {
     this.searchName = '';
     this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab } });
   }
+
+
+
+  onCheckboxChange() {
+    const checkedValues = this.getCheckedCheckboxes();
+    this.service.getEventsByFilters(this.events, checkedValues, this.user).subscribe({
+      next: (result : MyEvent[])=>{
+        this.eventsForDisplay = result;
+        this.updatePagedEvents();
+      }
+    })
+  }
+
+  getCheckedCheckboxes(): string[] {
+    const checkedValues: string[] = [];
+    const checkboxes = document.querySelectorAll('.event-checkbox:checked');
+  
+    checkboxes.forEach((checkbox: any) => {
+      checkedValues.push(checkbox.value);
+    });
+  
+    return checkedValues;
+  }
 }

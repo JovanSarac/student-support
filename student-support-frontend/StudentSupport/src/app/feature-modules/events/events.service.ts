@@ -133,12 +133,21 @@ export class EventsService {
     );
   }
 
-  getEventsBySearchName(events: MyEvent[], name: string | null, user:User ): Observable<MyEvent[]> {
-    
+  getEventsBySearchName(events: MyEvent[], name: string | null, user:User ): Observable<MyEvent[]> {  
     return this.http.post<MyEvent[]>(
       environment.apiHost + user.role + '/events/search_events/' + name,
       events
     );
-  
+  }
+
+  getEventsByFilters( events: MyEvent[], typeOfEvents: string[], user:User ): Observable<MyEvent[]> {  
+    const filterPayload = {
+      eventDtos: events,
+      typeOfEvents: typeOfEvents
+  };
+    return this.http.post<MyEvent[]>(
+      environment.apiHost + user.role + '/events/filter_events',
+      filterPayload
+    );
   }
 }

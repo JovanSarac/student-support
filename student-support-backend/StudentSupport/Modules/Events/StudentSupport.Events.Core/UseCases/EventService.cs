@@ -116,8 +116,16 @@ namespace StudentSupport.Events.Core.UseCases
         {
             if (searchName == null) 
                 return eventDtos;
-
             var result = eventDtos.FindAll(e => e.Name.ToUpper().Contains(searchName.ToUpper()));
+            return result;
+        }
+
+        public Result<List<EventDto>> GetEventsByFilters(List<EventDto> eventDtos, List<string> typeOfEvents)
+        {
+            if (typeOfEvents.Count == 0)
+                return eventDtos;
+
+            var result = eventDtos.FindAll(e => typeOfEvents.Contains(e.EventType));
             return result;
         }
     }

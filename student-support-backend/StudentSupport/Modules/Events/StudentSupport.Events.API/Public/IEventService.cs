@@ -24,5 +24,6 @@ namespace StudentSupport.Events.API.Public
         Result<List<EventDto>> GetYoursParticipateEvents(int userId);
         Result<List<EventDto>> GetRandomFourEvents();
         Result<List<EventDto>> GetEventsBySearchName(List<EventDto> eventDtos, string? searchName);
+        Result<List<EventDto>> GetEventsByFilters(List<EventDto> eventDtos, List<string> typeOfEvents);
     }
 }
