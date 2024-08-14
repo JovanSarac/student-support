@@ -26,6 +26,20 @@ export class EventsPageComponent implements OnInit {
   activeTab: string = 'allEvents';
 
   searchName: string | null = "";
+  selectedCheckboxes: string[] = [];
+
+  eventType: { [key: string]: string } = {
+    AcademicConferenceAndSeminars: 'Konferencije',
+    WorkshopsAndCourses: 'Kursevi',
+    CulturalEvent: 'Kulturni',
+    Fair: 'Sajamski',
+    HumanitarianEvent: 'Humanitarni',
+    ArtExhibitionsAndPerformances: 'Umetnički',
+    StudentPartiesAndSocialEvents: 'Društveni',
+    Competitions: 'Takmičenja',
+    StudentTrips: 'Putovanja',
+    Other: 'Ostalo'
+  };
 
   
   constructor(
@@ -167,8 +181,8 @@ export class EventsPageComponent implements OnInit {
 
 
   onCheckboxChange() {
-    const checkedValues = this.getCheckedCheckboxes();
-    this.service.getEventsByFilters(this.events, checkedValues, this.user).subscribe({
+    this.selectedCheckboxes = this.getCheckedCheckboxes();
+    this.service.getEventsByFilters(this.events, this.selectedCheckboxes, this.user).subscribe({
       next: (result : MyEvent[])=>{
         this.eventsForDisplay = result;
         this.updatePagedEvents();
@@ -185,5 +199,29 @@ export class EventsPageComponent implements OnInit {
     });
   
     return checkedValues;
+  }
+
+  updateCheckboxes() {
+    const checkboxes = document.querySelectorAll('.event-checkbox');
+    
+    checkboxes.forEach((checkbox: any) => {
+      checkbox.checked = this.selectedCheckboxes.includes(checkbox.value);
+    });
+  }
+
+  clearTypeFilter(type: string){
+    const index = this.selectedCheckboxes.indexOf(type);
+    if (index !== -1) {
+      this.selectedCheckboxes.splice(index, 1);
+      this.updateCheckboxes();  
+    }
+    this.service.getEventsByFilters(this.events, this.selectedCheckboxes, this.user).subscribe({
+      next: (result : MyEvent[])=>{
+        this.eventsForDisplay = result;
+        this.updatePagedEvents();
+      }
+    })
+    
+    
   }
 }

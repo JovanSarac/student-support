@@ -279,11 +279,39 @@
 
 }
 
+.searched p{
+  padding: 0px 5px;
+}
+
 .searched i{
   cursor: pointer;
 }
 
 .searched i:hover{
+  color: var(--error-color);
+  transition: 0.5s;
+}
+
+.filtered{
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+  margin-left: 3%;
+  gap: 10px;
+}
+
+.filtered p{
+  padding: 10px 5px;
+}
+
+.filtered-type{
+  cursor: pointer;
+  border-radius: 15px;
+  background-color: #f8f7fa;
+}
+
+
+.filtered-type i:hover{
   color: var(--error-color);
   transition: 0.5s;
 }
