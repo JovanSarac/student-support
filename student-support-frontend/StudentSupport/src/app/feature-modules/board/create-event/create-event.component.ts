@@ -425,7 +425,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
           'Uspješno!',
           'Kreirali ste događaj pod nazivom ' + result.name + ' !'
         );
-        this.router.navigate(['events-page']);
+        this.router.navigate(['events-page'], { queryParams: { activeTab: 'yourEvents' } });
       },
     });
   }

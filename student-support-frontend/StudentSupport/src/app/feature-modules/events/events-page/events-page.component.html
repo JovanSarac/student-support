@@ -9,17 +9,17 @@
           [control]="searchControl"
           inputId="searchInput"
           placeholderSentence="Pretraži događaje"
-          (keydown.enter)="searchEventsByName(searchControl.value)"
+          (keydown.enter)="searchEvent(searchControl.value!)"
         ></xp-input>
-        <p (click)="searchEventsByName(searchControl.value)">
+        <p (click)="searchEvent(searchControl.value!)">
           <i class="bi bi-search"></i>
         </p>
       </div>
 
       <div class="buttons-tab">
-        <p [ngClass]="{'active': activeTab === 'allEvents'}"  (click)="setActiveTab('allEvents')"><i class="bi bi-calendar-event-fill" style="margin-right: 10px;"></i>Svi događaji</p>
-        <p [ngClass]="{'active': activeTab === 'yourEvents'}" (click)="setActiveTab('yourEvents')" *ngIf="user.role ==='author'"><i class="bi bi-bookmark-star-fill" style="margin-right: 10px;"></i>Vaši događaji</p>
-        <p [ngClass]="{'active': activeTab === 'yourInterests'}"  (click)="setActiveTab('yourInterests')" *ngIf="user.role ==='student'"><i class="bi bi-star-fill" style="margin-right: 10px;"></i>Vaša interesovanja</p>
+        <p [ngClass]="{'active': activeTab === 'allEvents'}"  (click)="changeActiveTab('allEvents')"><i class="bi bi-calendar-event-fill" style="margin-right: 10px;"></i>Svi događaji</p>
+        <p [ngClass]="{'active': activeTab === 'yourEvents'}" (click)="changeActiveTab('yourEvents')" *ngIf="user.role ==='author'"><i class="bi bi-bookmark-star-fill" style="margin-right: 10px;"></i>Vaši događaji</p>
+        <p [ngClass]="{'active': activeTab === 'yourInterests'}"  (click)="changeActiveTab('yourInterests')" *ngIf="user.role ==='student'"><i class="bi bi-star-fill" style="margin-right: 10px;"></i>Vaša interesovanja</p>
 
         <xp-primary-button
           *ngIf="user.role ==='author'"

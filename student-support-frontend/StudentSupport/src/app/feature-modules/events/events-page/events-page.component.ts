@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MyEvent } from '../../board/model/myevent.model';
 import { EventsService } from '../events.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
@@ -14,8 +14,8 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./events-page.component.css'],
 })
 export class EventsPageComponent implements OnInit {
-  selected!: Date;
   events: MyEvent[] = [];
+  eventsForDisplay : MyEvent [] = [];
   currentPage = 1;
   pageSize = 20;
   pagedEvents: MyEvent[] = [];
@@ -25,17 +25,14 @@ export class EventsPageComponent implements OnInit {
   searchControl = new FormControl('');
   activeTab: string = 'allEvents';
 
+  searchName: string | null = "";
 
-  form: FormGroup | undefined;
-  selectedDate = []
-
-  //range: DateRange = { start: new Date(), end: new Date() };
-  
   
   constructor(
     private router: Router,
     private service: EventsService,
     private authService: AuthService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -44,16 +41,14 @@ export class EventsPageComponent implements OnInit {
   }
 
   getAllEvents(): void {
-    this.service.getAllEvents(this.authService.user$.value).subscribe({
-      next: (result: PagedResults<MyEvent>) => {
-        if (this.user.role === 'student') {
-          this.events = result.results.filter((e) => !e.isArchived);
-        } else {
-          this.events = result.results;
-        }
-        this.totalPages = Math.ceil(this.events.length / this.pageSize);
-        this.updatePagedEvents();
-      },
+    this.route.queryParams.subscribe(params => {
+      if(params['activeTab'] != undefined){
+        this.setActiveTab(params['activeTab']);
+      }
+      else{
+        this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab } });
+      }
+      this.searchName = params['searchName'] || "";
     });
   }
 
@@ -80,7 +75,7 @@ export class EventsPageComponent implements OnInit {
   updatePagedEvents() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.pagedEvents = this.events.slice(startIndex, endIndex);
+    this.pagedEvents = this.eventsForDisplay.slice(startIndex, endIndex);
   }
 
   nextPage() {
@@ -102,16 +97,36 @@ export class EventsPageComponent implements OnInit {
 
   }
 
+  changeActiveTab(tab: string) {
+    this.searchControl.setValue('');
+    this.searchName = '';
+    this.router.navigate(['/events-page'], { queryParams: { activeTab: tab } });
+  }
+
   setActiveTab(tab: string) {
     this.activeTab = tab;
+
     if(tab == "allEvents"){
-      this.getAllEvents();
+      this.service.getAllEvents(this.authService.user$.value).subscribe({
+        next: (result: PagedResults<MyEvent>) => {
+          if (this.user.role === 'student') {
+            this.events = result.results.filter((e) => !e.isArchived);
+          } else {
+            this.events = result.results;
+          }
+          this.totalPages = Math.ceil(this.events.length / this.pageSize);
+
+          this.searchEventsByName(this.searchName)
+        },
+      });
     }else if(tab == "yourEvents"){
       this.service.getYoursEvents(this.user.id).subscribe({
         next: (result: MyEvent[]) => {
           this.events = result;
           this.totalPages = Math.ceil(this.events.length / this.pageSize);
-          this.updatePagedEvents();
+
+          this.searchEventsByName(this.searchName)
+
         },
       });
     }else if(tab =="yourInterests"){
@@ -119,22 +134,27 @@ export class EventsPageComponent implements OnInit {
         next: (result: MyEvent[]) => {
           this.events = result;
           this.totalPages = Math.ceil(this.events.length / this.pageSize);
-          this.updatePagedEvents();
+
+          this.searchEventsByName(this.searchName)
         },
       });
     }
   }
 
   searchEventsByName(name: string | null){
-    console.log(name)
     this.service.getEventsBySearchName(this.events, name, this.user).subscribe({
       next: (result: MyEvent[])=>{
-        this.events = result;
+        this.eventsForDisplay = result;
         this.totalPages = Math.ceil(this.events.length / this.pageSize);
         this.updatePagedEvents();
       }
     })
   }
 
-
+  searchEvent(name: string){
+    if(name != "")
+      this.router.navigate(['/events-page'], { queryParams: { searchName: name , activeTab: this.activeTab } });
+    else
+      this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab } });
+  }
 }

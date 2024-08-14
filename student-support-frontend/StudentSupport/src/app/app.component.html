@@ -9,7 +9,7 @@
 <router-outlet></router-outlet>
 <app-footer
   *ngIf="
-    this.router.url !== '/events-page' &&
+    !this.router.url.startsWith('/events-page') &&
     this.router.url !== '/login' &&
     this.router.url !== '/register'
   "

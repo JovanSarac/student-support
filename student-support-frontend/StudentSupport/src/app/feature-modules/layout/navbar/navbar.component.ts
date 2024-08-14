@@ -55,7 +55,7 @@ export class NavbarComponent implements OnInit {
     if (this.user.username === '') {
       this.router.navigate(['/login']);
     } else {
-      this.router.navigate(['/events-page']);
+      this.router.navigate(['/events-page'], { queryParams: { activeTab: 'allEvents' } });
     }
   }
 
