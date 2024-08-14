@@ -157,4 +157,10 @@ export class EventsPageComponent implements OnInit {
     else
       this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab } });
   }
+
+  clearSearchName(){
+    this.searchControl.setValue('');
+    this.searchName = '';
+    this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab } });
+  }
 }

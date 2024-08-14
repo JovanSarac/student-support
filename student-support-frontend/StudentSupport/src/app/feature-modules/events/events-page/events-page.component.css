@@ -258,10 +258,34 @@
 .events {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 80%;
   margin-left: 20%;
+  margin-top: 10px;
+}
+
+.findout {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-color);
+  margin-left: 2%;
+}
+
+.searched{
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+  margin-left: 3%;
+  gap: 10px;
+
+}
+
+.searched i{
+  cursor: pointer;
+}
+
+.searched i:hover{
+  color: var(--error-color);
+  transition: 0.5s;
 }
 
 .cards {
