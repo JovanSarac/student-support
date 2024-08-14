@@ -2,13 +2,15 @@
 INSERT INTO stakeholders."Users" ("Id", "Username", "Password", "Role", "IsActive", "RegisterWithEmail")
 VALUES
 (-1, 'jovanj01', 'a', 1, TRUE, FALSE),
-(-2, 'jovans01', 'a', 2, TRUE, FALSE);
+(-2, 'jovans01', 'a', 2, TRUE, FALSE),
+(-3, 'admin', 'a', 0, TRUE, FALSE);
 
 -- Umetanje osoba
 INSERT INTO stakeholders."People" ("Id", "UserId", "Name", "Surname", "Email", "ProfilePic", "RegistrationDate", "Address", "PhoneNumber", "BirthDate", "Biography")
 VALUES
 (-1, -1, 'Jovan', 'Jokic', 'jovanjokic555@gmail.com', NULL, '2024-07-29', NULL, NULL, NULL, ''),
-(-2, -2, 'Jovan', 'Sarac', 'saksa99saksa99@gmail.com', NULL, '2024-07-29', NULL, NULL, NULL, '');
+(-2, -2, 'Jovan', 'Sarac', 'saksa99saksa99@gmail.com', NULL, '2024-07-29', NULL, NULL, NULL, ''),
+(-3, -3, 'UN', 'Student', 'unstudent@outlook.com', NULL, '2024-07-29', NULL, NULL, NULL, '');
 
 
 INSERT INTO events."Events" (
@@ -130,7 +132,7 @@ Ne propustite ovu jedinstvenu priliku da proslavite završetak studija i stvorit
 (
     -6,
     -2, -- UserId
-    'Seminar o integraciji AI tehnologije u svakodnevni zivot', -- Name
+    'Seminar o integraciji AI tehnologije u AMI', -- Name
     'Pridružite nam se na **seminaru o integraciji AI tehnologije u svakodnevni život** i saznajte kako veštačka inteligencija može unaprediti vaše svakodnevne aktivnosti i radne procese. Ovaj događaj će se održati **16. oktobra 2024. godine**, sa početkom u **13:00 časova**, na adresi **Dr Zorana Đinđića 1, Novi Sad**. Seminar će obuhvatiti najnovije tehnologije i primene AI, kao i pružiti uvid u budućnost ove oblasti. 🤖
 
 Tokom seminara, vodiči i predavači će vam predstaviti različite aspekte AI tehnologije i kako se ona može integrisati u svakodnevni život. Ovaj događaj je prilika da se upoznate sa stručnjacima iz oblasti AI i da naučite kako koristiti ove tehnologije za poboljšanje svog ličnog i profesionalnog života. Ne propustite priliku da saznate više o ovom uzbudljivom polju i kako vam može koristiti. 📊🚀
