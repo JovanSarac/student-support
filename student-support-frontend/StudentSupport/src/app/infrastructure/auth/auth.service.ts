@@ -9,6 +9,8 @@ import { Login } from './model/login.model';
 import { AuthenticationResponse } from './model/authentication-response.model';
 import { User } from './model/user.model';
 import { Registration, RegistrationGmail } from './model/registration.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Report } from 'src/app/shared/model/report-model';
 
 @Injectable({
   providedIn: 'root',
@@ -118,5 +120,38 @@ export class AuthService {
       ],
     };
     this.user$.next(user);
+  }
+
+  getAllReports(): Observable<PagedResults<Report>> {
+    return this.http.get<PagedResults<Report>>(
+      environment.apiHost + 'administrator/reports'
+    );
+  }
+
+  getReportById(reportId: number): Observable<Report> {
+    return this.http.get<Report>(
+      environment.apiHost + 'administrator/reports/' + reportId
+    );
+  }
+
+  setReportResolved(reportId: number): Observable<Report> {
+    return this.http.put<Report>(
+      environment.apiHost + 'administrator/reports/resolve',
+      reportId
+    );
+  }
+
+  setReportDismissed(reportId: number): Observable<Report> {
+    return this.http.put<Report>(
+      environment.apiHost + 'administrator/reports/dismiss',
+      reportId
+    );
+  }
+
+  setReportClosed(reportId: number): Observable<Report> {
+    return this.http.put<Report>(
+      environment.apiHost + 'administrator/reports/close',
+      reportId
+    );
   }
 }

@@ -1,0 +1,109 @@
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Reporter</th>
+        <th>Autor</th>
+        <th>Dogadjaj</th>
+        <th>Datum prijave</th>
+        <th>Tip prijave</th>
+        <th>Status</th>
+        <th>Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rep of reports">
+        <td>
+          <xp-primary-button
+            style="margin-left: 10px"
+            *ngIf="true"
+            buttonId="open-student-profile"
+            buttonType="button"
+            textValue="Profil"
+            (click)="openStudentProfile(rep.studentId)"
+          >
+          </xp-primary-button>
+        </td>
+        <td>
+          <xp-primary-button
+            style="margin-left: 10px"
+            *ngIf="true"
+            buttonId="open-author-profile"
+            buttonType="button"
+            textValue="Profil"
+            (click)="openAuthorProfile(rep.eventId)"
+          >
+          </xp-primary-button>
+        </td>
+        <td>
+          <xp-primary-button
+            *ngIf="true"
+            buttonId="open-event"
+            buttonType="button"
+            textValue="Pogledaj"
+            (click)="openSelectedEvent(rep.eventId)"
+          >
+          </xp-primary-button>
+        </td>
+        <td>{{ formatDate(rep.date.toString()) }}</td>
+        <td>
+          {{
+            rep.type === 0
+              ? "Uznemiravanje"
+              : rep.type === 1
+              ? "Golotinja"
+              : rep.type === 2
+              ? "Spam"
+              : rep.type === 3
+              ? "Prevara/Šema"
+              : rep.type === 4
+              ? "Laž"
+              : rep.type === 5
+              ? "Nasilje"
+              : "Govor mržnje"
+          }}
+        </td>
+        <td>
+          {{
+            rep.status === 0
+              ? "U čekanju"
+              : rep.status === 1
+              ? "Razrešen"
+              : rep.status === 2
+              ? "Odbijen"
+              : "Zatvoren"
+          }}
+        </td>
+        <td>
+          <xp-primary-button
+            *ngIf="rep.status === 0"
+            buttonId="resolve-report"
+            buttonType="button"
+            textValue="Prihvati"
+            (click)="setReportResolved(rep.id)"
+          >
+          </xp-primary-button>
+          <xp-primary-button
+            style="margin-left: 10px"
+            *ngIf="rep.status === 0"
+            buttonId="dismiss-report"
+            buttonType="button"
+            textValue="Odbij"
+            (click)="setReportDismissed(rep.id)"
+          >
+          </xp-primary-button>
+          <xp-primary-button
+            style="margin-left: 10px"
+            *ngIf="rep.status === 1 || rep.status === 2"
+            buttonId="close-report"
+            buttonType="button"
+            textValue="Zatvori"
+            (click)="setReportClosed(rep.id)"
+          >
+          </xp-primary-button>
+          <p *ngIf="rep.status === 3">Prijava je zatvorena.</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -7,6 +7,7 @@ import { environment } from 'src/env/environment';
 import { Participation } from 'src/app/shared/model/participation-model';
 import { Person } from 'src/app/shared/model/person.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Report } from 'src/app/shared/model/report-model';
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +38,13 @@ export class EventsService {
     return this.http.put<Participation>(
       environment.apiHost + 'student/participations/cancel',
       participationId
+    );
+  }
+
+  reportEvent(report: Report): Observable<Report> {
+    return this.http.post<Report>(
+      environment.apiHost + 'student/reports',
+      report
     );
   }
 
