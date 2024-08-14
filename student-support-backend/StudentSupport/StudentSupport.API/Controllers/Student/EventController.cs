@@ -45,5 +45,12 @@ namespace StudentSupport.API.Controllers.Student
             return CreateResponse(result);
         }
 
+
+        [HttpPost("search_events/{name?}")]
+        public ActionResult<List<EventDto>> GetEventsBySearchName([FromBody] List<EventDto> eventDtos, string? name)
+        {
+            var result = _eventService.GetEventsBySearchName(eventDtos, name);
+            return CreateResponse(result);
+        }
     }
 }

@@ -20,12 +20,13 @@
 }
 
 .left-bar {
+  display: flex;
+  flex-direction: column;
   width: 20%;
   height: calc(100% - 8dvh);
   position: fixed;
   border-right: 1px solid black;
   top: 8dvh;
-  overflow-y: auto;
 }
 
 .left-bar-title {
@@ -74,8 +75,9 @@
   width: 90%;
   margin-left: 5%;
   margin-right: 5%;
-  margin-top: 30px;
+  margin-top: 20px;
   border-bottom: 1px solid black;
+  border-top: 1px solid black;
 }
 
 .buttons-tab p {
@@ -83,7 +85,7 @@
   width: 100%;
   height: 0;
   padding: 28px 8px;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   align-items: center;
   font-size: 18px;
   border-radius: 12px;
@@ -108,6 +110,39 @@
   font-weight: 700;
 }
 
+.filter-section{
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  margin-top: 5%;
+  
+}
+
+/* Prikazuje scrollbar kada je miš iznad sekcije */
+.filter-section:hover {
+  overflow-y: auto; /* Prikazuje scrollbar kada je miš iznad */
+}
+
+/* Stilizacija scrollbara */
+.filter-section::-webkit-scrollbar {
+  width: 10px; /* Širina scrollbar-a */
+}
+
+.filter-section::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Boja pozadine scrollbar-a */
+  border-radius: 10px; /* Zaobljeni uglovi scrollbar-a */
+}
+
+.filter-section::-webkit-scrollbar-thumb {
+  background-color: #888; /* Boja scrollbar-a */
+  border-radius: 10px; /* Zaobljeni uglovi scrollbar-a */
+  border: 2px solid #f1f1f1; /* Unutrašnja boja scrollbara */
+}
+
+.filter-section::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Boja scrollbar-a pri hover-u */
+}
+
 .filter-type-title {
   display: flex;
   justify-content: left;
@@ -116,7 +151,6 @@
   font-family: "Poppins", sans-serif;
   font-size: 16px;
   font-weight: 900;
-  margin-top: 10%;
   margin-left: 5%;
 }
 
@@ -143,8 +177,9 @@
 .checkbox-input {
   display: flex;
   flex-direction: row;
-  width: 96%;
-  margin: 2%;
+  width: 100%;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 
 .checkbox-input input {
@@ -180,59 +215,18 @@
   margin-right: 5%;
 }
 
-.date-events select {
+.date-events label {
   display: flex;
-  width: 100%;
-  border-radius: 12px;
-  border: 2px solid var(--border-light-color);
-  height: inherit;
-  color: var(--text-color);
-  padding: 10px;
-  cursor: pointer;
-  background-color: white;
-}
-
-.date-events select:hover {
-  border: 2px solid var(--primary-hover-color);
-}
-
-.date-events select:focus {
-  border: 2px solid var(--primary-color);
-  outline: none;
-}
-
-.date-events select option {
-  color: var(--text-color);
-  font-size: 16px;
+  align-items: center;
+  margin-bottom: 10px;
   cursor: pointer;
 }
 
-.daterangepicker {
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  z-index: 2000;
-  border-radius: 12px;
-  border: 2px solid var(--border-light-color);
-  height: inherit;
-  color: var(--text-color);
-  padding: 10px;
+.date-events input[type="radio"] {
+  width: 22px; 
+  height: 22px; 
+  margin-right: 10px;
   cursor: pointer;
-  background-color: white;
-  margin-top: 2%;
-}
-
-.daterangepicker .drp-calendar {
-  display: flex;
-  flex-direction: row;
-  z-index: 2000 !important;
-}
-
-option {
-  font-size: 18px;
-  padding: 4%;
-  font-weight: 400;
-  font-family: "Poppins", sans-serif;
 }
 
 .price-input {
@@ -244,19 +238,22 @@ option {
   margin-bottom: 4%;
 }
 
-.price-range {
+.price-input label {
   display: flex;
-  flex-direction: row;
-  width: 98%;
-  gap: 2%;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
 
-.filtering-event {
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 4%;
+.price-input input[type="radio"] {
+  width: 22px; 
+  height: 22px; 
+  margin-right: 10px;
+  cursor: pointer;
 }
+
+
+
 
 .events {
   display: flex;

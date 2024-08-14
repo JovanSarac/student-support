@@ -23,5 +23,6 @@ namespace StudentSupport.Events.API.Public
         Result<List<EventDto>> GetYoursEvents(long userId);
         Result<List<EventDto>> GetYoursParticipateEvents(int userId);
         Result<List<EventDto>> GetRandomFourEvents();
+        Result<List<EventDto>> GetEventsBySearchName(List<EventDto> eventDtos, string? searchName);
     }
 }

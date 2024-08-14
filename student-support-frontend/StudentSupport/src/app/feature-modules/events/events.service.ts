@@ -132,4 +132,13 @@ export class EventsService {
       environment.apiHost + 'anonymus/events/get_random_four_events'
     );
   }
+
+  getEventsBySearchName(events: MyEvent[], name: string | null, user:User ): Observable<MyEvent[]> {
+    
+    return this.http.post<MyEvent[]>(
+      environment.apiHost + user.role + '/events/search_events/' + name,
+      events
+    );
+  
+  }
 }

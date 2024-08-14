@@ -111,5 +111,14 @@ namespace StudentSupport.Events.Core.UseCases
             var result = _eventRepository.GetIncomingPagedEvents(page, pageSize);
             return MapToDto(result);
         }
+
+        public Result<List<EventDto>> GetEventsBySearchName(List<EventDto> eventDtos, string? searchName)
+        {
+            if (searchName == null) 
+                return eventDtos;
+
+            var result = eventDtos.FindAll(e => e.Name.ToUpper().Contains(searchName.ToUpper()));
+            return result;
+        }
     }
 }

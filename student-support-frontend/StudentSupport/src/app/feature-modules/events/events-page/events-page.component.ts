@@ -25,8 +25,6 @@ export class EventsPageComponent implements OnInit {
   searchControl = new FormControl('');
   activeTab: string = 'allEvents';
 
-  filterCont = new FormControl('');
-  selectedDateRange: string = '0';
 
   form: FormGroup | undefined;
   selectedDate = []
@@ -125,6 +123,17 @@ export class EventsPageComponent implements OnInit {
         },
       });
     }
+  }
+
+  searchEventsByName(name: string | null){
+    console.log(name)
+    this.service.getEventsBySearchName(this.events, name, this.user).subscribe({
+      next: (result: MyEvent[])=>{
+        this.events = result;
+        this.totalPages = Math.ceil(this.events.length / this.pageSize);
+        this.updatePagedEvents();
+      }
+    })
   }
 
 

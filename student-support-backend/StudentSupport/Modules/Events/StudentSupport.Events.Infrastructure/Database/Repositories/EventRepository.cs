@@ -7,6 +7,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using StudentSupport.BuildingBlocks.Core.UseCases;
 using StudentSupport.BuildingBlocks.Infrastructure.Database;
+using StudentSupport.Stakeholders.Core.Domain;
 
 namespace StudentSupport.Events.Infrastructure.Database.Repositories
 {
@@ -111,7 +112,5 @@ namespace StudentSupport.Events.Infrastructure.Database.Repositories
 
             return new PagedResult<Event>(pagedEvents, totalCount);
         }
-
-
     }
 }
