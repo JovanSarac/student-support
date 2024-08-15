@@ -51,20 +51,28 @@ export class EventsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLoggedUser();
-    this.getAllEvents();
-  }
 
-  getAllEvents(): void {
     this.route.queryParams.subscribe(params => {
-      if(params['activeTab'] != undefined){
-        this.setActiveTab(params['activeTab']);
-      }
-      else{
-        this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab } });
-      }
-      this.searchName = params['searchName'] || "";
+      this.handleQueryParamsChange(params);
     });
   }
+
+  handleQueryParamsChange(params: any) {
+    if(params['activeTab'] != undefined){
+      this.setActiveTab(params['activeTab']);
+    }
+    else{
+      this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab } });
+    }
+    this.searchName = params['searchName'] || "";
+    if(this.searchName != "")
+      this.searchControl.setValue(this.searchName);
+
+    this.selectedCheckboxes = params['filterTypes'] || [];
+    
+  }
+
+
 
   getParticipationsByStudentId(): void {
     this.service.getAllParticipationsByStudentId(this.user.id).subscribe({
@@ -128,6 +136,7 @@ export class EventsPageComponent implements OnInit {
           } else {
             this.events = result.results;
           }
+
           this.totalPages = Math.ceil(this.events.length / this.pageSize);
 
           this.searchEventsByName(this.searchName)
@@ -159,30 +168,38 @@ export class EventsPageComponent implements OnInit {
     this.service.getEventsBySearchName(this.events, name, this.user).subscribe({
       next: (result: MyEvent[])=>{
         this.eventsForDisplay = result;
-        this.totalPages = Math.ceil(this.events.length / this.pageSize);
-        this.updatePagedEvents();
+      
+        if(this.selectedCheckboxes.length != 0)
+          this.filterByEventTypes(this.eventsForDisplay)
+        else
+          this.updatePagedEvents();
       }
     })
   }
 
   searchEvent(name: string){
     if(name != "")
-      this.router.navigate(['/events-page'], { queryParams: { searchName: name , activeTab: this.activeTab } });
+      this.router.navigate(['/events-page'], { queryParams: { searchName: name , activeTab: this.activeTab,  filterTypes: this.selectedCheckboxes} });
     else
-      this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab } });
+      this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab, filterTypes: this.selectedCheckboxes } });
   }
 
   clearSearchName(){
     this.searchControl.setValue('');
     this.searchName = '';
-    this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab } });
+    this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab,  filterTypes: this.selectedCheckboxes } });
   }
 
 
 
   onCheckboxChange() {
     this.selectedCheckboxes = this.getCheckedCheckboxes();
-    this.service.getEventsByFilters(this.events, this.selectedCheckboxes, this.user).subscribe({
+    this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab, searchName: this.searchName, filterTypes: this.selectedCheckboxes } })
+  }
+
+  filterByEventTypes(eventsForFiltering: MyEvent[]){
+    this.updateCheckboxes()
+    this.service.getEventsByFilters(eventsForFiltering, this.selectedCheckboxes, this.user).subscribe({
       next: (result : MyEvent[])=>{
         this.eventsForDisplay = result;
         this.updatePagedEvents();
@@ -213,15 +230,17 @@ export class EventsPageComponent implements OnInit {
     const index = this.selectedCheckboxes.indexOf(type);
     if (index !== -1) {
       this.selectedCheckboxes.splice(index, 1);
-      this.updateCheckboxes();  
+      this.updateCheckboxes();
+
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab, searchName: this.searchName, filterTypes: this.selectedCheckboxes } });
+      
     }
-    this.service.getEventsByFilters(this.events, this.selectedCheckboxes, this.user).subscribe({
-      next: (result : MyEvent[])=>{
-        this.eventsForDisplay = result;
-        this.updatePagedEvents();
-      }
-    })
     
-    
+  }
+
+  clearAllFilters(){
+    this.selectedCheckboxes = []
+    this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab, searchName: this.searchName} });
   }
 }

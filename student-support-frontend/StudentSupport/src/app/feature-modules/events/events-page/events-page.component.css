@@ -294,8 +294,9 @@
 
 .filtered{
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   font-size: 14px;
+  height: auto;
   margin-left: 3%;
   gap: 10px;
 }
@@ -307,13 +308,29 @@
 .filtered-type{
   cursor: pointer;
   border-radius: 15px;
-  background-color: #f8f7fa;
+  background-color: aliceblue;
 }
 
 
 .filtered-type i:hover{
   color: var(--error-color);
   transition: 0.5s;
+}
+
+.clear-all{
+  color: var(--secondary-color);
+  font-size: 18px;
+  font-weight: 700;
+  background-color: aliceblue;
+  border-radius: 15px;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.clear-all:hover{
+  background-color: rgb(240, 240, 255);
+  color: var(--secondary-hover-color);
+  transition: 0.8s;
 }
 
 .cards {

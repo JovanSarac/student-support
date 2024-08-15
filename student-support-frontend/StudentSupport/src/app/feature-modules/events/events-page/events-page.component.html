@@ -64,7 +64,7 @@
           <div class="second-column">
             <div class="checkbox-input">
               <input type="checkbox" id="art" value="ArtExhibitionsAndPerformances" class="event-checkbox"  (change)="onCheckboxChange()">
-              <label for="art">Umjetnički</label>
+              <label for="art">Umetnički</label>
             </div>
             <div class="checkbox-input">
               <input type="checkbox" id="social" value="StudentPartiesAndSocialEvents" class="event-checkbox"  (change)="onCheckboxChange()">
@@ -142,6 +142,7 @@
       <div class="filtered" *ngIf="selectedCheckboxes.length != 0">
         <p>Primjenjeno {{selectedCheckboxes.length}} filtera:</p>
         <p class="filtered-type" *ngFor="let type of selectedCheckboxes">{{eventType[type]}} <i (click)="clearTypeFilter(type)" class="bi bi-x-circle-fill" style="margin-left: 10px;" matTooltip="Izbriši filter" matTooltipPosition="above"></i></p>
+        <p class="clear-all" *ngIf="selectedCheckboxes.length > 1" (click)="clearAllFilters()">Obriši sve filtere</p>
       </div>
       <div class="cards">
         <xp-event-card
