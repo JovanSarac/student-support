@@ -35,6 +35,7 @@ namespace StudentSupport.Events.Infrastructure
             services.AddScoped<IParticipationService, ParticipationService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IInternalPersonService, PersonService>();
+            services.AddScoped<IReportService, ReportService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
@@ -42,6 +43,7 @@ namespace StudentSupport.Events.Infrastructure
             services.AddScoped(typeof(ICrudRepository<Event>), typeof(CrudDatabaseRepository<Event, EventsContext>));
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped(typeof(IParticipationRepository), typeof(ParticipationDatabaseRepository));
+            services.AddScoped(typeof(IReportRepository), typeof(ReportDatabaseRepository));
 
             services.AddDbContext<EventsContext>(opt =>
                 opt.UseNpgsql(DbConnectionStringBuilder.Build("events"),

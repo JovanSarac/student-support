@@ -24,6 +24,13 @@
       >
         <p>Panel</p>
       </div>
+      <div
+        *ngIf="user.role === 'administrator'"
+        class="navbar-item"
+        (click)="goToReports()"
+      >
+        <p>Prijave</p>
+      </div>
 
       <!-- <div class="navbar-item">
                 <p>FAQ</p>
@@ -91,6 +98,13 @@
           (click)="goToAdminPanel()"
         >
           <p>Panel</p>
+        </div>
+        <div
+          *ngIf="user.role === 'administrator'"
+          class="navbar-item"
+          (click)="goToReports()"
+        >
+          <p>Prijave</p>
         </div>
         <!-- <div class="navbar-item">
                     <p>FAQ</p>

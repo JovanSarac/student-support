@@ -76,6 +76,10 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/admin-panel']);
   }
 
+  goToReports(): void {
+    this.router.navigate(['/reports']);
+  }
+
   onLogout(): void {
     this.menuVisible = false;
     this.authService.logout();
