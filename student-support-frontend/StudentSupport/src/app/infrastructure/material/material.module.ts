@@ -1,22 +1,37 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatToolbar, MatToolbarModule,} from '@angular/material/toolbar';
-import {MatButton, MatButtonModule, MatIconButton} from '@angular/material/button';
-import {MatFormField, MatFormFieldModule, MatLabel} from '@angular/material/form-field';
-import {MatInput, MatInputModule} from '@angular/material/input';
-import {MatTable, MatTableModule} from '@angular/material/table';
-import {MatIcon, MatIconModule} from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MatDateFormats, MAT_DATE_FORMATS } from '@angular/material/core';
+import { registerLocaleData } from '@angular/common';
+import localeSrLatn from '@angular/common/locales/sr-Latn';
 
+registerLocaleData(localeSrLatn);
 
+export const CUSTOM_DATE_FORMATS: MatDateFormats = {
+  parse: {
+    dateInput: 'DD.MM.YYYY', // Format prilikom unosa datuma
+  },
+  display: {
+    dateInput: 'DD.MM.YYYY', // Format za prikaz datuma
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @NgModule({
-  declarations: [],
   imports: [
-    MatToolbarModule,
     CommonModule,
+    MatToolbarModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
@@ -25,19 +40,25 @@ import { MatDividerModule } from '@angular/material/divider';
     MatTooltipModule,
     MatMenuModule,
     MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   exports: [
-    MatToolbar,
-    MatButton,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    MatTable,
-    MatIconButton,
-    MatIcon,
+    MatToolbarModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatIconModule,
     MatTooltipModule,
     MatMenuModule,
     MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'sr-Latn' }, // Podesite LOCALE_ID na srpski latinicu
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
   ]
 })
 export class MaterialModule { }

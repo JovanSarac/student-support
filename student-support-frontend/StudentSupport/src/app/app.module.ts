@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './infrastructure/routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +17,10 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { MatDialogModule } from '@angular/material/dialog';
+import { registerLocaleData } from '@angular/common';
+import localeSrLatn from '@angular/common/locales/sr-Latn';
+
+registerLocaleData(localeSrLatn);
 
 @NgModule({ declarations: [
         AppComponent
@@ -51,6 +55,7 @@ import { MatDialogModule } from '@angular/material/dialog';
             multi: true,
         },
         provideHttpClient(withInterceptorsFromDi()),
+        { provide: LOCALE_ID, useValue: 'sr-Latn' },
     ] })
 export class AppModule {
 }

@@ -9,6 +9,9 @@ import { SingleEventPageComponent } from './single-event-page/single-event-page.
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ReactiveFormsModule,
     MatExpansionModule,
     MatTooltipModule,
+    MaterialModule,
+
   ],
   exports: [EventsPageComponent],
 })

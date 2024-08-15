@@ -41,13 +41,27 @@ export class EventsPageComponent implements OnInit {
     Other: 'Ostalo'
   };
 
+  dateEvent: { [key: string]: string } = {
+    today: 'Danas',
+    tommorow: 'Sutra',
+    thisweek: 'Ove sedmice',
+    thismonth: 'Ovaj mesec',
+    pickdate: 'Opseg',
+  };
+
+
+  selectedDateFilter: string = "";
+  startDate: Date | null = null;
+  endDate: Date | null = null;
+
   
   constructor(
     private router: Router,
     private service: EventsService,
     private authService: AuthService,
     private route: ActivatedRoute
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.getLoggedUser();
@@ -243,4 +257,20 @@ export class EventsPageComponent implements OnInit {
     this.selectedCheckboxes = []
     this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab, searchName: this.searchName} });
   }
+
+
+  onDateFilterChange(event: Event) {
+    console.log(this.selectedDateFilter)
+    const inputElement = event.target as HTMLInputElement;
+    this.selectedDateFilter = inputElement.value;
+  }
+
+  onStartDateChange(date: Date | null): void {
+    this.startDate = date;
+  }
+
+  onEndDateChange(date: Date | null): void {
+    this.endDate = date;
+  }
+
 }
