@@ -101,10 +101,17 @@ namespace StudentSupport.API.Controllers.Author
             return CreateResponse(result);
         }
 
-        [HttpPost("filter_events")]
-        public ActionResult<List<EventDto>> GetEventsByFilters([FromBody] FilterEventsRequestDto request)
+        [HttpPost("filter_event_types")]
+        public ActionResult<List<EventDto>> GetEventsByFiltersTypes([FromBody] FilterEventTypesRequestDto request)
         {
-            var result = _eventService.GetEventsByFilters(request.EventDtos, request.TypeOfEvents);
+            var result = _eventService.GetEventsByFiltersTypes(request.EventDtos, request.TypeOfEvents);
+            return CreateResponse(result);
+        }
+
+        [HttpPost("filter_event_dates")]
+        public ActionResult<List<EventDto>> GetEventsByFiltersDates([FromBody] FilterEventDatesRequestDto request)
+        {
+            var result = _eventService.GetEventsByFiltersDates(request.EventDtos, request.DateEvents, request.startDate, request.endDate);
             return CreateResponse(result);
         }
     }

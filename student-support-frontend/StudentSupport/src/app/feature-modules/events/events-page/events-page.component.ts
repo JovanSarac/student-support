@@ -51,6 +51,7 @@ export class EventsPageComponent implements OnInit {
 
 
   selectedDateFilter: string = "";
+  selectDate : number = 0;
   startDate: Date | null = null;
   endDate: Date | null = null;
 
@@ -83,6 +84,12 @@ export class EventsPageComponent implements OnInit {
       this.searchControl.setValue(this.searchName);
 
     this.selectedCheckboxes = params['filterTypes'] || [];
+
+    this.selectedDateFilter = params['filterDates'] || "";
+    this.startDate = params['startDate'] || null;
+    this.endDate = params['endDate'] || null;
+    if(this.selectedDateFilter != "")
+      this.selectDate = 1;
     
   }
 
@@ -182,41 +189,53 @@ export class EventsPageComponent implements OnInit {
     this.service.getEventsBySearchName(this.events, name, this.user).subscribe({
       next: (result: MyEvent[])=>{
         this.eventsForDisplay = result;
-      
+
         if(this.selectedCheckboxes.length != 0)
-          this.filterByEventTypes(this.eventsForDisplay)
+          this.filterByEventTypes(this.eventsForDisplay);
+        else if(this.selectedDateFilter != "")
+          this.filterByEventDates(this.eventsForDisplay);
         else
           this.updatePagedEvents();
+ 
       }
     })
   }
 
   searchEvent(name: string){
-    if(name != "")
-      this.router.navigate(['/events-page'], { queryParams: { searchName: name , activeTab: this.activeTab,  filterTypes: this.selectedCheckboxes} });
-    else
-      this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab, filterTypes: this.selectedCheckboxes } });
+    this.searchName = name;
+    const queryParams = this.createQueryParams();
+
+    this.router.navigate(['/events-page'], { queryParams });
+    
   }
 
   clearSearchName(){
     this.searchControl.setValue('');
     this.searchName = '';
-    this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab,  filterTypes: this.selectedCheckboxes } });
+    const queryParams = this.createQueryParams();
+
+    this.router.navigate(['/events-page'], { queryParams});
   }
 
 
 
   onCheckboxChange() {
     this.selectedCheckboxes = this.getCheckedCheckboxes();
-    this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab, searchName: this.searchName, filterTypes: this.selectedCheckboxes } })
+    const queryParams = this.createQueryParams();
+
+    this.router.navigate(['/events-page'], { queryParams })
   }
 
   filterByEventTypes(eventsForFiltering: MyEvent[]){
     this.updateCheckboxes()
-    this.service.getEventsByFilters(eventsForFiltering, this.selectedCheckboxes, this.user).subscribe({
+    this.service.getEventsByFiltersTypes(eventsForFiltering, this.selectedCheckboxes, this.user).subscribe({
       next: (result : MyEvent[])=>{
         this.eventsForDisplay = result;
-        this.updatePagedEvents();
+        if(this.selectedDateFilter != "")
+          this.filterByEventDates(this.eventsForDisplay);
+        else{
+          this.updatePagedEvents();
+        }
       }
     })
   }
@@ -246,31 +265,103 @@ export class EventsPageComponent implements OnInit {
       this.selectedCheckboxes.splice(index, 1);
       this.updateCheckboxes();
 
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-      this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab, searchName: this.searchName, filterTypes: this.selectedCheckboxes } });
-      
+      setTimeout(() => {
+        const queryParams = this.createQueryParams();   
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['/events-page'], { queryParams });
+      }, 100);    
     }
-    
   }
 
   clearAllFilters(){
-    this.selectedCheckboxes = []
-    this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab, searchName: this.searchName} });
+    this.selectedCheckboxes = [];
+    this.selectedDateFilter = '';
+    this.startDate = null;
+    this.endDate = null;
+    const queryParams = this.createQueryParams();
+
+    this.router.navigate(['/events-page'], { queryParams });
   }
 
 
+
+  filterByEventDates(eventsForFiltering: MyEvent[]){
+    this.service.getEventsByFiltersDates(eventsForFiltering, this.selectedDateFilter, this.user, this.startDate, this.endDate).subscribe({
+      next: (result : MyEvent[])=>{
+        this.eventsForDisplay = result;
+        this.updatePagedEvents();
+      }
+    })
+  }
+
   onDateFilterChange(event: Event) {
-    console.log(this.selectedDateFilter)
     const inputElement = event.target as HTMLInputElement;
     this.selectedDateFilter = inputElement.value;
+    if(this.selectedDateFilter != 'pickdate'){
+      const queryParams = this.createQueryParams();
+
+      this.router.navigate(['/events-page'], { queryParams });
+    }
   }
 
   onStartDateChange(date: Date | null): void {
+    this.startDate = null;
+    this.endDate = null;
     this.startDate = date;
+    this.checkAndSetDates();
   }
 
   onEndDateChange(date: Date | null): void {
     this.endDate = date;
+    this.checkAndSetDates();
   }
 
+  private formatDateToISO(date: Date | null): string | null {
+    return date ? date.toISOString() : null;
+  }
+
+  private checkAndSetDates(): void {
+    if (this.startDate && this.endDate) {
+      const queryParams = this.createQueryParams();
+  
+      this.router.navigate(['/events-page'], { queryParams });
+    }
+  }
+
+
+  clearDateFilter(){
+    this.selectedDateFilter = "";
+    this.startDate = null;
+    this.endDate = null;
+    const queryParams = this.createQueryParams();
+    this.router.navigate(['/events-page'], { queryParams });
+  }
+
+
+
+  private createQueryParams(): any {
+    const params: any = {};
+  
+    if (this.searchName) {
+      params['searchName'] = this.searchName;
+    }
+    if (this.selectedCheckboxes.length > 0) {
+      params['filterTypes'] = this.selectedCheckboxes;
+    }
+    if (this.selectedDateFilter != "" && this.selectedDateFilter != 'pickdate') {
+      params['filterDates'] = this.selectedDateFilter;
+    }
+    if(this.selectedDateFilter == 'pickdate' && this.startDate != null && this.endDate != null){
+      params['filterDates'] = 'pickdate';
+      
+      params['startDate'] = typeof this.startDate === 'string' ?  this.startDate : this.formatDateToISO(this.startDate); 
+      params['endDate'] = typeof this.endDate === 'string' ? this.endDate : this.formatDateToISO(this.endDate);
+    }
+    if (this.activeTab) {
+      params['activeTab'] = this.activeTab;
+    }
+  
+    return params;
+  }
 }

@@ -120,13 +120,51 @@ namespace StudentSupport.Events.Core.UseCases
             return result;
         }
 
-        public Result<List<EventDto>> GetEventsByFilters(List<EventDto> eventDtos, List<string> typeOfEvents)
+        public Result<List<EventDto>> GetEventsByFiltersTypes(List<EventDto> eventDtos, List<string> typeOfEvents)
         {
             if (typeOfEvents.Count == 0)
                 return eventDtos;
 
             var result = eventDtos.FindAll(e => typeOfEvents.Contains(e.EventType));
             return result;
+        }
+
+        public Result<List<EventDto>> GetEventsByFiltersDates(List<EventDto> eventDtos, string dateEvents, DateTime? startDate, DateTime? endDate)
+        {
+            if (dateEvents == "")
+                return eventDtos;
+
+            var result = new List<EventDto>();
+            if(dateEvents == "today")
+            {
+                result = eventDtos.FindAll(e => e.DateEvent.Date == DateTime.Today.Date);
+            }
+            else if(dateEvents == "tommorow")
+            {
+                result = eventDtos.FindAll(e => e.DateEvent.Date == DateTime.Today.AddDays(1).Date);
+            }
+            else if(dateEvents == "thisweek")
+            {
+                DateTime today = DateTime.Today;
+                DateTime startOfWeek = today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday);  
+                DateTime endOfWeek = startOfWeek.AddDays(6);
+
+                result = eventDtos.FindAll(e => e.DateEvent.Date >= startOfWeek.Date && e.DateEvent.Date <= endOfWeek.Date);
+            }
+            else if (dateEvents == "thismonth")
+            {
+                DateTime today = DateTime.Today;
+                DateTime startOfMonth = new DateTime(today.Year, today.Month, 1);
+                DateTime endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
+
+                result = eventDtos.FindAll(e => e.DateEvent.Date >= startOfMonth.Date && e.DateEvent.Date <= endOfMonth.Date);
+            }
+            else if (dateEvents == "pickdate")
+            {
+                result = eventDtos.FindAll(e => e.DateEvent.Date >= startDate && e.DateEvent.Date <= endDate);
+            }
+
+             return result;
         }
     }
 }

@@ -140,13 +140,27 @@ export class EventsService {
     );
   }
 
-  getEventsByFilters( events: MyEvent[], typeOfEvents: string[], user:User ): Observable<MyEvent[]> {  
+  getEventsByFiltersTypes( events: MyEvent[], typeOfEvents: string[], user:User ): Observable<MyEvent[]> {  
     const filterPayload = {
       eventDtos: events,
       typeOfEvents: typeOfEvents
   };
     return this.http.post<MyEvent[]>(
-      environment.apiHost + user.role + '/events/filter_events',
+      environment.apiHost + user.role + '/events/filter_event_types',
+      filterPayload
+    );
+  }
+
+  getEventsByFiltersDates( events: MyEvent[], dateEvents: string, user:User,  startDate: Date | null, endDate:Date | null ): Observable<MyEvent[]> {  
+    const filterPayload = {
+      eventDtos: events,
+      dateEvents: dateEvents,
+      startDate: startDate,
+      endDate: endDate
+    };
+
+    return this.http.post<MyEvent[]>(
+      environment.apiHost + user.role + '/events/filter_event_dates',
       filterPayload
     );
   }

@@ -89,23 +89,23 @@
         <p class="filter-title">Datum događaja:</p>
         <div class="date-events">
             <label>
-              <input type="radio" name="dateFilter" value="today" (change)="onDateFilterChange($event)">
+              <input type="radio" name="dateFilter" value="today" (change)="onDateFilterChange($event)"  [(ngModel)]="selectedDateFilter">
               Danas
             </label>
             <label>
-              <input type="radio" name="dateFilter" value="tommorow" (change)="onDateFilterChange($event)">
+              <input type="radio" name="dateFilter" value="tommorow" (change)="onDateFilterChange($event)" [(ngModel)]="selectedDateFilter">
               Sutra
             </label>
             <label>
-              <input type="radio" name="dateFilter" value="thisweek" (change)="onDateFilterChange($event)">
+              <input type="radio" name="dateFilter" value="thisweek" (change)="onDateFilterChange($event)" [(ngModel)]="selectedDateFilter">
               Ove sedmice
             </label>
             <label>
-              <input type="radio" name="dateFilter" value="thismonth" (change)="onDateFilterChange($event)">
+              <input type="radio" name="dateFilter" value="thismonth" (change)="onDateFilterChange($event)" [(ngModel)]="selectedDateFilter">
               Ovaj mesec
             </label>
             <label>
-              <input type="radio" name="dateFilter" value="pickdate" (change)="onDateFilterChange($event)">
+              <input type="radio" name="dateFilter" value="pickdate" (change)="onDateFilterChange($event)" [(ngModel)]="selectedDateFilter">
               Izaberi opseg...
             </label>
 
@@ -150,10 +150,11 @@
         <i class="bi bi-x-circle-fill" matTooltip="Izbriši pretragu" matTooltipPosition="above" (click)="clearSearchName()"></i>
       </div>
       <div class="filtered" *ngIf="selectedCheckboxes.length != 0 || selectedDateFilter != ''">
-        <p>Primjenjeno {{selectedCheckboxes.length}} filtera:</p>
+        <p *ngIf="selectedCheckboxes.length + selectDate > 0">Primjenjeno {{selectedCheckboxes.length + selectDate}} filtera:</p>
         <p class="filtered-type" *ngFor="let type of selectedCheckboxes">{{eventType[type]}} <i (click)="clearTypeFilter(type)" class="bi bi-x-circle-fill" style="margin-left: 10px;" matTooltip="Izbriši filter" matTooltipPosition="above"></i></p>
-        <p *ngIf="selectedDateFilter != '' && selectedDateFilter != 'pickdate'" class="filtered-type">{{dateEvent[selectedDateFilter]}} <i class="bi bi-x-circle-fill" style="margin-left: 10px;" matTooltip="Izbriši filter" matTooltipPosition="above"></i></p>
-        <p class="clear-all" *ngIf="selectedCheckboxes.length > 1" (click)="clearAllFilters()">Obriši sve filtere</p>
+        <p *ngIf="selectedDateFilter != '' && selectedDateFilter != 'pickdate'" class="filtered-type">{{dateEvent[selectedDateFilter]}} <i (click)="clearDateFilter()" class="bi bi-x-circle-fill" style="margin-left: 10px;" matTooltip="Izbriši filter" matTooltipPosition="above"></i></p>
+        <p class="filtered-type" *ngIf="selectedDateFilter == 'pickdate' && startDate != null && endDate != null">{{startDate | date:'dd.MM.yyyy'}} - {{endDate | date:'dd.MM.yyyy'}} <i (click)="clearDateFilter()" class="bi bi-x-circle-fill" style="margin-left: 10px;" matTooltip="Izbriši filter" matTooltipPosition="above"></i></p>
+        <p class="clear-all" *ngIf="selectedCheckboxes.length + selectDate > 1" (click)="clearAllFilters()">Obriši sve filtere</p>
       </div>
       <div class="cards">
         <xp-event-card
