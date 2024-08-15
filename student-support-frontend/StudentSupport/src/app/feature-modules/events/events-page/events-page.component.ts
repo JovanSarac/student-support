@@ -96,10 +96,12 @@ export class EventsPageComponent implements OnInit {
     this.selectedDateFilter = params['filterDates'] || "";
     this.startDate = params['startDate'] || null;
     this.endDate = params['endDate'] || null;
+    this.selectDate = 0;
     if(this.selectedDateFilter != "")
       this.selectDate = 1;
     
     this.selectedPriceFilter = params['filterPrice'] || "";
+    this.selectPrice = 0;
     if(this.selectedPriceFilter != "")
       this.selectPrice = 1;
   }
