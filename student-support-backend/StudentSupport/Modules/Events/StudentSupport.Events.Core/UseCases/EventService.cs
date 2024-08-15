@@ -166,5 +166,22 @@ namespace StudentSupport.Events.Core.UseCases
 
              return result;
         }
+
+        public Result<List<EventDto>> GetEventsByFiltersPrice(List<EventDto> eventDtos, string price)
+        {
+            if (price == "")
+                return eventDtos;
+
+            var result = new List<EventDto>();
+            if(price == "free")
+            {
+                result = eventDtos.FindAll(e => e.Price == 0);
+            }
+            else if(price == "paid")
+            {
+                result = eventDtos.FindAll(e => e.Price > 0);
+            }
+            return result;
+        }
     }
 }

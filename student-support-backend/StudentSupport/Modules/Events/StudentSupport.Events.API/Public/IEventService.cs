@@ -26,6 +26,7 @@ namespace StudentSupport.Events.API.Public
         Result<List<EventDto>> GetEventsBySearchName(List<EventDto> eventDtos, string? searchName);
         Result<List<EventDto>> GetEventsByFiltersTypes(List<EventDto> eventDtos, List<string> typeOfEvents);
         Result<List<EventDto>> GetEventsByFiltersDates(List<EventDto> eventDtos, string dateEvents, DateTime? startDate, DateTime? endDate);
-        
+        Result<List<EventDto>> GetEventsByFiltersPrice(List<EventDto> eventDtos, string price);
+
     }
 }

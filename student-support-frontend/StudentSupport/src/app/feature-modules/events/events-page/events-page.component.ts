@@ -49,11 +49,19 @@ export class EventsPageComponent implements OnInit {
     pickdate: 'Opseg',
   };
 
+  priceEvent: { [key: string]: string } = {
+    free: 'Besplatno',
+    paid: 'Plaća se',
+  };
+
 
   selectedDateFilter: string = "";
   selectDate : number = 0;
   startDate: Date | null = null;
   endDate: Date | null = null;
+
+  selectedPriceFilter: string = "";
+  selectPrice: number = 0;
 
   
   constructor(
@@ -91,6 +99,9 @@ export class EventsPageComponent implements OnInit {
     if(this.selectedDateFilter != "")
       this.selectDate = 1;
     
+    this.selectedPriceFilter = params['filterPrice'] || "";
+    if(this.selectedPriceFilter != "")
+      this.selectPrice = 1;
   }
 
 
@@ -194,6 +205,8 @@ export class EventsPageComponent implements OnInit {
           this.filterByEventTypes(this.eventsForDisplay);
         else if(this.selectedDateFilter != "")
           this.filterByEventDates(this.eventsForDisplay);
+        else if(this.selectedPriceFilter != "")
+          this.filterByEventPrice(this.eventsForDisplay);
         else
           this.updatePagedEvents();
  
@@ -233,6 +246,8 @@ export class EventsPageComponent implements OnInit {
         this.eventsForDisplay = result;
         if(this.selectedDateFilter != "")
           this.filterByEventDates(this.eventsForDisplay);
+        else if(this.selectedPriceFilter != "")
+          this.filterByEventPrice(this.eventsForDisplay);
         else{
           this.updatePagedEvents();
         }
@@ -279,6 +294,7 @@ export class EventsPageComponent implements OnInit {
     this.selectedDateFilter = '';
     this.startDate = null;
     this.endDate = null;
+    this.selectedPriceFilter = '';
     const queryParams = this.createQueryParams();
 
     this.router.navigate(['/events-page'], { queryParams });
@@ -290,7 +306,11 @@ export class EventsPageComponent implements OnInit {
     this.service.getEventsByFiltersDates(eventsForFiltering, this.selectedDateFilter, this.user, this.startDate, this.endDate).subscribe({
       next: (result : MyEvent[])=>{
         this.eventsForDisplay = result;
-        this.updatePagedEvents();
+
+        if(this.selectedPriceFilter != "")
+          this.filterByEventPrice(this.eventsForDisplay);
+        else
+          this.updatePagedEvents();
       }
     })
   }
@@ -340,6 +360,30 @@ export class EventsPageComponent implements OnInit {
 
 
 
+  onPriceFilterChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.selectedPriceFilter = inputElement.value;
+   
+    const queryParams = this.createQueryParams();
+    this.router.navigate(['/events-page'], { queryParams });
+  }
+
+  clearPriceFilter(){
+    this.selectedPriceFilter = "";
+    const queryParams = this.createQueryParams();
+    this.router.navigate(['/events-page'], { queryParams });
+  }
+
+  filterByEventPrice(eventsForFiltering: MyEvent[]){
+    this.service.getEventsByFiltersPrice(eventsForFiltering, this.selectedPriceFilter, this.user).subscribe({
+      next: (result : MyEvent[])=>{
+        this.eventsForDisplay = result;
+        this.updatePagedEvents();
+      }
+    })
+  }
+
+
   private createQueryParams(): any {
     const params: any = {};
   
@@ -357,6 +401,9 @@ export class EventsPageComponent implements OnInit {
       
       params['startDate'] = typeof this.startDate === 'string' ?  this.startDate : this.formatDateToISO(this.startDate); 
       params['endDate'] = typeof this.endDate === 'string' ? this.endDate : this.formatDateToISO(this.endDate);
+    }
+    if(this.selectedPriceFilter != ""){
+      params['filterPrice'] = this.selectedPriceFilter;
     }
     if (this.activeTab) {
       params['activeTab'] = this.activeTab;

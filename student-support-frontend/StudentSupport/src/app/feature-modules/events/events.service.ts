@@ -164,4 +164,16 @@ export class EventsService {
       filterPayload
     );
   }
+
+  getEventsByFiltersPrice( events: MyEvent[], priceEvents: string, user:User ): Observable<MyEvent[]> {  
+    const filterPayload = {
+      eventDtos: events,
+      price: priceEvents
+    };
+
+    return this.http.post<MyEvent[]>(
+      environment.apiHost + user.role + '/events/filter_event_price',
+      filterPayload
+    );
+  }
 }

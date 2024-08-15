@@ -127,11 +127,11 @@
         <div class="price-input">
 
           <label>
-            <input type="radio" name="dateFilter" value="today">
+            <input type="radio" name="priceFilter" value="free" (change)="onPriceFilterChange($event)" [(ngModel)]="selectedPriceFilter">
             Besplatno
           </label>
           <label>
-            <input type="radio" name="dateFilter" value="tommorow">
+            <input type="radio" name="priceFilter" value="paid" (change)="onPriceFilterChange($event)" [(ngModel)]="selectedPriceFilter">
             Plaća se ulaz
           </label>
 
@@ -149,11 +149,46 @@
         <p>Pretražili ste:  "{{searchName}}"</p>
         <i class="bi bi-x-circle-fill" matTooltip="Izbriši pretragu" matTooltipPosition="above" (click)="clearSearchName()"></i>
       </div>
-      <div class="filtered" *ngIf="selectedCheckboxes.length != 0 || selectedDateFilter != ''">
-        <p *ngIf="selectedCheckboxes.length + selectDate > 0">Primjenjeno {{selectedCheckboxes.length + selectDate}} filtera:</p>
-        <p class="filtered-type" *ngFor="let type of selectedCheckboxes">{{eventType[type]}} <i (click)="clearTypeFilter(type)" class="bi bi-x-circle-fill" style="margin-left: 10px;" matTooltip="Izbriši filter" matTooltipPosition="above"></i></p>
-        <p *ngIf="selectedDateFilter != '' && selectedDateFilter != 'pickdate'" class="filtered-type">{{dateEvent[selectedDateFilter]}} <i (click)="clearDateFilter()" class="bi bi-x-circle-fill" style="margin-left: 10px;" matTooltip="Izbriši filter" matTooltipPosition="above"></i></p>
-        <p class="filtered-type" *ngIf="selectedDateFilter == 'pickdate' && startDate != null && endDate != null">{{startDate | date:'dd.MM.yyyy'}} - {{endDate | date:'dd.MM.yyyy'}} <i (click)="clearDateFilter()" class="bi bi-x-circle-fill" style="margin-left: 10px;" matTooltip="Izbriši filter" matTooltipPosition="above"></i></p>
+      <div class="filtered" *ngIf="selectedCheckboxes.length != 0 || selectedDateFilter != '' || selectedPriceFilter != ''">
+        <p *ngIf="selectedCheckboxes.length + selectDate + selectPrice > 0">
+          Primjenjeno {{selectedCheckboxes.length + selectDate + selectPrice}} filtera:
+        </p>
+        <p class="filtered-type" *ngFor="let type of selectedCheckboxes">
+          {{eventType[type]}} 
+          <i (click)="clearTypeFilter(type)" 
+                class="bi bi-x-circle-fill" 
+                style="margin-left: 10px;" 
+                matTooltip="Izbriši filter" 
+                matTooltipPosition="above">
+          </i>
+        </p>
+        <p *ngIf="selectedDateFilter != '' && selectedDateFilter != 'pickdate'" class="filtered-type">
+          {{dateEvent[selectedDateFilter]}} 
+          <i (click)="clearDateFilter()" 
+              class="bi bi-x-circle-fill" 
+              style="margin-left: 10px;" 
+              matTooltip="Izbriši filter"
+               matTooltipPosition="above">
+          </i>
+        </p>
+        <p class="filtered-type" *ngIf="selectedDateFilter == 'pickdate' && startDate != null && endDate != null">
+          {{startDate | date:'dd.MM.yyyy'}} - {{endDate | date:'dd.MM.yyyy'}} 
+            <i (click)="clearDateFilter()" 
+                class="bi bi-x-circle-fill"
+                style="margin-left: 10px;" 
+                matTooltip="Izbriši filter" 
+                matTooltipPosition="above">
+            </i>
+        </p>
+        <p *ngIf="selectedPriceFilter != ''" class="filtered-type">
+          {{priceEvent[selectedPriceFilter]}} 
+          <i (click)="clearPriceFilter()" 
+              class="bi bi-x-circle-fill" 
+              style="margin-left: 10px;" 
+              matTooltip="Izbriši filter"
+               matTooltipPosition="above">
+          </i>
+        </p>
         <p class="clear-all" *ngIf="selectedCheckboxes.length + selectDate > 1" (click)="clearAllFilters()">Obriši sve filtere</p>
       </div>
       <div class="cards">
