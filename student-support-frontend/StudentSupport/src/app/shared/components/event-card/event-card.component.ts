@@ -170,17 +170,19 @@ export class EventCardComponent implements OnInit {
     StudentPartiesAndSocialEvents: 'Društvenost',
     Competitions: 'Takmičenje',
     StudentTrips: 'Putovanje',
+    Other: 'Ostalo',
   };
 
   eventTypeColors: { [key: string]: string } = {
-    AcademicConferenceAndSeminars: '#429D66',
-    WorkshopsAndCourses: ' #FF4D4D',
-    CulturalEvent: '#00BFFF',
-    Fair: '#FF9501',
-    HumanitarianEvent: '#FFD700',
-    ArtExhibitionsAndPerformances: '#DF80FF',
-    StudentPartiesAndSocialEvents: '#66CDAA',
-    Competitions: '#FFA07A',
-    StudentTrips: 'rgb(61,61,254)',
+    AcademicConferenceAndSeminars: '#6A0DAD',
+    WorkshopsAndCourses: '#FFD700',
+    CulturalEvent: '#FF4500',
+    Fair: '#8B4513',
+    HumanitarianEvent: '#FF6347',
+    ArtExhibitionsAndPerformances: '#4682B4',
+    StudentPartiesAndSocialEvents: '#FF69B4',
+    Competitions: '#32CD32',
+    StudentTrips: '#FF8C00',
+    Other: '#DA70D6',
   };
 }
