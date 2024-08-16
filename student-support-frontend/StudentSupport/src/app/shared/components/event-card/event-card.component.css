@@ -126,6 +126,10 @@ svg {
   padding-bottom: 5px;
 }
 
+.overlay .event-passed {
+  color: var(--accent-color);
+}
+
 @media (max-width: 1950px) {
   .one-card {
     width: 17.8vw;

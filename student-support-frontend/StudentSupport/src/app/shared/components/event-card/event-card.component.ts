@@ -139,6 +139,10 @@ export class EventCardComponent implements OnInit {
     );
   }
 
+  isEventInFuture(dateEvent: string): boolean {
+    return new Date(dateEvent) > new Date();
+  }
+
   getLoggedUser(): void {
     this.authService.user$.subscribe((user) => {
       this.user = user;

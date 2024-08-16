@@ -76,7 +76,8 @@
       *ngIf="
         isAlreadyCheckedParticipate(event.id) &&
         user.role === 'student' &&
-        this.router.url !== '/'
+        this.router.url !== '/' &&
+        isEventInFuture(event.dateEvent.toString())
       "
       class="participation-button"
       buttonId="participation-button"
@@ -86,5 +87,11 @@
       [isCancelParticipationButton]="true"
       (click)="cancelEventParticipation($event, event.id)"
     ></xp-secondary-button>
+    <p
+      class="event-passed"
+      *ngIf="!isEventInFuture(event.dateEvent.toString())"
+    >
+      Ovaj događaj je već održan.
+    </p>
   </div>
 </div>

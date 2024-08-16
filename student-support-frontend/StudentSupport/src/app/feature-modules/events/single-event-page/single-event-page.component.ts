@@ -256,6 +256,10 @@ export class SingleEventPageComponent implements OnInit {
     );
   }
 
+  isEventInFuture(dateEvent: string): boolean {
+    return new Date(dateEvent) > new Date();
+  }
+
   shouldShowLoader(eventId: number): boolean {
     if (this.eventIdForLoader === eventId) {
       return true;
