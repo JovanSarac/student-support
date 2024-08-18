@@ -13,7 +13,13 @@ namespace StudentSupport.Clubs.Core.Mappers
     {
         public ClubsProfile()
         {
-            CreateMap<Club, ClubDto>().ReverseMap();
+            CreateMap<Club, ClubDto>()
+                .ForMember(dest => dest.CoverImage, opt => opt.MapFrom(src => src.CoverImage != null ? "data:image/webp;base64," + Convert.ToBase64String(src.CoverImage) : null));
+
+            CreateMap<ClubDto, Club>()
+                .ForMember(dest => dest.CoverImage, opt => opt.MapFrom(src => src.CoverImage != null ? Convert.FromBase64String(src.CoverImage.Replace("data:image/webp;base64,", "")) : null));
+
+            CreateMap<Membership, MembershipDto>().ReverseMap();
         }
     }
 }
