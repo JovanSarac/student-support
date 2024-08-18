@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentResults;
 using StudentSupport.BuildingBlocks.Core.UseCases;
 using StudentSupport.Clubs.API.Dtos;
 using StudentSupport.Clubs.API.Public;
@@ -21,6 +22,17 @@ namespace StudentSupport.Clubs.Core.UseCases
         {
             _mapper = mapper;
             _membershipRepository = membershipRepository;
+        }
+
+        public Result<List<long>> GetClubIdListByStudentId(long studentId)
+        {
+            try
+            {                return _membershipRepository.GetClubIdsByStudentId(studentId);
+            }
+            catch(ArgumentException ex)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(ex.Message);
+            }
         }
     }
 }

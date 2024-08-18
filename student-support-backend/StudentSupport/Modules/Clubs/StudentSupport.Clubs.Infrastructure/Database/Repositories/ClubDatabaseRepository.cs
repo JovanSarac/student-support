@@ -44,6 +44,26 @@ namespace StudentSupport.Clubs.Infrastructure.Database.Repositories
             return club ?? throw new KeyNotFoundException("Not found: " + id);
         }
 
+        public PagedResult<Club> GetClubsByIdsPaged(int page, int pageSize, List<long> clubIds)
+        {
+            var query = _clubs
+                .Where(c => clubIds.Contains(c.Id));
+
+            var totalCount = query.Count();
+
+            if (pageSize == 0 && page == 0)
+            {
+                return new PagedResult<Club>(query.ToList(), totalCount);
+            }
+
+            var pagedEvents = query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return new PagedResult<Club>(pagedEvents, totalCount);
+        }
+
         public PagedResult<Club> GetPaged(int page, int pageSize)
         {
             var task = _clubs.GetPagedById(page, pageSize);

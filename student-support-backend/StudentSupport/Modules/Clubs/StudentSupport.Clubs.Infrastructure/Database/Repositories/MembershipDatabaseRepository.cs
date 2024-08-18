@@ -44,6 +44,18 @@ namespace StudentSupport.Clubs.Infrastructure.Database.Repositories
             return membership ?? throw new KeyNotFoundException("Not found: " + id);
         }
 
+        public List<long> GetClubIdsByStudentId(long studentId)
+        {
+            List<long> clubIds = new List<long>();
+
+            clubIds = _memberships
+                .Where(m => m.MemberId == studentId)
+                .Select(m => m.ClubId)
+                .ToList();
+
+            return clubIds;
+        }
+
         public PagedResult<Membership> GetPaged(int page, int pageSize)
         {
             var task = _memberships.GetPagedById(page, pageSize);

@@ -9,6 +9,7 @@ namespace StudentSupport.Clubs.Core.Domain.RepositoryInterfaces
 {
     public interface IMembershipRepository : ICrudRepository<Membership>
     {
+        List<long> GetClubIdsByStudentId(long studentId);
         void SaveChanges();
     }
 }

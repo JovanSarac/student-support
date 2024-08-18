@@ -16,5 +16,6 @@ namespace StudentSupport.Clubs.API.Public
         Result<MembershipDto> Update(MembershipDto membershipDto);
         Result Delete(int id);
         Result<MembershipDto> Get(int id);
+        Result<List<long>> GetClubIdListByStudentId(long studentId);
     }
 }
