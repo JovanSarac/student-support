@@ -22,5 +22,7 @@ namespace StudentSupport.Events.API.Dtos
         public List<string> Images { get;  set; }
         public bool IsArchived { get; set; }
         public double? Price { get; set; }
+        public long? ClubId { get; set; }
+
     }
 }

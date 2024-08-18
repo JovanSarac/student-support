@@ -22,11 +22,13 @@ namespace StudentSupport.Events.Core.Domain
         public List<byte[]> Images {  get; init; }
         public bool IsArchived { get; set; }
         public double? Price { get; set; }
+        public long? ClubId { get; init; }
+
         public Event()
         {
             Images = new List<byte[]>();
         }
-        public Event(long userId, string name, string description, DateTime dateEvent, DateTime dateEndEvent, string address, double latitude, double longitude, EventType eventType, DateTime datePublication, List<byte[]> images, string image, bool isArchived, double price)
+        public Event(long userId, string name, string description, DateTime dateEvent, DateTime dateEndEvent, string address, double latitude, double longitude, EventType eventType, DateTime datePublication, List<byte[]> images, string image, bool isArchived, double price, long? clubId)
         {
             UserId = userId;
             Name = name;
@@ -41,6 +43,8 @@ namespace StudentSupport.Events.Core.Domain
             Images = images ?? new List<byte[]>();
             IsArchived = isArchived;
             Price = price;
+            ClubId = clubId;
+
             Validate();
         }
 
