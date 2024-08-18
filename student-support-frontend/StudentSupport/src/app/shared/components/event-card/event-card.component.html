@@ -89,7 +89,9 @@
     ></xp-secondary-button>
     <p
       class="event-passed"
-      *ngIf="!isEventInFuture(event.dateEvent.toString())"
+      *ngIf="
+        !isEventInFuture(event.dateEvent.toString()) && user.role === 'student'
+      "
     >
       Ovaj događaj je već održan.
     </p>
