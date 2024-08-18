@@ -10,6 +10,7 @@ import { SingleEventPageComponent } from 'src/app/feature-modules/events/single-
 import { MyProfileComponent } from 'src/app/feature-modules/layout/my-profile/my-profile.component';
 import { AdminPanelComponent } from '../auth/administrator/admin-panel/admin-panel.component';
 import { ReportsComponent } from '../auth/administrator/reports/reports.component';
+import { CreateClubComponent } from 'src/app/feature-modules/clubs/create-club/create-club.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -50,6 +51,26 @@ const routes: Routes = [
     component: ReportsComponent,
     canActivate: [AuthGuard],
   },
+  // {
+  //   path: 'clubs-page',
+  //   component: EventsPageComponent,
+  //   canActivate: [AuthGuard],
+  // },
+  {
+    path: 'create-club',
+    component: CreateClubComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'edit-club/:clubId',
+    component: CreateClubComponent,
+    canActivate: [AuthGuard],
+  },
+  // {
+  //   path: 'single-club/:clubId',
+  //   component: SingleEventPageComponent,
+  //   canActivate: [AuthGuard],
+  // },
 ];
 
 @NgModule({

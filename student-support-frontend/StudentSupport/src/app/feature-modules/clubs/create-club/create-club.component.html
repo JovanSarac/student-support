@@ -1,0 +1,131 @@
+<div class="full-page-bg">
+  <div class="page-content">
+    <p>{{ title }}</p>
+    <form [formGroup]="clubForm" class="input-form">
+      <div class="first-row">
+        <div class="text-info">
+          <xp-input
+            style="width: 95%"
+            [control]="clubForm.controls.name"
+            inputType="text"
+            inputId="naziv"
+            label="Naziv kluba:"
+            placeholderSentence="Unesite ime kluba ovde"
+            [customErrorMessages]="{
+              required: 'Naziv kluba je obavezan!',
+              minlength: 'Naziv mora imati najmanje 3 karaktera',
+              maxlength: 'Naziv može imati najviše 50 karaktera'
+            }"
+          >
+          </xp-input>
+        </div>
+
+        <div class="picture-info">
+          <div class="pictures">
+            <div class="container-pictures">
+              <div class="dialog-pictures" (click)="fileInput.click()">
+                <p class="add-pictures" *ngIf="!selectedImage">
+                  <i
+                    class="bi bi-file-earmark-image-fill"
+                    style="margin-right: 4px"
+                  ></i
+                  >Dodaj fotografiju
+                </p>
+                <input
+                  type="file"
+                  #fileInput
+                  (change)="onFileSelected($event)"
+                  style="display: none"
+                />
+                <div *ngIf="selectedImage" class="selected-image">
+                  <img
+                    [src]="selectedImage"
+                    alt="Selected Image"
+                    class="preview"
+                  />
+                </div>
+              </div>
+              <div
+                *ngIf="notPicture && club.coverImage == ''"
+                class="error-message"
+                style="margin-left: 5px"
+              >
+                Morate izabrati fotografiju za klub!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="description-markdown">
+        <cc-markdown-editor
+          style="width: 100%"
+          [control]="clubForm.controls.description"
+          label="Opis kluba"
+          placeholderSentence="Unesite opis kluba ovde"
+          [customErrorMessages]="{ required: 'Opis kluba je obavezan!' }"
+        >
+        </cc-markdown-editor>
+      </div>
+
+      <div class="address-information">
+        <div class="row-map-address">
+          <div class="map-container">
+            <p>Izaberite na mapi adresu kluba:</p>
+            <xp-map class="map" [mapId]="'address_createmap'"></xp-map>
+            <div *ngIf="latitude == 0 && notMarker" class="error-message">
+              Morate označiti marker na mapi klikom!
+            </div>
+          </div>
+
+          <div class="city-street">
+            <xp-input
+              style="width: 95%; margin-left: 5%"
+              [control]="clubForm.controls.city"
+              inputType="text"
+              inputId="city"
+              label="Grad:"
+              placeholderSentence="Unesi grad ovde"
+              [customErrorMessages]="{ required: 'Grad je obavezan!' }"
+            >
+            </xp-input>
+            <xp-input
+              style="width: 95%; margin-left: 5%"
+              [control]="clubForm.controls.street"
+              inputType="text"
+              inputId="street"
+              label="Ulica:"
+              placeholderSentence="Unesi ulicu ovde"
+              [customErrorMessages]="{ required: 'Ulica je obavezna!' }"
+            >
+            </xp-input>
+            <p>Ulicu i grad možete ručno uneti ukoliko niste zadovoljni.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="create-button">
+        <div style="width: 40%">
+          <xp-primary-button
+            *ngIf="!isEditMode"
+            (click)="createClub()"
+            style="width: 100%"
+            buttonId="filter-button"
+            buttonType="button"
+            textValue="Kreiraj klub"
+          >
+          </xp-primary-button>
+          <xp-primary-button
+            *ngIf="isEditMode"
+            (click)="updateClub()"
+            style="width: 100%"
+            buttonId="filter-button"
+            buttonType="button"
+            textValue="Izmeni klub"
+          >
+          </xp-primary-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
