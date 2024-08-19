@@ -17,7 +17,7 @@
       ></xp-secondary-button>
 
       <xp-secondary-button
-        *ngIf="user.role === 'author' && event.isArchived"
+        *ngIf="isAuthor && event.isArchived"
         buttonId="publish-button"
         buttonType="button"
         textValue="Objavi"

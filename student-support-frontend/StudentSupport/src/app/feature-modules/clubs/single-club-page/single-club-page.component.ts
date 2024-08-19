@@ -30,6 +30,7 @@ export class SingleClubPageComponent implements OnInit {
   user!: User;
   isAuthor: boolean = false;
   isCollapsed: boolean = false;
+  isDescriptionCollapsed: boolean = false;
   membership: Membership = {
     id: 0,
     clubId: 0,
@@ -172,6 +173,24 @@ export class SingleClubPageComponent implements OnInit {
     });
   }
 
+  reactivateClub(): void {
+    this.service.reactivateClub(this.clubId).subscribe({
+      next: (result: Club) => {
+        this.club = result;
+        this.toastrService.success(
+          'Uspešno ste ponovo otvorili klub.',
+          'Uspešno',
+          {
+            timeOut: 4000, // Trajanje u milisekundama, ovde 10 sekundi
+            extendedTimeOut: 2000, // Vreme produžetka ako korisnik pređe mišem preko toast-a
+            closeButton: true,
+            progressBar: true,
+          }
+        );
+      },
+    });
+  }
+
   closeClubByAdmin(): void {
     this.service.closeClubByAdmin(this.clubId).subscribe({
       next: (result: Club) => {
@@ -228,6 +247,10 @@ export class SingleClubPageComponent implements OnInit {
     this.isCollapsed = !this.isCollapsed;
     this.cdr.detectChanges();
     this.setMarkerOnMap();
+  }
+
+  toggleDescriptionCollapse() {
+    this.isDescriptionCollapsed = !this.isDescriptionCollapsed;
   }
 
   formatDate(dateString: string): string {

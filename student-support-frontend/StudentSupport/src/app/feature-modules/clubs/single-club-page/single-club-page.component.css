@@ -61,6 +61,7 @@
   font-family: "Poppins", "sans-serif";
   line-height: 1.4;
   white-space: pre-wrap;
+  overflow: hidden;
 }
 
 .date-action-button-container {
@@ -142,7 +143,8 @@
 .action-buttons {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .action-buttons i {
@@ -167,4 +169,25 @@
   text-decoration: underline;
   cursor: pointer;
   color: var(--secondary-color);
+}
+
+.show-desc {
+  margin-top: 1%;
+  color: var(--secondary-color);
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.show-desc:hover {
+  cursor: pointer;
+}
+
+.about-club-h1 {
+  color: var(--text-heading-color);
+  font-family: "Poppins", "sans-serif";
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 1.3;
+  margin-top: 0;
 }

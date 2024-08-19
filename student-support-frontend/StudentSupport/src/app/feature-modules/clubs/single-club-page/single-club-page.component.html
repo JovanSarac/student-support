@@ -1,73 +1,87 @@
 <div class="full-page-container">
   <div class="date-action-button-container">
     <div class="action-buttons">
-      <!-- <xp-secondary-button
-        *ngIf="isAuthor && !event.isArchived"
-        buttonId="archive-button"
-        buttonType="button"
-        textValue="Arhiviraj"
-        iconClass="bi bi-archive-fill"
-        (click)="archiveEvent()"
-      ></xp-secondary-button>
-
       <xp-secondary-button
-        *ngIf="user.role === 'author' && event.isArchived"
-        buttonId="publish-button"
-        buttonType="button"
-        textValue="Objavi"
-        iconClass="bi bi-megaphone-fill"
-        (click)="publishEvent()"
-      ></xp-secondary-button> -->
-
-      <xp-secondary-button
-        style="margin-left: 5px"
-        *ngIf="isAuthor"
-        buttonId="izmeni-button"
-        buttonType="button"
-        textValue="Izmeni"
-        iconClass="bi bi-pencil-fill"
-        (click)="openEditClubPage()"
-      ></xp-secondary-button>
-
-      <xp-secondary-button
-        *ngIf="
-          !isAlreadyCheckedJoined() &&
-          user.role === 'student' &&
-          !shouldShowLoader()
-        "
         buttonId="participation-button"
         buttonType="button"
-        textValue="Učlani se"
-        iconClass="bi bi-star"
+        textValue="Prikaži članove"
+        iconClass="bi bi-people-fill"
         (click)="joinClub()"
       ></xp-secondary-button>
+      <div>
+        <xp-secondary-button
+          *ngIf="
+            user.role === 'administrator' &&
+            (club.status === 0 || club.status === 1)
+          "
+          buttonId="admin-close-button"
+          buttonType="button"
+          textValue="Zatvori klub"
+          iconClass="bi bi-archive-fill"
+          (click)="closeClubByAdmin()"
+        ></xp-secondary-button>
 
-      <div
-        style="width: 7dvw"
-        class="loader-container"
-        *ngIf="isLoading && shouldShowLoader()"
-      >
-        <div class="spinner-border text-light" role="status">
-          <span class="sr-only">Loading...</span>
+        <xp-secondary-button
+          *ngIf="isAuthor && club.status === 0"
+          buttonId="close-button"
+          buttonType="button"
+          textValue="Zatvori klub"
+          iconClass="bi bi-door-closed-fill"
+          (click)="closeClub()"
+        ></xp-secondary-button>
+
+        <xp-secondary-button
+          *ngIf="isAuthor && club.status === 1"
+          buttonId="reopen-button"
+          buttonType="button"
+          textValue="Ponovo otvori"
+          iconClass="bi bi-door-open-fill"
+          (click)="reactivateClub()"
+        ></xp-secondary-button>
+
+        <xp-secondary-button
+          style="margin-left: 5px"
+          *ngIf="isAuthor"
+          buttonId="izmeni-button"
+          buttonType="button"
+          textValue="Izmeni"
+          iconClass="bi bi-pencil-fill"
+          (click)="openEditClubPage()"
+        ></xp-secondary-button>
+
+        <xp-secondary-button
+          *ngIf="
+            !isAlreadyCheckedJoined() &&
+            user.role === 'student' &&
+            !shouldShowLoader()
+          "
+          buttonId="participation-button"
+          buttonType="button"
+          textValue="Učlani se"
+          iconClass="bi bi-check-circle"
+          (click)="joinClub()"
+        ></xp-secondary-button>
+
+        <div
+          style="width: 7dvw"
+          class="loader-container"
+          *ngIf="isLoading && shouldShowLoader()"
+        >
+          <div class="spinner-border text-light" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
         </div>
+
+        <xp-secondary-button
+          *ngIf="isAlreadyCheckedJoined() && user.role === 'student'"
+          buttonId="participation-button2"
+          buttonType="button"
+          textValue="Napusti klub"
+          iconClass="bi bi-check-circle-fill"
+          [isCancelParticipationButton]="true"
+          (click)="leaveClub()"
+        ></xp-secondary-button>
       </div>
-
-      <!-- <i
-        *ngIf="isAlreadyCheckedJoined() && user.role === 'student'"
-        matTooltip="Resend email"
-        class="bi bi-envelope-arrow-up-fill"
-        (click)="resendEmail()"
-      ></i> -->
-
-      <xp-secondary-button
-        *ngIf="isAlreadyCheckedJoined() && user.role === 'student'"
-        buttonId="participation-button2"
-        buttonType="button"
-        textValue="Učlani se"
-        iconClass="bi bi-star-fill"
-        [isCancelParticipationButton]="true"
-        (click)="leaveClub()"
-      ></xp-secondary-button>
     </div>
   </div>
   <div class="heading-container">
@@ -76,12 +90,25 @@
       <p class="event-address-p">
         <i class="bi bi-geo-alt-fill"></i> {{ club.address }}
       </p>
-      <!-- <p
-        *ngIf="event.isArchived && user.role === 'author'"
+      <p
+        *ngIf="
+          club.status === 1 &&
+          (user.role === 'author' || user.role === 'administrator')
+        "
         class="event-date-time-p"
       >
-        <i class="bi bi-exclamation-triangle-fill"></i> DOGAĐAJ JE ARHIVIRAN
-      </p> -->
+        <i class="bi bi-exclamation-triangle-fill"></i> KLUB JE ZATVOREN
+      </p>
+      <p
+        *ngIf="
+          club.status === 2 &&
+          (user.role === 'author' || user.role === 'administrator')
+        "
+        class="event-date-time-p"
+      >
+        <i class="bi bi-exclamation-triangle-fill"></i> KLUB JE ZATVOREN(by:
+        ADMIN)
+      </p>
     </div>
   </div>
 
@@ -104,15 +131,46 @@
     <div class="creator-and-number-container">
       <p>
         <i class="bi bi-people-fill"></i>
-        {{ getMembershipCount() }} član
+        Broj članova:
+        {{ getMembershipCount() }}
       </p>
       <p>
-        <i class="bi bi-person-fill"></i> Događaj kreirao/la
+        <i class="bi bi-person-fill"></i> Klub kreirao/la
         <b class="author-name" (click)="openProfile()"
           >{{ author.name }}&nbsp;{{ author.surname }}</b
         >
       </p>
     </div>
   </div>
-  <div class="event-description" [innerHTML]="convertedDescription"></div>
+  <h1 class="about-club-h1">O klubu</h1>
+  <div
+    *ngIf="club.description.length > 304"
+    class="event-description"
+    [ngStyle]="{
+      'max-height': !isDescriptionCollapsed ? '20dvh' : 'none',
+      'mask-image': !isDescriptionCollapsed
+        ? 'linear-gradient(#000, rgba(0, 0, 0, 0.1))'
+        : 'none'
+    }"
+    [innerHTML]="convertedDescription"
+  ></div>
+  <div
+    *ngIf="club.description.length < 304"
+    class="event-description"
+    [innerHTML]="convertedDescription"
+  ></div>
+  <p
+    class="show-desc"
+    *ngIf="!isDescriptionCollapsed && club.description.length > 304"
+    (click)="toggleDescriptionCollapse()"
+  >
+    Prikaži više <i class="bi bi-chevron-compact-down"></i>
+  </p>
+  <p
+    class="show-desc"
+    *ngIf="isDescriptionCollapsed && club.description.length > 304"
+    (click)="toggleDescriptionCollapse()"
+  >
+    Prikaži manje <i class="bi bi-chevron-compact-up"></i>
+  </p>
 </div>
