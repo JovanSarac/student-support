@@ -17,5 +17,9 @@ namespace StudentSupport.Clubs.API.Public
         Result Delete(int id);
         Result<MembershipDto> Get(int id);
         Result<List<long>> GetClubIdListByStudentId(long studentId);
+        Result<MembershipDto> LeaveClub(long membershipId);
+        Result<MembershipDto> SuspendMember(long membershipId);
+        Result<MembershipDto> PromoteToClubAdmin(long membershipId);
+
     }
 }

@@ -38,6 +38,20 @@ namespace StudentSupport.API.Controllers.Author
             return CreateResponse(result);
         }
 
+        [HttpPut("suspend")]
+        public ActionResult<MembershipDto> SuspendMembership([FromBody] int id)
+        {
+            var result = _membershipService.SuspendMember(id);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("promote_to_club_admin")]
+        public ActionResult<MembershipDto> PromoteToClubAdmin([FromBody] int id)
+        {
+            var result = _membershipService.PromoteToClubAdmin(id);
+            return CreateResponse(result);
+        }
+
         [HttpPut]
         public ActionResult<ClubDto> Update([FromBody] MembershipDto membershipDto)
         {

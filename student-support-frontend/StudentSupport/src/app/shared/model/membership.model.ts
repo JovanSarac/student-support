@@ -3,4 +3,12 @@ export interface Membership {
   memberId: number;
   clubId: number;
   enrollmentDate: Date;
+  status: MembershipStatus;
+}
+
+export enum MembershipStatus {
+  Member,
+  ClubAdmin,
+  Left,
+  Suspended,
 }

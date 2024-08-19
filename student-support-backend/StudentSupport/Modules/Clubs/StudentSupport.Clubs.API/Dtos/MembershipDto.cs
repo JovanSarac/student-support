@@ -12,5 +12,6 @@ namespace StudentSupport.Clubs.API.Dtos
         public long MemberId { get; set; }
         public long ClubId { get; set; }
         public DateTime EnrollmentDate { get; set; }
+        public int Status { get; set; }
     }
 }

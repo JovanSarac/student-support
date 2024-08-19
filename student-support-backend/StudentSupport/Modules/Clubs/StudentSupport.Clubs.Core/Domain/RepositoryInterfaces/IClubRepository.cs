@@ -10,6 +10,7 @@ namespace StudentSupport.Clubs.Core.Domain.RepositoryInterfaces
     public interface IClubRepository : ICrudRepository<Club>
     {
         PagedResult<Club> GetClubsByIdsPaged(int page, int pageSize, List<long> clubIds);
+        PagedResult<Club> GetClubsByAuthorIdPaged(int page, int pageSize, int authorId);
         void SaveChanges();
     }
 }

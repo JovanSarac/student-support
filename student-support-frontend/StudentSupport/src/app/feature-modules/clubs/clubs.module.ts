@@ -8,9 +8,15 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { CalendarModule } from 'primeng/calendar';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SingleClubPageComponent } from './single-club-page/single-club-page.component';
+import { ClubsPageComponent } from './clubs-page/clubs-page.component';
 
 @NgModule({
-  declarations: [CreateClubComponent],
+  declarations: [
+    CreateClubComponent,
+    SingleClubPageComponent,
+    ClubsPageComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,

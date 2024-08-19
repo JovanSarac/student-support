@@ -38,6 +38,13 @@ namespace StudentSupport.API.Controllers.Admin
             return CreateResponse(result);
         }
 
+        [HttpPut("close_by_admin")]
+        public ActionResult<ClubDto> CloseClubByAdmin([FromBody] int id)
+        {
+            var result = _clubService.CloseClubByAdmin(id);
+            return CreateResponse(result);
+        }
+
         [HttpPut]
         public ActionResult<ClubDto> Update([FromBody] ClubDto clubDto)
         {

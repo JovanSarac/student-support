@@ -1,1 +1,118 @@
-<p>single-club-page works!</p>
+<div class="full-page-container">
+  <div class="date-action-button-container">
+    <div class="action-buttons">
+      <!-- <xp-secondary-button
+        *ngIf="isAuthor && !event.isArchived"
+        buttonId="archive-button"
+        buttonType="button"
+        textValue="Arhiviraj"
+        iconClass="bi bi-archive-fill"
+        (click)="archiveEvent()"
+      ></xp-secondary-button>
+
+      <xp-secondary-button
+        *ngIf="user.role === 'author' && event.isArchived"
+        buttonId="publish-button"
+        buttonType="button"
+        textValue="Objavi"
+        iconClass="bi bi-megaphone-fill"
+        (click)="publishEvent()"
+      ></xp-secondary-button> -->
+
+      <xp-secondary-button
+        style="margin-left: 5px"
+        *ngIf="isAuthor"
+        buttonId="izmeni-button"
+        buttonType="button"
+        textValue="Izmeni"
+        iconClass="bi bi-pencil-fill"
+        (click)="openEditClubPage()"
+      ></xp-secondary-button>
+
+      <xp-secondary-button
+        *ngIf="
+          !isAlreadyCheckedJoined() &&
+          user.role === 'student' &&
+          !shouldShowLoader()
+        "
+        buttonId="participation-button"
+        buttonType="button"
+        textValue="Učlani se"
+        iconClass="bi bi-star"
+        (click)="joinClub()"
+      ></xp-secondary-button>
+
+      <div
+        style="width: 7dvw"
+        class="loader-container"
+        *ngIf="isLoading && shouldShowLoader()"
+      >
+        <div class="spinner-border text-light" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+
+      <!-- <i
+        *ngIf="isAlreadyCheckedJoined() && user.role === 'student'"
+        matTooltip="Resend email"
+        class="bi bi-envelope-arrow-up-fill"
+        (click)="resendEmail()"
+      ></i> -->
+
+      <xp-secondary-button
+        *ngIf="isAlreadyCheckedJoined() && user.role === 'student'"
+        buttonId="participation-button2"
+        buttonType="button"
+        textValue="Učlani se"
+        iconClass="bi bi-star-fill"
+        [isCancelParticipationButton]="true"
+        (click)="leaveClub()"
+      ></xp-secondary-button>
+    </div>
+  </div>
+  <div class="heading-container">
+    <h1>{{ club.name }}</h1>
+    <div class="address-archive-p-container">
+      <p class="event-address-p">
+        <i class="bi bi-geo-alt-fill"></i> {{ club.address }}
+      </p>
+      <!-- <p
+        *ngIf="event.isArchived && user.role === 'author'"
+        class="event-date-time-p"
+      >
+        <i class="bi bi-exclamation-triangle-fill"></i> DOGAĐAJ JE ARHIVIRAN
+      </p> -->
+    </div>
+  </div>
+
+  <img class="event-image" [src]="club.coverImage" />
+  <div class="additional-info-container">
+    <div class="location-map-container">
+      <p><i class="bi bi-geo-alt-fill"></i> Location</p>
+      <p>{{ club.address }}</p>
+      <p class="show-map" *ngIf="!isCollapsed" (click)="toggleCollapse()">
+        Prikaži mapu <i class="bi bi-chevron-compact-down"></i>
+      </p>
+      <p class="show-map" *ngIf="isCollapsed" (click)="toggleCollapse()">
+        Sakrij mapu <i class="bi bi-chevron-compact-up"></i>
+      </p>
+
+      <div *ngIf="isCollapsed" class="collapse-content">
+        <xp-map class="map" [mapId]="'address_map'"></xp-map>
+      </div>
+    </div>
+    <div class="creator-and-number-container">
+      <p>
+        <i class="bi bi-people-fill"></i>
+        {{ getMembershipCount() }} član
+      </p>
+      <p>
+        <i class="bi bi-person-fill"></i> Događaj kreirao/la
+        <b class="author-name" (click)="openProfile()"
+          >{{ author.name }}&nbsp;{{ author.surname }}</b
+        >
+      </p>
+    </div>
+  </div>
+  <div class="event-description" [innerHTML]="convertedDescription"></div>
+</div>

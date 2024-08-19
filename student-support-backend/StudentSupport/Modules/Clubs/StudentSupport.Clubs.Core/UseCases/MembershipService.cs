@@ -34,5 +34,50 @@ namespace StudentSupport.Clubs.Core.UseCases
                 return Result.Fail(FailureCode.NotFound).WithError(ex.Message);
             }
         }
+
+        public Result<MembershipDto> LeaveClub(long membershipId)
+        {
+            try
+            {
+                Membership membership = _membershipRepository.Get(membershipId);
+                membership.Leave();
+                _membershipRepository.SaveChanges();
+                return MapToDto(membership);
+            }
+            catch(ArgumentException ex)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(ex.Message);
+            }
+        }
+
+        public Result<MembershipDto> PromoteToClubAdmin(long membershipId)
+        {
+            try
+            {
+                Membership membership = _membershipRepository.Get(membershipId);
+                membership.MakeAnAdmin();
+                _membershipRepository.SaveChanges();
+                return MapToDto(membership);
+            }
+            catch (ArgumentException ex)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(ex.Message);
+            }
+        }
+
+        public Result<MembershipDto> SuspendMember(long membershipId)
+        {
+            try
+            {
+                Membership membership = _membershipRepository.Get(membershipId);
+                membership.Suspend();
+                _membershipRepository.SaveChanges();
+                return MapToDto(membership);
+            }
+            catch (ArgumentException ex)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(ex.Message);
+            }
+        }
     }
 }

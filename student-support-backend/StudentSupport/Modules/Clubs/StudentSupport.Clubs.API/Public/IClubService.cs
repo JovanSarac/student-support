@@ -13,9 +13,14 @@ namespace StudentSupport.Clubs.API.Public
     {
         Result<PagedResult<ClubDto>> GetPaged(int page, int pageSize);
         Result<PagedResult<ClubDto>> GetJoinedClubsPaged(int page, int pageSize, int studentId);
+        Result<PagedResult<ClubDto>> GetCreatedClubsPaged(int page, int pageSize, int authorId);
+        Result<bool> IsAuthorOfClub(int authorId, int clubId);
         Result<ClubDto> Create(ClubDto eventDto);
         Result<ClubDto> Update(ClubDto eventDto);
         Result Delete(int id);
         Result<ClubDto> Get(int id);
+        Result<ClubDto> CloseClub(int id);
+        Result<ClubDto> CloseClubByAdmin(int id);
+        Result<ClubDto> ActivateClub(int id);
     }
 }

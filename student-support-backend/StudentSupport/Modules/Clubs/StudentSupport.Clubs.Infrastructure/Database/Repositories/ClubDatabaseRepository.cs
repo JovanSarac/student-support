@@ -40,14 +40,37 @@ namespace StudentSupport.Clubs.Infrastructure.Database.Repositories
         {
             var club = _clubs
                 .Where(c => c.Id == id)
+                .Include(c => c.Memberships.OrderBy(m => m.EnrollmentDate))
                 .FirstOrDefault();
             return club ?? throw new KeyNotFoundException("Not found: " + id);
+        }
+
+        public PagedResult<Club> GetClubsByAuthorIdPaged(int page, int pageSize, int authorId)
+        {
+            var query = _clubs
+                .Where(c => c.OwnerId == authorId)
+                .Include(c => c.Memberships.OrderBy(m => m.EnrollmentDate));
+
+            var totalCount = query.Count();
+
+            if (pageSize == 0 && page == 0)
+            {
+                return new PagedResult<Club>(query.ToList(), totalCount);
+            }
+
+            var pagedClubs = query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return new PagedResult<Club>(pagedClubs, totalCount);
         }
 
         public PagedResult<Club> GetClubsByIdsPaged(int page, int pageSize, List<long> clubIds)
         {
             var query = _clubs
-                .Where(c => clubIds.Contains(c.Id));
+                .Where(c => clubIds.Contains(c.Id) && c.Status == ClubStatus.Active)
+                .Include(c => c.Memberships.OrderBy(m => m.EnrollmentDate));
 
             var totalCount = query.Count();
 
@@ -66,7 +89,7 @@ namespace StudentSupport.Clubs.Infrastructure.Database.Repositories
 
         public PagedResult<Club> GetPaged(int page, int pageSize)
         {
-            var task = _clubs.GetPagedById(page, pageSize);
+            var task = _clubs.Include(c => c.Memberships.OrderBy(m => m.EnrollmentDate)).GetPagedById(page, pageSize);
             task.Wait();
             return task.Result;
         }

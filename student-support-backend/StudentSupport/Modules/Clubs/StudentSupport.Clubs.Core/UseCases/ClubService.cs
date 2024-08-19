@@ -26,6 +26,68 @@ namespace StudentSupport.Clubs.Core.UseCases
             _membershipService = membershipService;
         }
 
+        public Result<ClubDto> ActivateClub(int id)
+        {
+            try
+            {
+                Club club = _clubRepository.Get(id);
+                club.Activate();
+                _clubRepository.SaveChanges();
+
+                return MapToDto(club);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        public Result<ClubDto> CloseClub(int id)
+        {
+            try
+            {
+                Club club = _clubRepository.Get(id);
+                club.Close();
+                _clubRepository.SaveChanges();
+
+                return MapToDto(club);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        public Result<ClubDto> CloseClubByAdmin(int id)
+        {
+            try
+            {
+                Club club = _clubRepository.Get(id);
+                club.CloseByAdmin();
+                _clubRepository.SaveChanges();
+
+                return MapToDto(club);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        public Result<PagedResult<ClubDto>> GetCreatedClubsPaged(int page, int pageSize, int authorId)
+        {
+            try
+            {
+                var clubs = _clubRepository.GetClubsByAuthorIdPaged(page, pageSize, authorId);
+
+                return MapToDto(clubs);
+            }
+            catch(ArgumentException ex)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(ex.Message);
+            }
+        }
+
         public Result<PagedResult<ClubDto>> GetJoinedClubsPaged(int page, int pageSize, int studentId)
         {
             try
@@ -38,7 +100,26 @@ namespace StudentSupport.Clubs.Core.UseCases
             }
             catch (ArgumentException ex)
             {
-                return Result.Fail(FailureCode.Forbidden).WithError(ex.Message);
+                return Result.Fail(FailureCode.NotFound).WithError(ex.Message);
+            }
+        }
+
+        public Result<bool> IsAuthorOfClub(int authorId, int clubId)
+        {
+            try
+            {
+                var clubCount = _clubRepository.GetPaged(0, 0).Results.Count(c => c.Id == clubId && c.OwnerId == authorId);
+
+                if(clubCount == 0)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            catch (ArgumentException ex)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(ex.Message);
             }
         }
     }

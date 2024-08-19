@@ -24,6 +24,13 @@ namespace StudentSupport.API.Controllers.Author
             return CreateResponse(result);
         }
 
+        [HttpGet("created_clubs/{authorId:int}")]
+        public ActionResult<PagedResult<ClubDto>> GetCreatedClubs([FromQuery] int page, [FromQuery] int pageSize, int authorId)
+        {
+            var result = _clubService.GetCreatedClubsPaged(page, pageSize, authorId);
+            return CreateResponse(result);
+        }
+
         [HttpGet("{id:int}")]
         public ActionResult<ClubDto> Get(int id)
         {
@@ -35,6 +42,27 @@ namespace StudentSupport.API.Controllers.Author
         public ActionResult<ClubDto> Create([FromBody] ClubDto clubDto)
         {
             var result = _clubService.Create(clubDto);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("is_author_of_club/{clubId:int}/{authorId:int}")]
+        public ActionResult<bool> IsAuthorOfClub(int clubId, int authorId)
+        {
+            var result = _clubService.IsAuthorOfClub(authorId, clubId);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("close")]
+        public ActionResult<ClubDto> CloseClub([FromBody] int id)
+        {
+            var result = _clubService.CloseClub(id);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("activate")]
+        public ActionResult<ClubDto> ActivateClub([FromBody] int id)
+        {
+            var result = _clubService.ActivateClub(id);
             return CreateResponse(result);
         }
 
