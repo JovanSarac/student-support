@@ -206,4 +206,45 @@ export class EventCardComponent implements OnInit {
     }
   }
 
+  editEvent(event: MyEvent){
+    this.router.navigate(['/edit-event', event.id]);
+  }
+
+  archiveEvent(event: MyEvent){
+    this.service.archiveEvent(event.id).subscribe({
+      next: (result: MyEvent) => {
+        this.event = result;
+        this.toastrService.success(
+          'Uspešno ste arhivirali događaj.',
+          'Uspešno',
+          {
+            timeOut: 4000, // Trajanje u milisekundama, ovde 10 sekundi
+            extendedTimeOut: 2000, // Vreme produžetka ako korisnik pređe mišem preko toast-a
+            closeButton: true,
+            progressBar: true,
+          }
+        );
+      },
+    });
+  }
+
+  publishEvent(event: MyEvent) {
+    this.service.publishEvent(event.id).subscribe({
+      next: (result: MyEvent) => {
+        this.event = result;
+        this.toastrService.success(
+          'Uspešno ste ponovno objavili događaj.',
+          'Uspešno',
+          {
+            timeOut: 4000, // Trajanje u milisekundama, ovde 10 sekundi
+            extendedTimeOut: 2000, // Vreme produžetka ako korisnik pređe mišem preko toast-a
+            closeButton: true,
+            progressBar: true,
+          }
+        );
+      },
+    });
+  }
+
+
 }
