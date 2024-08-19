@@ -91,8 +91,8 @@ export class EventsPageComponent implements OnInit {
     if(this.searchName != "")
       this.searchControl.setValue(this.searchName);
 
-    this.selectedCheckboxes = params['filterTypes'] || [];
-
+    this.selectedCheckboxes = Array.isArray(params['filterTypes']) ? params['filterTypes'] : (params['filterTypes'] ? [params['filterTypes']] : []);
+    
     this.selectedDateFilter = params['filterDates'] || "";
     this.startDate = params['startDate'] || null;
     this.endDate = params['endDate'] || null;
