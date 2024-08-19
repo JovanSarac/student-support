@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { MyEvent } from 'src/app/feature-modules/board/model/myevent.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
@@ -32,6 +32,10 @@ export class EventCardComponent implements OnInit {
     userId: 0,
   };
   @Output() OnClick = new EventEmitter();
+  @Input() isMenuVisible: boolean = false; // Input za vidljivost menija
+  @Output() menuToggle = new EventEmitter<void>(); // Output za obaveštavanje roditeljske komponente o promenama menija
+
+
   user!: User;
   participation: Participation = {
     id: 0,
@@ -43,6 +47,7 @@ export class EventCardComponent implements OnInit {
   participations: Participation[] = [];
   isLoading: boolean = false;
   eventIdForLoader: number = 0;
+  menuVisible: boolean = false;
 
   constructor(
     public router: Router,
@@ -185,4 +190,20 @@ export class EventCardComponent implements OnInit {
     StudentTrips: '#FF8C00',
     Other: '#DA70D6',
   };
+
+  toggleMenu(event: Event): void {
+    event.stopPropagation();
+    this.menuToggle.emit(); // Emituj događaj da roditeljska komponenta zna da treba da se sakrije meni
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    const clickedInside = target.closest('.event-card') !== null;
+
+    if (!clickedInside && this.isMenuVisible) {
+      this.menuToggle.emit(); // Emituj događaj da roditeljska komponenta sakrije meni
+    }
+  }
+
 }

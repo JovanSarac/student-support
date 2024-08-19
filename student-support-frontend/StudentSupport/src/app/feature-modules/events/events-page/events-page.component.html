@@ -356,8 +356,10 @@
       </div>
       <div class="cards">
         <xp-event-card
-          *ngFor="let event of pagedEvents"
+          *ngFor="let event of pagedEvents; let i = index"
           [event]="event"
+          [isMenuVisible]="menuVisibleIndex === i"
+          (menuToggle)="onMenuToggle(i)"
         ></xp-event-card>
       </div>
 
