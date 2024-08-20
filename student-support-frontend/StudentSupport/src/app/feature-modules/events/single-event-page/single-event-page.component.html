@@ -118,7 +118,7 @@
         class="carousel-item"
         [class.active]="i === 0"
       >
-        <img class="d-block w-100" [src]="image" alt="Slide {{ i + 1 }}" />
+        <img [src]="image" alt="Slide {{ i + 1 }}" />
       </div>
     </div>
     <a
@@ -128,7 +128,6 @@
       data-slide="prev"
     >
       <i class="bi bi-caret-left-fill"></i>
-      <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
       <span class="sr-only">Previous</span>
     </a>
     <a
@@ -138,7 +137,6 @@
       data-slide="next"
     >
       <i class="bi bi-caret-right-fill"></i>
-      <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
       <span class="sr-only">Next</span>
     </a>
   </div>
