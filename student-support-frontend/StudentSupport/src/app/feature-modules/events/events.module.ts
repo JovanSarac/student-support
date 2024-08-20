@@ -12,11 +12,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
+import { ReportDialogComponent } from './report-dialog/report-dialog.component';
 
 @NgModule({
   declarations: [
     EventsPageComponent,
     SingleEventPageComponent,
+    ReportDialogComponent
   ],
   imports: [
     CommonModule,

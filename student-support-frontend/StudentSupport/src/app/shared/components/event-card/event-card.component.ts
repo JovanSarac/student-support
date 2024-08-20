@@ -9,6 +9,8 @@ import {
 import { EventsService } from 'src/app/feature-modules/events/events.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { ReportDialogComponent } from 'src/app/feature-modules/events/report-dialog/report-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'xp-event-card',
@@ -53,7 +55,8 @@ export class EventCardComponent implements OnInit {
     public router: Router,
     private service: EventsService,
     private authService: AuthService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -193,7 +196,7 @@ export class EventCardComponent implements OnInit {
 
   toggleMenu(event: Event): void {
     event.stopPropagation();
-    this.menuToggle.emit(); // Emituj događaj da roditeljska komponenta zna da treba da se sakrije meni
+    this.menuToggle.emit(); 
   }
 
   @HostListener('document:click', ['$event'])
@@ -202,15 +205,17 @@ export class EventCardComponent implements OnInit {
     const clickedInside = target.closest('.event-card') !== null;
 
     if (!clickedInside && this.isMenuVisible) {
-      this.menuToggle.emit(); // Emituj događaj da roditeljska komponenta sakrije meni
+      this.menuToggle.emit();
     }
   }
 
-  editEvent(event: MyEvent){
+  editEvent(event: MyEvent, eventClick: MouseEvent){
+    eventClick.stopPropagation();
     this.router.navigate(['/edit-event', event.id]);
   }
 
-  archiveEvent(event: MyEvent){
+  archiveEvent(event: MyEvent, eventClick: MouseEvent){
+    eventClick.stopPropagation();
     this.service.archiveEvent(event.id).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
@@ -218,8 +223,8 @@ export class EventCardComponent implements OnInit {
           'Uspešno ste arhivirali događaj.',
           'Uspešno',
           {
-            timeOut: 4000, // Trajanje u milisekundama, ovde 10 sekundi
-            extendedTimeOut: 2000, // Vreme produžetka ako korisnik pređe mišem preko toast-a
+            timeOut: 4000,
+            extendedTimeOut: 2000,
             closeButton: true,
             progressBar: true,
           }
@@ -228,7 +233,8 @@ export class EventCardComponent implements OnInit {
     });
   }
 
-  publishEvent(event: MyEvent) {
+  publishEvent(event: MyEvent, eventClick: MouseEvent) {
+    eventClick.stopPropagation();
     this.service.publishEvent(event.id).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
@@ -236,13 +242,22 @@ export class EventCardComponent implements OnInit {
           'Uspešno ste ponovno objavili događaj.',
           'Uspešno',
           {
-            timeOut: 4000, // Trajanje u milisekundama, ovde 10 sekundi
-            extendedTimeOut: 2000, // Vreme produžetka ako korisnik pređe mišem preko toast-a
+            timeOut: 4000,
+            extendedTimeOut: 2000,
             closeButton: true,
             progressBar: true,
           }
         );
       },
+    });
+  }
+
+  openDialogForReport(event : MyEvent, eventClick: MouseEvent){
+    eventClick.stopPropagation();
+    let dialogRef = this.dialog.open(ReportDialogComponent, {
+      width: '600px',
+      height: '600px',
+      data: event,
     });
   }
 
