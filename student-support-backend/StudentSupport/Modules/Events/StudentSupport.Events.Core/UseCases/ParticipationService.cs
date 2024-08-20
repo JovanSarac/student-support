@@ -116,18 +116,15 @@ namespace StudentSupport.Events.Core.UseCases
 
         public async Task CancelAllByAuthor(int eventId)
         {
-            EventDto eventDto = null;
-
             try
             {
                 List<string> emails = new List<string>();
+                EventDto eventDto = _eventService.Get(eventId).Value;
 
                 foreach (Participation p in _participationRepository.GetAllByEventId(eventId).Where(p => p.Type != ParticipationType.Cancelled))
                 {
                     p.CancelByAuthor();
                     _participationRepository.SaveChanges();
-
-                    eventDto = _eventService.Get((int)p.EventId).Value;
 
                     PersonDto personDto = _internalPersonService.GetByUserId((int)p.StudentId).Value;
                     emails.Add(personDto.Email);
@@ -143,21 +140,18 @@ namespace StudentSupport.Events.Core.UseCases
 
         public async Task SendMailAfterPublishingBack(int eventId)
         {
-            EventDto eventDto = null;
-
             try
             {
                 List<string> emails = new List<string>();
+                EventDto eventDto = _eventService.Get(eventId).Value;
 
                 foreach (Participation p in _participationRepository.GetAllByEventId(eventId))
                 {
                     if(p.Type == ParticipationType.CancelledByAuthor)
                     {
-                        eventDto = _eventService.Get((int)p.EventId).Value;
                         PersonDto personDto = _internalPersonService.GetByUserId((int)p.StudentId).Value;
 
                         emails.Add(personDto.Email);
-
                     }
                 }
 
