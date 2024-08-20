@@ -48,6 +48,12 @@ namespace StudentSupport.Clubs.Core.Domain
             Validate();
             Status = MembershipStatus.ClubAdmin;
         }
+
+        public void MakeAMember()
+        {
+            Validate();
+            Status = MembershipStatus.Member;
+        }
     }
     public enum MembershipStatus
     {

@@ -1,0 +1,68 @@
+<div class="close-button">
+  <i (click)="closeDialog()" class="bi bi-x-square"></i>
+</div>
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Tip člana</th>
+        <th>Član od</th>
+        <th>Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let m of memberships">
+        <td>{{ getMemberName(m.memberId) }}</td>
+        <td>
+          {{ getMemberSurname(m.memberId) }}
+        </td>
+        <td>{{ getMembershipType(m.status) }}</td>
+        <td>{{ formatDate(m.enrollmentDate.toString()) }}</td>
+        <td>
+          <xp-primary-button
+            buttonId="open-event"
+            buttonType="button"
+            textValue="Pogledaj"
+            (click)="openMemberProfile(m.memberId)"
+          >
+          </xp-primary-button>
+          <xp-primary-button
+            style="margin-left: 10px"
+            *ngIf="
+              (isAuthor && m.status !== 2 && m.status !== 3) ||
+              (currentMembership.status === 1 && m.status === 0)
+            "
+            buttonId="suspend-member"
+            buttonType="button"
+            textValue="Suspenduj"
+            (click)="suspendMembership(m.id!)"
+          >
+          </xp-primary-button>
+          <xp-primary-button
+            style="margin-left: 10px"
+            *ngIf="
+              (isAuthor && (m.status === 1 || m.status === 3)) ||
+              (currentMembership.status === 1 && m.status === 3)
+            "
+            buttonId="promote-to-member"
+            buttonType="button"
+            textValue="Pretvori u membera"
+            (click)="makeAMember(m.id!)"
+          >
+          </xp-primary-button>
+          <xp-primary-button
+            style="margin-left: 10px"
+            *ngIf="isAuthor && m.status === 0"
+            buttonId="promote-to-admin"
+            buttonType="button"
+            textValue="Unapredi u admina"
+            (click)="promoteToClubAdmin(m.id!)"
+          >
+          </xp-primary-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

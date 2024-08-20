@@ -36,6 +36,18 @@ namespace StudentSupport.Stakeholders.Core.UseCases
             }
         }
 
+        public Result<PagedResult<PersonDto>> GetPeopleByIdsPaged(int page, int pageSize, List<long> memberIds)
+        {
+            try
+            {
+                return MapToDto(_personRepository.GetPeopleByIdsPaged(page, pageSize, memberIds));
+            }
+            catch(ArgumentException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
         public Result<PersonDto> Update(PersonDto person)
         {
             try

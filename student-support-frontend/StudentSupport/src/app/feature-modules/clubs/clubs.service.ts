@@ -5,6 +5,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Club } from 'src/app/shared/model/club.model';
 import { Membership } from 'src/app/shared/model/membership.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Person } from 'src/app/shared/model/person.model';
 import { environment } from 'src/env/environment';
 
 @Injectable({
@@ -93,6 +94,37 @@ export class ClubsService {
     return this.http.put<Membership>(
       environment.apiHost + 'student/memberships/leave',
       membershipId
+    );
+  }
+
+  suspendMembership(user: User, membershipId: number): Observable<Membership> {
+    return this.http.put<Membership>(
+      environment.apiHost + user.role + '/memberships/suspend',
+      membershipId
+    );
+  }
+
+  makeAMember(user: User, membershipId: number): Observable<Membership> {
+    return this.http.put<Membership>(
+      environment.apiHost + user.role + '/memberships/make_a_member',
+      membershipId
+    );
+  }
+
+  promoteToClubAdmin(membershipId: number): Observable<Membership> {
+    return this.http.put<Membership>(
+      environment.apiHost + 'author/memberships/promote_to_club_admin',
+      membershipId
+    );
+  }
+
+  // **************************************MEMBERS SECTION**********************************************
+  getMembersByClubId(
+    user: User,
+    clubId: number
+  ): Observable<PagedResults<Person>> {
+    return this.http.get<PagedResults<Person>>(
+      environment.apiHost + user.role + '/person/club_members/' + clubId
     );
   }
 }

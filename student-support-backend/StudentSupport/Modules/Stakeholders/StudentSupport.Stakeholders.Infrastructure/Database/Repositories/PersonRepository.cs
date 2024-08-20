@@ -6,16 +6,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using StudentSupport.BuildingBlocks.Core.UseCases;
+using StudentSupport.BuildingBlocks.Infrastructure.Database;
 
 namespace StudentSupport.Stakeholders.Infrastructure.Database.Repositories
 {
     public class PersonRepository : IPersonRepository
     {
         private readonly StakeholdersContext _dbContext;
+        private readonly DbSet<Person> _people; 
 
         public PersonRepository(StakeholdersContext dbContext)
         {
             _dbContext = dbContext;
+            _people = _dbContext.Set<Person>();
         }
 
         public Person GetByUserId(long userId)
@@ -51,6 +55,15 @@ namespace StudentSupport.Stakeholders.Infrastructure.Database.Repositories
             var entity = query.FirstOrDefault();
 
             return entity;
+        }
+
+        public PagedResult<Person> GetPeopleByIdsPaged(int page, int pageSize, List<long> memberIds)
+        {
+            var task = _people
+                .Where(p => memberIds.Contains(p.Id))
+                .GetPagedById(page, pageSize);
+            task.Wait();
+            return task.Result;
         }
     }
 }

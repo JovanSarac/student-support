@@ -6,7 +6,7 @@
         buttonType="button"
         textValue="Prikaži članove"
         iconClass="bi bi-people-fill"
-        (click)="joinClub()"
+        (click)="openMembersDialog()"
       ></xp-secondary-button>
       <div>
         <xp-secondary-button
@@ -53,7 +53,8 @@
           *ngIf="
             !isAlreadyCheckedJoined() &&
             user.role === 'student' &&
-            !shouldShowLoader()
+            !shouldShowLoader() &&
+            !isSuspended()
           "
           buttonId="participation-button"
           buttonType="button"
@@ -106,7 +107,11 @@
         "
         class="event-date-time-p"
       >
-        <i class="bi bi-exclamation-triangle-fill"></i> KLUB JE ZATVOREN(by:
+        <i class="bi bi-exclamation-triangle-fill"></i> KLUB JE ZATVOREN (by:
+        ADMIN)
+      </p>
+      <p *ngIf="isSuspended()" class="event-date-time-p">
+        <i class="bi bi-exclamation-triangle-fill"></i> SUSPENDOVAN SI (by:
         ADMIN)
       </p>
     </div>

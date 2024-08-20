@@ -47,6 +47,20 @@ namespace StudentSupport.API.Controllers.Student
             return CreateResponse(result);
         }
 
+        [HttpPut("suspend")]
+        public ActionResult<MembershipDto> SuspendMembership([FromBody] int id)
+        {
+            var result = _membershipService.SuspendMember(id);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("make_a_member")]
+        public ActionResult<MembershipDto> MakeAMember([FromBody] int id)
+        {
+            var result = _membershipService.MakeAMember(id);
+            return CreateResponse(result);
+        }
+
         [HttpPut]
         public ActionResult<ClubDto> Update([FromBody] MembershipDto membershipDto)
         {

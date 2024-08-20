@@ -14,6 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 import { EventsService } from '../../events/events.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { marked } from 'marked';
+import { MatDialog } from '@angular/material/dialog';
+import { ClubMembersDialogComponent } from '../club-members-dialog/club-members-dialog.component';
 
 @Component({
   selector: 'app-single-club-page',
@@ -71,7 +73,8 @@ export class SingleClubPageComponent implements OnInit {
     private eventService: EventsService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -106,7 +109,8 @@ export class SingleClubPageComponent implements OnInit {
   }
 
   getMembershipCount(): number {
-    return this.club.memberships.filter((m) => m.status === 0).length;
+    return this.club.memberships.filter((m) => m.status === 0 || m.status === 1)
+      .length;
   }
 
   joinClub(): void {
@@ -273,5 +277,34 @@ export class SingleClubPageComponent implements OnInit {
 
   openProfile(): void {
     this.router.navigate(['/my-profile/' + this.author.id]);
+  }
+
+  openMembersDialog(): void {
+    let dialogRef = this.dialog.open(ClubMembersDialogComponent, {
+      width: '65dvw',
+      height: '85dvh',
+      position: { top: '10dvh' },
+      data: this.club,
+    });
+
+    dialogRef.componentInstance.membershipUpdated.subscribe(() => {
+      this.getClubById();
+      dialogRef.componentInstance.data = this.club;
+    });
+  }
+
+  isSuspended(): boolean {
+    const membership = this.club.memberships.find(
+      (m) =>
+        m.memberId === this.user.id &&
+        m.clubId === this.clubId &&
+        m.status === MembershipStatus.Suspended
+    );
+
+    if (membership) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

@@ -20,6 +20,8 @@ namespace StudentSupport.Clubs.API.Public
         Result<MembershipDto> LeaveClub(long membershipId);
         Result<MembershipDto> SuspendMember(long membershipId);
         Result<MembershipDto> PromoteToClubAdmin(long membershipId);
+        Result<MembershipDto> MakeAMember(long membershipId);
+        Result<List<long>> GetMemberIdListByClubId(int clubId);
 
     }
 }

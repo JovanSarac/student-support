@@ -10,12 +10,14 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SingleClubPageComponent } from './single-club-page/single-club-page.component';
 import { ClubsPageComponent } from './clubs-page/clubs-page.component';
+import { ClubMembersDialogComponent } from './club-members-dialog/club-members-dialog.component';
 
 @NgModule({
   declarations: [
     CreateClubComponent,
     SingleClubPageComponent,
     ClubsPageComponent,
+    ClubMembersDialogComponent,
   ],
   imports: [
     CommonModule,

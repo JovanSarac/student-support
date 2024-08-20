@@ -27,7 +27,26 @@ namespace StudentSupport.Clubs.Core.UseCases
         public Result<List<long>> GetClubIdListByStudentId(long studentId)
         {
             try
-            {                return _membershipRepository.GetClubIdsByStudentId(studentId);
+            {                
+                return _membershipRepository.GetClubIdsByStudentId(studentId);
+            }
+            catch(ArgumentException ex)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(ex.Message);
+            }
+        }
+
+        public Result<List<long>> GetMemberIdListByClubId(int clubId)
+        {
+            try
+            {
+                var members = _membershipRepository.GetPaged(0, 0).Results;
+                var memberIds = members
+                                .Where(m => m.ClubId == clubId)
+                                .Select(m => m.MemberId)
+                                .ToList();
+
+                return memberIds;
             }
             catch(ArgumentException ex)
             {
@@ -45,6 +64,21 @@ namespace StudentSupport.Clubs.Core.UseCases
                 return MapToDto(membership);
             }
             catch(ArgumentException ex)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(ex.Message);
+            }
+        }
+
+        public Result<MembershipDto> MakeAMember(long membershipId)
+        {
+            try
+            {
+                Membership membership = _membershipRepository.Get(membershipId);
+                membership.MakeAMember();
+                _membershipRepository.SaveChanges();
+                return MapToDto(membership);
+            }
+            catch (ArgumentException ex)
             {
                 return Result.Fail(FailureCode.NotFound).WithError(ex.Message);
             }

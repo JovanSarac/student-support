@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentSupport.BuildingBlocks.Core.UseCases;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace StudentSupport.Stakeholders.Core.Domain.RepositoryInterfaces
         Person GetByUserId(long userId);
         Person Update(Person person);
         Person? GetByEmailWithGmail(string email);
+        PagedResult<Person> GetPeopleByIdsPaged(int page, int pageSize, List<long> memberIds);
     }
 }

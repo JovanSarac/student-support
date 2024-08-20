@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using FluentResults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using StudentSupport.BuildingBlocks.Core.UseCases;
+using StudentSupport.Clubs.API.Dtos;
+using StudentSupport.Clubs.API.Public;
+using StudentSupport.Clubs.Core.UseCases;
 using StudentSupport.Stakeholders.API.Dtos;
 using StudentSupport.Stakeholders.API.Public;
 
@@ -10,9 +15,26 @@ namespace StudentSupport.API.Controllers.Author
     public class PersonController : BaseApiController
     {
         private readonly IPersonService _personService;
-        public PersonController(IPersonService personService)
+        private readonly IMembershipService _membershipService;
+        public PersonController(IPersonService personService, IMembershipService membershipService)
         {
             _personService = personService;
+            _membershipService = membershipService;
+        }
+
+        [HttpGet("club_members/{clubId:int}")]
+        public ActionResult<PagedResult<PersonDto>> GetAllMembersByClubId([FromQuery] int page, [FromQuery] int pageSize, int clubId)
+        {
+            var memberIds = _membershipService.GetMemberIdListByClubId(clubId);
+
+            if (!memberIds.IsSuccess)
+            {
+                 CreateResponse(Result.Fail(FailureCode.NotFound));
+            }
+
+            var result = _personService.GetPeopleByIdsPaged(page, pageSize, memberIds.Value);
+            
+            return CreateResponse(result);
         }
 
         [HttpGet("{userId:int}")]
