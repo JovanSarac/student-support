@@ -3,8 +3,8 @@ export interface Report {
   eventId: number;
   studentId: number;
   date: Date;
-  type: ReportType;
-  status: ReportStatus;
+  type: number;
+  status: number;
 }
 
 export enum ReportType {

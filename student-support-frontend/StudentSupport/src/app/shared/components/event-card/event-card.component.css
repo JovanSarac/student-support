@@ -130,6 +130,82 @@ svg {
   color: var(--accent-color);
 }
 
+.select-option{
+  display: flex;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.select-option p{
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  width: 30x;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.select-option p:hover{
+  background-color: black;
+}
+
+.star{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.card-menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50px;
+  right : 3px;
+  background-color: var(--background-color);
+  border-radius: 5px;
+  border: 2px solid var(--border-light-color);
+  padding: 5px;
+  z-index: 1500;
+}
+
+.menu-item{
+  display: flex;
+  width: 100%;
+  height: auto;
+  padding: 0px 15px;
+  margin-bottom: 5px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.menu-item p{
+  display: flex;
+  padding: 3px;
+  margin: 5px;
+  color: var(--text-color);
+  font-weight: 700;
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  transition: transform 0.3s ease;
+
+}
+
+.menu-item p:hover {
+  color: var(--secondary-color);
+  cursor: pointer;
+  transform: scale(1.07);
+}
+
+.separator{
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px solid var(--border-light-color);
+}
+
 @media (max-width: 1950px) {
   .one-card {
     width: 17.8vw;

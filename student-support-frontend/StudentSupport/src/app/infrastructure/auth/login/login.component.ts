@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit{
     return JSON.parse(atob(token.split(".")[1]))
   }
 
-  convertUrlToBase64(url: string): Promise<string> {
+  /*convertUrlToBase64(url: string): Promise<string> {
     return fetch(url)
       .then(response => response.blob())
       .then(blob => new Promise<string>((resolve, reject) => {
@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit{
         reader.onerror = reject;
         reader.readAsDataURL(blob);
       }));
-  }
+  }*/
   
   // U tvom kodu, nakon što dobiješ `profilePic` iz `payLoad`
   handleLogin(response: any) {
@@ -104,11 +104,17 @@ export class LoginComponent implements OnInit{
           name: payLoad.given_name || "",
           surname: payLoad.family_name || "",
           email: payLoad.email || "",
-          profilePic: payLoad.picture || "",
+          profilePic: /*payLoad.picture ||*/ "",
         };
+
+        this.authService.loginStudentGmail(registration).subscribe({
+          next: () => {
+            this.router.navigate(['/']);
+          },
+        });
   
         // Pretvori URL u Base64
-        this.convertUrlToBase64(registration.profilePic).then(base64Image => {
+        /*this.convertUrlToBase64(registration.profilePic).then(base64Image => {
           const base64Data = base64Image.split(',')[1];
           registration.profilePic = base64Data;
   
@@ -120,7 +126,7 @@ export class LoginComponent implements OnInit{
           });
         }).catch(error => {
           console.error('Error converting URL to Base64:', error);
-        });
+        });*/
       }
     }
   }

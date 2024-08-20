@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { MyEvent } from 'src/app/feature-modules/board/model/myevent.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
@@ -9,6 +9,8 @@ import {
 import { EventsService } from 'src/app/feature-modules/events/events.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { ReportDialogComponent } from 'src/app/feature-modules/events/report-dialog/report-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'xp-event-card',
@@ -32,6 +34,10 @@ export class EventCardComponent implements OnInit {
     userId: 0,
   };
   @Output() OnClick = new EventEmitter();
+  @Input() isMenuVisible: boolean = false; // Input za vidljivost menija
+  @Output() menuToggle = new EventEmitter<void>(); // Output za obaveštavanje roditeljske komponente o promenama menija
+
+
   user!: User;
   participation: Participation = {
     id: 0,
@@ -43,12 +49,14 @@ export class EventCardComponent implements OnInit {
   participations: Participation[] = [];
   isLoading: boolean = false;
   eventIdForLoader: number = 0;
+  menuVisible: boolean = false;
 
   constructor(
     public router: Router,
     private service: EventsService,
     private authService: AuthService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -185,4 +193,73 @@ export class EventCardComponent implements OnInit {
     StudentTrips: '#FF8C00',
     Other: '#DA70D6',
   };
+
+  toggleMenu(event: Event): void {
+    event.stopPropagation();
+    this.menuToggle.emit(); 
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    const clickedInside = target.closest('.event-card') !== null;
+
+    if (!clickedInside && this.isMenuVisible) {
+      this.menuToggle.emit();
+    }
+  }
+
+  editEvent(event: MyEvent, eventClick: MouseEvent){
+    eventClick.stopPropagation();
+    this.router.navigate(['/edit-event', event.id]);
+  }
+
+  archiveEvent(event: MyEvent, eventClick: MouseEvent){
+    eventClick.stopPropagation();
+    this.service.archiveEvent(event.id).subscribe({
+      next: (result: MyEvent) => {
+        this.event = result;
+        this.toastrService.success(
+          'Uspešno ste arhivirali događaj.',
+          'Uspešno',
+          {
+            timeOut: 4000,
+            extendedTimeOut: 2000,
+            closeButton: true,
+            progressBar: true,
+          }
+        );
+      },
+    });
+  }
+
+  publishEvent(event: MyEvent, eventClick: MouseEvent) {
+    eventClick.stopPropagation();
+    this.service.publishEvent(event.id).subscribe({
+      next: (result: MyEvent) => {
+        this.event = result;
+        this.toastrService.success(
+          'Uspešno ste ponovno objavili događaj.',
+          'Uspešno',
+          {
+            timeOut: 4000,
+            extendedTimeOut: 2000,
+            closeButton: true,
+            progressBar: true,
+          }
+        );
+      },
+    });
+  }
+
+  openDialogForReport(event : MyEvent, eventClick: MouseEvent){
+    eventClick.stopPropagation();
+    let dialogRef = this.dialog.open(ReportDialogComponent, {
+      width: '600px',
+      height: '600px',
+      data: event,
+    });
+  }
+
+
 }

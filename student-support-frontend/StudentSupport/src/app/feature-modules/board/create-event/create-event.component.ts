@@ -113,7 +113,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
 
       if (path === 'edit-event') {
         this.isEditMode = true;
-        this.title = 'Izmjeni događaj:';
+        this.title = 'Izmeni događaj:';
 
         this.loadEvent();
       }

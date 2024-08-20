@@ -19,6 +19,7 @@ export class EventsPageComponent implements OnInit {
   currentPage = 1;
   pageSize = 20;
   pagedEvents: MyEvent[] = [];
+  menuVisibleIndex: number | null = null;
   participations: Participation[] = [];
   totalPages = 1;
   user!: User;
@@ -91,7 +92,7 @@ export class EventsPageComponent implements OnInit {
     if(this.searchName != "")
       this.searchControl.setValue(this.searchName);
 
-    this.selectedCheckboxes = params['filterTypes'] || [];
+    this.selectedCheckboxes = Array.isArray(params['filterTypes']) ? params['filterTypes'] : (params['filterTypes'] ? [params['filterTypes']] : []);
 
     this.selectedDateFilter = params['filterDates'] || "";
     this.startDate = params['startDate'] || null;
@@ -412,5 +413,9 @@ export class EventsPageComponent implements OnInit {
     }
   
     return params;
+  }
+
+  onMenuToggle(index: number | null) {
+    this.menuVisibleIndex = this.menuVisibleIndex === index ? null : index;
   }
 }
