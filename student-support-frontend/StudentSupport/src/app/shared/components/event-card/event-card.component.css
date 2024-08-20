@@ -169,7 +169,7 @@ svg {
   border-radius: 5px;
   border: 2px solid var(--border-light-color);
   padding: 5px;
-  z-index: 1000;
+  z-index: 1500;
 }
 
 .menu-item{

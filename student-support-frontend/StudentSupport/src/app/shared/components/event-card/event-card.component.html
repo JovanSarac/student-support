@@ -11,7 +11,7 @@
       }"
       [innerText]="eventType[event.eventType] || event.eventType"
     ></p>
-    <div class="select-option" *ngIf="(user.role === 'author' && user.id === event.userId) || user.role === 'student'">
+    <div class="select-option" *ngIf="((user.role === 'author' && user.id === event.userId) || user.role === 'student') && this.router.url !== '/'">
       <p (click)="toggleMenu($event)"><i class="bi bi-three-dots"></i></p>
     </div>
     
