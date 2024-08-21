@@ -49,7 +49,7 @@ export class ReportsComponent implements OnInit {
       next: (result: Report) => {
         this.loadReports();
         this.toastrService.success(
-          'Uspešno ste označili prijavu kao rešenu.',
+          'Uspešno ste označili prijavu kao rešenu i otkazali ovaj događaj.',
           'Uspešno',
           {
             timeOut: 4000, // Trajanje u milisekundama, ovde 10 sekundi

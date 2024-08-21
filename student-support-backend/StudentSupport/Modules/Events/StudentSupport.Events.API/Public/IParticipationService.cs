@@ -22,6 +22,7 @@ namespace StudentSupport.Events.API.Public
         Result<int> CountParticipationsByEventId(int eventId);
         void CancelAllByEventId(int eventId);
         Task CancelAllByAuthor(int eventId);
+        Task CancelAllByAdmin(EventDto eventDto);
         Task SendMailAfterPublishingBack(int eventId);
         Task<Result> ResendMail(int eventId, int studentId);
     }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentResults;
+using Microsoft.Extensions.Logging;
 using StudentSupport.BuildingBlocks.Core.UseCases;
 using StudentSupport.Events.API.Dtos;
 using StudentSupport.Events.API.Public;
@@ -128,6 +129,29 @@ namespace StudentSupport.Events.Core.UseCases
 
                     PersonDto personDto = _internalPersonService.GetByUserId((int)p.StudentId).Value;
                     emails.Add(personDto.Email);
+                }
+
+                await _emailService.SendCancellationEmailsAsync(eventDto, emails);
+            }
+            catch (ArgumentException e)
+            {
+                Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        public async Task CancelAllByAdmin(EventDto eventDto)
+        {
+            try
+            {
+                List<string> emails = new List<string>();
+
+                foreach (Participation p in _participationRepository.GetAllByEventId((int)eventDto.Id).Where(p => p.Type != ParticipationType.Cancelled))
+                {
+                    PersonDto personDto = _internalPersonService.GetByUserId((int)p.StudentId).Value;
+                    emails.Add(personDto.Email);
+
+                    _participationRepository.Delete(p.Id);
+                    _participationRepository.SaveChanges();
                 }
 
                 await _emailService.SendCancellationEmailsAsync(eventDto, emails);

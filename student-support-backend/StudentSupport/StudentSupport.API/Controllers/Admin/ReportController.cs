@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using FluentResults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentSupport.BuildingBlocks.Core.UseCases;
 using StudentSupport.Events.API.Dtos;
@@ -12,10 +13,14 @@ namespace StudentSupport.API.Controllers.Admin
     public class ReportController : BaseApiController
     {
         private readonly IReportService _reportService;
+        private readonly IEventService _eventService;
+        private readonly IParticipationService _participationService;
 
-        public ReportController(IReportService reportService)
+        public ReportController(IReportService reportService, IEventService eventService, IParticipationService participationService)
         {
             _reportService = reportService;
+            _eventService = eventService;
+            _participationService = participationService;
         }
 
         [HttpGet]
@@ -35,6 +40,20 @@ namespace StudentSupport.API.Controllers.Admin
         [HttpPut("resolve")]
         public ActionResult<ReportDto> ResolveReport([FromBody] int id)
         {
+            var report = _reportService.Get(id);
+            if(report.Value != null)
+            {
+                var eventTemp = _eventService.Get((int)report.Value.EventId).Value;
+                var eventResult = _eventService.Delete((int)report.Value.EventId);
+
+                if (eventResult.IsFailed)
+                {
+                    return CreateResponse(Result.Fail(FailureCode.InvalidArgument));
+                }
+
+                _participationService.CancelAllByAdmin(eventTemp);
+            }
+
             var result = _reportService.Resolve(id);
             return CreateResponse(result);
         }
