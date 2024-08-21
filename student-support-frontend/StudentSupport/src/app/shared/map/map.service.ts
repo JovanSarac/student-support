@@ -7,6 +7,8 @@ import { Address, Coordinates } from '../model/map.model';
   providedIn: 'root'
 })
 export class MapService {
+  private baseUrl = 'https://nominatim.openstreetmap.org/reverse';
+
   constructor(private http: HttpClient) {}
 
   search(street: string): Observable<Coordinates[]> {
@@ -16,9 +18,8 @@ export class MapService {
   }
 
   reverseSearch(lat: number, lon: number): Observable<Address> {
-    return this.http.get<Address>(
-      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&<params>`
-    );
+    const url = `${this.baseUrl}?format=json&lat=${lat}&lon=${lon}&accept-language=sr-Latn`;
+    return this.http.get<Address>(url);
   }
 
 }
