@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentResults;
+using Microsoft.Extensions.Logging;
 using StudentSupport.BuildingBlocks.Core.UseCases;
 using StudentSupport.Events.API.Dtos;
 using StudentSupport.Events.API.Public;
@@ -116,18 +117,15 @@ namespace StudentSupport.Events.Core.UseCases
 
         public async Task CancelAllByAuthor(int eventId)
         {
-            EventDto eventDto = null;
-
             try
             {
                 List<string> emails = new List<string>();
+                EventDto eventDto = _eventService.Get(eventId).Value;
 
                 foreach (Participation p in _participationRepository.GetAllByEventId(eventId).Where(p => p.Type != ParticipationType.Cancelled))
                 {
                     p.CancelByAuthor();
                     _participationRepository.SaveChanges();
-
-                    eventDto = _eventService.Get((int)p.EventId).Value;
 
                     PersonDto personDto = _internalPersonService.GetByUserId((int)p.StudentId).Value;
                     emails.Add(personDto.Email);
@@ -141,23 +139,43 @@ namespace StudentSupport.Events.Core.UseCases
             }
         }
 
-        public async Task SendMailAfterPublishingBack(int eventId)
+        public async Task CancelAllByAdmin(EventDto eventDto)
         {
-            EventDto eventDto = null;
-
             try
             {
                 List<string> emails = new List<string>();
+
+                foreach (Participation p in _participationRepository.GetAllByEventId((int)eventDto.Id).Where(p => p.Type != ParticipationType.Cancelled))
+                {
+                    PersonDto personDto = _internalPersonService.GetByUserId((int)p.StudentId).Value;
+                    emails.Add(personDto.Email);
+
+                    _participationRepository.Delete(p.Id);
+                    _participationRepository.SaveChanges();
+                }
+
+                await _emailService.SendCancellationEmailsAsync(eventDto, emails);
+            }
+            catch (ArgumentException e)
+            {
+                Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
+
+        public async Task SendMailAfterPublishingBack(int eventId)
+        {
+            try
+            {
+                List<string> emails = new List<string>();
+                EventDto eventDto = _eventService.Get(eventId).Value;
 
                 foreach (Participation p in _participationRepository.GetAllByEventId(eventId))
                 {
                     if(p.Type == ParticipationType.CancelledByAuthor)
                     {
-                        eventDto = _eventService.Get((int)p.EventId).Value;
                         PersonDto personDto = _internalPersonService.GetByUserId((int)p.StudentId).Value;
 
                         emails.Add(personDto.Email);
-
                     }
                 }
 
