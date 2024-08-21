@@ -12,6 +12,7 @@ import { AdminPanelComponent } from '../auth/administrator/admin-panel/admin-pan
 import { ReportsComponent } from '../auth/administrator/reports/reports.component';
 import { CreateClubComponent } from 'src/app/feature-modules/clubs/create-club/create-club.component';
 import { SingleClubPageComponent } from 'src/app/feature-modules/clubs/single-club-page/single-club-page.component';
+import { ClubsPageComponent } from 'src/app/feature-modules/clubs/clubs-page/clubs-page.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -52,11 +53,11 @@ const routes: Routes = [
     component: ReportsComponent,
     canActivate: [AuthGuard],
   },
-  // {
-  //   path: 'clubs-page',
-  //   component: EventsPageComponent,
-  //   canActivate: [AuthGuard],
-  // },
+  {
+    path: 'clubs-page',
+    component: ClubsPageComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: 'create-club',
     component: CreateClubComponent,

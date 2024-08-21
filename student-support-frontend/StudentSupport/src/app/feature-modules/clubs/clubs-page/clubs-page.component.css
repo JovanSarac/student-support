@@ -1,0 +1,187 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+.full-page-bg {
+  display: flex;
+  flex-direction: row;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow-y: auto;
+  background-color: var(--background-color);
+  background-size: cover;
+  background-position: center;
+  margin-top: 8dvh;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.left-bar {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  height: calc(100% - 8dvh);
+  position: fixed;
+  border-right: 1px solid black;
+  top: 8dvh;
+}
+
+.left-bar-title {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  color: var(--text-color);
+  font-weight: 700;
+  font-size: 28px;
+  margin: 4%;
+}
+
+.search-events {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.input-search {
+  width: 95%;
+}
+
+.search-events p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: inherit;
+  border-radius: 12px;
+  color: var(--text-on-secondary-color);
+  background-color: var(--secondary-color);
+  margin-top: 20px;
+  font-size: clamp(14px, 1vw, 28px);
+  cursor: pointer;
+}
+
+.search-events p:hover {
+  background-color: var(--secondary-hover-color);
+}
+
+.buttons-tab {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 20px;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+}
+
+.buttons-tab p {
+  display: flex;
+  width: 100%;
+  height: 0;
+  padding: 28px 8px;
+  margin-bottom: 2px;
+  align-items: center;
+  font-size: 18px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.buttons-tab p:hover {
+  background-color: aliceblue;
+  color: var(--secondary-hover-color);
+}
+
+.buttons-tab p.active {
+  background-color: aliceblue;
+  color: var(--secondary-hover-color);
+}
+
+.create-event {
+  width: 100%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.filter-section{
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  margin-top: 5%;
+  
+}
+
+/* Prikazuje scrollbar kada je miš iznad sekcije */
+.filter-section:hover {
+  overflow-y: auto; /* Prikazuje scrollbar kada je miš iznad */
+}
+
+/* Stilizacija scrollbara */
+.filter-section::-webkit-scrollbar {
+  width: 10px; /* Širina scrollbar-a */
+}
+
+.filter-section::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Boja pozadine scrollbar-a */
+  border-radius: 10px; /* Zaobljeni uglovi scrollbar-a */
+}
+
+.filter-section::-webkit-scrollbar-thumb {
+  background-color: #888; /* Boja scrollbar-a */
+  border-radius: 10px; /* Zaobljeni uglovi scrollbar-a */
+  border: 2px solid #f1f1f1; /* Unutrašnja boja scrollbara */
+}
+
+.filter-section::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Boja scrollbar-a pri hover-u */
+}
+
+.clubs{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin-left: 20%;
+  margin-top: 10px;
+}
+
+.cards{
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 0.5%;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+  
+  .pagination button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    background-color: rgb(2, 2, 100);
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .pagination button[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination span {
+    font-size: 18px;
+  }

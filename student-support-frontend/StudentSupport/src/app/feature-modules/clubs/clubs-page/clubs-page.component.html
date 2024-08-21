@@ -1,1 +1,82 @@
-<p>clubs-page works!</p>
+<div class="full-page-bg">
+    <div class="page-container">
+        <div class="left-bar">
+            <div class="search-events">
+            <xp-input
+                class="input-search"
+                [inputType]="'text'"
+                [label]="''"
+                [control]="searchControl"
+                inputId="searchInput"
+                placeholderSentence="Pretraži klubove"
+                (keydown.enter)="searchClubs(searchControl.value!)"
+            ></xp-input>
+            <p (click)="searchClubs(searchControl.value!)">
+                <i class="bi bi-search"></i>
+            </p>
+            </div>
+    
+            <div class="buttons-tab">
+            <p
+                [ngClass]="{ active: activeTab === 'allClubs' }"
+                (click)="changeActiveTab('allClubs')"
+            >
+                <i class="bi bi-suit-club-fill" style="margin-right: 10px"></i
+                >Svi klubovi
+            </p>
+            <p
+                [ngClass]="{ active: activeTab === 'yourClubs' }"
+                (click)="changeActiveTab('yourClubs')"
+                *ngIf="user.role === 'author'"
+            >
+                <i class="bi bi-bookmark-star-fill" style="margin-right: 10px"></i
+                >Vaši klubovi
+            </p>
+            <p
+                [ngClass]="{ active: activeTab === 'yourMemberships' }"
+                (click)="changeActiveTab('yourMemberships')"
+                *ngIf="user.role === 'student'"
+            >
+                <i class="bi bi-star-fill" style="margin-right: 10px"></i>Vaša
+                članstva
+            </p>
+    
+            <xp-primary-button
+                *ngIf="user.role === 'author'"
+                class="create-event"
+                buttonId="create-event-button"
+                buttonType="button"
+                textValue="Napravi novi klub"
+                (OnClick)="createClub()"
+            >
+            </xp-primary-button>
+            </div>
+    
+            <div class="filter-section">
+            
+            </div>
+  
+     
+        </div>
+        <div class="clubs">
+            <div class="cards">
+                <xp-club-card
+                    *ngFor="let club of clubs"
+                    [club]="club"
+                ></xp-club-card>
+
+            </div>
+            <div class="pagination">
+                <button (click)="prevPage()" [disabled]="currentPage === 1">
+                  Prethodna
+                </button>
+                <span>Strana {{ currentPage }} od {{ totalPages }}</span>
+                <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+                  Sledeća
+                </button>
+              </div>
+        </div>
+    </div>
+
+</div>
+  
