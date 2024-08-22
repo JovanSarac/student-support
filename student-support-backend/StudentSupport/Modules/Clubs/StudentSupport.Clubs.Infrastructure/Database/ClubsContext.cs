@@ -12,6 +12,7 @@ namespace StudentSupport.Clubs.Infrastructure.Database
     {
         public DbSet<Club> Clubs { get; set; }
         public DbSet<Membership> Memberships { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
 
         public ClubsContext(DbContextOptions<ClubsContext> options) : base(options) { }
 
@@ -28,6 +29,11 @@ namespace StudentSupport.Clubs.Infrastructure.Database
                 .HasMany(c => c.Memberships)
                 .WithOne()
                 .HasForeignKey(m => m.ClubId);
+
+            modelBuilder.Entity<Club>()
+                .HasMany(c => c.Announcements)
+                .WithOne()
+                .HasForeignKey(a => a.ClubId);
         }
     }
 }

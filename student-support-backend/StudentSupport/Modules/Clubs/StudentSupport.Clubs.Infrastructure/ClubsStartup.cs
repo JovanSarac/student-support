@@ -31,6 +31,7 @@ namespace StudentSupport.Clubs.Infrastructure
         {
             services.AddScoped<IClubService, ClubService>();
             services.AddScoped<IMembershipService, MembershipService>();
+            services.AddScoped<IAnnouncementService, AnnouncementService>();
 
         }
 
@@ -39,6 +40,7 @@ namespace StudentSupport.Clubs.Infrastructure
             services.AddScoped(typeof(ICrudRepository<Club>), typeof(CrudDatabaseRepository<Club, ClubsContext>));
             services.AddScoped(typeof(IClubRepository), typeof(ClubDatabaseRepository));
             services.AddScoped(typeof(IMembershipRepository), typeof(MembershipDatabaseRepository));
+            services.AddScoped(typeof(IAnnouncementRepository), typeof(AnnouncementDatabaseRepository));
 
             services.AddDbContext<ClubsContext>(opt =>
                 opt.UseNpgsql(DbConnectionStringBuilder.Build("clubs"),
