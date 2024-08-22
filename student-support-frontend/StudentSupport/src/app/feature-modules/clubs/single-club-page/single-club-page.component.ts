@@ -308,4 +308,8 @@ export class SingleClubPageComponent implements OnInit {
       return false;
     }
   }
+
+  createEventForClub(){
+    this.router.navigate(['/create-event-byclub', this.club.id]);
+  }
 }

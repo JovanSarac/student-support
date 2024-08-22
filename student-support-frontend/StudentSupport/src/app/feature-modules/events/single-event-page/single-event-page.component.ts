@@ -18,6 +18,8 @@ import {
 } from 'src/app/shared/model/participation-model';
 import { marked, options } from 'marked';
 import { ToastrService } from 'ngx-toastr';
+import { ClubsService } from '../../clubs/clubs.service';
+import { Club, ClubStatus } from 'src/app/shared/model/club.model';
 
 declare var jQuery: any;
 
@@ -69,13 +71,29 @@ export class SingleEventPageComponent implements OnInit {
     profilePic: '',
   };
 
+  club: Club = {
+    id: 0,
+    name: '',
+    description: '',
+    ownerId: 0,
+    memberships: [],
+    eventIds: [],
+    status: ClubStatus.Active,
+    address: '',
+    latitude: 0,
+    longitude: 0,
+    datePublication: new Date(),
+    coverImage: ''
+  }
+
   constructor(
     private route: ActivatedRoute,
     private service: EventsService,
     private authService: AuthService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private clubService : ClubsService
   ) {}
 
   ngOnInit(): void {
@@ -90,6 +108,9 @@ export class SingleEventPageComponent implements OnInit {
       next: (result: MyEvent) => {
         this.event = result;
         this.getAuthor();
+        if(this.event.clubId != null){
+          this.getClubById(this.event.clubId)
+        }
         this.countParticipationsByEventId();
         this.checkIfUserIsAuthorOfEvent();
         (jQuery('#carouselExampleIndicators') as any).carousel();
@@ -297,10 +318,26 @@ export class SingleEventPageComponent implements OnInit {
   }
 
   openEditEventPage(): void {
-    this.router.navigate(['/edit-event', this.eventId]);
+    if(this.event.clubId == null){
+      this.router.navigate(['/edit-event', this.eventId]);
+    }else{
+      this.router.navigate(['/edit-event-byclub', this.eventId]);
+    }
   }
 
   openProfile(): void {
     this.router.navigate(['/my-profile/' + this.author.id]);
+  }
+
+  getClubById(clubId : number){
+    this.clubService.getClubById(this.user, clubId).subscribe({
+      next: (result : Club)=>{
+        this.club = result;
+      }
+    })
+  }
+
+  openClub(): void {
+    this.router.navigate(['/single-club/' + this.club.id]);
   }
 }

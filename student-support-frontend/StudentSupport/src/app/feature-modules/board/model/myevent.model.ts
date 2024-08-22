@@ -13,4 +13,5 @@ export interface MyEvent {
   images: string[];
   isArchived: boolean;
   price?: number;
+  clubId?: number;
 }

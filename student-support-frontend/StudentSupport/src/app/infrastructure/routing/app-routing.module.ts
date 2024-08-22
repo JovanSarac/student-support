@@ -73,6 +73,16 @@ const routes: Routes = [
     component: SingleClubPageComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: 'create-event-byclub/:clubId',
+    component: CreateEventComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'edit-event-byclub/:eventId',
+    component: CreateEventComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
