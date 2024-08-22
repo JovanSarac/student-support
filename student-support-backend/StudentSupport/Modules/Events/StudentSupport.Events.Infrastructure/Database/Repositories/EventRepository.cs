@@ -96,7 +96,8 @@ namespace StudentSupport.Events.Infrastructure.Database.Repositories
             var currentDate = DateTime.UtcNow;
 
             var query = _dbSet
-                .Where(e => e.DateEvent >= currentDate && !e.IsArchived);
+                .Where(e => e.DateEvent >= currentDate && !e.IsArchived)
+                .OrderByDescending(e => e.DatePublication); ;
 
             var totalCount = query.Count();
 
