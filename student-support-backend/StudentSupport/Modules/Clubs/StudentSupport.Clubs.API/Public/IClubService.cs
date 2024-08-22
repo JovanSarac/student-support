@@ -22,5 +22,6 @@ namespace StudentSupport.Clubs.API.Public
         Result<ClubDto> CloseClub(int id);
         Result<ClubDto> CloseClubByAdmin(int id);
         Result<ClubDto> ActivateClub(int id);
+        Result<PagedResult<ClubDto>> GetAllActiveClubs(int page, int pageSize);
     }
 }

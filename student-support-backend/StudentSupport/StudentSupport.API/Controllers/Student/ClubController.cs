@@ -24,6 +24,13 @@ namespace StudentSupport.API.Controllers.Student
             return CreateResponse(result);
         }
 
+        [HttpGet("active_clubs")]
+        public ActionResult<PagedResult<ClubDto>> GetAllActiveClubs([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _clubService.GetAllActiveClubs(page, pageSize);
+            return CreateResponse(result);
+        }
+
         [HttpGet("joined_clubs/{studentId:int}")]
         public ActionResult<PagedResult<ClubDto>> GetJoinedClubs([FromQuery] int page, [FromQuery] int pageSize, int studentId)
         {

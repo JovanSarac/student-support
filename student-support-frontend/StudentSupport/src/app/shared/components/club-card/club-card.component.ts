@@ -23,7 +23,8 @@ export class ClubCardComponent implements OnInit{
     address: '',
     latitude: 0,
     longitude: 0,
-    coverImage: ''
+    coverImage: '',
+    datePublication: new Date()
   };
 
   user!: User;

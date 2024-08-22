@@ -43,6 +43,7 @@ export class CreateClubComponent implements OnInit, AfterViewInit {
     latitude: 0,
     longitude: 0,
     coverImage: '',
+    datePublication: new Date()
   };
 
   showEmojiPicker: boolean = false;

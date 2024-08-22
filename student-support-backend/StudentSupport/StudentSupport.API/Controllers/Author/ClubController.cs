@@ -24,6 +24,13 @@ namespace StudentSupport.API.Controllers.Author
             return CreateResponse(result);
         }
 
+        [HttpGet("active_clubs")]
+        public ActionResult<PagedResult<ClubDto>> GetAllActiveClubs([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var result = _clubService.GetAllActiveClubs(page, pageSize);
+            return CreateResponse(result);
+        }
+
         [HttpGet("created_clubs/{authorId:int}")]
         public ActionResult<PagedResult<ClubDto>> GetCreatedClubs([FromQuery] int page, [FromQuery] int pageSize, int authorId)
         {

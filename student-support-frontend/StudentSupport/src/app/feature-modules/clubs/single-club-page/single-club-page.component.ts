@@ -54,6 +54,7 @@ export class SingleClubPageComponent implements OnInit {
     status: ClubStatus.Active,
     ownerId: 0,
     memberships: [],
+    datePublication: new Date(),
     coverImage: '',
   };
 

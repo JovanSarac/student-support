@@ -74,6 +74,12 @@ namespace StudentSupport.Clubs.Core.UseCases
             }
         }
 
+        public Result<PagedResult<ClubDto>> GetAllActiveClubs(int page, int pageSize)
+        {
+            var result = _clubRepository.GetAllActiveClubs(page, pageSize);
+            return MapToDto(result);
+        }
+
         public Result<PagedResult<ClubDto>> GetCreatedClubsPaged(int page, int pageSize, int authorId)
         {
             try

@@ -16,9 +16,16 @@ export class ClubsService {
 
   // **************************************CLUBS SECTION**********************************************
   getAllClubs(user: User): Observable<PagedResults<Club>> {
-    return this.http.get<PagedResults<Club>>(
-      environment.apiHost + user.role + '/clubs'
-    );
+    if(user.role === 'studnet' || user.role === 'author'){
+      return this.http.get<PagedResults<Club>>(
+        environment.apiHost + user.role + '/clubs/active_clubs'
+      );
+      
+    }else{
+      return this.http.get<PagedResults<Club>>(
+        environment.apiHost + user.role + '/clubs'
+      );
+    }
   }
 
   getAllJoinedClubs(user: User): Observable<PagedResults<Club>> {
