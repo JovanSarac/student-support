@@ -70,6 +70,7 @@ namespace StudentSupport.Clubs.Infrastructure.Database.Repositories
         {
             var query = _clubs
                 .Where(c => c.OwnerId == authorId)
+                .OrderByDescending(c => c.DatePublication)
                 .Include(c => c.Memberships.OrderBy(m => m.EnrollmentDate));
 
             var totalCount = query.Count();

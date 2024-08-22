@@ -28,6 +28,12 @@ export class ClubsService {
     }
   }
 
+  getClubsByAuthorId(authorId : number) :Observable<PagedResults<Club>> { 
+    return this.http.get<PagedResults<Club>>(
+      environment.apiHost + 'author/clubs/created_clubs/' + authorId
+    );
+  }
+
   getAllJoinedClubs(user: User): Observable<PagedResults<Club>> {
     return this.http.get<PagedResults<Club>>(
       environment.apiHost + 'student/clubs/joined_clubs/' + user.id
