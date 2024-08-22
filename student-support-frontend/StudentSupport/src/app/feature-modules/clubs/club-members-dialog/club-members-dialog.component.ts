@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Club, ClubStatus } from 'src/app/shared/model/club.model';
 import { Person } from 'src/app/shared/model/person.model';
@@ -20,6 +27,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ClubMembersDialogComponent implements OnInit {
   @Output() membershipUpdated: EventEmitter<void> = new EventEmitter<void>();
+  @Input() clubIdInput: number = 0;
   members: Person[] = [];
   memberships: Membership[] = [];
   user!: User;
@@ -47,31 +55,30 @@ export class ClubMembersDialogComponent implements OnInit {
   };
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: Club,
+    // @Inject(MAT_DIALOG_DATA) public data: Club,
     private service: ClubsService,
     private authService: AuthService,
     private router: Router,
-    public dialogRef: MatDialogRef<ClubMembersDialogComponent>,
+    // public dialogRef: MatDialogRef<ClubMembersDialogComponent>,
     private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
-    this.club = this.data;
     this.getLoggedUser();
   }
 
   getLoggedUser(): void {
     this.user = this.authService.user$.value;
-    this.getMembershipsForOverview();
-    this.checkIfUserIsAuthorOfClub();
-    this.getAllMembers();
+    this.getClubById();
   }
 
   getMembershipsForOverview(): void {
     if (this.isAuthor) {
       this.memberships = this.club.memberships;
+      this.getCurrentUserMembership();
     } else {
       this.memberships = this.club.memberships.filter((m) => m.status !== 2);
+      this.getCurrentUserMembership();
     }
   }
 
@@ -105,17 +112,20 @@ export class ClubMembersDialogComponent implements OnInit {
 
   getCurrentUserMembership(): void {
     if (!this.isAuthor) {
-      this.currentMembership = this.club.memberships.find(
-        (m) => m.memberId === this.user.id
-      )!;
+      if (this.isMember()) {
+        this.currentMembership = this.club.memberships.find(
+          (m) => m.memberId === this.user.id
+        )!;
+      }
     }
   }
 
   getClubById(): void {
-    this.service.getClubById(this.user, this.club.id).subscribe({
+    this.service.getClubById(this.user, this.clubIdInput).subscribe({
       next: (result: Club) => {
         this.club = result;
-        this.getMembershipsForOverview();
+        this.checkIfUserIsAuthorOfClub();
+        this.getAllMembers();
       },
     });
   }
@@ -187,12 +197,23 @@ export class ClubMembersDialogComponent implements OnInit {
         .subscribe({
           next: (result: boolean) => {
             this.isAuthor = result;
-            this.getCurrentUserMembership();
+            this.getMembershipsForOverview();
           },
         });
     } else {
-      this.getCurrentUserMembership();
+      this.getMembershipsForOverview();
     }
+  }
+
+  isMember(): boolean {
+    if (
+      this.memberships.find(
+        (m) => m.memberId === this.user.id && m.status !== 2
+      ) !== undefined
+    ) {
+      return true;
+    }
+    return false;
   }
 
   formatDate(dateString: string): string {
@@ -207,10 +228,10 @@ export class ClubMembersDialogComponent implements OnInit {
 
   openMemberProfile(memberId: number): void {
     this.router.navigate(['/my-profile/' + memberId]);
-    this.dialogRef.close();
+    // this.dialogRef.close();
   }
 
   closeDialog(): void {
-    this.dialogRef.close();
+    // this.dialogRef.close();
   }
 }

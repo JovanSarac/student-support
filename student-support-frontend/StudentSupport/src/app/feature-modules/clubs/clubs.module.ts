@@ -11,6 +11,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SingleClubPageComponent } from './single-club-page/single-club-page.component';
 import { ClubsPageComponent } from './clubs-page/clubs-page.component';
 import { ClubMembersDialogComponent } from './club-members-dialog/club-members-dialog.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ClubMembersDialogComponent } from './club-members-dialog/club-members-d
     ReactiveFormsModule,
     PickerModule,
     MatTooltipModule,
+    MatTabsModule,
   ],
 })
 export class ClubsModule {}

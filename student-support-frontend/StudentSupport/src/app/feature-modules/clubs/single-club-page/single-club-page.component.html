@@ -1,13 +1,6 @@
 <div class="full-page-container">
   <div class="date-action-button-container">
     <div class="action-buttons">
-      <xp-secondary-button
-        buttonId="participation-button"
-        buttonType="button"
-        textValue="Prikaži članove"
-        iconClass="bi bi-people-fill"
-        (click)="openMembersDialog()"
-      ></xp-secondary-button>
       <div>
         <xp-secondary-button
           *ngIf="
@@ -88,7 +81,7 @@
   <div class="heading-container">
     <h1>{{ club.name }}</h1>
     <div class="address-archive-p-container">
-      <p class="event-address-p">
+      <p class="club-address-p">
         <i class="bi bi-geo-alt-fill"></i> {{ club.address }}
       </p>
       <p
@@ -96,7 +89,7 @@
           club.status === 1 &&
           (user.role === 'author' || user.role === 'administrator')
         "
-        class="event-date-time-p"
+        class="club-date-time-p"
       >
         <i class="bi bi-exclamation-triangle-fill"></i> KLUB JE ZATVOREN
       </p>
@@ -105,19 +98,20 @@
           club.status === 2 &&
           (user.role === 'author' || user.role === 'administrator')
         "
-        class="event-date-time-p"
+        class="club-date-time-p"
       >
         <i class="bi bi-exclamation-triangle-fill"></i> KLUB JE ZATVOREN (by:
         ADMIN)
       </p>
-      <p *ngIf="isSuspended()" class="event-date-time-p">
+      <p *ngIf="isSuspended()" class="club-date-time-p">
         <i class="bi bi-exclamation-triangle-fill"></i> SUSPENDOVAN SI (by:
         ADMIN)
       </p>
     </div>
   </div>
-
-  <img class="event-image" [src]="club.coverImage" />
+  <div class="image-container">
+    <img class="club-image" [src]="club.coverImage" />
+  </div>
   <div class="additional-info-container">
     <div class="location-map-container">
       <p><i class="bi bi-geo-alt-fill"></i> Location</p>
@@ -147,35 +141,47 @@
       </p>
     </div>
   </div>
-  <h1 class="about-club-h1">O klubu</h1>
-  <div
-    *ngIf="club.description.length > 304"
-    class="event-description"
-    [ngStyle]="{
-      'max-height': !isDescriptionCollapsed ? '20dvh' : 'none',
-      'mask-image': !isDescriptionCollapsed
-        ? 'linear-gradient(#000, rgba(0, 0, 0, 0.1))'
-        : 'none'
-    }"
-    [innerHTML]="convertedDescription"
-  ></div>
-  <div
-    *ngIf="club.description.length < 304"
-    class="event-description"
-    [innerHTML]="convertedDescription"
-  ></div>
-  <p
-    class="show-desc"
-    *ngIf="!isDescriptionCollapsed && club.description.length > 304"
-    (click)="toggleDescriptionCollapse()"
-  >
-    Prikaži više <i class="bi bi-chevron-compact-down"></i>
-  </p>
-  <p
-    class="show-desc"
-    *ngIf="isDescriptionCollapsed && club.description.length > 304"
-    (click)="toggleDescriptionCollapse()"
-  >
-    Prikaži manje <i class="bi bi-chevron-compact-up"></i>
-  </p>
+  <hr class="separator" />
+  <div class="tabs-container">
+    <mat-tab-group>
+      <mat-tab label="O klubu">
+        <div
+          *ngIf="club.description.length > 304"
+          class="club-description"
+          [ngStyle]="{
+            'max-height': !isDescriptionCollapsed ? '20dvh' : 'none',
+            'mask-image': !isDescriptionCollapsed
+              ? 'linear-gradient(#000, rgba(0, 0, 0, 0.1))'
+              : 'none'
+          }"
+          [innerHTML]="convertedDescription"
+        ></div>
+        <div
+          *ngIf="club.description.length < 304"
+          class="club-description"
+          [innerHTML]="convertedDescription"
+        ></div>
+        <p
+          class="show-desc"
+          *ngIf="!isDescriptionCollapsed && club.description.length > 304"
+          (click)="toggleDescriptionCollapse()"
+        >
+          Prikaži više <i class="bi bi-chevron-compact-down"></i>
+        </p>
+        <p
+          class="show-desc"
+          *ngIf="isDescriptionCollapsed && club.description.length > 304"
+          (click)="toggleDescriptionCollapse()"
+        >
+          Prikaži manje <i class="bi bi-chevron-compact-up"></i></p
+      ></mat-tab>
+      <mat-tab label="Događaji">Dunja je kul</mat-tab>
+      <mat-tab label="Članovi">
+        <app-club-members-dialog
+          [clubIdInput]="sendClubIdToMembersComponent()"
+        ></app-club-members-dialog>
+      </mat-tab>
+      <mat-tab label="Obaveštenja">Content5</mat-tab>
+    </mat-tab-group>
+  </div>
 </div>

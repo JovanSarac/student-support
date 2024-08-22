@@ -1,4 +1,11 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { MyEvent } from 'src/app/feature-modules/board/model/myevent.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
@@ -37,7 +44,6 @@ export class EventCardComponent implements OnInit {
   @Input() isMenuVisible: boolean = false; // Input za vidljivost menija
   @Output() menuToggle = new EventEmitter<void>(); // Output za obaveštavanje roditeljske komponente o promenama menija
 
-
   user!: User;
   participation: Participation = {
     id: 0,
@@ -56,7 +62,7 @@ export class EventCardComponent implements OnInit {
     private service: EventsService,
     private authService: AuthService,
     private toastrService: ToastrService,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -196,7 +202,7 @@ export class EventCardComponent implements OnInit {
 
   toggleMenu(event: Event): void {
     event.stopPropagation();
-    this.menuToggle.emit(); 
+    this.menuToggle.emit();
   }
 
   @HostListener('document:click', ['$event'])
@@ -209,14 +215,14 @@ export class EventCardComponent implements OnInit {
     }
   }
 
-  editEvent(event: MyEvent, eventClick: MouseEvent){
+  editEvent(event: MyEvent, eventClick: MouseEvent) {
     eventClick.stopPropagation();
     this.router.navigate(['/edit-event', event.id]);
   }
 
-  archiveEvent(event: MyEvent, eventClick: MouseEvent){
+  archiveEvent(event: MyEvent, eventClick: MouseEvent) {
     eventClick.stopPropagation();
-    this.service.archiveEvent(event.id).subscribe({
+    this.service.archiveEvent(this.user, event.id).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
         this.toastrService.success(
@@ -235,7 +241,7 @@ export class EventCardComponent implements OnInit {
 
   publishEvent(event: MyEvent, eventClick: MouseEvent) {
     eventClick.stopPropagation();
-    this.service.publishEvent(event.id).subscribe({
+    this.service.publishEvent(this.user, event.id).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
         this.toastrService.success(
@@ -252,7 +258,7 @@ export class EventCardComponent implements OnInit {
     });
   }
 
-  openDialogForReport(event : MyEvent, eventClick: MouseEvent){
+  openDialogForReport(event: MyEvent, eventClick: MouseEvent) {
     eventClick.stopPropagation();
     let dialogRef = this.dialog.open(ReportDialogComponent, {
       width: '600px',
@@ -260,6 +266,4 @@ export class EventCardComponent implements OnInit {
       data: event,
     });
   }
-
-
 }

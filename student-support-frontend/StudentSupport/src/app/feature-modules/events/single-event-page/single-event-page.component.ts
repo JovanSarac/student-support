@@ -16,8 +16,11 @@ import {
   Participation,
   ParticipationType,
 } from 'src/app/shared/model/participation-model';
-import { marked, options } from 'marked';
+import { marked } from 'marked';
 import { ToastrService } from 'ngx-toastr';
+import { ClubsService } from '../../clubs/clubs.service';
+import { Club } from 'src/app/shared/model/club.model';
+import { MembershipStatus } from 'src/app/shared/model/membership.model';
 
 declare var jQuery: any;
 
@@ -35,7 +38,10 @@ export class SingleEventPageComponent implements OnInit {
   user!: User;
   participations: Participation[] = [];
   isAuthor: boolean = false;
+  isClubEvent: boolean = false;
+  isClubOwnerOrAdmin: boolean = false;
   isCollapsed: boolean = false;
+  club!: Club;
   participation: Participation = {
     id: 0,
     eventId: 0,
@@ -58,6 +64,8 @@ export class SingleEventPageComponent implements OnInit {
     latitude: 0,
     longitude: 0,
     isArchived: false,
+    price: 0,
+    clubId: undefined,
   };
 
   author: Person = {
@@ -75,20 +83,25 @@ export class SingleEventPageComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private clubService: ClubsService
   ) {}
 
   ngOnInit(): void {
     this.eventId = Number(this.route.snapshot.paramMap.get('eventId'));
     this.getLoggedUser();
     this.getEventById();
-    // ($('#carouselExampleIndicators') as any).carousel();
   }
 
   getEventById(): void {
     this.service.getEventById(this.user, this.eventId).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
+
+        if (this.event.clubId) {
+          this.getClubById();
+        }
+
         this.getAuthor();
         this.countParticipationsByEventId();
         this.checkIfUserIsAuthorOfEvent();
@@ -108,6 +121,16 @@ export class SingleEventPageComponent implements OnInit {
     this.service.getPersonById(this.user, this.event.userId).subscribe({
       next: (result: Person) => {
         this.author = result;
+      },
+    });
+  }
+
+  getClubById(): void {
+    this.clubService.getClubById(this.user, this.event.clubId!).subscribe({
+      next: (result: Club) => {
+        this.club = result;
+        this.isClubEvent = true;
+        this.checkIfUserIsClubOwnerOrAdmin();
       },
     });
   }
@@ -185,9 +208,10 @@ export class SingleEventPageComponent implements OnInit {
   }
 
   archiveEvent() {
-    this.service.archiveEvent(this.event.id).subscribe({
+    this.service.archiveEvent(this.user, this.event.id).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
+        this.getParticipationsByStudentId();
         this.countParticipationsByEventId();
         this.toastrService.success(
           'Uspešno ste arhivirali događaj.',
@@ -204,7 +228,7 @@ export class SingleEventPageComponent implements OnInit {
   }
 
   publishEvent() {
-    this.service.publishEvent(this.event.id).subscribe({
+    this.service.publishEvent(this.user, this.event.id).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
         this.toastrService.success(
@@ -247,6 +271,21 @@ export class SingleEventPageComponent implements OnInit {
             this.isAuthor = result;
           },
         });
+    }
+  }
+
+  checkIfUserIsClubOwnerOrAdmin(): void {
+    if (this.user.id === this.club.ownerId) {
+      this.isClubOwnerOrAdmin = true;
+    } else if (
+      this.club.memberships.find(
+        (m) =>
+          m.memberId === this.user.id && m.status === MembershipStatus.ClubAdmin
+      )
+    ) {
+      this.isClubOwnerOrAdmin = true;
+    } else {
+      this.isClubOwnerOrAdmin = false;
     }
   }
 
@@ -302,5 +341,9 @@ export class SingleEventPageComponent implements OnInit {
 
   openProfile(): void {
     this.router.navigate(['/my-profile/' + this.author.id]);
+  }
+
+  openClub(): void {
+    this.router.navigate(['/single-club/' + this.event.clubId]);
   }
 }

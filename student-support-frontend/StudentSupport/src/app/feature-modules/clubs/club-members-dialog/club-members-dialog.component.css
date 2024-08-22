@@ -1,15 +1,15 @@
 .table-container {
   padding: 2%;
-  height: 85dvh;
-  width: 65dvw;
+  max-height: 500px;
+  width: 100%;
   overflow-y: scroll;
 }
 
 .table-container table {
-  width: 95%;
+  width: 100%;
   border-collapse: collapse;
-  margin-top: 2%;
-  margin-left: 4%;
+  /* margin-top: 2%;
+  margin-left: 4%; */
 }
 
 th,

@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
@@ -22,8 +28,10 @@ import { ClubMembersDialogComponent } from '../club-members-dialog/club-members-
   templateUrl: './single-club-page.component.html',
   styleUrl: './single-club-page.component.css',
 })
-export class SingleClubPageComponent implements OnInit {
+export class SingleClubPageComponent implements OnInit, AfterViewInit {
   @ViewChild(MapComponent) mapComponent!: MapComponent;
+  @ViewChild(ClubMembersDialogComponent)
+  membersComponent!: ClubMembersDialogComponent;
 
   clubId: number = 0;
   membershipCount: number = 0;
@@ -83,6 +91,18 @@ export class SingleClubPageComponent implements OnInit {
     this.getClubById();
   }
 
+  ngAfterViewInit(): void {
+    this.subscribeToMembersEmitter();
+  }
+
+  subscribeToMembersEmitter(): void {
+    if (this.membersComponent) {
+      this.membersComponent.membershipUpdated.subscribe(() => {
+        this.getClubById();
+      });
+    }
+  }
+
   getClubById(): void {
     this.service.getClubById(this.user, this.clubId).subscribe({
       next: (result: Club) => {
@@ -91,6 +111,10 @@ export class SingleClubPageComponent implements OnInit {
         this.checkIfUserIsAuthorOfClub();
       },
     });
+  }
+
+  sendClubIdToMembersComponent(): number {
+    return Number(this.route.snapshot.paramMap.get('clubId'));
   }
 
   getLoggedUser(): void {
@@ -123,6 +147,7 @@ export class SingleClubPageComponent implements OnInit {
         this.isLoading = false;
         this.clubIdForLoader = 0;
         this.getClubById();
+        this.membersComponent.getClubById();
         this.toastrService.success(
           'Uspešno ste se prikljucili klubu: ' + this.club.name,
           'Uspešno',
@@ -143,12 +168,16 @@ export class SingleClubPageComponent implements OnInit {
       (m) =>
         m.memberId === this.user.id &&
         m.clubId === this.clubId &&
-        m.status === MembershipStatus.Member
+        (m.status === MembershipStatus.Member ||
+          m.status === MembershipStatus.ClubAdmin)
     );
+
+    console.log(leftMembership);
 
     this.service.leaveClub(leftMembership?.id!).subscribe({
       next: (result: Membership) => {
         this.getClubById();
+        this.membersComponent.getClubById();
         this.toastrService.success(
           'Uspešno ste napustili klub sa imenom: ' + this.club.name + '!',
           'Uspešno',
@@ -279,19 +308,18 @@ export class SingleClubPageComponent implements OnInit {
     this.router.navigate(['/my-profile/' + this.author.id]);
   }
 
-  openMembersDialog(): void {
-    let dialogRef = this.dialog.open(ClubMembersDialogComponent, {
-      width: '65dvw',
-      height: '85dvh',
-      position: { top: '10dvh' },
-      data: this.club,
-    });
-
-    dialogRef.componentInstance.membershipUpdated.subscribe(() => {
-      this.getClubById();
-      dialogRef.componentInstance.data = this.club;
-    });
-  }
+  // openMembersDialog(): void {
+  //   let dialogRef = this.dialog.open(ClubMembersDialogComponent, {
+  //     width: '65dvw',
+  //     height: '85dvh',
+  //     position: { top: '10dvh' },
+  //     data: this.club,
+  //   });
+  //   dialogRef.componentInstance.membershipUpdated.subscribe(() => {
+  //     this.getClubById();
+  //     dialogRef.componentInstance.data = this.club;
+  //   });
+  // }
 
   isSuspended(): boolean {
     const membership = this.club.memberships.find(

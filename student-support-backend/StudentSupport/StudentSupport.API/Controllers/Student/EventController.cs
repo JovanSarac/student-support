@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StudentSupport.BuildingBlocks.Core.UseCases;
 using StudentSupport.Events.API.Dtos;
 using StudentSupport.Events.API.Public;
+using StudentSupport.Events.Core.UseCases;
 using StudentSupport.Stakeholders.API.Public;
 
 namespace StudentSupport.API.Controllers.Student
@@ -12,9 +13,11 @@ namespace StudentSupport.API.Controllers.Student
     public class EventController : BaseApiController
     {
         private readonly IEventService _eventService;
-        public EventController(IEventService eventService)
+        private readonly IParticipationService _participationService;
+        public EventController(IEventService eventService, IParticipationService participationService)
         {
             _eventService = eventService;
+            _participationService=participationService;
         }
 
         [HttpGet]
@@ -45,6 +48,38 @@ namespace StudentSupport.API.Controllers.Student
             return CreateResponse(result);
         }
 
+        [HttpPut("archive")]
+        public ActionResult<EventDto> ArchiveEvent([FromBody] int id)
+        {
+            var result = _eventService.Archive(id);
+
+            if (result.IsSuccess)
+            {
+                _participationService.CancelAllByAuthor(id);
+            }
+
+            return CreateResponse(result);
+        }
+
+        [HttpPut("publish")]
+        public ActionResult<EventDto> PublishEvent([FromBody] int id)
+        {
+            var result = _eventService.Publish(id);
+
+            if (result.IsSuccess)
+            {
+                _participationService.SendMailAfterPublishingBack(id);
+            }
+
+            return CreateResponse(result);
+        }
+
+        [HttpPut]
+        public ActionResult<List<EventDto>> Update([FromBody] EventDto eventDto)
+        {
+            var result = _eventService.Update(eventDto);
+            return CreateResponse(result);
+        }
 
         [HttpPost("search_events/{name?}")]
         public ActionResult<List<EventDto>> GetEventsBySearchName([FromBody] List<EventDto> eventDtos, string? name)

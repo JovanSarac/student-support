@@ -98,16 +98,16 @@ export class EventsService {
     );
   }
 
-  archiveEvent(eventId: number): Observable<MyEvent> {
+  archiveEvent(user: User, eventId: number): Observable<MyEvent> {
     return this.http.put<MyEvent>(
-      environment.apiHost + 'author/events/archive',
+      environment.apiHost + user.role + '/events/archive',
       eventId
     );
   }
 
-  publishEvent(eventId: number): Observable<MyEvent> {
+  publishEvent(user: User, eventId: number): Observable<MyEvent> {
     return this.http.put<MyEvent>(
-      environment.apiHost + 'author/events/publish',
+      environment.apiHost + user.role + '/events/publish',
       eventId
     );
   }
@@ -123,8 +123,11 @@ export class EventsService {
     );
   }
 
-  updateEvent(event: MyEvent): Observable<MyEvent> {
-    return this.http.put<MyEvent>(environment.apiHost + 'author/events', event);
+  updateEvent(user: User, event: MyEvent): Observable<MyEvent> {
+    return this.http.put<MyEvent>(
+      environment.apiHost + user.role + '/events',
+      event
+    );
   }
 
   getYoursParticipateEvents(userId: number): Observable<MyEvent[]> {
@@ -141,30 +144,44 @@ export class EventsService {
     );
   }
 
-  getEventsBySearchName(events: MyEvent[], name: string | null, user:User ): Observable<MyEvent[]> {  
+  getEventsBySearchName(
+    events: MyEvent[],
+    name: string | null,
+    user: User
+  ): Observable<MyEvent[]> {
     return this.http.post<MyEvent[]>(
       environment.apiHost + user.role + '/events/search_events/' + name,
       events
     );
   }
 
-  getEventsByFiltersTypes( events: MyEvent[], typeOfEvents: string[], user:User ): Observable<MyEvent[]> {  
+  getEventsByFiltersTypes(
+    events: MyEvent[],
+    typeOfEvents: string[],
+    user: User
+  ): Observable<MyEvent[]> {
     const filterPayload = {
       eventDtos: events,
-      typeOfEvents: typeOfEvents
-  };
+      typeOfEvents: typeOfEvents,
+    };
     return this.http.post<MyEvent[]>(
       environment.apiHost + user.role + '/events/filter_event_types',
       filterPayload
     );
   }
 
-  getEventsByFiltersDates( events: MyEvent[], dateEvents: string, user:User,  startDate: Date | null, endDate:Date | null ): Observable<MyEvent[]> {  
+  getEventsByFiltersDates(
+    events: MyEvent[],
+    dateEvents: string,
+    user: User,
+    startDate: Date | null,
+    endDate: Date | null
+  ): Observable<MyEvent[]> {
     const filterPayload = {
       eventDtos: events,
       dateEvents: dateEvents,
       startDate: startDate,
-      endDate: endDate
+      endDate: endDate,
     };
 
     return this.http.post<MyEvent[]>(
@@ -173,10 +190,14 @@ export class EventsService {
     );
   }
 
-  getEventsByFiltersPrice( events: MyEvent[], priceEvents: string, user:User ): Observable<MyEvent[]> {  
+  getEventsByFiltersPrice(
+    events: MyEvent[],
+    priceEvents: string,
+    user: User
+  ): Observable<MyEvent[]> {
     const filterPayload = {
       eventDtos: events,
-      price: priceEvents
+      price: priceEvents,
     };
 
     return this.http.post<MyEvent[]>(

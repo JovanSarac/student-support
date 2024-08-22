@@ -10,7 +10,14 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { marked } from 'marked';
@@ -59,7 +66,6 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
   notPicture: boolean = false;
   undefinedStreet: boolean = false;
 
-
   eventTypeMap = [
     { value: 'AcademicConferenceAndSeminars', numericValue: '0' },
     { value: 'WorkshopsAndCourses', numericValue: '1' },
@@ -91,7 +97,10 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     street: new FormControl('', Validators.required),
     date: new FormControl('', Validators.required),
     price: new FormControl(0.0, [Validators.required, Validators.min(0)]),
-    dateEnd: new FormControl({ value: '', disabled: true }, Validators.required),
+    dateEnd: new FormControl(
+      { value: '', disabled: true },
+      Validators.required
+    ),
   });
 
   constructor(
@@ -119,13 +128,12 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
       }
     });
 
-    this.eventForm.get('date')?.valueChanges.subscribe(value => {
+    this.eventForm.get('date')?.valueChanges.subscribe((value) => {
       if (value) {
         this.eventForm.get('dateEnd')?.enable();
-        this.eventForm.get('dateEnd')?.setValidators([
-          Validators.required,
-          this.dateValidator(value)
-        ]);
+        this.eventForm
+          .get('dateEnd')
+          ?.setValidators([Validators.required, this.dateValidator(value)]);
       } else {
         this.eventForm.get('dateEnd')?.disable();
       }
@@ -150,7 +158,6 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         setTimeout(() => {
           this.showSlides(this.slideIndex);
         }, 100);
-      
       });
     }
   }
@@ -164,7 +171,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
       street: this.getStreetFromAddress(this.event.address),
       date: this.formatDateForInput(this.event.dateEvent.toString()),
       dateEnd: this.formatDateForInput(this.event.dateEndEvent.toString()),
-      price: this.event.price
+      price: this.event.price,
     });
     this.latitude = this.event.latitude;
     this.longitude = this.event.longitude;
@@ -275,19 +282,25 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
   }
 
   plusSlides(n: number): void {
-    this.showSlides(this.slideIndex += n);
+    this.showSlides((this.slideIndex += n));
   }
 
   currentSlide(n: number): void {
-    this.showSlides(this.slideIndex = n);
+    this.showSlides((this.slideIndex = n));
   }
 
   showSlides(n: number): void {
-    var slides = document.getElementsByClassName('mySlides') as HTMLCollectionOf<HTMLElement>;
+    var slides = document.getElementsByClassName(
+      'mySlides'
+    ) as HTMLCollectionOf<HTMLElement>;
     var dots = document.getElementsByClassName('demo');
-    
-    if (n > this.event.images.length) { this.slideIndex = 1; }
-    if (n < 1) { this.slideIndex = slides.length; }
+
+    if (n > this.event.images.length) {
+      this.slideIndex = 1;
+    }
+    if (n < 1) {
+      this.slideIndex = slides.length;
+    }
     for (let i = 0; i < slides.length; i++) {
       slides[i].style.display = 'none';
     }
@@ -296,15 +309,14 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     }
     slides[this.slideIndex - 1].style.display = 'block';
     dots[this.slideIndex - 1].className += ' active';
-  
   }
 
-  removeImage(index: number){
+  removeImage(index: number) {
     if (index > -1 && index < this.event.images.length) {
       this.event.images.splice(index, 1);
-      if(this.event.images.length > 0){
+      if (this.event.images.length > 0) {
         setTimeout(() => {
-          this.showSlides(index+1);
+          this.showSlides(index + 1);
         }, 100);
       }
     }
@@ -425,7 +437,9 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
           'Uspješno!',
           'Kreirali ste događaj pod nazivom ' + result.name + ' !'
         );
-        this.router.navigate(['events-page'], { queryParams: { activeTab: 'yourEvents' } });
+        this.router.navigate(['events-page'], {
+          queryParams: { activeTab: 'yourEvents' },
+        });
       },
     });
   }
@@ -449,12 +463,11 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     this.event.eventType = this.eventForm.value.type || '';
     this.event.price = this.eventForm.value.price!;
 
-    this.eventService.updateEvent(this.event).subscribe({
+    this.eventService.updateEvent(this.user, this.event).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
         this.router.navigate([`/single-event/${this.event.id}`]);
       },
     });
   }
-
 }

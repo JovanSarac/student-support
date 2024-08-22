@@ -8,7 +8,7 @@
 
     <div class="action-buttons">
       <xp-secondary-button
-        *ngIf="isAuthor && !event.isArchived"
+        *ngIf="(isAuthor || isClubOwnerOrAdmin) && !event.isArchived"
         buttonId="archive-button"
         buttonType="button"
         textValue="Arhiviraj"
@@ -17,7 +17,7 @@
       ></xp-secondary-button>
 
       <xp-secondary-button
-        *ngIf="isAuthor && event.isArchived"
+        *ngIf="(isAuthor || isClubOwnerOrAdmin) && event.isArchived"
         buttonId="publish-button"
         buttonType="button"
         textValue="Objavi"
@@ -27,7 +27,7 @@
 
       <xp-secondary-button
         style="margin-left: 5px"
-        *ngIf="isAuthor"
+        *ngIf="isAuthor || isClubOwnerOrAdmin"
         buttonId="izmeni-button"
         buttonType="button"
         textValue="Izmeni"
@@ -36,6 +36,7 @@
       ></xp-secondary-button>
 
       <xp-secondary-button
+        style="margin-left: 5px"
         *ngIf="
           !isAlreadyCheckedParticipate(event.id) &&
           user.role === 'student' &&
@@ -59,6 +60,7 @@
       </div>
 
       <i
+        style="margin-left: 15px; margin-right: 5px"
         *ngIf="
           isAlreadyCheckedParticipate(event.id) &&
           user.role === 'student' &&
@@ -70,7 +72,7 @@
       ></i>
 
       <xp-secondary-button
-        style="margin-left: 15px"
+        style="margin-left: 5px"
         *ngIf="
           isAlreadyCheckedParticipate(event.id) &&
           user.role === 'student' &&
@@ -92,7 +94,7 @@
         <i class="bi bi-geo-alt-fill"></i> {{ event.address }}
       </p>
       <p
-        *ngIf="event.isArchived && user.role === 'author'"
+        *ngIf="event.isArchived && (isAuthor || isClubOwnerOrAdmin)"
         class="event-date-time-p"
       >
         <i class="bi bi-exclamation-triangle-fill"></i> DOGAĐAJ JE ARHIVIRAN
@@ -165,11 +167,16 @@
         <i class="bi bi-people-fill"></i> {{ participationNumber }} osoba se
         odazvalo
       </p>
-      <p>
+      <p *ngIf="!isClubEvent">
         <i class="bi bi-person-fill"></i> Događaj kreirao/la
         <b class="author-name" (click)="openProfile()"
           >{{ author.name }}&nbsp;{{ author.surname }}</b
         >
+      </p>
+      <p class="club-p" *ngIf="isClubEvent">
+        <i class="bi bi-person-fill"></i> Događaj kreirao klub:
+        <br />
+        <b class="author-name" (click)="openClub()">{{ club.name }}</b>
       </p>
     </div>
   </div>
