@@ -67,7 +67,9 @@ namespace StudentSupport.Events.Infrastructure.Database.Repositories
 
         public List<Event> GetYoursEvents(long userId)
         {
-            return _dbSet.Where(e => e.UserId == userId).ToList(); 
+            return _dbSet.Where(e => e.UserId == userId)
+                .OrderByDescending(e => e.DatePublication)
+                .ToList(); 
         }
 
         public void SaveChanges()
@@ -96,7 +98,8 @@ namespace StudentSupport.Events.Infrastructure.Database.Repositories
             var currentDate = DateTime.UtcNow;
 
             var query = _dbSet
-                .Where(e => e.DateEvent >= currentDate && !e.IsArchived);
+                .Where(e => e.DateEvent >= currentDate && !e.IsArchived)
+                .OrderByDescending(e => e.DatePublication); ;
 
             var totalCount = query.Count();
 

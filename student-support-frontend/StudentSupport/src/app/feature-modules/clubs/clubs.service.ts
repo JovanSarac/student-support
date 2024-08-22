@@ -16,8 +16,21 @@ export class ClubsService {
 
   // **************************************CLUBS SECTION**********************************************
   getAllClubs(user: User): Observable<PagedResults<Club>> {
+    if(user.role === 'studnet' || user.role === 'author'){
+      return this.http.get<PagedResults<Club>>(
+        environment.apiHost + user.role + '/clubs/active_clubs'
+      );
+      
+    }else{
+      return this.http.get<PagedResults<Club>>(
+        environment.apiHost + user.role + '/clubs'
+      );
+    }
+  }
+
+  getClubsByAuthorId(authorId : number) :Observable<PagedResults<Club>> { 
     return this.http.get<PagedResults<Club>>(
-      environment.apiHost + user.role + '/clubs'
+      environment.apiHost + 'author/clubs/created_clubs/' + authorId
     );
   }
 

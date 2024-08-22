@@ -62,6 +62,7 @@ export class SingleClubPageComponent implements OnInit, AfterViewInit {
     status: ClubStatus.Active,
     ownerId: 0,
     memberships: [],
+    datePublication: new Date(),
     coverImage: '',
   };
 
@@ -334,5 +335,9 @@ export class SingleClubPageComponent implements OnInit, AfterViewInit {
     } else {
       return false;
     }
+  }
+
+  createEventForClub(){
+    this.router.navigate(['/create-event-byclub', this.club.id]);
   }
 }

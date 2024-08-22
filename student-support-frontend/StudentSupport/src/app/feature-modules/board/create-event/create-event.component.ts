@@ -119,13 +119,27 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
 
     this.route.url.subscribe(([url]) => {
       const { path } = url;
-
       if (path === 'edit-event') {
         this.isEditMode = true;
         this.title = 'Izmeni događaj:';
 
         this.loadEvent();
       }
+
+      if(path === 'create-event-byclub'){
+        this.title = 'Kreiraj događaj za svoj klub:';
+        this.route.paramMap.subscribe(params => {
+          this.event.clubId = Number(params.get('clubId')); 
+        });
+      }
+
+      if (path === 'edit-event-byclub') {
+        this.isEditMode = true;
+        this.title = 'Izmeni događaj za svoj klub:';
+
+        this.loadEvent();
+      }
+
     });
 
     this.eventForm.get('date')?.valueChanges.subscribe((value) => {

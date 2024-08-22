@@ -19,8 +19,8 @@ import {
 import { marked } from 'marked';
 import { ToastrService } from 'ngx-toastr';
 import { ClubsService } from '../../clubs/clubs.service';
-import { Club } from 'src/app/shared/model/club.model';
 import { MembershipStatus } from 'src/app/shared/model/membership.model';
+import { Club } from 'src/app/shared/model/club.model';
 
 declare var jQuery: any;
 
@@ -336,7 +336,11 @@ export class SingleEventPageComponent implements OnInit {
   }
 
   openEditEventPage(): void {
-    this.router.navigate(['/edit-event', this.eventId]);
+    if (this.event.clubId == null) {
+      this.router.navigate(['/edit-event', this.eventId]);
+    } else {
+      this.router.navigate(['/edit-event-byclub', this.eventId]);
+    }
   }
 
   openProfile(): void {

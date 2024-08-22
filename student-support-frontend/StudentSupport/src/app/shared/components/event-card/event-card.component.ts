@@ -18,6 +18,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ReportDialogComponent } from 'src/app/feature-modules/events/report-dialog/report-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'xp-event-card',
@@ -217,7 +218,11 @@ export class EventCardComponent implements OnInit {
 
   editEvent(event: MyEvent, eventClick: MouseEvent) {
     eventClick.stopPropagation();
-    this.router.navigate(['/edit-event', event.id]);
+    if(event.clubId == null){
+      this.router.navigate(['/edit-event', event.id]);
+    }else{
+      this.router.navigate(['/edit-event-byclub', event.id]);
+    }
   }
 
   archiveEvent(event: MyEvent, eventClick: MouseEvent) {

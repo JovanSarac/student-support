@@ -39,8 +39,8 @@ INSERT INTO events."Events" (
 Svi fakulteti će imati svoje predstavnike i tematske sekcije, stvarajući raznovrsno i živopisno okruženje. Bez obzira na to koji fakultet pohađate, ovo je prilika da se povežete sa kolegama, upoznate nove prijatelje i proslavite studentski život na najbolji mogući način. Lokacija događaja, **SPENS (Sportsko-poslovni centar Vojvodina)**, pruža savršenu infrastrukturu za ovakav spektakl, sa svim potrebnim sadržajima za vaš komfor i sigurnost. 🏫👩‍🎓👨‍🎓
 
 Ne propustite da zabeležite ovaj datum u svom kalendaru i pridružite nam se na **"Žurci svih fakulteta"**. Ulaznice će biti dostupne u prodaji od **29. jula 2024. godine**. Posetite našu web stranicu za više informacija i osigurajte svoje mesto na najvažnijoj studentskoj žurci ove godine. Vidimo se na žurci! 🎟️🎊', -- Description
-    '2024-08-11 21:00:00', -- DateEvent
-    '2024-08-12 02:00:00', -- DateEndEvent
+    '2024-11-11 21:00:00', -- DateEvent
+    '2024-11-12 02:00:00', -- DateEndEvent
     'Novi Sad, Sutjeska 2', -- Address
     45.24708428320105, -- Latitude
     19.845306397487615, -- Longitude
@@ -60,8 +60,8 @@ Ne propustite da zabeležite ovaj datum u svom kalendaru i pridružite nam se na
 Tokom događaja, moći ćete da uživate u ukusnoj kafi, zanimljivim razgovorima i toploj atmosferi, sve u cilju prikupljanja sredstava za Danijelino lečenje. Kafa za poneti biće dostupna za sve posetioce, a svi prilozi i donacije biće usmereni ka pomoći Danijeli. Pokažimo koliko zajednica može biti jaka kada se ujedinimo za dobar cilj. 💞
 
 Ne propustite priliku da budete deo ovog plemenitog događaja. Vaše prisustvo i podrška znače mnogo, a svaki doprinos, bez obzira na veličinu, pravi razliku. Vidimo se **22. avgusta** da zajedno podignemo svest i podržimo Danijelu u njenoj borbi. Hvala vam unapred na vašem prisustvu i podršci! 🌟', -- Description
-    '2024-08-22 18:30:00', -- DateEvent
-    '2024-08-22 22:00:00', -- DateEndEvent
+    '2024-10-22 18:30:00', -- DateEvent
+    '2024-10-22 22:00:00', -- DateEndEvent
     'Novi Sad, Dr Zorana Đinđića 1', -- Address
     45.24736, -- Latitude
     19.85415, -- Longitude
@@ -124,7 +124,7 @@ Ekskurzija uključuje sve potrebne sadržaje za udobno putovanje, sa pratećim a
 
 Ne propustite ovu jedinstvenu priliku da proslavite završetak studija i stvorite uspomene za ceo život. Ulaznice će biti dostupne od **2. avgusta 2024. godine**, a broj mesta je ograničen. Osigurajte svoje mesto na ovom ekskluzivnom krstarenju i pridružite nam se na nezaboravnom putovanju. Vidimo se na krstarenju! 🌅🎉', -- Description
     '2025-05-10 14:00:00', -- DateEvent
-    '2024-05-21 23:00:00', -- DateEndEvent
+    '2025-05-21 23:00:00', -- DateEndEvent
     'Novi Sad, Bulevar Jaše Tomića 5', -- Address
     45.266084520284444, -- Latitude
     19.829445206325744, -- Longitude

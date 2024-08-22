@@ -63,7 +63,7 @@ export class NavbarComponent implements OnInit {
     if (this.user.username === '') {
       this.router.navigate(['/login']);
     } else {
-      this.router.navigate(['/']);
+      this.router.navigate(['/clubs-page'], { queryParams: { activeTab: 'allClubs' } });
     }
   }
 

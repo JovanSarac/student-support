@@ -3,6 +3,15 @@
     <div class="action-buttons">
       <div>
         <xp-secondary-button
+          *ngIf="isAuthor && club.status === 0"
+          buttonId="close-button"
+          buttonType="button"
+          textValue="Zakaži događaj"
+          iconClass="bi bi-calendar-event-fill"
+          (click)="createEventForClub()"
+          style="margin-right: 5px;"
+        ></xp-secondary-button>
+        <xp-secondary-button
           *ngIf="
             user.role === 'administrator' &&
             (club.status === 0 || club.status === 1)

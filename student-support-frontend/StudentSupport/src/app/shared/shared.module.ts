@@ -14,6 +14,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MarkdownModule } from 'ngx-markdown';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { ClubCardComponent } from './components/club-card/club-card.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     SecondaryButtonComponent,
     EventCardComponent,
     InputComponent,
-    MarkdownEditorComponent
+    MarkdownEditorComponent,
+    ClubCardComponent
   ],
   imports: [
     CommonModule, 
@@ -47,6 +49,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     MatMenuModule,
     MatDividerModule,
     MatButtonModule,
+    ClubCardComponent
   ],
 })
 export class SharedModule {}
