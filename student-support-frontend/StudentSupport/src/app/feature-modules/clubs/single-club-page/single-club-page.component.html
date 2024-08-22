@@ -175,7 +175,11 @@
         >
           Prikaži manje <i class="bi bi-chevron-compact-up"></i></p
       ></mat-tab>
-      <mat-tab label="Događaji">Dunja je kul</mat-tab>
+      <mat-tab label="Događaji">
+        <app-club-events-view
+          [clubIdInput]="sendClubIdToMembersComponent()"
+        ></app-club-events-view>
+      </mat-tab>
       <mat-tab label="Članovi">
         <app-club-members-dialog
           [clubIdInput]="sendClubIdToMembersComponent()"

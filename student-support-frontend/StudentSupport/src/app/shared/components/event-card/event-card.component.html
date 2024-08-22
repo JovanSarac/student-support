@@ -11,34 +11,59 @@
       }"
       [innerText]="eventType[event.eventType] || event.eventType"
     ></p>
-    <div class="select-option" *ngIf="((user.role === 'author' && user.id === event.userId) || user.role === 'student') && this.router.url !== '/'">
+    <div
+      class="select-option"
+      *ngIf="
+        ((user.role === 'author' && user.id === event.userId) ||
+          user.role === 'student') &&
+        this.router.url !== '/'
+      "
+    >
       <p (click)="toggleMenu($event)"><i class="bi bi-three-dots"></i></p>
     </div>
-    
   </div>
   <div class="card-menu" *ngIf="isMenuVisible && user.role != 'administrator'">
-    <div class="menu-item" *ngIf="user.role === 'author' && user.id === event.userId" (click)="editEvent(event, $event)">
-      <p>
-        <i class="bi bi-pencil-fill" style="margin-right: 8px"></i
-        >Izmeni
-      </p>
+    <div
+      class="menu-item"
+      *ngIf="user.role === 'author' && user.id === event.userId"
+      (click)="editEvent(event, $event)"
+    >
+      <p><i class="bi bi-pencil-fill" style="margin-right: 8px"></i>Izmeni</p>
     </div>
     <div class="separator" *ngIf="user.role === 'author'"></div>
-    <div class="menu-item" *ngIf="user.role === 'author' && user.id === event.userId && event.isArchived == false" (click)="archiveEvent(event, $event)">
+    <div
+      class="menu-item"
+      *ngIf="
+        user.role === 'author' &&
+        user.id === event.userId &&
+        event.isArchived == false
+      "
+      (click)="archiveEvent(event, $event)"
+    >
       <p>
-        <i class="bi bi-archive-fill" style="margin-right: 8px"></i
-        >Arhiviraj
+        <i class="bi bi-archive-fill" style="margin-right: 8px"></i>Arhiviraj
       </p>
     </div>
-    <div class="menu-item" *ngIf="user.role === 'author' && user.id === event.userId  && event.isArchived == true" (click)="publishEvent(event, $event)">
+    <div
+      class="menu-item"
+      *ngIf="
+        user.role === 'author' &&
+        user.id === event.userId &&
+        event.isArchived == true
+      "
+      (click)="publishEvent(event, $event)"
+    >
       <p>
-        <i class="bi bi-megaphone-fill" style="margin-right: 8px"></i
-        >Objavi
+        <i class="bi bi-megaphone-fill" style="margin-right: 8px"></i>Objavi
       </p>
     </div>
-    <div class="menu-item" *ngIf="user.role === 'student'"  (click)="openDialogForReport(event, $event)">
+    <div
+      class="menu-item"
+      *ngIf="user.role === 'student'"
+      (click)="openDialogForReport(event, $event)"
+    >
       <p>
-      <i class="bi bi-exclamation-circle-fill" style="margin-right: 8px"></i
+        <i class="bi bi-exclamation-circle-fill" style="margin-right: 8px"></i
         >Prijavi
       </p>
     </div>
@@ -122,9 +147,7 @@
     ></xp-secondary-button>
     <p
       class="event-passed"
-      *ngIf="
-        !isEventInFuture(event.dateEvent.toString()) && user.role === 'student'
-      "
+      *ngIf="!isEventInFuture(event.dateEvent.toString())"
     >
       Ovaj događaj je već održan.
     </p>

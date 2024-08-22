@@ -12,6 +12,7 @@ import { SingleClubPageComponent } from './single-club-page/single-club-page.com
 import { ClubsPageComponent } from './clubs-page/clubs-page.component';
 import { ClubMembersDialogComponent } from './club-members-dialog/club-members-dialog.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { ClubEventsViewComponent } from './club-events-view/club-events-view.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     SingleClubPageComponent,
     ClubsPageComponent,
     ClubMembersDialogComponent,
+    ClubEventsViewComponent,
   ],
   imports: [
     CommonModule,

@@ -113,8 +113,10 @@ export class ClubMembersDialogComponent implements OnInit {
   getCurrentUserMembership(): void {
     if (!this.isAuthor) {
       if (this.isMember()) {
+        console.log('usaodsa');
         this.currentMembership = this.club.memberships.find(
-          (m) => m.memberId === this.user.id
+          (m) =>
+            m.memberId === this.user.id && m.status !== MembershipStatus.Left
         )!;
       }
     }
