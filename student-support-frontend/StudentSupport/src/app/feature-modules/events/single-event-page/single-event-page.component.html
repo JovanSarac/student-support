@@ -165,16 +165,10 @@
         <i class="bi bi-people-fill"></i> {{ participationNumber }} osoba se
         odazvalo
       </p>
-      <p *ngIf="event.clubId == null">
+      <p>
         <i class="bi bi-person-fill"></i> Događaj kreirao/la
         <b class="author-name" (click)="openProfile()"
           >{{ author.name }}&nbsp;{{ author.surname }}</b
-        >
-      </p>
-      <p *ngIf="event.clubId != null">
-        <i class="bi bi-suit-club-fill"></i> Događaj kreiran od strane kluba: 
-        <b class="author-name" (click)="openClub()"
-          >{{ club.name }}</b
         >
       </p>
     </div>

@@ -71,21 +71,6 @@ export class SingleEventPageComponent implements OnInit {
     profilePic: '',
   };
 
-  club: Club = {
-    id: 0,
-    name: '',
-    description: '',
-    ownerId: 0,
-    memberships: [],
-    eventIds: [],
-    status: ClubStatus.Active,
-    address: '',
-    latitude: 0,
-    longitude: 0,
-    datePublication: new Date(),
-    coverImage: ''
-  }
-
   constructor(
     private route: ActivatedRoute,
     private service: EventsService,
@@ -108,9 +93,6 @@ export class SingleEventPageComponent implements OnInit {
       next: (result: MyEvent) => {
         this.event = result;
         this.getAuthor();
-        if(this.event.clubId != null){
-          this.getClubById(this.event.clubId)
-        }
         this.countParticipationsByEventId();
         this.checkIfUserIsAuthorOfEvent();
         (jQuery('#carouselExampleIndicators') as any).carousel();
@@ -327,17 +309,5 @@ export class SingleEventPageComponent implements OnInit {
 
   openProfile(): void {
     this.router.navigate(['/my-profile/' + this.author.id]);
-  }
-
-  getClubById(clubId : number){
-    this.clubService.getClubById(this.user, clubId).subscribe({
-      next: (result : Club)=>{
-        this.club = result;
-      }
-    })
-  }
-
-  openClub(): void {
-    this.router.navigate(['/single-club/' + this.club.id]);
   }
 }
