@@ -64,18 +64,19 @@
     margin-left: 10px;
 }
 
-.club-description{
-    line-height: 1.1em;
+.club-description {
+    position: relative;
+    line-height: 1.1em; 
     height: 7.7em;
     font-size: 12px;
-    color: var(--background-color);
+    color: var(--background-color); 
     margin: 10px;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
     text-align: justify;
+    mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 20%);
+    -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 20%);
 }
+  
 
 .separator{
     width: calc(100% - 20px);
