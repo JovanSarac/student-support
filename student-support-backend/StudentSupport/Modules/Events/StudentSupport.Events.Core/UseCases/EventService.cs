@@ -93,6 +93,7 @@ namespace StudentSupport.Events.Core.UseCases
 
             var events = participations
                 .Where(p => p.Type == ParticipationType.Active)
+                .OrderByDescending(p => p.EnrollmentDate)
                 .Select(p => _eventRepository.Get(p.EventId))
                 .Where(e => e != null)
                 .ToList();

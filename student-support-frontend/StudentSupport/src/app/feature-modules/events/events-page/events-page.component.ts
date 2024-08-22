@@ -166,12 +166,9 @@ export class EventsPageComponent implements OnInit {
     if(tab == "allEvents"){
       this.service.getAllEvents(this.authService.user$.value).subscribe({
         next: (result: PagedResults<MyEvent>) => {
-          if (this.user.role === 'student') {
-            this.events = result.results.filter((e) => !e.isArchived);
-          } else {
-            this.events = result.results;
-          }
 
+          this.events = result.results;
+          
           this.totalPages = Math.ceil(this.events.length / this.pageSize);
 
           this.searchEventsByName(this.searchName)

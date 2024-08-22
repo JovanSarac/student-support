@@ -67,7 +67,9 @@ namespace StudentSupport.Events.Infrastructure.Database.Repositories
 
         public List<Event> GetYoursEvents(long userId)
         {
-            return _dbSet.Where(e => e.UserId == userId).ToList(); 
+            return _dbSet.Where(e => e.UserId == userId)
+                .OrderByDescending(e => e.DatePublication)
+                .ToList(); 
         }
 
         public void SaveChanges()
