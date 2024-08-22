@@ -1,23 +1,24 @@
 <div class="one-card" (click)="showSingleClub()">
-    <div class="image-club">
-        <img [src]="club.coverImage" alt="no-image">
-    </div>
-    <div class="club-info">
-        <p class="club-title">{{club.name}}</p>
-        <p class="club-address">
-            <i class="bi bi-geo-alt-fill"></i> {{club.address}}
-        </p>
+  <div class="image-club">
+    <img [src]="club.coverImage" alt="no-image" />
+  </div>
+  <div class="club-info">
+    <p class="club-title">{{ club.name }}</p>
+    <p class="club-address">
+      <i class="bi bi-geo-alt-fill"></i> {{ club.address }}
+    </p>
 
-        <div class="separator"></div>
-        <div class="club-description"
-            [innerHtml]="convertedDescription">
-        </div>
+    <div class="separator"></div>
+    <div class="club-description" [innerHtml]="convertedDescription"></div>
 
-        <div class="separator"></div>
-        <p class="club-membership">
-            <i class="bi bi-people-fill" style="margin-right: 5px;"></i>Broj članova: {{club.memberships.length}}
-        </p>
-
-    </div>
-
+    <div class="separator"></div>
+    <p *ngIf="club.status === 0" class="club-membership">
+      <i class="bi bi-people-fill" style="margin-right: 5px"></i>Broj članova:
+      {{ club.memberships.length }}
+    </p>
+    <p class="club-closed" *ngIf="club.status === 1">Ovaj klub je zatvoren.</p>
+    <p class="club-closed" *ngIf="club.status === 2">
+      Ovaj klub je zatvoren(admin).
+    </p>
+  </div>
 </div>
