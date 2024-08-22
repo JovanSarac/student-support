@@ -1,3 +1,4 @@
+import { Announcement } from './announcement.model';
 import { Membership } from './membership.model';
 
 export interface Club {
@@ -6,6 +7,7 @@ export interface Club {
   description: string;
   ownerId: number;
   memberships: Membership[];
+  announcements: Announcement[];
   eventIds: number[];
   status: ClubStatus;
   address: string;

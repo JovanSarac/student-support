@@ -64,6 +64,7 @@ export class SingleClubPageComponent implements OnInit, AfterViewInit {
     memberships: [],
     datePublication: new Date(),
     coverImage: '',
+    announcements: [],
   };
 
   author: Person = {
@@ -337,7 +338,7 @@ export class SingleClubPageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  createEventForClub(){
+  createEventForClub() {
     this.router.navigate(['/create-event-byclub', this.club.id]);
   }
 }

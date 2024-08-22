@@ -9,9 +9,9 @@ import { marked } from 'marked';
 @Component({
   selector: 'xp-club-card',
   templateUrl: './club-card.component.html',
-  styleUrl: './club-card.component.css'
+  styleUrl: './club-card.component.css',
 })
-export class ClubCardComponent implements OnInit{
+export class ClubCardComponent implements OnInit {
   @Input() club: Club = {
     id: 0,
     name: '',
@@ -24,15 +24,16 @@ export class ClubCardComponent implements OnInit{
     latitude: 0,
     longitude: 0,
     coverImage: '',
-    datePublication: new Date()
+    datePublication: new Date(),
+    announcements: [],
   };
 
   user!: User;
-  
+
   constructor(
     public router: Router,
     private service: ClubsService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -46,5 +47,4 @@ export class ClubCardComponent implements OnInit{
   get convertedDescription() {
     return marked(this.club.description);
   }
-
 }
