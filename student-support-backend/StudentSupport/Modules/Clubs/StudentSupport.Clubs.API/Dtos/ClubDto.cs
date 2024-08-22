@@ -13,6 +13,7 @@ namespace StudentSupport.Clubs.API.Dtos
         public string Description { get; set; }
         public long OwnerId { get; set; }
         public List<MembershipDto> Memberships { get; set; }
+        public List<AnnouncementDto> Announcements { get; set; }
         public List<long> EventIds { get; set; }
         public int Status { get; set; }
         public string Address { get; set; }

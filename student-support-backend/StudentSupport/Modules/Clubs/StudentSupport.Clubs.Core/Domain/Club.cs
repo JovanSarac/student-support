@@ -13,6 +13,7 @@ namespace StudentSupport.Clubs.Core.Domain
         public string Description { get; init; }
         public long OwnerId { get; init; }
         public List<Membership> Memberships { get; init; }
+        public List<Announcement> Announcements { get; init; }
         public List<long> EventIds { get; init; }
         public ClubStatus Status { get; private set; }
         public string Address { get; init; }
@@ -24,6 +25,7 @@ namespace StudentSupport.Clubs.Core.Domain
         public Club()
         {
             Memberships = new List<Membership>();
+            Announcements = new List<Announcement>();
             EventIds = new List<long>();
         }
 
@@ -33,6 +35,7 @@ namespace StudentSupport.Clubs.Core.Domain
             Description = description;
             OwnerId = ownerId;
             Memberships = new List<Membership>();
+            Announcements = new List<Announcement>();
             EventIds = new List<long>();
             Status = clubStatus;
             Address = address;

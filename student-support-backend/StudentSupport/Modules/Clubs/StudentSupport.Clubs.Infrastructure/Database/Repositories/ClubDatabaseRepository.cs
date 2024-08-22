@@ -41,6 +41,7 @@ namespace StudentSupport.Clubs.Infrastructure.Database.Repositories
             var club = _clubs
                 .Where(c => c.Id == id)
                 .Include(c => c.Memberships.OrderBy(m => m.EnrollmentDate))
+                .Include(c => c.Announcements.OrderBy(a => a.PublicationDate))
                 .FirstOrDefault();
             return club ?? throw new KeyNotFoundException("Not found: " + id);
         }
@@ -49,6 +50,8 @@ namespace StudentSupport.Clubs.Infrastructure.Database.Repositories
         {
             var query = _clubs
                 .Where(c => c.Status == ClubStatus.Active)
+                .Include(c => c.Memberships.OrderBy(m => m.EnrollmentDate))
+                .Include(c => c.Announcements.OrderBy(a => a.PublicationDate))
                 .OrderByDescending(c => c.DatePublication);
 
             var totalCount = query.Count();
@@ -71,7 +74,9 @@ namespace StudentSupport.Clubs.Infrastructure.Database.Repositories
             var query = _clubs
                 .Where(c => c.OwnerId == authorId)
                 .OrderByDescending(c => c.DatePublication)
-                .Include(c => c.Memberships.OrderBy(m => m.EnrollmentDate));
+                .Include(c => c.Memberships.OrderBy(m => m.EnrollmentDate))
+                .Include(c => c.Announcements.OrderBy(a => a.PublicationDate))
+                .OrderByDescending(c => c.DatePublication);
 
             var totalCount = query.Count();
 
@@ -92,7 +97,9 @@ namespace StudentSupport.Clubs.Infrastructure.Database.Repositories
         {
             var query = _clubs
                 .Where(c => clubIds.Contains(c.Id) && c.Status == ClubStatus.Active)
-                .Include(c => c.Memberships.OrderBy(m => m.EnrollmentDate));
+                .Include(c => c.Memberships.OrderBy(m => m.EnrollmentDate))
+                .Include(c => c.Announcements.OrderBy(a => a.PublicationDate))
+                .OrderByDescending(c => c.DatePublication);
 
             var totalCount = query.Count();
 
@@ -111,7 +118,11 @@ namespace StudentSupport.Clubs.Infrastructure.Database.Repositories
 
         public PagedResult<Club> GetPaged(int page, int pageSize)
         {
-            var task = _clubs.Include(c => c.Memberships.OrderBy(m => m.EnrollmentDate)).GetPagedById(page, pageSize);
+            var task = _clubs
+                .Include(c => c.Memberships.OrderBy(m => m.EnrollmentDate))
+                .Include(c => c.Announcements.OrderBy(a => a.PublicationDate))
+                .OrderByDescending(c => c.DatePublication)
+                .GetPagedById(page, pageSize);
             task.Wait();
             return task.Result;
         }
