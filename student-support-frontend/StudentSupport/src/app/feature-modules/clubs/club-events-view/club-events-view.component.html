@@ -8,7 +8,11 @@
     ></xp-event-card>
   </div>
 
-  <div class="pagination">
+  <h1 *ngIf="pagedEvents.length === 0" class="no-events">
+    Trenutno nijedan događaj nije organizovan od strane ovog kluba.
+  </h1>
+
+  <div *ngIf="events.length > 4" class="pagination">
     <button (click)="prevPage()" [disabled]="currentPage === 1">
       Prethodna
     </button>

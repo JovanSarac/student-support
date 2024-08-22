@@ -63,6 +63,9 @@
           </xp-primary-button>
         </td>
       </tr>
+      <tr class="no-members-tr" *ngIf="memberships.length === 0">
+        <td colspan="5">Trenutno ovaj klub ne sadrži nijednog člana.</td>
+      </tr>
     </tbody>
   </table>
 </div>

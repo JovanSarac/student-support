@@ -1,6 +1,9 @@
 .component-container {
   width: 100%;
   margin-top: 4%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
 }
 
 .cards {
@@ -15,6 +18,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  justify-items: flex-end;
   margin-top: 20px;
   margin-bottom: 40px;
 }
@@ -36,4 +40,13 @@
 
 .pagination span {
   font-size: 18px;
+}
+
+.no-events {
+  align-self: center;
+  margin-top: 15%;
+  margin-bottom: 15%;
+  font-family: "Poppins", "sans-serif";
+  font-size: 25px;
+  color: var(--info-color);
 }

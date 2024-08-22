@@ -1,6 +1,6 @@
 .table-container {
   padding: 2%;
-  max-height: 500px;
+  height: 500px;
   width: 100%;
   overflow-y: scroll;
 }
@@ -27,6 +27,17 @@ th {
 tr:hover {
   background-color: var(--primary-hover-color);
   color: var(--background-color);
+}
+
+.no-members-tr {
+  text-align: center;
+  font-size: 25px;
+  color: var(--info-color);
+}
+
+.no-members-tr:hover {
+  background-color: var(--background-color);
+  color: var(--info-color);
 }
 
 .close-button {
