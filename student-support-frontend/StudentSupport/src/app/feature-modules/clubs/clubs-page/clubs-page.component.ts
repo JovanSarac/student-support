@@ -66,9 +66,19 @@ export class ClubsPageComponent implements OnInit {
         },
       });
     }
-
-    if(tab == "yourClubs"){
+    else if(tab == "yourClubs"){
       this.service.getClubsByAuthorId(this.authService.user$.value.id).subscribe({
+        next: (result: PagedResults<Club>) => {
+          this.clubs = result.results;
+
+          this.totalPages = Math.ceil(this.clubs.length / this.pageSize);
+          this.updatePagedEvents()
+          
+        },
+      });
+    }
+    else if(tab == "yourMemberships"){
+      this.service.getAllJoinedClubs(this.authService.user$.value).subscribe({
         next: (result: PagedResults<Club>) => {
           this.clubs = result.results;
 
