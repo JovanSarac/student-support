@@ -5,6 +5,7 @@ using StudentSupport.Clubs.API.Dtos;
 using StudentSupport.Clubs.API.Public;
 using StudentSupport.Clubs.Core.UseCases;
 using StudentSupport.Events.API.Dtos;
+using StudentSupport.Stakeholders.API.Public;
 
 namespace StudentSupport.API.Controllers.Student
 {
@@ -13,10 +14,16 @@ namespace StudentSupport.API.Controllers.Student
     public class MembershipController : BaseApiController
     {
         private readonly IMembershipService _membershipService;
+        private readonly IPersonService _personService;
+        private readonly IEmailService _emailService;
+        private readonly IClubService _clubService;
 
-        public MembershipController(IMembershipService membershipService)
+        public MembershipController(IMembershipService membershipService, IPersonService personService, IEmailService emailService, IClubService clubService)
         {
             _membershipService = membershipService;
+            _personService = personService;
+            _emailService = emailService;
+            _clubService = clubService;
         }
 
         [HttpGet]
@@ -37,6 +44,14 @@ namespace StudentSupport.API.Controllers.Student
         public ActionResult<MembershipDto> Create([FromBody] MembershipDto membershipDto)
         {
             var result = _membershipService.Create(membershipDto);
+
+            var member = _personService.GetByUserId((int)membershipDto.MemberId).Value;
+
+            if (result.IsSuccess)
+            {
+                _emailService.SendJoiningEmailsAsync(_clubService.Get((int)membershipDto.ClubId).Value, member.Email);
+            }
+
             return CreateResponse(result);
         }
 

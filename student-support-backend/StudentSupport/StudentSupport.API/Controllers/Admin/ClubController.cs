@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StudentSupport.BuildingBlocks.Core.UseCases;
 using StudentSupport.Clubs.API.Dtos;
 using StudentSupport.Clubs.API.Public;
+using StudentSupport.Stakeholders.API.Public;
 
 namespace StudentSupport.API.Controllers.Admin
 {
@@ -11,10 +12,15 @@ namespace StudentSupport.API.Controllers.Admin
     public class ClubController : BaseApiController
     {
         private readonly IClubService _clubService;
+        private readonly IEmailService _emailService;
+        private readonly IPersonService _personService;
 
-        public ClubController(IClubService clubService)
+
+        public ClubController(IClubService clubService, IEmailService emailService, IPersonService personService)
         {
             _clubService = clubService;
+            _emailService = emailService;
+            _personService = personService;
         }
 
         [HttpGet]
@@ -42,6 +48,14 @@ namespace StudentSupport.API.Controllers.Admin
         public ActionResult<ClubDto> CloseClubByAdmin([FromBody] int id)
         {
             var result = _clubService.CloseClubByAdmin(id);
+
+            var members = _personService.GetPeopleByIdsPaged(0, 0, result.Value.Memberships.Select(m => m.MemberId).ToList()).Value;
+
+            if (result.IsSuccess)
+            {
+                _emailService.SendArchivingEmailsAsync(result.Value, members.Results.Select(p => p.Email).ToList());
+            }
+
             return CreateResponse(result);
         }
 

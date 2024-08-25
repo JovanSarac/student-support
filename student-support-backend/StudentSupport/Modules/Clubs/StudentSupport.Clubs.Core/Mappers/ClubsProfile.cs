@@ -29,7 +29,8 @@ namespace StudentSupport.Clubs.Core.Mappers
             CreateMap<ClubDto, Club>()
                 .ForMember(dest => dest.CoverImage, opt => opt.MapFrom(src => src.CoverImage != null ? Convert.FromBase64String(src.CoverImage.Replace("data:image/webp;base64,", "")) : null));
 
-            CreateMap<Membership, MembershipDto>().ReverseMap();         
+            CreateMap<Membership, MembershipDto>().ReverseMap();
+            CreateMap<ClubReport, ClubReportDto>().ReverseMap();
         }
     }
 }

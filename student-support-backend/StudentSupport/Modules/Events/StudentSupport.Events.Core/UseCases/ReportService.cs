@@ -73,5 +73,26 @@ namespace StudentSupport.Events.Core.UseCases
                 return Result.Fail(FailureCode.NotFound).WithError(e.Message);
             }
         }
+
+        public Result<List<ReportDto>> ResolveAllByClubId(int clubId)
+        {
+            try
+            {
+                var reports = _reportRepository.GetPaged(0, 0).Results.Where(r => r.EventId == clubId);
+                var reportsDto = new List<ReportDto>();
+                foreach (var report in reports)
+                {
+                    report.Resolve();
+                    reportsDto.Add(MapToDto(report));
+                    _reportRepository.SaveChanges();
+                }
+
+                return reportsDto;
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
+        }
     }
 }

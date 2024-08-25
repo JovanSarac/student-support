@@ -52,6 +52,7 @@ namespace StudentSupport.API.Controllers.Admin
                 }
 
                 _participationService.CancelAllByAdmin(eventTemp);
+                _reportService.ResolveAllByClubId((int)eventTemp.Id);
             }
 
             var result = _reportService.Resolve(id);

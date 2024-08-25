@@ -9,6 +9,7 @@ using StudentSupport.Clubs.Core.Mappers;
 using StudentSupport.Clubs.Core.UseCases;
 using StudentSupport.Clubs.Infrastructure.Database;
 using StudentSupport.Clubs.Infrastructure.Database.Repositories;
+using StudentSupport.Stakeholders.API.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,8 @@ namespace StudentSupport.Clubs.Infrastructure
             services.AddScoped<IClubService, ClubService>();
             services.AddScoped<IMembershipService, MembershipService>();
             services.AddScoped<IAnnouncementService, AnnouncementService>();
-
+            services.AddScoped<IClubReportService, ClubReportService>();
+            services.AddScoped<IEmailService, EmailService>();
         }
 
         private static void SetupInfrastructure(IServiceCollection services)
@@ -41,6 +43,7 @@ namespace StudentSupport.Clubs.Infrastructure
             services.AddScoped(typeof(IClubRepository), typeof(ClubDatabaseRepository));
             services.AddScoped(typeof(IMembershipRepository), typeof(MembershipDatabaseRepository));
             services.AddScoped(typeof(IAnnouncementRepository), typeof(AnnouncementDatabaseRepository));
+            services.AddScoped(typeof(IClubReportRepository), typeof(ClubReportDatabaseRepository));
 
             services.AddDbContext<ClubsContext>(opt =>
                 opt.UseNpgsql(DbConnectionStringBuilder.Build("clubs"),

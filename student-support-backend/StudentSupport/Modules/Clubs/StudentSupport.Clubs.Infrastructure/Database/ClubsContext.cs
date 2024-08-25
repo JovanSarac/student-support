@@ -13,6 +13,7 @@ namespace StudentSupport.Clubs.Infrastructure.Database
         public DbSet<Club> Clubs { get; set; }
         public DbSet<Membership> Memberships { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
+        public DbSet<ClubReport> Reports { get; set; }
 
         public ClubsContext(DbContextOptions<ClubsContext> options) : base(options) { }
 

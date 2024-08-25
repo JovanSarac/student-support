@@ -22,6 +22,7 @@ namespace StudentSupport.Clubs.API.Public
         Result<MembershipDto> PromoteToClubAdmin(long membershipId);
         Result<MembershipDto> MakeAMember(long membershipId);
         Result<List<long>> GetMemberIdListByClubId(int clubId);
+        Task DeleteAllByAdmin(ClubDto clubDto);
 
     }
 }

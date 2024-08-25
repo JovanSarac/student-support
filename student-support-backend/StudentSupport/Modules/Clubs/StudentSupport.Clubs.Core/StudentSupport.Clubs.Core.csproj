@@ -10,4 +10,8 @@
     <ProjectReference Include="..\StudentSupport.Clubs.API\StudentSupport.Clubs.API.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\..\Stakeholders\StudentSupport.Stakeholders.API\StudentSupport.Stakeholders.API.csproj" />
+	</ItemGroup>
+
 </Project>

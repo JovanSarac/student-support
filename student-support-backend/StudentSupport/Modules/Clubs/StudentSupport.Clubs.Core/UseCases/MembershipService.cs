@@ -5,6 +5,8 @@ using StudentSupport.Clubs.API.Dtos;
 using StudentSupport.Clubs.API.Public;
 using StudentSupport.Clubs.Core.Domain;
 using StudentSupport.Clubs.Core.Domain.RepositoryInterfaces;
+using StudentSupport.Stakeholders.API.Dtos;
+using StudentSupport.Stakeholders.API.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +19,39 @@ namespace StudentSupport.Clubs.Core.UseCases
     {
         private readonly IMembershipRepository _membershipRepository;
         private readonly IMapper _mapper;
+        private readonly IInternalPersonService _internalPersonService;
+        private readonly IEmailService _emailService;
 
-        public MembershipService(IMembershipRepository membershipRepository, IMapper mapper) : base(membershipRepository, mapper)
+        public MembershipService(IMembershipRepository membershipRepository, IMapper mapper, IInternalPersonService internalPersonService, IEmailService emailService) : base(membershipRepository, mapper)
         {
             _mapper = mapper;
             _membershipRepository = membershipRepository;
+            _internalPersonService = internalPersonService;
+            _emailService = emailService;
+        }
+
+        public async Task DeleteAllByAdmin(ClubDto clubDto)
+        {
+            try
+            {
+                List<string> emails = new List<string>();
+
+                foreach (MembershipDto m in clubDto.Memberships)
+                {
+                    PersonDto personDto = _internalPersonService.GetByUserId((int)m.MemberId).Value;
+                    emails.Add(personDto.Email);
+
+                    _membershipRepository.Delete(m.Id);
+                    _membershipRepository.SaveChanges();
+                }
+                PersonDto ownerDto = _internalPersonService.GetByUserId((int)clubDto.OwnerId).Value;
+                emails.Add(ownerDto.Email);
+                await _emailService.SendDeletionEmailsAsync(clubDto, emails);
+            }
+            catch (ArgumentException e)
+            {
+                Result.Fail(FailureCode.NotFound).WithError(e.Message);
+            }
         }
 
         public Result<List<long>> GetClubIdListByStudentId(long studentId)

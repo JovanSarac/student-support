@@ -19,5 +19,6 @@ namespace StudentSupport.Events.API.Public
         Result<ReportDto> Resolve(int id);
         Result<ReportDto> Dismiss(int id);
         Result<ReportDto> Close(int id);
+        Result<List<ReportDto>> ResolveAllByClubId(int clubId);
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StudentSupport.BuildingBlocks.Core.UseCases;
 using StudentSupport.Clubs.API.Dtos;
 using StudentSupport.Clubs.API.Public;
+using StudentSupport.Stakeholders.API.Public;
 
 namespace StudentSupport.API.Controllers.Author
 {
@@ -11,10 +12,14 @@ namespace StudentSupport.API.Controllers.Author
     public class ClubController : BaseApiController
     {
         private readonly IClubService _clubService;
+        private readonly IEmailService _emailService;
+        private readonly IPersonService _personService;
 
-        public ClubController(IClubService clubService)
+        public ClubController(IClubService clubService, IEmailService emailService, IPersonService personService)
         {
             _clubService = clubService;
+            _emailService = emailService;
+            _personService = personService;
         }
 
         [HttpGet]
@@ -63,6 +68,14 @@ namespace StudentSupport.API.Controllers.Author
         public ActionResult<ClubDto> CloseClub([FromBody] int id)
         {
             var result = _clubService.CloseClub(id);
+
+            var members = _personService.GetPeopleByIdsPaged(0,0, result.Value.Memberships.Select(m => m.MemberId).ToList()).Value;
+
+            if (result.IsSuccess)
+            {
+                _emailService.SendArchivingEmailsAsync(result.Value, members.Results.Select(p => p.Email).ToList());
+            }
+
             return CreateResponse(result);
         }
 
@@ -70,6 +83,14 @@ namespace StudentSupport.API.Controllers.Author
         public ActionResult<ClubDto> ActivateClub([FromBody] int id)
         {
             var result = _clubService.ActivateClub(id);
+
+            var members = _personService.GetPeopleByIdsPaged(0, 0, result.Value.Memberships.Select(m => m.MemberId).ToList()).Value;
+
+            if (result.IsSuccess)
+            {
+                _emailService.SendPublishingEmailsAsync(result.Value, members.Results.Select(p => p.Email).ToList());
+            }
+
             return CreateResponse(result);
         }
 
