@@ -11,6 +11,8 @@ import { User } from './model/user.model';
 import { Registration, RegistrationGmail } from './model/registration.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Report } from 'src/app/shared/model/report-model';
+import { ClubReport } from 'src/app/shared/model/club-report.model';
+import { Club } from 'src/app/shared/model/club.model';
 
 @Injectable({
   providedIn: 'root',
@@ -152,6 +154,45 @@ export class AuthService {
     return this.http.put<Report>(
       environment.apiHost + 'administrator/reports/close',
       reportId
+    );
+  }
+
+  getAllClubReports(): Observable<PagedResults<ClubReport>> {
+    return this.http.get<PagedResults<ClubReport>>(
+      environment.apiHost + 'administrator/clubReports'
+    );
+  }
+
+  getClubReportById(reportId: number): Observable<ClubReport> {
+    return this.http.get<ClubReport>(
+      environment.apiHost + 'administrator/clubReports/' + reportId
+    );
+  }
+
+  setClubReportResolved(reportId: number): Observable<ClubReport> {
+    return this.http.put<ClubReport>(
+      environment.apiHost + 'administrator/clubReports/resolve',
+      reportId
+    );
+  }
+
+  setClubReportDismissed(reportId: number): Observable<ClubReport> {
+    return this.http.put<ClubReport>(
+      environment.apiHost + 'administrator/clubReports/dismiss',
+      reportId
+    );
+  }
+
+  setClubReportClosed(reportId: number): Observable<ClubReport> {
+    return this.http.put<ClubReport>(
+      environment.apiHost + 'administrator/clubReports/close',
+      reportId
+    );
+  }
+
+  getClubById(user: User, clubId: number): Observable<Club> {
+    return this.http.get<Club>(
+      environment.apiHost + user.role + '/clubs/' + clubId
     );
   }
 }

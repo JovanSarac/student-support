@@ -1,117 +1,130 @@
 <div class="full-dialog mat-dialog-container">
-    <div class="topbar">
-        <p><i class="bi bi-exclamation-circle-fill" style="margin-right: 5px;"></i>Prijava događaja</p>
-        <i class="bi bi-x-circle exit-icon" (click)="closeDialog()" ></i>
+  <div class="topbar">
+    <p *ngIf="data.mode === 'event'">
+      <i class="bi bi-exclamation-circle-fill" style="margin-right: 5px"></i
+      >Prijava događaja
+    </p>
+    <p *ngIf="data.mode === 'club'">
+      <i class="bi bi-exclamation-circle-fill" style="margin-right: 5px"></i
+      >Prijava kluba
+    </p>
+    <i class="bi bi-x-circle exit-icon" (click)="closeDialog()"></i>
+  </div>
+  <div class="dialog-container">
+    <p class="title-dialog">
+      Događaj možete prijaviti nakon što izaberete problem:
+    </p>
+    <div class="report-input">
+      <div class="report-item">
+        <label>
+          <input
+            type="radio"
+            name="reportButton"
+            value="0"
+            [(ngModel)]="selectedReport"
+          />
+          Uznemiravajne
+        </label>
+      </div>
+
+      <div class="report-item">
+        <label>
+          <input
+            type="radio"
+            name="reportButton"
+            value="1"
+            [(ngModel)]="selectedReport"
+          />
+          Neprimerena golotinja
+        </label>
+      </div>
+
+      <div class="report-item">
+        <label>
+          <input
+            type="radio"
+            name="reportButton"
+            value="2"
+            [(ngModel)]="selectedReport"
+          />
+          Neželjeni sadržaj
+        </label>
+      </div>
+
+      <div class="report-item">
+        <label>
+          <input
+            type="radio"
+            name="reportButton"
+            value="3"
+            [(ngModel)]="selectedReport"
+          />
+          Prevara ili obmana
+        </label>
+      </div>
+
+      <div class="report-item">
+        <label>
+          <input
+            type="radio"
+            name="reportButton"
+            value="4"
+            [(ngModel)]="selectedReport"
+          />
+          Lažni sadržaj
+        </label>
+      </div>
+
+      <div class="report-item">
+        <label>
+          <input
+            type="radio"
+            name="reportButton"
+            value="5"
+            [(ngModel)]="selectedReport"
+          />
+          Nasilje
+        </label>
+      </div>
+
+      <div class="report-item">
+        <label>
+          <input
+            type="radio"
+            name="reportButton"
+            value="6"
+            [(ngModel)]="selectedReport"
+          />
+          Govor mržnje
+        </label>
+      </div>
+      <div class="error" *ngIf="showError">
+        <p>
+          Morate izabrati jedan od ponuđenih problema da bi prijavili događaj!
+        </p>
+      </div>
+      <div class="separator"></div>
+
+      <div class="buttons">
+        <xp-primary-button
+          *ngIf="data.mode === 'event'"
+          style="width: 100px"
+          buttonId="edit-butt"
+          buttonType="button"
+          textValue="Prijavi"
+          (click)="reportEvent()"
+        >
+        </xp-primary-button>
+        <xp-primary-button
+          *ngIf="data.mode === 'club'"
+          style="width: 100px"
+          buttonId="edit-butt"
+          buttonType="button"
+          textValue="Prijavi"
+          (click)="reportClub()"
+        >
+        </xp-primary-button>
+      </div>
     </div>
-    <div class="dialog-container">
-        <p class="title-dialog">Događaj možete prijaviti nakon što izaberete problem:</p>
-        <div class="report-input">
-            <div class="report-item">
-                <label>
-                    <input
-                      type="radio"
-                      name="reportButton"
-                      value="0"
-                      [(ngModel)]="selectedReport"
-                      
-                    />
-                    Uznemiravajne
-                </label>
-            </div>
-            
-            <div class="report-item">
-                <label>
-                    <input
-                      type="radio"
-                      name="reportButton"
-                      value="1"
-                      [(ngModel)]="selectedReport"
-                    />
-                    Neprimerena golotinja
-                </label>
-            </div>
-            
-            <div class="report-item">
-                <label>
-                    <input
-                      type="radio"
-                      name="reportButton"
-                      value="2"
-                      [(ngModel)]="selectedReport"
-                    />
-                    Neželjeni sadržaj
-                </label>
-            </div>
-           
-            <div class="report-item">
-                <label>
-                    <input
-                      type="radio"
-                      name="reportButton"
-                      value="3"
-                      [(ngModel)]="selectedReport"
-                    />
-                    Prevara ili obmana
-                </label>
-            </div>
-           
-            <div class="report-item">
-                <label>
-                    <input
-                      type="radio"
-                      name="reportButton"
-                      value="4"
-                      [(ngModel)]="selectedReport"
-                    />
-                    Lažni sadržaj
-                </label>
-            </div>
-            
-            <div class="report-item">
-                <label>
-                    <input
-                      type="radio"
-                      name="reportButton"
-                      value="5"
-                      [(ngModel)]="selectedReport"
-                    />
-                    Nasilje
-                </label>
-            </div>
-            
-            <div class="report-item">
-                <label>
-                    <input
-                      type="radio"
-                      name="reportButton"
-                      value="6"
-                      [(ngModel)]="selectedReport"
-                    />
-                    Govor mržnje
-                </label>
-            </div>
-            <div class="error" *ngIf="showError"><p>Morate izabrati jedan od ponuđenih problema da bi prijavili događaj!</p></div>
-            <div class="separator"></div>    
-            
-            <div class="buttons">
-                <xp-primary-button
-                            style="width: 100px;"
-                            buttonId="edit-butt"
-                            buttonType="button"
-                            textValue="Prijavi"
-                            (click)="reportEvent()"
-                        >
-                </xp-primary-button>
-
-            </div>
-        
-        </div>
-
-
-
-        
-
-
-    </div>
-
+  </div>
 </div>

@@ -218,9 +218,9 @@ export class EventCardComponent implements OnInit {
 
   editEvent(event: MyEvent, eventClick: MouseEvent) {
     eventClick.stopPropagation();
-    if(event.clubId == null){
+    if (event.clubId == null) {
       this.router.navigate(['/edit-event', event.id]);
-    }else{
+    } else {
       this.router.navigate(['/edit-event-byclub', event.id]);
     }
   }
@@ -268,7 +268,10 @@ export class EventCardComponent implements OnInit {
     let dialogRef = this.dialog.open(ReportDialogComponent, {
       width: '600px',
       height: '600px',
-      data: event,
+      data: {
+        entity: event,
+        mode: 'event',
+      },
     });
   }
 }

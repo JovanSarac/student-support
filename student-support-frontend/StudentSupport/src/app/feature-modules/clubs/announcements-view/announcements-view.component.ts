@@ -207,7 +207,6 @@ export class AnnouncementsViewComponent implements OnInit {
         (m) => m.memberId === this.user.id && m.status !== 2
       ) !== undefined
     ) {
-      console.log('ne kontam kako');
       return true;
     }
     return false;

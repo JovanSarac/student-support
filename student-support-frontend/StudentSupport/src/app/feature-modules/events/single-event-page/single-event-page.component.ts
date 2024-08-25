@@ -21,6 +21,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ClubsService } from '../../clubs/clubs.service';
 import { MembershipStatus } from 'src/app/shared/model/membership.model';
 import { Club } from 'src/app/shared/model/club.model';
+import { catchError, EMPTY } from 'rxjs';
 
 declare var jQuery: any;
 
@@ -131,6 +132,16 @@ export class SingleEventPageComponent implements OnInit {
         this.club = result;
         this.isClubEvent = true;
         this.checkIfUserIsClubOwnerOrAdmin();
+      },
+      error: (err: any) => {
+        if (err.status === 404) {
+          this.isClubEvent = false;
+          console.log("Club doesn't exist anymore, creator changed to author.");
+        } else {
+          this.toastrService.error(
+            'Trenutno nije moguće učitati klub koji je organizovao ovaj događaj.'
+          );
+        }
       },
     });
   }

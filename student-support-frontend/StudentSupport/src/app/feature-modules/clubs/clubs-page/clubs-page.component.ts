@@ -16,91 +16,86 @@ export class ClubsPageComponent implements OnInit {
   user!: User;
   searchControl = new FormControl('');
   activeTab: string = 'allClubs';
-  searchName: string | null = "";
-  clubs : Club[] = [];
+  searchName: string | null = '';
+  clubs: Club[] = [];
 
   currentPage = 1;
   pageSize = 20;
   pagedClubs: Club[] = [];
   totalPages = 1;
+  menuVisibleIndex: number | null = null;
 
   constructor(
-    private service : ClubsService,
-    private authService : AuthService,
+    private service: ClubsService,
+    private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute,
-  ){
-
-  }
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.user = this.authService.user$.value;
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       this.handleQueryParamsChange(params);
     });
   }
 
   handleQueryParamsChange(params: any) {
-    if(params['activeTab'] != undefined){
+    if (params['activeTab'] != undefined) {
       this.setActiveTab(params['activeTab']);
+    } else {
+      this.router.navigate(['/events-page'], {
+        queryParams: { activeTab: this.activeTab },
+      });
     }
-    else{
-      this.router.navigate(['/events-page'], { queryParams: { activeTab: this.activeTab } });
-    }
-    this.searchName = params['searchName'] || "";
-    if(this.searchName != "")
-      this.searchControl.setValue(this.searchName);
+    this.searchName = params['searchName'] || '';
+    if (this.searchName != '') this.searchControl.setValue(this.searchName);
   }
 
   setActiveTab(tab: string) {
     this.activeTab = tab;
 
-    if(tab == "allClubs"){
+    if (tab == 'allClubs') {
       this.service.getAllClubs(this.authService.user$.value).subscribe({
         next: (result: PagedResults<Club>) => {
           this.clubs = result.results;
 
           this.totalPages = Math.ceil(this.clubs.length / this.pageSize);
-          this.updatePagedEvents()
-          
+          this.updatePagedEvents();
         },
       });
-    }
-    else if(tab == "yourClubs"){
-      this.service.getClubsByAuthorId(this.authService.user$.value.id).subscribe({
-        next: (result: PagedResults<Club>) => {
-          this.clubs = result.results;
+    } else if (tab == 'yourClubs') {
+      this.service
+        .getClubsByAuthorId(this.authService.user$.value.id)
+        .subscribe({
+          next: (result: PagedResults<Club>) => {
+            this.clubs = result.results;
 
-          this.totalPages = Math.ceil(this.clubs.length / this.pageSize);
-          this.updatePagedEvents()
-          
-        },
-      });
-    }
-    else if(tab == "yourMemberships"){
+            this.totalPages = Math.ceil(this.clubs.length / this.pageSize);
+            this.updatePagedEvents();
+          },
+        });
+    } else if (tab == 'yourMemberships') {
       this.service.getAllJoinedClubs(this.authService.user$.value).subscribe({
         next: (result: PagedResults<Club>) => {
           this.clubs = result.results;
 
           this.totalPages = Math.ceil(this.clubs.length / this.pageSize);
-          this.updatePagedEvents()
-          
+          this.updatePagedEvents();
         },
       });
     }
   }
 
-  searchClubs(name: string){
+  searchClubs(name: string) {
     this.searchName = name;
     const queryParams = this.createQueryParams();
 
     this.router.navigate(['/clubs-page'], { queryParams });
-    
   }
 
   private createQueryParams(): any {
     const params: any = {};
-  
+
     if (this.searchName) {
       params['searchName'] = this.searchName;
     }
@@ -108,7 +103,7 @@ export class ClubsPageComponent implements OnInit {
     if (this.activeTab) {
       params['activeTab'] = this.activeTab;
     }
-  
+
     return params;
   }
 
@@ -118,9 +113,12 @@ export class ClubsPageComponent implements OnInit {
     this.router.navigate(['/clubs-page'], { queryParams: { activeTab: tab } });
   }
 
-  createClub(){
+  createClub() {
     this.router.navigate(['create-club']);
+  }
 
+  onMenuToggle(index: number | null) {
+    this.menuVisibleIndex = this.menuVisibleIndex === index ? null : index;
   }
 
   selectTab(tab: string) {

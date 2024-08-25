@@ -36,7 +36,6 @@ export class NavbarComponent implements OnInit {
     window.addEventListener('resize', this.checkScreenWidth.bind(this));
     this.authService.user$.subscribe((user) => {
       this.user = user;
-      console.log(this.user);
       if (this.user.username != '') {
         this.userRegister = true;
         this.layoutService.loadPerson(this.user);

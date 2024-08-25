@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Announcement } from 'src/app/shared/model/announcement.model';
+import { ClubReport } from 'src/app/shared/model/club-report.model';
 import { Club } from 'src/app/shared/model/club.model';
 import { Membership } from 'src/app/shared/model/membership.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
@@ -72,6 +73,13 @@ export class ClubsService {
     return this.http.put<Club>(
       environment.apiHost + 'author/clubs/activate',
       clubId
+    );
+  }
+
+  reportClub(report: ClubReport): Observable<ClubReport> {
+    return this.http.post<ClubReport>(
+      environment.apiHost + 'student/clubReports',
+      report
     );
   }
 

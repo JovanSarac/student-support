@@ -3,7 +3,63 @@
     <img [src]="club.coverImage" alt="no-image" />
   </div>
   <div class="club-info">
-    <p class="club-title">{{ club.name }}</p>
+    <div class="dots-container">
+      <p class="club-title">{{ club.name }}</p>
+      <div class="select-option" *ngIf="true">
+        <p (click)="toggleMenu($event)"><i class="bi bi-three-dots"></i></p>
+      </div>
+    </div>
+    <div
+      class="card-menu"
+      *ngIf="isMenuVisible && user.role != 'administrator'"
+    >
+      <div
+        class="menu-item"
+        *ngIf="user.role === 'author' && user.id === club.ownerId"
+        (click)="editClub(club, $event)"
+      >
+        <p><i class="bi bi-pencil-fill" style="margin-right: 8px"></i>Izmeni</p>
+      </div>
+      <div class="separator" *ngIf="user.role === 'author'"></div>
+      <div
+        class="menu-item"
+        *ngIf="
+          user.role === 'author' &&
+          user.id === club.ownerId &&
+          club.status === 0
+        "
+        (click)="closeClub(club, $event)"
+      >
+        <p>
+          <i class="bi bi-door-closed-fill" style="margin-right: 8px"></i
+          >Zatvori klub
+        </p>
+      </div>
+      <div
+        class="menu-item"
+        *ngIf="
+          user.role === 'author' &&
+          user.id === club.ownerId &&
+          club.status === 1
+        "
+        (click)="activateClub(club, $event)"
+      >
+        <p>
+          <i class="bi bi-door-open-fill" style="margin-right: 8px"></i>Otvori
+          klub
+        </p>
+      </div>
+      <div
+        class="menu-item"
+        *ngIf="user.role === 'student'"
+        (click)="openDialogForReport(club, $event)"
+      >
+        <p>
+          <i class="bi bi-exclamation-circle-fill" style="margin-right: 8px"></i
+          >Prijavi
+        </p>
+      </div>
+    </div>
     <p class="club-address">
       <i class="bi bi-geo-alt-fill"></i> {{ club.address }}
     </p>
