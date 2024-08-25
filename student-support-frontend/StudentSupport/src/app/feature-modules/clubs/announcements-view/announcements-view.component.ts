@@ -283,7 +283,7 @@ export class AnnouncementsViewComponent implements OnInit {
 
   openImageCarouselDialog(images: string[]): void {
     let dialogRef = this.dialog.open(AnnouncementImageCarouselComponent, {
-      width: '40dvw',
+      width: '48dvw',
       height: '70dvh',
       position: {
         top: '10dvh',

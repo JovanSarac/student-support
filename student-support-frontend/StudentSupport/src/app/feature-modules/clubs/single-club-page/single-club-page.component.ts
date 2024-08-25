@@ -22,6 +22,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { marked } from 'marked';
 import { MatDialog } from '@angular/material/dialog';
 import { ClubMembersDialogComponent } from '../club-members-dialog/club-members-dialog.component';
+import { AnnouncementsViewComponent } from '../announcements-view/announcements-view.component';
 
 @Component({
   selector: 'app-single-club-page',
@@ -32,6 +33,8 @@ export class SingleClubPageComponent implements OnInit, AfterViewInit {
   @ViewChild(MapComponent) mapComponent!: MapComponent;
   @ViewChild(ClubMembersDialogComponent)
   membersComponent!: ClubMembersDialogComponent;
+  @ViewChild(AnnouncementsViewComponent)
+  announcementViewComponent!: AnnouncementsViewComponent;
 
   clubId: number = 0;
   membershipCount: number = 0;
@@ -150,6 +153,7 @@ export class SingleClubPageComponent implements OnInit, AfterViewInit {
         this.clubIdForLoader = 0;
         this.getClubById();
         this.membersComponent.getClubById();
+        this.announcementViewComponent.getClubById();
         this.toastrService.success(
           'Uspešno ste se prikljucili klubu: ' + this.club.name,
           'Uspešno',
@@ -174,12 +178,11 @@ export class SingleClubPageComponent implements OnInit, AfterViewInit {
           m.status === MembershipStatus.ClubAdmin)
     );
 
-    console.log(leftMembership);
-
     this.service.leaveClub(leftMembership?.id!).subscribe({
       next: (result: Membership) => {
         this.getClubById();
         this.membersComponent.getClubById();
+        this.announcementViewComponent.getClubById();
         this.toastrService.success(
           'Uspešno ste napustili klub sa imenom: ' + this.club.name + '!',
           'Uspešno',
@@ -309,19 +312,6 @@ export class SingleClubPageComponent implements OnInit, AfterViewInit {
   openProfile(): void {
     this.router.navigate(['/my-profile/' + this.author.id]);
   }
-
-  // openMembersDialog(): void {
-  //   let dialogRef = this.dialog.open(ClubMembersDialogComponent, {
-  //     width: '65dvw',
-  //     height: '85dvh',
-  //     position: { top: '10dvh' },
-  //     data: this.club,
-  //   });
-  //   dialogRef.componentInstance.membershipUpdated.subscribe(() => {
-  //     this.getClubById();
-  //     dialogRef.componentInstance.data = this.club;
-  //   });
-  // }
 
   isSuspended(): boolean {
     const membership = this.club.memberships.find(
