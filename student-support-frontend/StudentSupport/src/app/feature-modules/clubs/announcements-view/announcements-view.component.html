@@ -1,0 +1,141 @@
+<div class="announcements-component-container">
+  <div class="action-buttons">
+    <xp-secondary-button
+      *ngIf="isAuthor || isClubAdmin"
+      buttonId="create-announcement"
+      buttonType="button"
+      textValue="Dodaj obaveštenje"
+      iconClass="bi bi-plus-lg"
+      (click)="openCreateAnnouncementDialog()"
+    >
+    </xp-secondary-button>
+  </div>
+
+  <h1
+    *ngIf="pagedAnnouncements.length === 0 && (isMember() || isAuthor)"
+    class="no-announcements"
+  >
+    Trenutno nijedan događaj nije organizovan od strane ovog kluba.
+  </h1>
+
+  <h1 *ngIf="!isMember() && !isAuthor" class="no-announcements">
+    Moraš biti član kluba da bi video panel sa obaveštenjima.
+  </h1>
+
+  <div *ngIf="isMember() || isAuthor" class="announcement-container">
+    <div
+      class="announcements"
+      *ngFor="let announcement of pagedAnnouncements; let i = index"
+    >
+      <div class="top-container">
+        <div class="announcement-header">
+          <div class="name-type-container">
+            <h2
+              (click)="openProfile(announcement.announcerId)"
+              class="announcer-name"
+            >
+              {{ getAnnouncerInfos(announcement.announcerId) }}
+            </h2>
+            &nbsp;
+            <p class="member-type">
+              ({{ getMembershipType(announcement.announcerId) }})
+            </p>
+          </div>
+          <p class="publication-date">
+            {{ formatDate(announcement.publicationDate.toString()) }}
+          </p>
+        </div>
+        <div class="edit-delete-button-container">
+          <xp-secondary-button
+            *ngIf="
+              isAuthor ||
+              (isClubAdmin &&
+                currentMembership.memberId === announcement.announcerId)
+            "
+            style="margin-right: 10px"
+            buttonId="update-announcement"
+            buttonType="button"
+            textValue="Izmeni obaveštenje"
+            iconClass="bi bi-pencil-square"
+            (click)="openEditAnnouncementDialog(announcement.id)"
+          >
+          </xp-secondary-button>
+
+          <xp-secondary-button
+            *ngIf="
+              isAuthor ||
+              (isClubAdmin &&
+                currentMembership.memberId === announcement.announcerId)
+            "
+            style="margin-right: 10px"
+            buttonId="delete-announcement"
+            buttonType="button"
+            textValue="Izbriši obaveštenje"
+            iconClass="bi bi-trash3-fill"
+            (click)="deleteAnnouncement(announcement.id)"
+          >
+          </xp-secondary-button>
+        </div>
+      </div>
+
+      <div class="content-image-container">
+        <div>
+          <div
+            *ngIf="announcement.content.length > 360"
+            [ngStyle]="{
+              'max-height': !isContentCollapsed ? '8.5dvh' : 'none',
+              'mask-image': !isContentCollapsed
+                ? 'linear-gradient(#000, rgba(0, 0, 0, 0.6))'
+                : 'none'
+            }"
+            class="content"
+            markdown
+          >
+            {{ announcement.content }}
+          </div>
+
+          <div
+            *ngIf="announcement.content.length < 360"
+            class="content"
+            markdown
+          >
+            {{ announcement.content }}
+          </div>
+
+          <p
+            class="show-content"
+            *ngIf="!isContentCollapsed && announcement.content.length > 360"
+            (click)="toggleContentCollapse()"
+          >
+            Prikaži više <i class="bi bi-chevron-compact-down"></i>
+          </p>
+          <p
+            class="show-content"
+            *ngIf="isContentCollapsed && announcement.content.length > 360"
+            (click)="toggleContentCollapse()"
+          >
+            Prikaži manje <i class="bi bi-chevron-compact-up"></i>
+          </p>
+        </div>
+        <div
+          matTooltip="Pogledaj slike"
+          *ngIf="announcement.images.length > 0"
+          class="image-container"
+          (click)="openImageCarouselDialog(announcement.images)"
+        >
+          <img [src]="announcement.images[0]" alt="noimage" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="club.announcements.length > 4" class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">
+      Prethodna
+    </button>
+    <span>Strana {{ currentPage }} od {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+      Sledeća
+    </button>
+  </div>
+</div>
