@@ -38,17 +38,24 @@ namespace StudentSupport.API.Controllers.Student
             return CreateResponse(result);
         }
 
-/*        [HttpPut]
+        [HttpPut]
         public ActionResult<AnnouncementDto> Update([FromBody] AnnouncementDto announcementDto)
         {
             var result = _announcementService.Update(announcementDto);
             return CreateResponse(result);
-        }*/
+        }
 
-        [HttpDelete]
-        public ActionResult Delete(int id)
+        [HttpPost]
+        public ActionResult<AnnouncementDto> Create([FromBody] AnnouncementDto announcementDto)
         {
-            var result = _announcementService.Delete(id);
+            var result = _announcementService.Create(announcementDto);
+            return CreateResponse(result);
+        }
+
+        [HttpDelete("{announcementId:int}")]
+        public ActionResult Delete(int announcementId)
+        {
+            var result = _announcementService.Delete(announcementId);
             return CreateResponse(result);
         }
     }

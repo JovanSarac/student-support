@@ -38,10 +38,10 @@ namespace StudentSupport.API.Controllers.Admin
             return CreateResponse(result);
         }
 
-        [HttpDelete]
-        public ActionResult Delete(int id)
+        [HttpDelete("{announcementId:int}")]
+        public ActionResult Delete(int announcementId)
         {
-            var result = _announcementService.Delete(id);
+            var result = _announcementService.Delete(announcementId);
             return CreateResponse(result);
         }
     }
