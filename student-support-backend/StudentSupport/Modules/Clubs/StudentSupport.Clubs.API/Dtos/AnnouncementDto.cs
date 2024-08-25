@@ -13,6 +13,6 @@ namespace StudentSupport.Clubs.API.Dtos
         public DateTime PublicationDate { get; set; }
         public string Content { get; set; }
         public long AnnouncerId { get; set; }
-        public List<string> Images { get; init; }
+        public List<string> Images { get; set; }
     }
 }

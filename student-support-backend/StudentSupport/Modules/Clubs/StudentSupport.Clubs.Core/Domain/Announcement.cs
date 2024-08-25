@@ -11,12 +11,12 @@ namespace StudentSupport.Clubs.Core.Domain
 {
     public class Announcement : Entity
     {
-        public long ClubId { get; set; }
-        public DateTime PublicationDate { get; set; }
-        public string Content { get; set; }
-        public long AnnouncerId { get; set; }
+        public long ClubId { get; init; }
+        public DateTime PublicationDate { get; init; }
+        public string Content { get; init; }
+        public long AnnouncerId { get; init; }
         public List<byte[]> Images { get; init; }
-        
+
         public Announcement()
         {
             Images = new List<byte[]>();

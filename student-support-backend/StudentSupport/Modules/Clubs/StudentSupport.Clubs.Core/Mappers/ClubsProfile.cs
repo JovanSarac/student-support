@@ -13,13 +13,7 @@ namespace StudentSupport.Clubs.Core.Mappers
     {
         public ClubsProfile()
         {
-            CreateMap<Club, ClubDto>()
-                .ForMember(dest => dest.CoverImage, opt => opt.MapFrom(src => src.CoverImage != null ? "data:image/webp;base64," + Convert.ToBase64String(src.CoverImage) : null));
-
-            CreateMap<ClubDto, Club>()
-                .ForMember(dest => dest.CoverImage, opt => opt.MapFrom(src => src.CoverImage != null ? Convert.FromBase64String(src.CoverImage.Replace("data:image/webp;base64,", "")) : null));
-
-            CreateMap<Membership, MembershipDto>().ReverseMap();
+            this.DisableConstructorMapping();
 
             CreateMap<Announcement, AnnouncementDto>()
            .ForMember(dest => dest.Images, opt => opt.MapFrom(src =>
@@ -27,7 +21,15 @@ namespace StudentSupport.Clubs.Core.Mappers
 
             CreateMap<AnnouncementDto, Announcement>()
                 .ForMember(dest => dest.Images, opt => opt.MapFrom(src =>
-                    src.Images != null ? src.Images.ConvertAll(image => Convert.FromBase64String(image.Replace("data:image/webp;base64,", ""))) : new List<byte[]>()));
+                    src.Images != null ? src.Images.ConvertAll(image => Convert.FromBase64String(image.Replace("data:image/webp;base64,", String.Empty).Replace("\"", String.Empty))) : new List<byte[]>()));
+
+            CreateMap<Club, ClubDto>()
+                .ForMember(dest => dest.CoverImage, opt => opt.MapFrom(src => src.CoverImage != null ? "data:image/webp;base64," + Convert.ToBase64String(src.CoverImage) : null));
+
+            CreateMap<ClubDto, Club>()
+                .ForMember(dest => dest.CoverImage, opt => opt.MapFrom(src => src.CoverImage != null ? Convert.FromBase64String(src.CoverImage.Replace("data:image/webp;base64,", "")) : null));
+
+            CreateMap<Membership, MembershipDto>().ReverseMap();         
         }
     }
 }
