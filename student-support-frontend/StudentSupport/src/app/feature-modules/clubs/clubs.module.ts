@@ -13,6 +13,9 @@ import { ClubsPageComponent } from './clubs-page/clubs-page.component';
 import { ClubMembersDialogComponent } from './club-members-dialog/club-members-dialog.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ClubEventsViewComponent } from './club-events-view/club-events-view.component';
+import { AnnouncementsViewComponent } from './announcements-view/announcements-view.component';
+import { MarkdownModule } from 'ngx-markdown';
+import { CreateAnnouncementComponent } from './create-announcement/create-announcement.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,8 @@ import { ClubEventsViewComponent } from './club-events-view/club-events-view.com
     ClubsPageComponent,
     ClubMembersDialogComponent,
     ClubEventsViewComponent,
+    AnnouncementsViewComponent,
+    CreateAnnouncementComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +38,7 @@ import { ClubEventsViewComponent } from './club-events-view/club-events-view.com
     PickerModule,
     MatTooltipModule,
     MatTabsModule,
+    MarkdownModule,
   ],
 })
 export class ClubsModule {}

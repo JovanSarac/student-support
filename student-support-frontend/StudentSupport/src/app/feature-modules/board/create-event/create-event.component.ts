@@ -126,10 +126,10 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.loadEvent();
       }
 
-      if(path === 'create-event-byclub'){
+      if (path === 'create-event-byclub') {
         this.title = 'Kreiraj događaj za svoj klub:';
-        this.route.paramMap.subscribe(params => {
-          this.event.clubId = Number(params.get('clubId')); 
+        this.route.paramMap.subscribe((params) => {
+          this.event.clubId = Number(params.get('clubId'));
         });
       }
 
@@ -139,7 +139,6 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
 
         this.loadEvent();
       }
-
     });
 
     this.eventForm.get('date')?.valueChanges.subscribe((value) => {
@@ -445,10 +444,11 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     this.event.userId = this.user.id;
     this.event.price = this.eventForm.value.price!;
 
+    console.log(this.event);
     this.service.createEvent(this.event).subscribe({
       next: (result: MyEvent) => {
         this.toastr.success(
-          'Uspješno!',
+          'Uspešno!',
           'Kreirali ste događaj pod nazivom ' + result.name + ' !'
         );
         this.router.navigate(['events-page'], {

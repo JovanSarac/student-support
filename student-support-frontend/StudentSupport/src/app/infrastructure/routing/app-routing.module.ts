@@ -13,6 +13,7 @@ import { ReportsComponent } from '../auth/administrator/reports/reports.componen
 import { CreateClubComponent } from 'src/app/feature-modules/clubs/create-club/create-club.component';
 import { SingleClubPageComponent } from 'src/app/feature-modules/clubs/single-club-page/single-club-page.component';
 import { ClubsPageComponent } from 'src/app/feature-modules/clubs/clubs-page/clubs-page.component';
+import { CreateAnnouncementComponent } from 'src/app/feature-modules/clubs/create-announcement/create-announcement.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -81,6 +82,11 @@ const routes: Routes = [
   {
     path: 'edit-event-byclub/:eventId',
     component: CreateEventComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'gas',
+    component: CreateAnnouncementComponent,
     canActivate: [AuthGuard],
   },
 ];

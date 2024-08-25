@@ -15,7 +15,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MarkdownModule } from 'ngx-markdown';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ClubCardComponent } from './components/club-card/club-card.component';
-
+import { AnnouncementImageCarouselComponent } from './components/announcement-image-carousel/announcement-image-carousel.component';
 
 @NgModule({
   declarations: [
@@ -25,10 +25,11 @@ import { ClubCardComponent } from './components/club-card/club-card.component';
     EventCardComponent,
     InputComponent,
     MarkdownEditorComponent,
-    ClubCardComponent
+    ClubCardComponent,
+    AnnouncementImageCarouselComponent,
   ],
   imports: [
-    CommonModule, 
+    CommonModule,
     ReactiveFormsModule,
     MaterialModule,
     MatMenuModule,
@@ -37,7 +38,7 @@ import { ClubCardComponent } from './components/club-card/club-card.component';
     MatInputModule,
     FormsModule,
     MarkdownModule,
-    PickerModule
+    PickerModule,
   ],
   exports: [
     MapComponent,
@@ -49,7 +50,8 @@ import { ClubCardComponent } from './components/club-card/club-card.component';
     MatMenuModule,
     MatDividerModule,
     MatButtonModule,
-    ClubCardComponent
+    ClubCardComponent,
+    AnnouncementImageCarouselComponent,
   ],
 })
 export class SharedModule {}

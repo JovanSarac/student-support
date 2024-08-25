@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Announcement } from 'src/app/shared/model/announcement.model';
 import { Club } from 'src/app/shared/model/club.model';
 import { Membership } from 'src/app/shared/model/membership.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
@@ -16,19 +17,18 @@ export class ClubsService {
 
   // **************************************CLUBS SECTION**********************************************
   getAllClubs(user: User): Observable<PagedResults<Club>> {
-    if(user.role === 'studnet' || user.role === 'author'){
+    if (user.role === 'studnet' || user.role === 'author') {
       return this.http.get<PagedResults<Club>>(
         environment.apiHost + user.role + '/clubs/active_clubs'
       );
-      
-    }else{
+    } else {
       return this.http.get<PagedResults<Club>>(
         environment.apiHost + user.role + '/clubs'
       );
     }
   }
 
-  getClubsByAuthorId(authorId : number) :Observable<PagedResults<Club>> { 
+  getClubsByAuthorId(authorId: number): Observable<PagedResults<Club>> {
     return this.http.get<PagedResults<Club>>(
       environment.apiHost + 'author/clubs/created_clubs/' + authorId
     );
@@ -138,6 +138,42 @@ export class ClubsService {
   ): Observable<PagedResults<Person>> {
     return this.http.get<PagedResults<Person>>(
       environment.apiHost + user.role + '/person/club_members/' + clubId
+    );
+  }
+
+  // **************************************ANNOUNCEMENT SECTION**********************************************
+  createAnnouncement(
+    user: User,
+    announcement: Announcement
+  ): Observable<Announcement> {
+    return this.http.post<Announcement>(
+      environment.apiHost + user.role + '/announcements',
+      announcement
+    );
+  }
+
+  updateAnnouncement(
+    user: User,
+    announcement: Announcement
+  ): Observable<Announcement> {
+    return this.http.put<Announcement>(
+      environment.apiHost + user.role + '/announcements',
+      announcement
+    );
+  }
+
+  deleteAnnouncement(user: User, announcementId: number): Observable<void> {
+    return this.http.delete<void>(
+      environment.apiHost + user.role + '/announcements/' + announcementId
+    );
+  }
+
+  getAnnouncementById(
+    user: User,
+    announcementId: number
+  ): Observable<Announcement> {
+    return this.http.get<Announcement>(
+      environment.apiHost + user.role + '/announcements/' + announcementId
     );
   }
 }

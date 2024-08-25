@@ -9,7 +9,7 @@
           textValue="Zakaži događaj"
           iconClass="bi bi-calendar-event-fill"
           (click)="createEventForClub()"
-          style="margin-right: 5px;"
+          style="margin-right: 5px"
         ></xp-secondary-button>
         <xp-secondary-button
           *ngIf="
@@ -154,36 +154,39 @@
   <div class="tabs-container">
     <mat-tab-group>
       <mat-tab label="O klubu">
-        <div
-          *ngIf="club.description.length > 304"
-          class="club-description"
-          [ngStyle]="{
-            'max-height': !isDescriptionCollapsed ? '20dvh' : 'none',
-            'mask-image': !isDescriptionCollapsed
-              ? 'linear-gradient(#000, rgba(0, 0, 0, 0.1))'
-              : 'none'
-          }"
-          [innerHTML]="convertedDescription"
-        ></div>
-        <div
-          *ngIf="club.description.length < 304"
-          class="club-description"
-          [innerHTML]="convertedDescription"
-        ></div>
-        <p
-          class="show-desc"
-          *ngIf="!isDescriptionCollapsed && club.description.length > 304"
-          (click)="toggleDescriptionCollapse()"
-        >
-          Prikaži više <i class="bi bi-chevron-compact-down"></i>
-        </p>
-        <p
-          class="show-desc"
-          *ngIf="isDescriptionCollapsed && club.description.length > 304"
-          (click)="toggleDescriptionCollapse()"
-        >
-          Prikaži manje <i class="bi bi-chevron-compact-up"></i></p
-      ></mat-tab>
+        <div class="about-club">
+          <div
+            *ngIf="club.description.length > 304"
+            class="club-description"
+            [ngStyle]="{
+              'max-height': !isDescriptionCollapsed ? '20dvh' : 'none',
+              'mask-image': !isDescriptionCollapsed
+                ? 'linear-gradient(#000, rgba(0, 0, 0, 0.1))'
+                : 'none'
+            }"
+            [innerHTML]="convertedDescription"
+          ></div>
+          <div
+            *ngIf="club.description.length < 304"
+            class="club-description"
+            [innerHTML]="convertedDescription"
+          ></div>
+          <p
+            class="show-desc"
+            *ngIf="!isDescriptionCollapsed && club.description.length > 304"
+            (click)="toggleDescriptionCollapse()"
+          >
+            Prikaži više <i class="bi bi-chevron-compact-down"></i>
+          </p>
+          <p
+            class="show-desc"
+            *ngIf="isDescriptionCollapsed && club.description.length > 304"
+            (click)="toggleDescriptionCollapse()"
+          >
+            Prikaži manje <i class="bi bi-chevron-compact-up"></i>
+          </p>
+        </div>
+      </mat-tab>
       <mat-tab label="Događaji">
         <app-club-events-view
           [clubIdInput]="sendClubIdToMembersComponent()"
@@ -194,7 +197,11 @@
           [clubIdInput]="sendClubIdToMembersComponent()"
         ></app-club-members-dialog>
       </mat-tab>
-      <mat-tab label="Obaveštenja">Content5</mat-tab>
+      <mat-tab label="Obaveštenja">
+        <app-announcements-view
+          [clubIdInput]="sendClubIdToMembersComponent()"
+        ></app-announcements-view>
+      </mat-tab>
     </mat-tab-group>
   </div>
 </div>

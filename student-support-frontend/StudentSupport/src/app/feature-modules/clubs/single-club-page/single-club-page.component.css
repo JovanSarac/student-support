@@ -57,12 +57,16 @@
 
 .club-description {
   width: 100%;
-  font-size: 25px;
+  font-size: 22px;
   font-family: "Poppins", "sans-serif";
-  line-height: 1.4;
+  line-height: 1.5;
   white-space: pre-wrap;
   overflow: hidden;
   margin-top: 2%;
+}
+
+.about-club {
+  min-height: 500px;
 }
 
 .date-action-button-container {
@@ -93,7 +97,7 @@
 }
 
 .club-image {
-  /* border-radius: 5px; */
+  border-radius: 15px;
   /* aspect-ratio: 1.77; */
   max-width: 100%;
   height: 100%;

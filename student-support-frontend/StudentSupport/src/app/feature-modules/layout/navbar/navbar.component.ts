@@ -55,7 +55,9 @@ export class NavbarComponent implements OnInit {
     if (this.user.username === '') {
       this.router.navigate(['/login']);
     } else {
-      this.router.navigate(['/events-page'], { queryParams: { activeTab: 'allEvents' } });
+      this.router.navigate(['/events-page'], {
+        queryParams: { activeTab: 'allEvents' },
+      });
     }
   }
 
@@ -63,7 +65,9 @@ export class NavbarComponent implements OnInit {
     if (this.user.username === '') {
       this.router.navigate(['/login']);
     } else {
-      this.router.navigate(['/clubs-page'], { queryParams: { activeTab: 'allClubs' } });
+      this.router.navigate(['/clubs-page'], {
+        queryParams: { activeTab: 'allClubs' },
+      });
     }
   }
 
