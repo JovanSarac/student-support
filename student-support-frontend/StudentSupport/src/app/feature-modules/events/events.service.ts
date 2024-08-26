@@ -16,7 +16,7 @@ export class EventsService {
   constructor(private http: HttpClient) {}
 
   getAllEvents(user: User): Observable<PagedResults<MyEvent>> {
-    if (user.role === 'student' || user.role === 'author') {
+    if (user.role === 'student') {
       return this.http.get<PagedResults<MyEvent>>(
         environment.apiHost + user.role + '/events/get_all_incoming_events'
       );
