@@ -63,7 +63,7 @@
           (menuToggle)="onMenuToggle(i)"
         ></xp-club-card>
       </div>
-      <div class="pagination">
+      <div *ngIf="clubs.length > 4" class="pagination">
         <button (click)="prevPage()" [disabled]="currentPage === 1">
           Prethodna
         </button>
