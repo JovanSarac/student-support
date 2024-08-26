@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Registration } from '../model/registration.model';
 import { AuthService } from '../auth.service';
@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css'],
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements OnInit {
   fieldTextType: boolean = true;
   validName: boolean = false;
   validSurname: boolean = false;
@@ -25,6 +25,10 @@ export class RegistrationComponent {
     private router: Router,
     private toastrService: ToastrService
   ) {}
+
+  ngOnInit(): void {
+    window.scrollTo(0, 0);
+  }
 
   changeBiEye(): void {
     if (this.fieldTextType == true) {

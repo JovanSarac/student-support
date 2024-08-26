@@ -113,6 +113,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.authService.user$.subscribe((user) => {
       this.user = user;
     });

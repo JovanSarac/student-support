@@ -89,6 +89,7 @@ export class SingleEventPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.eventId = Number(this.route.snapshot.paramMap.get('eventId'));
     this.getLoggedUser();
     this.getEventById();

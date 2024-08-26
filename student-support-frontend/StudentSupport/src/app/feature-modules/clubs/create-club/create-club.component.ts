@@ -76,6 +76,7 @@ export class CreateClubComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.getLoggedUser();
 
     this.route.url.subscribe(([url]) => {

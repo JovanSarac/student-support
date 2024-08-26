@@ -91,6 +91,7 @@ export class SingleClubPageComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.clubId = Number(this.route.snapshot.paramMap.get('clubId'));
     this.getLoggedUser();
     this.getClubById();

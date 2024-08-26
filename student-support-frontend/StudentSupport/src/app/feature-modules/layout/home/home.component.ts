@@ -13,7 +13,7 @@ import { EventsService } from '../../events/events.service';
 })
 export class HomeComponent implements OnInit {
   constructor(
-    private router: Router, 
+    private router: Router,
     private service: LayoutService,
     private eventService: EventsService
   ) {}
@@ -45,6 +45,7 @@ export class HomeComponent implements OnInit {
   dropdownOpen = false;
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.checkScreenWidth();
     window.addEventListener('resize', this.checkScreenWidth.bind(this));
     this.startSlider();

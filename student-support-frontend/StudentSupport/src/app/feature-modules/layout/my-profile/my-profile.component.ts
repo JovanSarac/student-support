@@ -54,6 +54,7 @@ export class MyProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.loggedUser = this.authService.user$.value;
 
     this.route.params.subscribe((params) => {
