@@ -78,7 +78,6 @@ export class SingleClubPageComponent implements OnInit, AfterViewInit {
     surname: '',
     userId: 0,
     email: '',
-    profilePic: '',
   };
 
   constructor(

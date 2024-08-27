@@ -46,9 +46,9 @@
         <div class="pic-image" (click)="vievMenu()">
           <img
             [src]="
-              person.profilePicBase64
-                ? person.profilePicBase64
-                : defaultProfilePic
+              (person.profilePicBase64 == null || person.profilePicBase64 == 'data:image/webp;base64,')
+              ? defaultProfilePic
+              : person.profilePicBase64
             "
             width="60"
           />

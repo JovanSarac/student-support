@@ -75,7 +75,6 @@ export class SingleEventPageComponent implements OnInit {
     surname: '',
     userId: 0,
     email: '',
-    profilePic: '',
   };
 
   constructor(

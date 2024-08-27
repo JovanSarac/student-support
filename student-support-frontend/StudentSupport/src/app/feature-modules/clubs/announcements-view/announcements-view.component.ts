@@ -55,7 +55,6 @@ export class AnnouncementsViewComponent implements OnInit {
     id: 0,
     email: '',
     name: '',
-    profilePic: '',
     surname: '',
     userId: 0,
   };
