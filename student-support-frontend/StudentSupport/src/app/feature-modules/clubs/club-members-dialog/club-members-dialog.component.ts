@@ -54,6 +54,7 @@ export class ClubMembersDialogComponent implements OnInit {
     coverImage: '',
     datePublication: new Date(),
     announcements: [],
+    categoryClub: ''
   };
 
   constructor(

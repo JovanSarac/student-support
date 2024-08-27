@@ -69,6 +69,7 @@ export class SingleClubPageComponent implements OnInit, AfterViewInit {
     datePublication: new Date(),
     coverImage: '',
     announcements: [],
+    categoryClub: ''
   };
 
   author: Person = {

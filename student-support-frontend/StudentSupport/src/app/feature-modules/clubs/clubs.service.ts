@@ -53,6 +53,21 @@ export class ClubsService {
     );
   }
 
+  getClubsByCategories(
+    clubs: Club[],
+    categories: string[],
+    user: User
+  ): Observable<Club[]> {
+    const filterPayload = {
+      clubDtos: clubs,
+      categories: categories,
+    };
+    return this.http.post<Club[]>(
+      environment.apiHost + user.role + '/clubs/filter_categories',
+      filterPayload
+    );
+  }
+
   createClub(club: Club): Observable<Club> {
     return this.http.post<Club>(environment.apiHost + 'author/clubs', club);
   }

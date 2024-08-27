@@ -52,7 +52,94 @@
         </xp-primary-button>
       </div>
 
-      <div class="filter-section"></div>
+      <div class="filter-section">
+        <p class="filter-type-title">Kategorije klubova:</p>
+        <div class="checkboxs">
+
+          <div class="checkbox-input">
+            <input
+              type="checkbox"
+              id="sports"
+              value="Sports"
+              class="club-checkbox"
+              (change)="onCheckboxChange()"
+            />
+            <label for="sports">Sportski</label>
+          </div>
+          <div class="checkbox-input">
+            <input
+              type="checkbox"
+              id="artistic"
+              value="Artistic"
+              class="club-checkbox"
+              (change)="onCheckboxChange()"
+            />
+            <label for="artistic">Umetnički</label>
+          </div>
+          <div class="checkbox-input">
+            <input
+              type="checkbox"
+              id="scientific"
+              value="Scientific"
+              class="club-checkbox"
+              (change)="onCheckboxChange()"
+            />
+            <label for="scientific">Naučni</label>
+          </div>
+          <div class="checkbox-input">
+            <input
+              type="checkbox"
+              id="cultural"
+              value="Cultural"
+              class="club-checkbox"
+              (change)="onCheckboxChange()"
+            />
+            <label for="cultural">Kulturni i književni</label>
+          </div>
+          <div class="checkbox-input">
+            <input
+              type="checkbox"
+              id="technical"
+              value="Technical"
+              class="club-checkbox"
+              (change)="onCheckboxChange()"
+            />
+            <label for="technical">Tehnički i inovacioni</label>
+          </div>
+
+          <div class="checkbox-input">
+            <input
+              type="checkbox"
+              id="gaming"
+              value="Gaming"
+              class="club-checkbox"
+              (change)="onCheckboxChange()"
+            />
+            <label for="gaming">Gejmerski</label>
+          </div>
+          <div class="checkbox-input">
+            <input
+              type="checkbox"
+              id="social"
+              value="Social"
+              class="club-checkbox"
+              (change)="onCheckboxChange()"
+            />
+            <label for="social">Društveni i humanitarni</label>
+          </div>
+          <div class="checkbox-input">
+            <input
+              type="checkbox"
+              id="other"
+              value="Other"
+              class="club-checkbox"
+              (change)="onCheckboxChange()"
+            />
+            <label for="other">Ostali</label>
+          </div>
+   
+        </div>
+      </div>
     </div>
     <div class="clubs">
       <div class="searched" *ngIf="searchName != ''">
@@ -62,6 +149,35 @@
           matTooltip="Izbriši pretragu"
           (click)="clearSearchName()"
         ></i>
+      </div>
+      <div
+        class="filtered"
+        *ngIf="
+          selectedCheckboxes.length != 0
+        "
+      >
+        <p *ngIf="selectedCheckboxes.length > 0">
+          Primjenjeno
+          {{ selectedCheckboxes.length }} filtera:
+        </p>
+        <p class="filtered-type" *ngFor="let type of selectedCheckboxes">
+          {{ categoryClub[type] }}
+          <i
+            (click)="clearTypeFilter(type)"
+            class="bi bi-x-circle-fill"
+            style="margin-left: 10px"
+            matTooltip="Izbriši filter"
+          
+          >
+          </i>
+        </p>
+        <p
+          class="clear-all"
+          *ngIf="selectedCheckboxes.length > 1"
+          (click)="clearAllFilters()"
+        >
+          Obriši sve filtere
+        </p>
       </div>
       <div class="cards">
         <xp-club-card

@@ -200,6 +200,7 @@ export class EventsPageComponent implements OnInit {
     this.service.getEventsBySearchName(this.events, name, this.user).subscribe({
       next: (result: MyEvent[]) => {
         this.eventsForDisplay = result;
+        this.updateCheckboxes();
 
         if (this.selectedCheckboxes.length != 0)
           this.filterByEventTypes(this.eventsForDisplay);

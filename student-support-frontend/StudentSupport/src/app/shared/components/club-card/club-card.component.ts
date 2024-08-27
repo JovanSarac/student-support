@@ -38,6 +38,7 @@ export class ClubCardComponent implements OnInit {
     coverImage: '',
     datePublication: new Date(),
     announcements: [],
+    categoryClub: ''
   };
 
   user!: User;

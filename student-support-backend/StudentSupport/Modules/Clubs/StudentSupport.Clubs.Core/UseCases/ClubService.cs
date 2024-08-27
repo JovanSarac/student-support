@@ -141,5 +141,14 @@ namespace StudentSupport.Clubs.Core.UseCases
             var result = clubDtos.FindAll(e => e.Name.ToUpper().Contains(searchName.ToUpper()));
             return result;
         }
+
+        public Result<List<ClubDto>> GetClubsByCategories(List<ClubDto> clubDtos, List<string> categories)
+        {
+            if (categories.Count == 0)
+                return clubDtos;
+
+            var result = clubDtos.FindAll(c => categories.Contains(c.CategoryClub));
+            return result;
+        }
     }
 }

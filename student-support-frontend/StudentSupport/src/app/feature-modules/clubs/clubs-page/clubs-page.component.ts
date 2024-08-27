@@ -25,6 +25,18 @@ export class ClubsPageComponent implements OnInit {
   pagedClubs: Club[] = [];
   totalPages = 1;
   menuVisibleIndex: number | null = null;
+  selectedCheckboxes: string[] = [];
+
+  categoryClub: { [key: string]: string } = {
+    Sports: 'Sportski',
+    Artistic: 'Umetnički',
+    Scientific: 'Naučni',
+    Cultural: 'Kulturni i književni',
+    Technical: 'Tehnički i inovacioni',
+    Gaming: 'Gejmerski',
+    Social: 'Društveni i humanitarni',
+    Other: 'Ostali',
+  };
 
   constructor(
     private service: ClubsService,
@@ -50,6 +62,12 @@ export class ClubsPageComponent implements OnInit {
     }
     this.searchName = params['searchName'] || '';
     if (this.searchName != '') this.searchControl.setValue(this.searchName);
+
+    this.selectedCheckboxes = Array.isArray(params['filterTypes'])
+      ? params['filterTypes']
+      : params['filterTypes']
+      ? [params['filterTypes']]
+      : [];
   }
 
   setActiveTab(tab: string) {
@@ -95,7 +113,12 @@ export class ClubsPageComponent implements OnInit {
       next: (result: Club[])=>{
         this.clubsForDisplay = result;
 
-        this.updatePagedEvents();
+        if (this.selectedCheckboxes.length != 0)
+          this.filterByCategoriesClub(this.clubsForDisplay);
+        else{
+          this.updatePagedEvents();
+          this.updateCheckboxes();
+        }
  
       }
     })
@@ -118,12 +141,81 @@ export class ClubsPageComponent implements OnInit {
   }
 
 
+  onCheckboxChange() {
+    this.selectedCheckboxes = this.getCheckedCheckboxes();
+    const queryParams = this.createQueryParams();
+
+    this.router.navigate(['/clubs-page'], { queryParams });
+  }
+
+  filterByCategoriesClub(clubsForFiltering: Club[]) {
+    this.updateCheckboxes();
+    this.service
+      .getClubsByCategories(
+        clubsForFiltering,
+        this.selectedCheckboxes,
+        this.user
+      )
+      .subscribe({
+        next: (result: Club[]) => {
+          this.clubsForDisplay = result;
+          this.updatePagedEvents();
+        },
+      });
+  }
+
+  clearTypeFilter(type: string) {
+    const index = this.selectedCheckboxes.indexOf(type);
+    if (index !== -1) {
+      this.selectedCheckboxes.splice(index, 1);
+      this.updateCheckboxes();
+
+      setTimeout(() => {
+        const queryParams = this.createQueryParams();
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['/clubs-page'], { queryParams });
+      }, 100);
+    }
+  }
+
+  clearAllFilters() {
+    this.selectedCheckboxes = [];
+    const queryParams = this.createQueryParams();
+
+    this.router.navigate(['/clubs-page'], { queryParams });
+  }
+
+
+  getCheckedCheckboxes(): string[] {
+    const checkedValues: string[] = [];
+    const checkboxes = document.querySelectorAll('.club-checkbox:checked');
+
+    checkboxes.forEach((checkbox: any) => {
+      checkedValues.push(checkbox.value);
+    });
+
+    return checkedValues;
+  }
+
+  updateCheckboxes() {
+    const checkboxes = document.querySelectorAll('.club-checkbox');
+
+    checkboxes.forEach((checkbox: any) => {
+      checkbox.checked = this.selectedCheckboxes.includes(checkbox.value);
+    });
+  }
+
 
   private createQueryParams(): any {
     const params: any = {};
 
     if (this.searchName) {
       params['searchName'] = this.searchName;
+    }
+
+    if (this.selectedCheckboxes.length > 0) {
+      params['filterTypes'] = this.selectedCheckboxes;
     }
 
     if (this.activeTab) {

@@ -20,6 +20,7 @@ namespace StudentSupport.Clubs.Core.Domain
         public double Latitude { get; init; }
         public double Longitude { get; init; }
         public DateTime DatePublication { get; init; }
+        public CategoryClub CategoryClub {  get; init; }    
         public byte[] CoverImage { get; init; }
 
         public Club()
@@ -29,7 +30,7 @@ namespace StudentSupport.Clubs.Core.Domain
             EventIds = new List<long>();
         }
 
-        public Club(string name, string description, long ownerId, ClubStatus clubStatus, string address, double latitude, double longitude, DateTime datePublication, byte[] coverImage)
+        public Club(string name, string description, long ownerId, ClubStatus clubStatus, string address, double latitude, double longitude, DateTime datePublication, CategoryClub categoryClub, byte[] coverImage)
         {
             Name = name;
             Description = description;
@@ -42,6 +43,7 @@ namespace StudentSupport.Clubs.Core.Domain
             Latitude = latitude;
             Longitude = longitude;
             DatePublication = datePublication;
+            CategoryClub = categoryClub;
             CoverImage = coverImage;
 
             Validate();
@@ -83,5 +85,17 @@ namespace StudentSupport.Clubs.Core.Domain
         Active,
         Closed,
         ClosedByAdmin
+    }
+
+    public enum CategoryClub
+    {
+        Sports,
+        Artistic,
+        Scientific,
+        Cultural,
+        Technical,
+        Gaming,
+        Social,
+        Other
     }
 }

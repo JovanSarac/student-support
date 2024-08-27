@@ -45,6 +45,7 @@ export class CreateClubComponent implements OnInit, AfterViewInit {
     coverImage: '',
     datePublication: new Date(),
     announcements: [],
+    categoryClub: ''
   };
 
   showEmojiPicker: boolean = false;

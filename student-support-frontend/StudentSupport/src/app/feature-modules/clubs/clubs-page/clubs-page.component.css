@@ -134,13 +134,96 @@
 }
 
 .filter-section::-webkit-scrollbar-thumb {
-  background-color: #888; /* Boja scrollbar-a */
-  border-radius: 10px; /* Zaobljeni uglovi scrollbar-a */
-  border: 2px solid #f1f1f1; /* Unutrašnja boja scrollbara */
+  background-color: #888;
+  border-radius: 10px;
+  border: 2px solid #f1f1f1;
 }
 
 .filter-section::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Boja scrollbar-a pri hover-u */
+  background: #555;
+}
+
+.filter-type-title {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  color: var(--text-color);
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  margin-left: 5%;
+}
+
+.checkboxs {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.checkbox-input {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.checkbox-input input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.checkbox-input label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+
+.filtered{
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+  height: auto;
+  margin-left: 3%;
+  gap: 10px;
+}
+
+.filtered p{
+  padding: 10px 5px;
+}
+
+.filtered-type{
+  cursor: pointer;
+  border-radius: 15px;
+  background-color: aliceblue;
+}
+
+
+.filtered-type i:hover{
+  color: var(--error-color);
+  transition: 0.5s;
+}
+
+.clear-all{
+  color: var(--secondary-color);
+  font-size: 18px;
+  font-weight: 700;
+  background-color: aliceblue;
+  border-radius: 15px;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.clear-all:hover{
+  background-color: rgb(240, 240, 255);
+  color: var(--secondary-hover-color);
+  transition: 0.8s;
 }
 
 .clubs{

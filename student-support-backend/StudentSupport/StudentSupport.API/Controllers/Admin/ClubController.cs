@@ -45,6 +45,13 @@ namespace StudentSupport.API.Controllers.Admin
             return CreateResponse(result);
         }
 
+        [HttpPost("filter_categories")]
+        public ActionResult<List<ClubDto>> GetClubsByCategories([FromBody] FilterCategoriesDto request)
+        {
+            var result = _clubService.GetClubsByCategories(request.ClubDtos, request.Categories);
+            return CreateResponse(result);
+        }
+
         [HttpPost]
         public ActionResult<ClubDto> Create([FromBody] ClubDto clubDto)
         {

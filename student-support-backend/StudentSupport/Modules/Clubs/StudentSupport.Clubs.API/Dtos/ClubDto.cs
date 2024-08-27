@@ -20,6 +20,7 @@ namespace StudentSupport.Clubs.API.Dtos
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public DateTime DatePublication { get; set; }
+        public string CategoryClub { get; set; }
         public string CoverImage { get; init; }
     }
 }

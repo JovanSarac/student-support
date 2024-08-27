@@ -71,6 +71,7 @@ export class AnnouncementsViewComponent implements OnInit {
     status: ClubStatus.Active,
     ownerId: 0,
     memberships: [],
+    categoryClub: '',
     coverImage: '',
     datePublication: new Date(),
     announcements: [],

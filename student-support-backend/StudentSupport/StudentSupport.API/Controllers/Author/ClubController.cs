@@ -43,6 +43,13 @@ namespace StudentSupport.API.Controllers.Author
             return CreateResponse(result);
         }
 
+        [HttpPost("filter_categories")]
+        public ActionResult<List<ClubDto>> GetClubsByCategories([FromBody] FilterCategoriesDto request)
+        {
+            var result = _clubService.GetClubsByCategories(request.ClubDtos, request.Categories);
+            return CreateResponse(result);
+        }
+
         [HttpGet("created_clubs/{authorId:int}")]
         public ActionResult<PagedResult<ClubDto>> GetCreatedClubs([FromQuery] int page, [FromQuery] int pageSize, int authorId)
         {

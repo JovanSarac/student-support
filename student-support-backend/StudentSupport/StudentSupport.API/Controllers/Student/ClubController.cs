@@ -58,5 +58,12 @@ namespace StudentSupport.API.Controllers.Student
             var result = _clubService.Update(clubDto);
             return CreateResponse(result);
         }
+
+        [HttpPost("filter_categories")]
+        public ActionResult<List<ClubDto>> GetClubsByCategories([FromBody] FilterCategoriesDto request)
+        {
+            var result = _clubService.GetClubsByCategories(request.ClubDtos, request.Categories);
+            return CreateResponse(result);
+        }
     }
 }

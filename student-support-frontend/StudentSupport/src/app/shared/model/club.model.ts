@@ -14,6 +14,7 @@ export interface Club {
   latitude: number;
   longitude: number;
   datePublication: Date;
+  categoryClub: string;
   coverImage: string;
 }
 
