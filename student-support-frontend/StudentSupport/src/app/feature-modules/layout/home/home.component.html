@@ -7,6 +7,25 @@
       <div [class.fade]="isFading" class="content">
         <h1>{{ header1 }}</h1>
         <h1>{{ header2 }}</h1>
+        <xp-primary-button
+          *ngIf="header2 == 'Pridruži se događajima'"
+          class="moreinfoevent-button"
+          buttonId="moreinfoevent-button"
+          buttonType="button"
+          textValue="Saznaj više"
+          (click)="scrollToEventsSection()"
+          
+        >
+        </xp-primary-button>
+        <xp-primary-button
+          *ngIf="header2 == 'Učlani se u mnoge klubove'"
+          class="moreinfoclubs-button"
+          buttonId="moreinfoclubs-button"
+          buttonType="button"
+          textValue="Saznaj više"
+          (click)="scrollToClubsSection()"
+        >
+        </xp-primary-button>
       </div>
     </div>
   </div>

@@ -124,4 +124,12 @@ export class HomeComponent implements OnInit {
       }, 1500);
     }, 6000);
   }
+
+  scrollToEventsSection(){
+    document.getElementById('events-section')?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  scrollToClubsSection(){
+    document.getElementById('clubs-section')?.scrollIntoView({ behavior: 'smooth' });
+  }
 }
