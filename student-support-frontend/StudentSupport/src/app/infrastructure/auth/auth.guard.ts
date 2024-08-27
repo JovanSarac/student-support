@@ -21,36 +21,37 @@ export class AuthGuard implements CanActivate {
     private route: ActivatedRoute
   ) {}
 
-  canActivate():
+  // canActivate():
+  //   | Observable<boolean | UrlTree>
+  //   | Promise<boolean | UrlTree>
+  //   | boolean
+  //   | UrlTree {
+
+  //   const user: User = this.authService.user$.getValue();
+  //   if (user.username === '') {
+  //     this.router.navigate(['login']);
+  //     return false;
+  //   }
+  //   return true;
+  // }
+  canActivate(
+    next: ActivatedRouteSnapshot
+  ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-        
     const user: User = this.authService.user$.getValue();
     if (user.username === '') {
       this.router.navigate(['login']);
+      return false;
+    } else if (
+      next.data['role'] &&
+      next.data['role'].indexOf(user.role) === -1
+    ) {
+      this.router.navigate(['']);
       return false;
     }
     return true;
   }
-  /*canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    console.log("usao")
-    const user: User = this.authService.user$.getValue();
-    const id = route.params['id']; // Uzimanje ID parametra iz rute
-    console.log(id)
-    console.log(user)
-    // Provjeravanje autentifikacije i ID-ja
-    if (user.username === '') {
-      this.router.navigate(['login']);
-      return false;
-    }else if(user.id != id){
-      this.router.navigate(['userprofile/' + user.id])
-      return false;
-    }
-    return true;
-  }*/
 }

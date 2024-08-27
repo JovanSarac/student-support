@@ -13,7 +13,6 @@ import { ReportsComponent } from '../auth/administrator/reports/reports.componen
 import { CreateClubComponent } from 'src/app/feature-modules/clubs/create-club/create-club.component';
 import { SingleClubPageComponent } from 'src/app/feature-modules/clubs/single-club-page/single-club-page.component';
 import { ClubsPageComponent } from 'src/app/feature-modules/clubs/clubs-page/clubs-page.component';
-import { CreateAnnouncementComponent } from 'src/app/feature-modules/clubs/create-announcement/create-announcement.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,11 +27,17 @@ const routes: Routes = [
     path: 'create-event',
     component: CreateEventComponent,
     canActivate: [AuthGuard],
+    data: {
+      role: ['author'],
+    },
   },
   {
     path: 'edit-event/:eventId',
     component: CreateEventComponent,
     canActivate: [AuthGuard],
+    data: {
+      role: ['author'],
+    },
   },
   {
     path: 'single-event/:eventId',
@@ -48,11 +53,17 @@ const routes: Routes = [
     path: 'admin-panel',
     component: AdminPanelComponent,
     canActivate: [AuthGuard],
+    data: {
+      role: ['administrator'],
+    },
   },
   {
     path: 'reports',
     component: ReportsComponent,
     canActivate: [AuthGuard],
+    data: {
+      role: ['administrator'],
+    },
   },
   {
     path: 'clubs-page',
@@ -63,11 +74,17 @@ const routes: Routes = [
     path: 'create-club',
     component: CreateClubComponent,
     canActivate: [AuthGuard],
+    data: {
+      role: ['author'],
+    },
   },
   {
     path: 'edit-club/:clubId',
     component: CreateClubComponent,
     canActivate: [AuthGuard],
+    data: {
+      role: ['author'],
+    },
   },
   {
     path: 'single-club/:clubId',
@@ -78,16 +95,17 @@ const routes: Routes = [
     path: 'create-event-byclub/:clubId',
     component: CreateEventComponent,
     canActivate: [AuthGuard],
+    data: {
+      role: ['student', 'author'],
+    },
   },
   {
     path: 'edit-event-byclub/:eventId',
     component: CreateEventComponent,
     canActivate: [AuthGuard],
-  },
-  {
-    path: 'gas',
-    component: CreateAnnouncementComponent,
-    canActivate: [AuthGuard],
+    data: {
+      role: ['student', 'author'],
+    },
   },
 ];
 

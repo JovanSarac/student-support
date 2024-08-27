@@ -481,6 +481,10 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     this.eventService.updateEvent(this.user, this.event).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
+        this.toastr.success(
+          'Uspešno ste izmenili događaj sa imenom: ' + this.event.name + '.',
+          'Uspešno'
+        );
         this.router.navigate([`/single-event/${this.event.id}`]);
       },
     });
