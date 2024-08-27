@@ -31,6 +31,13 @@ namespace StudentSupport.API.Controllers.Student
             return CreateResponse(result);
         }
 
+        [HttpPost("search_clubs/{name?}")]
+        public ActionResult<List<ClubDto>> GetClubsBySearchName([FromBody] List<ClubDto> clubDtos, string? name)
+        {
+            var result = _clubService.GetClubsBySearchName(clubDtos, name);
+            return CreateResponse(result);
+        }
+
         [HttpGet("joined_clubs/{studentId:int}")]
         public ActionResult<PagedResult<ClubDto>> GetJoinedClubs([FromQuery] int page, [FromQuery] int pageSize, int studentId)
         {

@@ -133,5 +133,13 @@ namespace StudentSupport.Clubs.Core.UseCases
                 return Result.Fail(FailureCode.NotFound).WithError(ex.Message);
             }
         }
+
+        public Result<List<ClubDto>> GetClubsBySearchName(List<ClubDto> clubDtos, string? searchName)
+        {
+            if (searchName == null)
+                return clubDtos;
+            var result = clubDtos.FindAll(e => e.Name.ToUpper().Contains(searchName.ToUpper()));
+            return result;
+        }
     }
 }

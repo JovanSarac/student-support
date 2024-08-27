@@ -55,9 +55,17 @@
       <div class="filter-section"></div>
     </div>
     <div class="clubs">
+      <div class="searched" *ngIf="searchName != ''">
+        <p>Pretražili ste: "{{ searchName }}"</p>
+        <i
+          class="bi bi-x-circle-fill"
+          matTooltip="Izbriši pretragu"
+          (click)="clearSearchName()"
+        ></i>
+      </div>
       <div class="cards">
         <xp-club-card
-          *ngFor="let club of clubs; let i = index"
+          *ngFor="let club of pagedClubs; let i = index"
           [club]="club"
           [isMenuVisible]="menuVisibleIndex === i"
           (menuToggle)="onMenuToggle(i)"

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StudentSupport.BuildingBlocks.Core.UseCases;
 using StudentSupport.Clubs.API.Dtos;
 using StudentSupport.Clubs.API.Public;
+using StudentSupport.Events.API.Dtos;
 using StudentSupport.Stakeholders.API.Public;
 
 namespace StudentSupport.API.Controllers.Admin
@@ -34,6 +35,13 @@ namespace StudentSupport.API.Controllers.Admin
         public ActionResult<ClubDto> Get(int id)
         {
             var result = _clubService.Get(id);
+            return CreateResponse(result);
+        }
+
+        [HttpPost("search_clubs/{name?}")]
+        public ActionResult<List<ClubDto>> GetClubsBySearchName([FromBody] List<ClubDto> clubDtos, string? name)
+        {
+            var result = _clubService.GetClubsBySearchName(clubDtos, name);
             return CreateResponse(result);
         }
 

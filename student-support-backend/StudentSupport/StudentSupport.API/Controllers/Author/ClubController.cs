@@ -36,6 +36,13 @@ namespace StudentSupport.API.Controllers.Author
             return CreateResponse(result);
         }
 
+        [HttpPost("search_clubs/{name?}")]
+        public ActionResult<List<ClubDto>> GetClubsBySearchName([FromBody] List<ClubDto> clubDtos, string? name)
+        {
+            var result = _clubService.GetClubsBySearchName(clubDtos, name);
+            return CreateResponse(result);
+        }
+
         [HttpGet("created_clubs/{authorId:int}")]
         public ActionResult<PagedResult<ClubDto>> GetCreatedClubs([FromQuery] int page, [FromQuery] int pageSize, int authorId)
         {

@@ -18,6 +18,7 @@ export class ClubsPageComponent implements OnInit {
   activeTab: string = 'allClubs';
   searchName: string | null = '';
   clubs: Club[] = [];
+  clubsForDisplay: Club[] = [];
 
   currentPage = 1;
   pageSize = 20;
@@ -43,7 +44,7 @@ export class ClubsPageComponent implements OnInit {
     if (params['activeTab'] != undefined) {
       this.setActiveTab(params['activeTab']);
     } else {
-      this.router.navigate(['/events-page'], {
+      this.router.navigate(['/clubs-page'], {
         queryParams: { activeTab: this.activeTab },
       });
     }
@@ -60,7 +61,8 @@ export class ClubsPageComponent implements OnInit {
           this.clubs = result.results;
 
           this.totalPages = Math.ceil(this.clubs.length / this.pageSize);
-          this.updatePagedEvents();
+
+          this.searchClubsByName(this.searchName)
         },
       });
     } else if (tab == 'yourClubs') {
@@ -71,7 +73,8 @@ export class ClubsPageComponent implements OnInit {
             this.clubs = result.results;
 
             this.totalPages = Math.ceil(this.clubs.length / this.pageSize);
-            this.updatePagedEvents();
+
+            this.searchClubsByName(this.searchName)
           },
         });
     } else if (tab == 'yourMemberships') {
@@ -80,11 +83,32 @@ export class ClubsPageComponent implements OnInit {
           this.clubs = result.results;
 
           this.totalPages = Math.ceil(this.clubs.length / this.pageSize);
-          this.updatePagedEvents();
+
+          this.searchClubsByName(this.searchName)
         },
       });
     }
   }
+
+  searchClubsByName(name: string | null){
+    this.service.getClubssBySearchName(this.clubs, name, this.user).subscribe({
+      next: (result: Club[])=>{
+        this.clubsForDisplay = result;
+
+        this.updatePagedEvents();
+ 
+      }
+    })
+  }
+
+  clearSearchName(){
+    this.searchControl.setValue('');
+    this.searchName = '';
+    const queryParams = this.createQueryParams();
+
+    this.router.navigate(['/clubs-page'], { queryParams});
+  }
+
 
   searchClubs(name: string) {
     this.searchName = name;
@@ -92,6 +116,8 @@ export class ClubsPageComponent implements OnInit {
 
     this.router.navigate(['/clubs-page'], { queryParams });
   }
+
+
 
   private createQueryParams(): any {
     const params: any = {};
@@ -129,7 +155,7 @@ export class ClubsPageComponent implements OnInit {
   updatePagedEvents() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.pagedClubs = this.clubs.slice(startIndex, endIndex);
+    this.pagedClubs = this.clubsForDisplay.slice(startIndex, endIndex);
   }
 
   nextPage() {

@@ -31,7 +31,7 @@ export class ClubsService {
 
   getMostPopularTwoClubs(): Observable<Club[]> {
     return this.http.get<Club[]>(
-      environment.apiHost + 'anonymus/clubs/get_mostpopular_two_clubs'
+      environment.apiHost + 'anonymus/clubs/get_mostpopular_two_clubse'
     );
   }
 
@@ -101,6 +101,17 @@ export class ClubsService {
         clubId +
         '/' +
         authorId
+    );
+  }
+
+  getClubssBySearchName(
+    clubs: Club[],
+    name: string | null,
+    user: User
+  ): Observable<Club[]> {
+    return this.http.post<Club[]>(
+      environment.apiHost + user.role + '/clubs/search_clubs/' + name,
+      clubs
     );
   }
 

@@ -24,5 +24,6 @@ namespace StudentSupport.Clubs.API.Public
         Result<ClubDto> ActivateClub(int id);
         Result<PagedResult<ClubDto>> GetAllActiveClubs(int page, int pageSize);
         Result<List<ClubDto>> GetMostPopularTwoClubs();
+        Result<List<ClubDto>> GetClubsBySearchName(List<ClubDto> clubDtos, string? searchName);
     }
 }

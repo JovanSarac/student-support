@@ -151,6 +151,29 @@
   margin-top: 10px;
 }
 
+.searched{
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+  margin-left: 3%;
+  gap: 10px;
+
+}
+
+.searched p{
+  padding: 0px 5px;
+}
+
+.searched i{
+  cursor: pointer;
+}
+
+.searched i:hover{
+  color: var(--error-color);
+  transition: 0.5s;
+}
+
+
 .cards{
   display: flex;
   flex-wrap: wrap;
