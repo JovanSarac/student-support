@@ -31,7 +31,7 @@ export class ClubsService {
 
   getMostPopularTwoClubs(): Observable<Club[]> {
     return this.http.get<Club[]>(
-      environment.apiHost + 'anonymus/clubs/get_mostpopular_two_clubse'
+      environment.apiHost + 'anonymus/clubs/get_mostpopular_two_clubs'
     );
   }
 
