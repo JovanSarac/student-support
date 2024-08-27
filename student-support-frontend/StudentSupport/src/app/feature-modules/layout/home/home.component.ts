@@ -125,6 +125,13 @@ export class HomeComponent implements OnInit {
     }, 6000);
   }
 
+  setSlide(index: number) {
+    this.currentIndex = index;
+    this.slideImg = this.images[this.currentIndex];
+    this.header1 = this.headers1[this.currentIndex];
+    this.header2 = this.headers2[this.currentIndex];
+  }
+
   scrollToEventsSection(){
     document.getElementById('events-section')?.scrollIntoView({ behavior: 'smooth' });
   }

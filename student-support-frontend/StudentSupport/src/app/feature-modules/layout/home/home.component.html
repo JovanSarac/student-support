@@ -28,6 +28,13 @@
         </xp-primary-button>
       </div>
     </div>
+    <div class="dots">
+      <span *ngFor="let dot of images; let i = index" 
+            class="dot" 
+            [ngClass]="{'active': i === currentIndex}" 
+            (click)="setSlide(i)">
+      </span>
+    </div>
   </div>
 
   <div class="events-section" id="events-section">
