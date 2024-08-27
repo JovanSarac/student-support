@@ -23,6 +23,7 @@ import { marked } from 'marked';
 import { MatDialog } from '@angular/material/dialog';
 import { ClubMembersDialogComponent } from '../club-members-dialog/club-members-dialog.component';
 import { AnnouncementsViewComponent } from '../announcements-view/announcements-view.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-single-club-page',
@@ -87,7 +88,8 @@ export class SingleClubPageComponent implements OnInit, AfterViewInit {
     private router: Router,
     private cdr: ChangeDetectorRef,
     private toastrService: ToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -113,6 +115,17 @@ export class SingleClubPageComponent implements OnInit, AfterViewInit {
     this.service.getClubById(this.user, this.clubId).subscribe({
       next: (result: Club) => {
         this.club = result;
+
+        if (
+          (this.club.status === 1 || this.club.status === 2) &&
+          this.user.role === 'student'
+        ) {
+          this.toastrService.error(
+            'Klub je trenutno nedostupan jer ga je vlasnik zatvorio na kratko. \n Pokušajte opet kasnije.',
+            'Klub nedostupan'
+          );
+          this.location.back();
+        }
         this.getAuthor();
         this.checkIfUserIsAuthorOfClub();
       },

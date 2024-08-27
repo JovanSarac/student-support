@@ -2,7 +2,7 @@
   <div class="date-action-button-container">
     <div class="action-buttons">
       <div>
-        <xp-secondary-button
+        <!-- <xp-secondary-button
           *ngIf="isAuthor && club.status === 0"
           buttonId="close-button"
           buttonType="button"
@@ -10,7 +10,7 @@
           iconClass="bi bi-calendar-event-fill"
           (click)="createEventForClub()"
           style="margin-right: 5px"
-        ></xp-secondary-button>
+        ></xp-secondary-button> -->
         <xp-secondary-button
           *ngIf="
             user.role === 'administrator' &&
@@ -156,10 +156,10 @@
       <mat-tab label="O klubu">
         <div class="about-club">
           <div
-            *ngIf="club.description.length > 304"
+            *ngIf="club.description.length > 504"
             class="club-description"
             [ngStyle]="{
-              'max-height': !isDescriptionCollapsed ? '20dvh' : 'none',
+              'max-height': !isDescriptionCollapsed ? '40dvh' : 'none',
               'mask-image': !isDescriptionCollapsed
                 ? 'linear-gradient(#000, rgba(0, 0, 0, 0.1))'
                 : 'none'
@@ -167,20 +167,20 @@
             [innerHTML]="convertedDescription"
           ></div>
           <div
-            *ngIf="club.description.length < 304"
+            *ngIf="club.description.length < 504"
             class="club-description"
             [innerHTML]="convertedDescription"
           ></div>
           <p
             class="show-desc"
-            *ngIf="!isDescriptionCollapsed && club.description.length > 304"
+            *ngIf="!isDescriptionCollapsed && club.description.length > 504"
             (click)="toggleDescriptionCollapse()"
           >
             Prikaži više <i class="bi bi-chevron-compact-down"></i>
           </p>
           <p
             class="show-desc"
-            *ngIf="isDescriptionCollapsed && club.description.length > 304"
+            *ngIf="isDescriptionCollapsed && club.description.length > 504"
             (click)="toggleDescriptionCollapse()"
           >
             Prikaži manje <i class="bi bi-chevron-compact-up"></i>
@@ -188,6 +188,15 @@
         </div>
       </mat-tab>
       <mat-tab label="Događaji">
+        <xp-secondary-button
+          *ngIf="isAuthor && club.status === 0"
+          buttonId="close-button"
+          buttonType="button"
+          textValue="Zakaži događaj"
+          iconClass="bi bi-calendar-event-fill"
+          (click)="createEventForClub()"
+          style="margin-right: 5px"
+        ></xp-secondary-button>
         <app-club-events-view
           [clubIdInput]="sendClubIdToMembersComponent()"
         ></app-club-events-view>
