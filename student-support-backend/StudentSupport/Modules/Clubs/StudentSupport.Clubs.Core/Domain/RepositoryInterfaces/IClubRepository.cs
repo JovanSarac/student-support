@@ -12,6 +12,7 @@ namespace StudentSupport.Clubs.Core.Domain.RepositoryInterfaces
         PagedResult<Club> GetAllActiveClubs(int page, int pageSize);
         PagedResult<Club> GetClubsByIdsPaged(int page, int pageSize, List<long> clubIds);
         PagedResult<Club> GetClubsByAuthorIdPaged(int page, int pageSize, int authorId);
+        List<Club> GetMostPopularTwoClubs();
         void SaveChanges();
     }
 }

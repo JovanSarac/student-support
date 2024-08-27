@@ -5,7 +5,11 @@
   <div class="club-info">
     <div class="dots-container">
       <p class="club-title">{{ club.name }}</p>
-      <div class="select-option" *ngIf="true">
+      <div class="select-option" *ngIf="
+        ((user.role === 'author' && user.id === club.ownerId) ||
+          user.role === 'student') &&
+        this.router.url !== '/'
+      ">
         <p (click)="toggleMenu($event)"><i class="bi bi-three-dots"></i></p>
       </div>
     </div>
@@ -70,7 +74,7 @@
     <div class="separator"></div>
     <p *ngIf="club.status === 0" class="club-membership">
       <i class="bi bi-people-fill" style="margin-right: 5px"></i>Broj članova:
-      {{ club.memberships.length }}
+      {{ getMembershipCount() }}
     </p>
     <p class="club-closed" *ngIf="club.status === 1">Ovaj klub je zatvoren.</p>
     <p class="club-closed" *ngIf="club.status === 2">

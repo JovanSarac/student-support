@@ -132,6 +132,26 @@ namespace StudentSupport.Clubs.Infrastructure.Database.Repositories
             _context.SaveChanges();
         }
 
+        public List<Club> GetMostPopularTwoClubs()
+        {
+            var popularClubs = _clubs
+                .Where(c => c.Status == ClubStatus.Active)
+                .Select(c => new
+                {
+                    Club = c,
+                    MembershipCount = c.Memberships.Count(m => m.Status == MembershipStatus.Member || m.Status == MembershipStatus.ClubAdmin)
+                })
+                .OrderByDescending(c => c.MembershipCount)
+                .Take(2)
+                .Select(c => c.Club)
+                .ToList();
+
+            return _clubs
+                .Where(c => popularClubs.Select(pc => pc.Id).Contains(c.Id))
+                .Include(c => c.Memberships)
+                .ToList();
+        }
+
         public Club Update(Club entity)
         {
             try

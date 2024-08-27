@@ -110,6 +110,11 @@ namespace StudentSupport.Clubs.Core.UseCases
             }
         }
 
+        public Result<List<ClubDto>> GetMostPopularTwoClubs()
+        {
+            return MapToDto(_clubRepository.GetMostPopularTwoClubs());
+        }
+
         public Result<bool> IsAuthorOfClub(int authorId, int clubId)
         {
             try

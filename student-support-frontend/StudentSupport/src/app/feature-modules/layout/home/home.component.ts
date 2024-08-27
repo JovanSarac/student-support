@@ -5,6 +5,8 @@ import { LayoutService } from '../layout.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { marked } from 'marked';
 import { EventsService } from '../../events/events.service';
+import { Club } from 'src/app/shared/model/club.model';
+import { ClubsService } from '../../clubs/clubs.service';
 
 @Component({
   selector: 'xp-home',
@@ -15,11 +17,13 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private service: LayoutService,
-    private eventService: EventsService
+    private eventService: EventsService,
+    private clubService: ClubsService
   ) {}
 
   selectedTab: string = 'all';
   events: MyEvent[] = [];
+  clubs: Club[] = [];
   slideImg: string = '../../../../assets/images/students1.jpg';
   images: string[] = [
     '../../../../assets/images/students1.jpg',
@@ -50,12 +54,21 @@ export class HomeComponent implements OnInit {
     window.addEventListener('resize', this.checkScreenWidth.bind(this));
     this.startSlider();
     this.getFourRandomEvents();
+    this.getMostPopularTwoClubs();
   }
 
   getFourRandomEvents(): void {
     this.eventService.getRandomFourEvents().subscribe({
       next: (result: MyEvent[]) => {
         this.events = result;
+      },
+    });
+  }
+
+  getMostPopularTwoClubs(): void {
+    this.clubService.getMostPopularTwoClubs().subscribe({
+      next: (result: Club[]) => {
+        this.clubs = result;
       },
     });
   }
@@ -80,10 +93,6 @@ export class HomeComponent implements OnInit {
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
-  }
-
-  selectTab(tab: string) {
-    this.selectedTab = tab;
   }
 
   renderMarkdown(description: string): string {

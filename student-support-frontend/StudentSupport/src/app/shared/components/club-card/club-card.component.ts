@@ -131,4 +131,9 @@ export class ClubCardComponent implements OnInit {
   get convertedDescription() {
     return marked(this.club.description);
   }
+
+  getMembershipCount(): number {
+    return this.club.memberships.filter((m) => m.status === 0 || m.status === 1)
+      .length;
+  }
 }

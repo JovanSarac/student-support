@@ -52,7 +52,7 @@ export class NavbarComponent implements OnInit {
 
   goToEvents(): void {
     if (this.user.username === '') {
-      this.router.navigate(['/login']);
+      document.getElementById('events-section')?.scrollIntoView({ behavior: 'smooth' });
     } else {
       this.router.navigate(['/events-page'], {
         queryParams: { activeTab: 'allEvents' },
@@ -62,7 +62,8 @@ export class NavbarComponent implements OnInit {
 
   goToClubs(): void {
     if (this.user.username === '') {
-      this.router.navigate(['/login']);
+      document.getElementById('clubs-section')?.scrollIntoView({ behavior: 'smooth' });
+
     } else {
       this.router.navigate(['/clubs-page'], {
         queryParams: { activeTab: 'allClubs' },

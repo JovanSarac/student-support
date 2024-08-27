@@ -67,22 +67,35 @@
   background-color: transparent;
 }
 
+.events-section{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+}
+
+#events-section {
+  scroll-margin-top: 8dvh;
+}
+
 .events {
   width: 80%;
   margin-left: 10%;
-  margin-top: 3%;
   display: flex;
   flex-direction: column;
   height: auto;
 }
 
-.events p {
-  font-size: 40px;
-  font-weight: bold;
-  color: var(--primary-color);
-  font-family: "Poppins", sans-serif;
-  align-self: center;
+.events p{
+  display: inline;
+  flex-wrap: wrap;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-bottom: 2%;
+  text-align: justify;
+  white-space: normal;
 }
+
 
 .cards {
   display: flex;
@@ -90,6 +103,60 @@
   justify-content: space-evenly;
   margin: 2%;
 }
+
+
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  margin-top: 2%;
+  margin-bottom: 3%;
+  box-sizing: border-box;
+}
+
+.section-title p {
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap; 
+  color: var(--primary-color);
+  line-height: 1; 
+  margin: 0; 
+  padding: 0; 
+  align-self: center;
+}
+
+.section-title::before,
+.section-title::after {
+  content: "";
+  flex-grow: 1;
+  height: 0;
+  border-top: 3px dashed #cecece;
+}
+
+.section-title::before {
+  margin-right: 30px;
+}
+
+.section-title::after {
+  margin-left: 30px;
+}
+
+
+.clubs-section{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+}
+
+#clubs-section {
+  scroll-margin-top: 8dvh;
+}
+
 
 /*RESPONZIVNOST VELICINE EKRANA */
 
