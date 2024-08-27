@@ -10,26 +10,18 @@
       </p>
     </div>
     <div class="navbar-button">
-      <div (click)="goToEvents()" class="navbar-item">
-        <p>Događaji</p>
+      <div class="navbar-item">
+        <p (click)="goToEvents()">Događaji</p>
       </div>
 
-      <div (click)="goToClubs()" class="navbar-item">
-        <p>Klubovi</p>
+      <div class="navbar-item">
+        <p (click)="goToClubs()">Klubovi</p>
       </div>
-      <div
-        *ngIf="user.role === 'administrator'"
-        class="navbar-item"
-        (click)="goToAdminPanel()"
-      >
-        <p>Korisnici</p>
+      <div *ngIf="user.role === 'administrator'" class="navbar-item">
+        <p (click)="goToAdminPanel()">Korisnici</p>
       </div>
-      <div
-        *ngIf="user.role === 'administrator'"
-        class="navbar-item"
-        (click)="goToReports()"
-      >
-        <p>Prijave</p>
+      <div *ngIf="user.role === 'administrator'" class="navbar-item">
+        <p (click)="goToReports()">Prijave</p>
       </div>
 
       <!-- <div class="navbar-item">
