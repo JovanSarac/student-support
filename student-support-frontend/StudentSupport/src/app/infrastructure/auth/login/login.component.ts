@@ -17,12 +17,14 @@ import { Registration, RegistrationGmail } from '../model/registration.model';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  fieldTextType: boolean = true;
-  validUsername: boolean = false;
-  validPassword: boolean = false;
   wrongCredential: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
+
+  loginForm = new FormGroup({
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+  });
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -32,54 +34,45 @@ export class LoginComponent implements OnInit {
       callback: (response: any) => this.handleLogin(response),
     });
 
-    google.accounts.id.renderButton(document.getElementById('google-btn'), {
-      theme: 'filled_blue',
+    google.accounts.id.renderButton(
+      document.getElementById('google-btn-container'),
+      {
+        theme: 'outline',
+        shape: 'rectangle',
+        size: 'large',
+      }
+    );
+  }
 
-      shape: 'rectangle',
-      width: 200,
+  login() {
+    this.wrongCredential = false;
+    this.markAllControlsAsTouched();
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    const login: Login = {
+      username: this.loginForm.value.username!,
+      password: this.loginForm.value.password!
+    };
+
+    this.authService.login(login).subscribe({
+      next: () => {
+        this.router.navigate(['/']);
+      },
+      error: (err: any) => {
+        this.wrongCredential = true;
+      },
+    });
+
+  }
+
+  private markAllControlsAsTouched(): void {
+    Object.values(this.loginForm.controls).forEach((control) => {
+      control.markAsTouched();
     });
   }
 
-  login(username: string, password: string) {
-    const login: Login = {
-      username: username || '',
-      password: password || '',
-    };
-
-    if (this.validate(login)) {
-      this.authService.login(login).subscribe({
-        next: () => {
-          this.router.navigate(['/']);
-        },
-        error: (err: any) => {
-          this.wrongCredential = true;
-        },
-      });
-    }
-  }
-
-  validate(login: Login): boolean {
-    this.validUsername = false;
-    this.validPassword = false;
-    if (login.username != '' && login.password != '') {
-      return true;
-    }
-    if (login.username == '') {
-      this.validUsername = true;
-    }
-    if (login.password == '') {
-      this.validPassword = true;
-    }
-    return false;
-  }
-
-  changeBiEye(): void {
-    if (this.fieldTextType == true) {
-      this.fieldTextType = false;
-    } else {
-      this.fieldTextType = true;
-    }
-  }
 
   private decodeToken(token: string) {
     return JSON.parse(atob(token.split('.')[1]));

@@ -1,47 +1,62 @@
-<div class="home-full-page-bg">
-    <div class="validation-error" *ngIf="wrongCredential"><p>Korisnicko ime ili lozinka su neispravni ili nevažeći</p></div>
-    <div class="login-form-content">
-        <h2 class="title-login-form">Prijava</h2>
-            <div class="username-field">
-                <p>Korisnicko ime:</p>
-                <input type="text" #usernameInput [ngClass]="{'red-border': validUsername}"/>
-                <p style="color: red; font-size: 12px;" *ngIf="validUsername">Morate unijeti korisniko ime!</p>
+<div class="full-page-bg">
+    <div class="first-half">
+
+    </div>
+    <div class="second-half">
+        <div class="second-half-content">
+            <div class="logo-section">
+                <img src="../../../../assets/logo/blue_logo.svg" alt="no-picture">
             </div>
-            <div class="password-field">
-                <p>Lozinka:</p>
-                <div class="password-input">
-                    <input class="password" [type]="fieldTextType ? 'password' : 'text'" #passwordInput [ngClass]="{'red-border': validPassword}"/>
-                    <i
-                        (click)="changeBiEye()"
-                        class="bi"
-                        [ngClass]="{
-                            'bi-eye-slash-fill': fieldTextType,
-                            'bi-eye-fill': !fieldTextType
-                        }"
-                        ></i>
-                    <p style="color: red; font-size: 12px;" *ngIf="validPassword">Morate unijeti sifru!</p>
+
+            
+            <form [formGroup]="loginForm" class="login-form">
+                <xp-input
+                    style="width: 100%;"
+                    [control]="loginForm.controls.username"
+                    inputType="text"
+                    inputId="username"
+                    label="Korisničko ime:"
+                    [customErrorMessages]="{ required: 'Korisničko ime je obavezno!' }"
+                    [wrongRedBorder]="wrongCredential"
+                    >
+                </xp-input>
+
+                <xp-input
+                    style="width: 100%; margin-top: 5%;"
+                    [control]="loginForm.controls.password"
+                    inputType="password"
+                    inputId="password"
+                    label="Lozinka:"
+                    [customErrorMessages]="{ required: 'Lozinka je obavezna!' }"
+                    [wrongRedBorder]="wrongCredential"
+                    >
+                </xp-input>
+
+                <div class="wrong-credential" *ngIf="wrongCredential">
+                    <p>Korisničko ime ili lozinka nisu tačni. Proverite unesene podatke i pokušajte ponovo.</p>
                 </div>
-                
-            </div>
+                <xp-primary-button
+                    (click)="login()"
+                    style="width: 100%; margin-top: 5%;"
+                    buttonId="filter-button"
+                    buttonType="button"
+                    textValue="Prijavi se"
+                >
+                </xp-primary-button>
 
-            <div class="button-login">
-                <button (click)="login(usernameInput.value, passwordInput.value)">Prijavi se</button>
-            </div>
-
-            <div class="google-login">
-                <p>Ili se prijavi pomocu:</p>
-                <div id="google-btn">
-                    
+                <div class="register">
+                    <p>Ako nemate nalog, možete da se registujete <span class="register-link" (click)="registerClick()">ovde</span>.</p>
+    
                 </div>
-                
-            </div>
 
-            <div class="register">
-                <p>Ako nemate nalog, mozete da se registujete <span class="register-link" (click)="registerClick()">ovde</span>.</p>
+                <div class="separator">
+                    <p>ili</p>
+                </div>
 
-            </div>
-        
-        
-        
+                <div id="google-btn-container" class="google-btn-container"></div>
+            </form>
+
+
+        </div>
     </div>
 </div>

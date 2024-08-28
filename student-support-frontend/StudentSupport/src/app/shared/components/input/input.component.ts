@@ -15,6 +15,7 @@ export class InputComponent {
   fieldTextType: boolean = false;
   @Input() customErrorMessages: Record<string, string> = {};
   @Input() min: string = '';
+  @Input() wrongRedBorder: boolean = false;
 
   errorMessages: Record<string, string> = {
     required: 'Ovo polje je obavezno',

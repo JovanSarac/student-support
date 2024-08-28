@@ -3,9 +3,9 @@
   <input
     [type]="inputType"
     [formControl]="control"
-    [class.invalid]="control.invalid && control.touched"
+    [class.invalid]="(control.invalid && control.touched) || wrongRedBorder"
     [ngClass]="{
-        'red-border': control.invalid && control.touched,
+        'red-border': (control.invalid && control.touched) || wrongRedBorder
       }"
     class="form-control form-input p-3"
     autocomplete="off"
@@ -26,9 +26,9 @@
     <input
       [type]="fieldTextType ? 'text' : 'password'"
       [formControl]="control"
-      [class.invalid]="control.invalid && control.touched"
+      [class.invalid]="(control.invalid && control.touched) || wrongRedBorder"
       [ngClass]="{
-          'red-border': control.invalid && control.touched,
+          'red-border': (control.invalid && control.touched) || wrongRedBorder,
         }"
       class="form-control form-input p-3"
       autocomplete="off"
@@ -39,7 +39,7 @@
       <span
         class="input-group-text eye-icon"
         [ngClass]="{
-            'red-border': control.invalid && control.touched,
+            'red-border': (control.invalid && control.touched) || wrongRedBorder,
           }"
         (click)="toggleFieldTextType()"
         (keyup)="toggleFieldTextType()"
