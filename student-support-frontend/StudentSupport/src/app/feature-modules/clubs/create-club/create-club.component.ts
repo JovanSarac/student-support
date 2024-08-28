@@ -57,6 +57,17 @@ export class CreateClubComponent implements OnInit, AfterViewInit {
   dateTimeNow: string = this.dtn.toString();
   minDate = new Date().toISOString().slice(0, 16);
 
+  categoryClubMap = [
+    { value: 'Sports', numericValue: '0' },
+    { value: 'Artistic', numericValue: '1' },
+    { value: 'Scientific', numericValue: '2' },
+    { value: 'Cultural', numericValue: '3' },
+    { value: 'Technical', numericValue: '4' },
+    { value: 'Gaming', numericValue: '5' },
+    { value: 'Social', numericValue: '6' },
+    { value: 'Other', numericValue: '7' },
+  ];
+
   clubForm = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -66,6 +77,7 @@ export class CreateClubComponent implements OnInit, AfterViewInit {
     description: new FormControl('', Validators.required),
     city: new FormControl('', Validators.required),
     street: new FormControl('', Validators.required),
+    category: new FormControl('', Validators.required),
   });
 
   constructor(
@@ -144,6 +156,7 @@ export class CreateClubComponent implements OnInit, AfterViewInit {
       return;
     }
     this.club.name = this.clubForm.value.name || '';
+    this.club.categoryClub = this.clubForm.value.category || '';
     this.club.description = this.clubForm.value.description || '';
     this.club.address =
       this.clubForm.value.street + ', ' + this.clubForm.value.city || '';
@@ -173,6 +186,7 @@ export class CreateClubComponent implements OnInit, AfterViewInit {
       return;
     }
     this.club.name = this.clubForm.value.name || '';
+    this.club.categoryClub = this.clubForm.value.category || '';
     this.club.description = this.clubForm.value.description || '';
     this.club.address =
       this.clubForm.value.street + ', ' + this.clubForm.value.city || '';
@@ -194,6 +208,7 @@ export class CreateClubComponent implements OnInit, AfterViewInit {
   updateFormWithClubData(): void {
     this.clubForm.patchValue({
       name: this.club.name,
+      category: this.getNumericValue(this.club.categoryClub),
       description: this.club.description,
       city: this.getCityFromAddress(this.club.address),
       street: this.getStreetFromAddress(this.club.address),
@@ -202,6 +217,12 @@ export class CreateClubComponent implements OnInit, AfterViewInit {
     this.longitude = this.club.longitude;
     this.selectedImage = this.club.coverImage;
     this.setMarkerOnMap();
+  }
+
+
+  getNumericValue(categoryClub: string): string {
+    const found = this.categoryClubMap.find((category) => category.value === categoryClub);
+    return found ? found.numericValue : '';
   }
 
   setMarkerOnMap(): void {
@@ -216,6 +237,11 @@ export class CreateClubComponent implements OnInit, AfterViewInit {
         15
       );
     }
+  }
+
+  isControlInvalid(controlName: string): boolean {
+    const control = this.clubForm.get(controlName);
+    return (control?.invalid && (control.dirty || control.touched)) ?? false;
   }
 
   validateMarkerAndPicture(): boolean {

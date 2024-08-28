@@ -18,6 +18,34 @@
             }"
           >
           </xp-input>
+          <div
+            class="form__group field"
+            [ngClass]="{ 'has-error': isControlInvalid('category') }"
+          >
+            <select
+              formControlName="category"
+              type="input"
+              class="form__field"
+              placeholder="Unesite kategoriju kluba ovde"
+              name="category"
+              id="category"
+              required
+            >
+              <option value=""></option>
+              <option value="0">Sport</option>
+              <option value="1">Umetnost</option>
+              <option value="2">Nauka</option>
+              <option value="3">Kultura i književnost</option>
+              <option value="4">Tehnologija i inovacija</option>
+              <option value="5">Gejming</option>
+              <option value="6">Društvenost i humanitarnost</option>
+              <option value="7">Nešto drugo</option>
+            </select>
+            <label for="type" class="form__label">Kategorija kojoj Vaš klub pripada:</label>
+            <div *ngIf="isControlInvalid('category')" class="error-message">
+              Kategorija kluba je obavezna!
+            </div>
+          </div>
         </div>
 
         <div class="picture-info">
