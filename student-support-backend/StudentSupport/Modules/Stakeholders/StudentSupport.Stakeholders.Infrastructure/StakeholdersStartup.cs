@@ -29,6 +29,7 @@ public static class StakeholdersStartup
         services.AddScoped<ITokenGenerator, JwtGenerator>();
         services.AddScoped<IPersonService, PersonService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IEmailSendingService, EmailSendingService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)

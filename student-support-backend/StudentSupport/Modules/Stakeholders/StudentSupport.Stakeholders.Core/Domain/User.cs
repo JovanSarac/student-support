@@ -9,14 +9,16 @@ public class User : Entity
     public UserRole Role { get; private set; }
     public bool IsActive { get; set; }
     public bool RegisterWithEmail { get; set; }
+    public string? EmailVerificationToken { get; set; }
 
-    public User(string username, string password, UserRole role, bool isActive, bool registerWithEmail)
+    public User(string username, string password, UserRole role, bool isActive, bool registerWithEmail, string emailVerificationToken = null)
     {
         Username = username;
         Password = password;
         Role = role;
         IsActive = isActive;
         RegisterWithEmail = registerWithEmail;
+        EmailVerificationToken = emailVerificationToken;
         Validate();
     }
 
@@ -41,6 +43,11 @@ public class User : Entity
     {
         Validate();
         IsActive = false;
+    }
+
+    public void RemoveEmailVerificationToken()
+    {
+        EmailVerificationToken = null;
     }
 }
 

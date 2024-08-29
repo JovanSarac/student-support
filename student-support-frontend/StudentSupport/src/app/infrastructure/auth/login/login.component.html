@@ -36,8 +36,8 @@
                     >
                 </xp-input>
 
-                <div class="wrong-credential" *ngIf="wrongCredential">
-                    <p>Korisničko ime ili lozinka nisu tačni. Proverite unesene podatke i pokušajte ponovo.</p>
+                <div class="wrong-credential" *ngIf="errorMessage != ''">
+                    <p>{{errorMessage}}</p>
                 </div>
                 <xp-primary-button
                     (click)="login()"

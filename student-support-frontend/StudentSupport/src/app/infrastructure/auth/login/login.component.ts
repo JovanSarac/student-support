@@ -18,6 +18,7 @@ import { Registration, RegistrationGmail } from '../model/registration.model';
 })
 export class LoginComponent implements OnInit {
   wrongCredential: boolean = false;
+  errorMessage: string = ""
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -46,6 +47,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.wrongCredential = false;
+    this.errorMessage = ""
     this.markAllControlsAsTouched();
     if (this.loginForm.invalid) {
       return;
@@ -61,7 +63,17 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/']);
       },
       error: (err: any) => {
-        this.wrongCredential = true;
+        if (err.status === 404) {
+          // Korisničko ime ili lozinka nisu tačni
+          this.wrongCredential = true;
+          this.errorMessage = "Korisničko ime ili lozinka nisu tačni. Proverite unesene podatke i pokušajte ponovo.";
+        } else if (err.status === 500 && err.error && err.error.detail.includes("Email nije verifikovan")) {
+          // Email nije verifikovan
+          this.errorMessage = "Email nije verifikovan. Molimo Vas da proverite svoju email adresu i verifikujete nalog.";
+        } else {
+          // Generalna greška (možete je dodatno prilagoditi)
+          this.errorMessage = "Došlo je do greške. Molimo Vas pokušajte ponovo kasnije.";
+        }
       },
     });
 

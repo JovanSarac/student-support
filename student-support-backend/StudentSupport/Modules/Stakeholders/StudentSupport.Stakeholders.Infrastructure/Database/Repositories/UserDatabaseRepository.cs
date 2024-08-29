@@ -53,4 +53,12 @@ public class UserDatabaseRepository : IUserRepository
     {
         return _dbContext.Users.ToList();
     }
+
+    public User Update(User newUser)
+    {
+        var user = _dbContext.Users.FirstOrDefault(x => x.Id == newUser.Id);
+        user = newUser;
+        _dbContext.SaveChanges();
+        return user;
+    }
 }

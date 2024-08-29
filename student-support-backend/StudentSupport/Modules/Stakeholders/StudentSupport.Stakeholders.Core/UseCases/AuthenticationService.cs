@@ -13,19 +13,25 @@ public class AuthenticationService : IAuthenticationService
     private readonly IUserRepository _userRepository;
     private readonly ICrudRepository<Person> _personRepository;
     private readonly IPersonRepository _personRepositoryy;
+    private readonly IEmailSendingService _emailSendingService;
+    
 
-    public AuthenticationService(IUserRepository userRepository, ICrudRepository<Person> personRepository, ITokenGenerator tokenGenerator, IPersonRepository personRepositoryy)
+    public AuthenticationService(IUserRepository userRepository, ICrudRepository<Person> personRepository, ITokenGenerator tokenGenerator, IPersonRepository personRepositoryy, IEmailSendingService emailSendingService)
     {
         _tokenGenerator = tokenGenerator;
         _userRepository = userRepository;
         _personRepository = personRepository;
         _personRepositoryy = personRepositoryy;
+        _emailSendingService = emailSendingService;
     }
 
     public Result<AuthenticationTokensDto> Login(CredentialsDto credentials)
     {
         var user = _userRepository.GetActiveByName(credentials.Username);
         if (user == null || credentials.Password != user.Password) return Result.Fail(FailureCode.NotFound);
+
+        if (user.EmailVerificationToken != null)
+            return Result.Fail("Email nije verifikovan. Molimo Vas da proverite svoju email adresu i verifikujete nalog.");
 
         long personId;
         try
@@ -48,6 +54,11 @@ public class AuthenticationService : IAuthenticationService
             var user = _userRepository.Create(new User(account.Username, account.Password, UserRole.Student, true, false));
             var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email, null, DateOnly.FromDateTime(DateTime.Now), ""));
 
+            var emailVerificationToken = _tokenGenerator.GenerateEmailVerificationToken(person.Email, user.Username);
+            user.EmailVerificationToken = emailVerificationToken;
+            user = _userRepository.Update(user);
+
+            _emailSendingService.SendVerificationEmail(person.Id, emailVerificationToken, user.Username);
             return Result.Ok().WithSuccess("Student successfully registered.");
         }
         catch (ArgumentException e)

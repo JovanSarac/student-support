@@ -15,6 +15,5 @@ namespace StudentSupport.Events.API.Public
         Task SendPublishedEmailsAsync(EventDto eventDto, List<string> receiversEmails);
         Task SendActivationEmailAsync(string username, int id, int role);
         Task SendDeactivationEmailAsync(string username, int id, int role);
-
     }
 }

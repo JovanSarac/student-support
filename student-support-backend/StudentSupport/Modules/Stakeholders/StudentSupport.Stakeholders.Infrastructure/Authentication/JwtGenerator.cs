@@ -51,4 +51,19 @@ public class JwtGenerator : ITokenGenerator
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+
+    public string GenerateEmailVerificationToken(string email, string username)
+    {
+        var claims = new List<Claim>
+        {
+            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new("username", username),
+            new("email", email)
+        };
+
+        var jwt = CreateToken(claims, 60 * 24);
+
+
+        return jwt;
+    }
 }

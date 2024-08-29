@@ -1,9 +1,9 @@
 -- Umetanje korisnika
-INSERT INTO stakeholders."Users" ("Id", "Username", "Password", "Role", "IsActive", "RegisterWithEmail")
+INSERT INTO stakeholders."Users" ("Id", "Username", "Password", "Role", "IsActive", "RegisterWithEmail", "EmailVerificationToken")
 VALUES
-(-1, 'jovanj01', 'a', 1, TRUE, FALSE),
-(-2, 'jovans01', 'a', 2, TRUE, FALSE),
-(-3, 'admin', 'a', 0, TRUE, FALSE);
+(-1, 'jovanj01', 'a', 1, TRUE, FALSE, NULL),
+(-2, 'jovans01', 'a', 2, TRUE, FALSE, NULL),
+(-3, 'admin', 'a', 0, TRUE, FALSE, NULL);
 
 -- Umetanje osoba
 INSERT INTO stakeholders."People" ("Id", "UserId", "Name", "Surname", "Email", "ProfilePic", "RegistrationDate", "Address", "PhoneNumber", "BirthDate", "Biography")
