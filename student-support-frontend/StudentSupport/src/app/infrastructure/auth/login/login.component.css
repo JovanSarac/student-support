@@ -5,7 +5,7 @@
     flex-direction: row;
     width: 100%;
     height: calc(100% + 8dvh);
-    background-image: url("../../../../assets/images/background_logreg2.png");
+    background-image: url("../../../../assets/images/background_logreg.png");
     background-size: cover;
 }
 
@@ -13,6 +13,29 @@
     display: flex;
     width: 50%;
     height: 100%;
+}
+
+.first-half-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 90%;
+    margin: 5%;
+}
+
+.first-half-content h2{
+    color: var(--text-on-primary-color);
+    font-size: 38px;
+    font-weight: 900;
+    font-family: 'Poppins', sans-serif;
+}
+
+.first-half-content p{
+    color: var(--text-on-primary-color);
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .second-half{
