@@ -19,7 +19,7 @@ namespace StudentSupport.Stakeholders.Core.UseCases
             _personService = personService;
         }
 
-        public async Task SendVerificationEmail(long id, string token, string username)
+        public async Task SendVerificationEmail(long id, string token, string email)
         {
             var person = _personService.GetByUserId((int)id);
 
@@ -29,7 +29,7 @@ namespace StudentSupport.Stakeholders.Core.UseCases
             mail.Body = $@"
             Poštovani/a {person.Value.Name} {person.Value.Surname},
 
-            Hvala Vam što ste se registrovali na naš UNStudent portal. Da biste verifikovali svoju e-mail adresu {username}, molimo Vas da kliknete na link ispod:
+            Hvala Vam što ste se registrovali na naš UNStudent portal. Da biste verifikovali svoju e-mail adresu {email}, molimo Vas da kliknete na link ispod:
 
             http://localhost:4200/verify-email?token={token}
 

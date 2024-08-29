@@ -77,7 +77,13 @@ export class RegistrationComponent implements OnInit {
     } else {
       this.authService.registerStudent(registration).subscribe({
         next: () => {
-          this.router.navigate(['/']);
+          const registeredPerson = { email: registration.email, username: registration.username };
+          this.router.navigate(['/check-email'], {
+            queryParams: {
+              email: registeredPerson.email,
+              username: registeredPerson.username
+            }
+          });
         },
       });
     }

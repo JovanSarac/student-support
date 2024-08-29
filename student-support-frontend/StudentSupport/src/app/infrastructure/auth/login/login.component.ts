@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
           this.errorMessage = "Korisničko ime ili lozinka nisu tačni. Proverite unesene podatke i pokušajte ponovo.";
         } else if (err.status === 500 && err.error && err.error.detail.includes("Email nije verifikovan")) {
           // Email nije verifikovan
-          this.errorMessage = "Email nije verifikovan. Molimo Vas da proverite svoju email adresu i verifikujete nalog.";
+          this.errorMessage = "Email za ovaj nalog nije verifikovan. Molimo Vas da proverite svoju email adresu i verifikujete nalog.";
         } else {
           // Generalna greška (možete je dodatno prilagoditi)
           this.errorMessage = "Došlo je do greške. Molimo Vas pokušajte ponovo kasnije.";

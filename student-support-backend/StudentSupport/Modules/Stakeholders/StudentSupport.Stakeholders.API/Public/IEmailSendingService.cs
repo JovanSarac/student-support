@@ -8,6 +8,6 @@ namespace StudentSupport.Stakeholders.API.Public
 {
     public interface IEmailSendingService
     {
-        Task SendVerificationEmail(long id, string token, string username);
+        Task SendVerificationEmail(long id, string token, string email);
     }
 }

@@ -2,6 +2,7 @@
   *ngIf="
     this.router.url !== '/login' &&
     this.router.url !== '/register' &&
+    !this.router.url.startsWith('/check-email') &&
     this.router.url !== '/card'
   "
 >
@@ -12,6 +13,7 @@
     !this.router.url.startsWith('/events-page') &&
     !this.router.url.startsWith('/clubs-page') &&
     this.router.url !== '/login' &&
-    this.router.url !== '/register'
+    this.router.url !== '/register' &&
+    !this.router.url.startsWith('/check-email')
   "
 ></app-footer>

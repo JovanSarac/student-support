@@ -14,7 +14,6 @@ public class AuthenticationService : IAuthenticationService
     private readonly ICrudRepository<Person> _personRepository;
     private readonly IPersonRepository _personRepositoryy;
     private readonly IEmailSendingService _emailSendingService;
-    
 
     public AuthenticationService(IUserRepository userRepository, ICrudRepository<Person> personRepository, ITokenGenerator tokenGenerator, IPersonRepository personRepositoryy, IEmailSendingService emailSendingService)
     {
@@ -31,7 +30,7 @@ public class AuthenticationService : IAuthenticationService
         if (user == null || credentials.Password != user.Password) return Result.Fail(FailureCode.NotFound);
 
         if (user.EmailVerificationToken != null)
-            return Result.Fail("Email nije verifikovan. Molimo Vas da proverite svoju email adresu i verifikujete nalog.");
+            return Result.Fail("Email nije verifikovan.");
 
         long personId;
         try
@@ -58,7 +57,7 @@ public class AuthenticationService : IAuthenticationService
             user.EmailVerificationToken = emailVerificationToken;
             user = _userRepository.Update(user);
 
-            _emailSendingService.SendVerificationEmail(person.Id, emailVerificationToken, user.Username);
+            _emailSendingService.SendVerificationEmail(person.Id, emailVerificationToken, person.Email);
             return Result.Ok().WithSuccess("Student successfully registered.");
         }
         catch (ArgumentException e)
