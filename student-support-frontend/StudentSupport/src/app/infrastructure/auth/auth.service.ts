@@ -39,24 +39,18 @@ export class AuthService {
 
   registerStudent(
     registration: Registration
-  ): Observable<AuthenticationResponse> {
+  ): Observable<void> {
     return this.http
-      .post<AuthenticationResponse>(
+      .post<void>(
         environment.apiHost + 'users/student',
         registration
-      )
-      .pipe(
-        tap((authenticationResponse) => {
-          this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
-          this.setUser();
-        })
       );
   }
 
   registerAuthor(
     registration: Registration
-  ): Observable<AuthenticationResponse> {
-    return this.http.post<AuthenticationResponse>(
+  ): Observable<void> {
+    return this.http.post<void>(
       environment.apiHost + 'users/author',
       registration
     );

@@ -11,14 +11,17 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./registration.component.css'],
 })
 export class RegistrationComponent implements OnInit {
-  fieldTextType: boolean = true;
-  validName: boolean = false;
-  validSurname: boolean = false;
-  validEmail: boolean = false;
-  validUsername: boolean = false;
-  validPassword: boolean = false;
-  samePassword: boolean = false;
-  isAuthor: boolean = false;
+  samePassword: boolean = true;
+
+  registerForm = new FormGroup({
+    name: new FormControl('', Validators.required),
+    surname: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.required),
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+    repeatPassword: new FormControl('', Validators.required),
+    isAuthor: new FormControl(false),
+  });
 
   constructor(
     private authService: AuthService,
@@ -30,93 +33,60 @@ export class RegistrationComponent implements OnInit {
     window.scrollTo(0, 0);
   }
 
-  changeBiEye(): void {
-    if (this.fieldTextType == true) {
-      this.fieldTextType = false;
-    } else {
-      this.fieldTextType = true;
-    }
-  }
+  register(){
+    this.markAllControlsAsTouched();
 
-  register(
-    name: string,
-    surname: string,
-    email: string,
-    username: string,
-    password: string,
-    passwordagain: string
-  ): void {
+    if(this.registerForm.invalid){
+      return
+    }
+
+    console.log(this.registerForm.value.password)
+    console.log(this.registerForm.value.repeatPassword)
+    this.samePassword = true;
+    if(this.registerForm.value.password != this.registerForm.value.repeatPassword){
+      this.samePassword = false
+      return
+    }
+
     const registration: Registration = {
-      name: name || '',
-      surname: surname || '',
-      email: email || '',
-      username: username || '',
-      password: password || '',
+      name: this.registerForm.value.name || '',
+      surname: this.registerForm.value.surname || '',
+      email: this.registerForm.value.email || '',
+      username: this.registerForm.value.username || '',
+      password: this.registerForm.value.password || '',
       profilePic: '',
     };
 
-    if (this.validate(registration, passwordagain)) {
-      if (password === passwordagain) {
-        if (this.isAuthor) {
-          this.authService.registerAuthor(registration).subscribe({
-            next: () => {
-              this.toastrService.success(
-                'Zahtev za registraciju je poslat, uskoro će ga administrator obraditi i bićete obavešteni mejlom.',
-                'Uspešno',
-                {
-                  timeOut: 4000,
-                  extendedTimeOut: 2000,
-                  closeButton: true,
-                  progressBar: true,
-                }
-              );
-              this.router.navigate(['/']);
-            },
-          });
-        } else {
-          this.authService.registerStudent(registration).subscribe({
-            next: () => {
-              this.router.navigate(['/']);
-            },
-          });
-        }
-      }
+
+    if (this.registerForm.value.isAuthor) {
+      this.authService.registerAuthor(registration).subscribe({
+        next: () => {
+          this.toastrService.success(
+            'Zahtev za registraciju je poslat, uskoro će ga administrator obraditi i bićete obavešteni mejlom.',
+            'Uspešno',
+            {
+              timeOut: 4000,
+              extendedTimeOut: 2000,
+              closeButton: true,
+              progressBar: true,
+            }
+          );
+          this.router.navigate(['/']);
+        },
+      });
+    } else {
+      this.authService.registerStudent(registration).subscribe({
+        next: () => {
+          this.router.navigate(['/']);
+        },
+      });
     }
   }
 
-  validate(registration: Registration, passwordagain: string): boolean {
-    this.validName = false;
-    this.validSurname = false;
-    this.validUsername = false;
-    this.validEmail = false;
-    this.validPassword = false;
-    this.samePassword = false;
-    if (registration.name == '') {
-      this.validName = true;
-    }
-    if (registration.surname == '') {
-      this.validSurname = true;
-    }
-    if (registration.email == '') {
-      this.validEmail = true;
-    }
-    if (registration.username == '') {
-      this.validUsername = true;
-    }
-    if (registration.password != passwordagain) {
-      this.samePassword = true;
-    } else if (registration.password == '' || passwordagain == '') {
-      this.validPassword = true;
-    }
-    if (
-      registration.name != '' &&
-      registration.surname != '' &&
-      registration.email != '' &&
-      registration.username != '' &&
-      registration.password != ''
-    ) {
-      return true;
-    }
-    return false;
+  private markAllControlsAsTouched(): void {
+    Object.values(this.registerForm.controls).forEach((control) => {
+      control.markAsTouched();
+    });
   }
+
 }

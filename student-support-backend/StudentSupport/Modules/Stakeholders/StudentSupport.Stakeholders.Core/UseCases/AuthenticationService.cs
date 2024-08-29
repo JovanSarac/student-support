@@ -39,7 +39,7 @@ public class AuthenticationService : IAuthenticationService
         return _tokenGenerator.GenerateAccessToken(user, personId);
     }
 
-    public Result<AuthenticationTokensDto> RegisterStudent(AccountRegistrationDto account)
+    public Result RegisterStudent(AccountRegistrationDto account)
     {
         if(_userRepository.Exists(account.Username)) return Result.Fail(FailureCode.NonUniqueUsername);
 
@@ -48,7 +48,7 @@ public class AuthenticationService : IAuthenticationService
             var user = _userRepository.Create(new User(account.Username, account.Password, UserRole.Student, true, false));
             var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email, null, DateOnly.FromDateTime(DateTime.Now), ""));
 
-            return _tokenGenerator.GenerateAccessToken(user, person.Id);
+            return Result.Ok().WithSuccess("Student successfully registered.");
         }
         catch (ArgumentException e)
         {
@@ -56,7 +56,7 @@ public class AuthenticationService : IAuthenticationService
         }
     }
 
-    public Result<AuthenticationTokensDto> RegisterAuthor(AccountRegistrationDto account)
+    public Result RegisterAuthor(AccountRegistrationDto account)
     {
         if (_userRepository.Exists(account.Username)) return Result.Fail(FailureCode.NonUniqueUsername);
 
@@ -65,7 +65,7 @@ public class AuthenticationService : IAuthenticationService
             var user = _userRepository.Create(new User(account.Username, account.Password, UserRole.Author, false, false));
             var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email, null, DateOnly.FromDateTime(DateTime.Now), ""));
 
-            return _tokenGenerator.GenerateAccessToken(user, person.Id);
+            return Result.Ok().WithSuccess("Author successfully registered.");
         }
         catch (ArgumentException e)
         {

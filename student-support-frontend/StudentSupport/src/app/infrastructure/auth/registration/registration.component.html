@@ -1,4 +1,4 @@
-<div class="home-full-page-bg">
+<!--<div class="home-full-page-bg">
   <div class="register-form-content">
     <h2 class="title-register-form">Registracija</h2>
     <div class="name-and-surname">
@@ -134,5 +134,112 @@
         Registruj se
       </button>
     </div>
+  </div>
+</div>-->
+
+<div class="full-page-bg">
+  <div class="first-half">
+      <div class="first-half-content">
+          <h2>Dobrodošli na UNStudent portal!</h2>
+          <p>Pridružite nam se u stvaranju nezaboravnih trenutaka i otkrivanju novih svetova.</p>
+      </div>
+
+  </div>
+  <div class="second-half">
+      <div class="second-half-content">
+          <div class="logo-section">
+              <img src="../../../../assets/logo/blue_logo.svg" alt="no-picture">
+          </div>
+
+          <form [formGroup]="registerForm" class="login-form">
+
+            <div class="name-and-surname-row">
+              <xp-input
+                style="width: 100%;"
+                [control]="registerForm.controls.name"
+                inputType="text"
+                inputId="name"
+                label="Ime:"
+                [customErrorMessages]="{ required: 'Ime je obavezno polje!' }">
+              </xp-input>
+
+              <xp-input
+                style="width: 100%;"
+                [control]="registerForm.controls.surname"
+                inputType="text"
+                inputId="surname"
+                label="Prezime:"
+                [customErrorMessages]="{ required: 'Prezime je obavezno polje!' }">
+              </xp-input>
+            </div>
+
+            <xp-input
+              style="width: 100%; margin-top: 3%;"
+              [control]="registerForm.controls.email"
+              inputType="email"
+              inputId="email"
+              label="Email:"
+              [customErrorMessages]="{ required: 'Email je obavezno polje!' }">
+            </xp-input>
+
+            <xp-input
+              style="width: 100%; margin-top: 3%;"
+              [control]="registerForm.controls.username"
+              inputType="text"
+              inputId="username"
+              label="Korisničko ime:"
+              [customErrorMessages]="{ required: 'Korisničko ime je obavezno polje!' }">
+            </xp-input>
+
+            <div class="passwords-row">
+              <xp-input
+                style="width: 100%;"
+                [control]="registerForm.controls.password"
+                inputType="password"
+                inputId="password"
+                label="Lozinka:"
+                [customErrorMessages]="{ required: 'Lozinka je obavezno polje!' }"
+                [wrongRedBorder]="!samePassword">
+              </xp-input>
+
+              <xp-input
+                style="width: 100%;"
+                [control]="registerForm.controls.repeatPassword"
+                inputType="password"
+                inputId="repeatPassword"
+                label="Ponovi lozinku:"
+                [customErrorMessages]="{ required: 'Ponovi lozinku je obavezno polje!' }"
+                [wrongRedBorder]="!samePassword">
+              </xp-input>
+            </div>
+            <p class="wrongPasswords" *ngIf="!samePassword">
+              Unete lozinke moraju biti iste!
+            </p>
+
+            <div class="form-check checkbox-container">
+              <input
+                class="checkbox-custom"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+                formControlName="isAuthor"
+              />
+              <label class="checkbox-label-custom" for="flexCheckDefault">
+                Želim da budem autor
+              </label>
+            </div>
+
+            <xp-primary-button
+              (click)="register()"
+              style="width: 100%; margin-top: 5%;"
+              buttonId="register-button"
+              buttonType="button"
+              textValue="Registruj se">
+            </xp-primary-button>
+
+          </form>
+
+
+      </div>
   </div>
 </div>

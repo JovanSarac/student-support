@@ -21,14 +21,14 @@ public class AuthenticationController : BaseApiController
     }
 
     [HttpPost("student")]
-    public ActionResult<AuthenticationTokensDto> RegisterStudent([FromBody] AccountRegistrationDto account)
+    public ActionResult RegisterStudent([FromBody] AccountRegistrationDto account)
     {
         var result = _authenticationService.RegisterStudent(account);
         return CreateResponse(result);
     }
 
     [HttpPost("author")]
-    public ActionResult<AuthenticationTokensDto> RegisterAuthor([FromBody] AccountRegistrationDto account)
+    public ActionResult RegisterAuthor([FromBody] AccountRegistrationDto account)
     {
         var result = _authenticationService.RegisterAuthor(account);
         return CreateResponse(result);
