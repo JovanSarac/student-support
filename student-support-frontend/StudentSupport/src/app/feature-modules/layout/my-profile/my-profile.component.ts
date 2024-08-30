@@ -41,7 +41,6 @@ export class MyProfileComponent implements OnInit {
   selectedProfilePic: string = '';
   defaultProfilePic: string = '../../assets/images/profile-pic.jpg';
   city: string = '';
-  street: string = '';
   selectedFile: File | null = null;
 
   constructor(
@@ -76,11 +75,6 @@ export class MyProfileComponent implements OnInit {
     this.service.getPersonById(this.loggedUser, this.urlPersonId).subscribe({
       next: (result: Person) => {
         this.person = result;
-        if (this.person.address != null) {
-          const parts = this.person.address.split(',');
-          this.street = parts[0];
-          this.city = parts[1];
-        }
       },
     });
   }

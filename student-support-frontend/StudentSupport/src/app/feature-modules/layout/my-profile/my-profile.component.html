@@ -150,7 +150,7 @@
                 <input
                   type="input"
                   class="street__field"
-                  [ngModel]="street"
+                  [ngModel]="person.address != null ? person.address!.split(',')[0] : ''"
                   id="street"
                   disabled
                 />
@@ -163,7 +163,7 @@
                 <input
                   type="input"
                   class="city__field"
-                  [ngModel]="city"
+                  [ngModel]="person.address != null ? person.address!.split(',')[1] : ''"
                   id="city"
                   disabled
                 />
