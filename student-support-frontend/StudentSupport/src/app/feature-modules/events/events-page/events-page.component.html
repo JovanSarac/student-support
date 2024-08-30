@@ -269,7 +269,14 @@
       </div>
     </div>
 
-    <div class="events">
+    <div *ngIf="isLoading" class="loading-container">
+      <div class="center-position">
+        <div class="spinner"></div>
+        <p>Učitavanje...</p>
+      </div>
+    </div>
+
+    <div class="events" *ngIf="!isLoading">
       <div class="searched" *ngIf="searchName != ''">
         <p>Pretražili ste: "{{ searchName }}"</p>
         <i

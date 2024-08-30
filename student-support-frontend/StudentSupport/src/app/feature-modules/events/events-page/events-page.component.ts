@@ -30,6 +30,7 @@ export class EventsPageComponent implements OnInit {
   selectedCheckboxes: string[] = [];
 
   showEmptySeachPlaceholder: boolean = false;
+  isLoading: boolean = false;
 
   eventType: { [key: string]: string } = {
     AcademicConferenceAndSeminars: 'Konferencije',
@@ -73,6 +74,7 @@ export class EventsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.getLoggedUser();
 
     this.route.queryParams.subscribe((params) => {
@@ -138,6 +140,8 @@ export class EventsPageComponent implements OnInit {
           new Date(b.datePublication).getTime() -
           new Date(a.datePublication).getTime()
       );
+
+    this.isLoading = false;
 
     this.showEmptySeachPlaceholder = false;
     if(this.searchName != "" || this.selectedCheckboxes.length + this.selectDate + this.selectPrice > 0 && this.pagedEvents.length == 0){
