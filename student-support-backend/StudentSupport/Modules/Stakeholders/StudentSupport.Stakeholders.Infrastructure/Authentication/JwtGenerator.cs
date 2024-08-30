@@ -52,18 +52,36 @@ public class JwtGenerator : ITokenGenerator
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public string GenerateEmailVerificationToken(string email, string username)
+    public string GenerateEmailVerificationToken(string email, string username, string name, string registrationDate)
     {
         var claims = new List<Claim>
         {
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new("username", username),
-            new("email", email)
+            new("email", email),
+            new("name", name),
+            new("dateRegistration", registrationDate)
         };
 
         var jwt = CreateToken(claims, 60 * 24);
 
 
         return jwt;
+    }
+
+    public string GetDataFromToken(string jwtToken, string dataName)
+    {
+        var handler = new JwtSecurityTokenHandler();
+        var jsonToken = handler.ReadToken(jwtToken) as JwtSecurityToken;
+
+        if (jsonToken?.Payload != null && jsonToken.Payload.TryGetValue(dataName, out var userEmail))
+        {
+            if (userEmail is string userEmailString)
+            {
+                return userEmailString;
+            }
+        }
+
+        return null;
     }
 }

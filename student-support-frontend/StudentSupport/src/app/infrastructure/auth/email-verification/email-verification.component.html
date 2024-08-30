@@ -1,0 +1,31 @@
+<div class="full-page-bg">
+    <div class="center-container">
+        <div class="logo-section">
+            <img src="../../../../assets/logo/blue_logo.svg" alt="no-picture">
+        </div>
+
+        <div class="content-section">
+            <img src="../../../../assets/images/success_verified.png" alt="no-picture">
+
+            <h2>Uspešna verifikacija</h2>
+            <p>Poštovani/a {{name}}, <br><br>
+
+                Hvala Vam što ste verifikovali svoju e-mail adresu <span class="email-style">{{email}}</span>. Vaš nalog je sada verifikovan.
+                Molimo Vas da koristite link ispod da se prijavite na svoj nalog.</p>
+           
+            <div class="separator"></div>
+
+            <xp-primary-button
+                    (click)="goToLogin()"
+                    class="backlogin-button"
+                    buttonId="backlogin-button"
+                    buttonType="button"
+                    textValue="Prijavi se na svoj nalog"
+                >
+            </xp-primary-button>
+            
+        </div>
+
+    </div>
+
+</div>

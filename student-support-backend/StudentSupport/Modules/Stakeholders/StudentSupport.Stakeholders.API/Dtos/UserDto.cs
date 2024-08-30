@@ -14,5 +14,6 @@ namespace StudentSupport.Stakeholders.API.Dtos
         public int Role { get; private set; }
         public bool IsActive { get; set; }
         public bool RegisterWithEmail { get; set; }
+        public bool IsVerified { get; set; }
     }
 }

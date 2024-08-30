@@ -8,7 +8,11 @@
             <img src="../../../../assets/images/email_letter.png" alt="no-picture">
 
             <h2>Verifikacija e-maila</h2>
-            <p>Poslali smo e-mail na adresu <span class="email-style">{{email}}</span> kako bismo potvrdili ispravnost vaše e-mail adrese. Nakon što primite e-mail, pratite link koji vam je poslat kako biste završili registraciju.</p>
+            <p *ngIf="role == 'student'">Poslali smo e-mail na adresu <span class="email-style">{{email}}</span> 
+                kako bismo potvrdili ispravnost vaše e-mail adrese. Nakon što primite e-mail, pratite link koji vam je poslat kako biste završili registraciju.</p>
+            <p *ngIf="role == 'author'">Poslali smo e-mail na adresu <span class="email-style">{{email}}</span> 
+                kako bismo potvrdili ispravnost vaše e-mail adrese. Nakon što primite e-mail, pratite link koji vam je poslat kako biste završili registraciju. <br><br>
+                Kada uspešno verifikujete svoju e-mail adresu, vaš zahtev za registraciju će biti poslat na odobrenje administratoru. Bićete obavešteni mejlom kada administrator odobri vaš nalog.</p>
             <div class="separator"></div>
 
             <p class="resend-section">Ako niste dobili e-mail: <span class="resend-link">Pošaljite ponovo verifikacioni e-mail.</span></p>

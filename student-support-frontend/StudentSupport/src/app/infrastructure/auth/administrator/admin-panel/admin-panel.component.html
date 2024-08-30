@@ -5,6 +5,7 @@
         <th>Username</th>
         <th>Role</th>
         <th>Active Status</th>
+        <th>Verified</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -21,6 +22,7 @@
           }}
         </td>
         <td>{{ user.isActive }}</td>
+        <td>{{ user.isVerified}}</td>
         <td>
           <xp-primary-button
             *ngIf="!user.isActive && user.role.toString() !== '0'"

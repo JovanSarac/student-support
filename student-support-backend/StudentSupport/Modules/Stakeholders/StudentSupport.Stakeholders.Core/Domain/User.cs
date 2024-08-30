@@ -10,8 +10,9 @@ public class User : Entity
     public bool IsActive { get; set; }
     public bool RegisterWithEmail { get; set; }
     public string? EmailVerificationToken { get; set; }
+    public bool IsVerified { get; set; }
 
-    public User(string username, string password, UserRole role, bool isActive, bool registerWithEmail, string emailVerificationToken = null)
+    public User(string username, string password, UserRole role, bool isActive, bool registerWithEmail, bool isVerified, string emailVerificationToken = null)
     {
         Username = username;
         Password = password;
@@ -19,6 +20,7 @@ public class User : Entity
         IsActive = isActive;
         RegisterWithEmail = registerWithEmail;
         EmailVerificationToken = emailVerificationToken;
+        IsVerified = isVerified;
         Validate();
     }
 
@@ -45,8 +47,9 @@ public class User : Entity
         IsActive = false;
     }
 
-    public void RemoveEmailVerificationToken()
+    public void VerifiyUser()
     {
+        IsVerified = true;
         EmailVerificationToken = null;
     }
 }

@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CheckEmailComponent implements OnInit{
   email: string = "";
   username: string = "";
+  role: string = "";
 
   constructor(
     private route: ActivatedRoute, 
@@ -19,9 +20,11 @@ export class CheckEmailComponent implements OnInit{
     this.route.queryParams.subscribe(params => {
       this.email = params['email'] || "";
       this.username = params['username'] || "";
+      this.role = params['role'] || "";
     });
 
-    if(this.email == "" || this.username == ""){
+    console.log(this.role)
+    if(this.email == "" || this.username == "" || this.role == ""){
       this.router.navigate(['/'])
     }
   }

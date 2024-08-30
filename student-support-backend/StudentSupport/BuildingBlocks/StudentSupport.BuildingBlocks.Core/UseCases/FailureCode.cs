@@ -18,4 +18,7 @@ public static class FailureCode
         .WithMetadata("code", 409);
     public static readonly IError Internal = new Error("Internal server error.")
         .WithMetadata("code", 500);
+    public static readonly IError InvalidTokenData = new Error("Data in the token does not match the records in the database.")
+    .WithMetadata("code", 400)
+    .WithMetadata("subCode", 2);
 }
