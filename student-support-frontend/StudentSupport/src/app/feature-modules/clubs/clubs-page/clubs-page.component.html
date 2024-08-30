@@ -141,7 +141,15 @@
         </div>
       </div>
     </div>
-    <div class="clubs">
+
+    <div *ngIf="isLoading" class="loading-container">
+      <div class="center-position">
+        <div class="spinner"></div>
+        <p>Učitavanje...</p>
+      </div>
+    </div>
+
+    <div class="clubs" *ngIf="!isLoading">
       <div class="searched" *ngIf="searchName != ''">
         <p>Pretražili ste: "{{ searchName }}"</p>
         <i
@@ -195,6 +203,26 @@
         <button (click)="nextPage()" [disabled]="currentPage === totalPages">
           Sledeća
         </button>
+      </div>
+
+      <div class="empty-page" *ngIf="clubs.length == 0 && activeTab=='allClubs' && !showEmptySeachPlaceholder">
+        <img src="../../../../assets/images/emptyclub.png" alt="no-picture">
+        <p style="margin-top: 5px;">Nažalost, trenutno nema klubova koji su dostupni i aktivni.</p>
+      </div>
+
+      <div class="empty-page" *ngIf="clubs.length == 0 && activeTab=='yourClubs' && !showEmptySeachPlaceholder">
+        <img src="../../../../assets/images/emptyclub.png" alt="no-picture">
+        <p style="margin-top: 5px;">Trenutno nemate kreiranih klubova. Započnite kreiranjem novog kluba.</p>
+      </div>
+
+      <div class="empty-page" *ngIf="clubs.length == 0 && activeTab=='yourMemberships' && !showEmptySeachPlaceholder">
+        <img src="../../../../assets/images/emptyclub.png" alt="no-picture">
+        <p style="margin-top: 5px;">Ovdje će se prikazati klubovi čiji ste članovi. Nažalost trenutno nema takvih.</p>
+      </div>
+
+      <div class="empty-page" *ngIf="showEmptySeachPlaceholder">
+        <img src="../../../../assets/images/emptysearch.png" alt="no-picture">
+        <p style="margin-top: 5px;">Nismo pronašli nijedan klub. Proverite da li je sve pravilno napisano ili pokušajte sa drugačijim filterima.</p>
       </div>
     </div>
   </div>

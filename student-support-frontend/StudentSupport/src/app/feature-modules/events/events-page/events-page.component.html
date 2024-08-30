@@ -378,22 +378,22 @@
 
       <div class="empty-page" *ngIf="events.length == 0 && activeTab=='allEvents' && !showEmptySeachPlaceholder">
         <img src="../../../../assets/images/emptycalendar.png" alt="no-picture">
-        <p>Nažalost, trenutno nema događaja koji su dostupni i aktivni.</p>
+        <p style="margin-top: 5px;">Nažalost, trenutno nema događaja koji su dostupni i aktivni.</p>
       </div>
 
       <div class="empty-page" *ngIf="events.length == 0 && activeTab=='yourEvents' && !showEmptySeachPlaceholder">
         <img src="../../../../assets/images/emptycalendar.png" alt="no-picture">
-        <p>Trenutno nemate kreiranih događaja. Započnite kreiranjem novog događaja.</p>
+        <p style="margin-top: 5px;">Trenutno nemate kreiranih događaja. Započnite kreiranjem novog događaja.</p>
       </div>
 
       <div class="empty-page" *ngIf="events.length == 0 && activeTab=='yourInterests' && !showEmptySeachPlaceholder">
         <img src="../../../../assets/images/emptycalendar.png" alt="no-picture">
-        <p>Ovdje će se prikazati događaji za koje ste se prijavili.</p>
+        <p style="margin-top: 5px;">Ovdje će se prikazati događaji za koje ste se prijavili.</p>
       </div>
 
       <div class="empty-page" *ngIf="showEmptySeachPlaceholder">
         <img src="../../../../assets/images/emptysearch.png" alt="no-picture">
-        <p>Nismo pronašli nijedan događaj. Proverite da li je sve pravilno napisano ili pokušajte sa drugačijim filterima.</p>
+        <p style="margin-top: 5px;">Nismo pronašli nijedan događaj. Proverite da li je sve pravilno napisano ili pokušajte sa drugačijim filterima.</p>
       </div>
     </div>
   </div>

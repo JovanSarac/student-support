@@ -27,6 +27,9 @@ export class ClubsPageComponent implements OnInit {
   menuVisibleIndex: number | null = null;
   selectedCheckboxes: string[] = [];
 
+  showEmptySeachPlaceholder: boolean = false;
+  isLoading: boolean = false;
+
   categoryClub: { [key: string]: string } = {
     Sports: 'Sportski',
     Artistic: 'Umetnički',
@@ -46,6 +49,7 @@ export class ClubsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.user = this.authService.user$.value;
     this.route.queryParams.subscribe((params) => {
       this.handleQueryParamsChange(params);
@@ -116,7 +120,7 @@ export class ClubsPageComponent implements OnInit {
         if (this.selectedCheckboxes.length != 0)
           this.filterByCategoriesClub(this.clubsForDisplay);
         else{
-          this.updatePagedEvents();
+          this.updatePagedClubs();
           this.updateCheckboxes();
         }
  
@@ -159,7 +163,7 @@ export class ClubsPageComponent implements OnInit {
       .subscribe({
         next: (result: Club[]) => {
           this.clubsForDisplay = result;
-          this.updatePagedEvents();
+          this.updatePagedClubs();
         },
       });
   }
@@ -241,26 +245,33 @@ export class ClubsPageComponent implements OnInit {
 
   selectTab(tab: string) {
     this.currentPage = 1; // Reset page to 1 when tab is selected
-    this.updatePagedEvents();
+    this.updatePagedClubs();
   }
 
-  updatePagedEvents() {
+  updatePagedClubs() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.pagedClubs = this.clubsForDisplay.slice(startIndex, endIndex);
+
+    this.isLoading = false;
+
+    this.showEmptySeachPlaceholder = false;
+    if((this.searchName != "" || this.selectedCheckboxes.length > 0) && this.pagedClubs.length == 0){
+      this.showEmptySeachPlaceholder = true;
+    }
   }
 
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
-      this.updatePagedEvents();
+      this.updatePagedClubs();
     }
   }
 
   prevPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
-      this.updatePagedEvents();
+      this.updatePagedClubs();
     }
   }
 }
