@@ -144,7 +144,7 @@ export class EventsPageComponent implements OnInit {
     this.isLoading = false;
 
     this.showEmptySeachPlaceholder = false;
-    if(this.searchName != "" || this.selectedCheckboxes.length + this.selectDate + this.selectPrice > 0 && this.pagedEvents.length == 0){
+    if((this.searchName != "" || this.selectedCheckboxes.length + this.selectDate + this.selectPrice > 0) && this.pagedEvents.length == 0){
       this.showEmptySeachPlaceholder = true;
     }
   }
