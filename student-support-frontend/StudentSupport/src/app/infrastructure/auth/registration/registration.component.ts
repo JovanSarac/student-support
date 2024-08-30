@@ -12,6 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegistrationComponent implements OnInit {
   samePassword: boolean = true;
+  usernameExist: boolean = false;
+  errorMessage: string = ""
 
   registerForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -41,8 +43,11 @@ export class RegistrationComponent implements OnInit {
     }
 
     this.samePassword = true;
+    this.usernameExist = false;
+    this.errorMessage = "";
     if(this.registerForm.value.password != this.registerForm.value.repeatPassword){
       this.samePassword = false
+      this.errorMessage = "Unete lozinke moraju biti iste!"
       return
     }
 
@@ -59,18 +64,21 @@ export class RegistrationComponent implements OnInit {
     if (this.registerForm.value.isAuthor) {
       this.authService.registerAuthor(registration).subscribe({
         next: () => {
-          this.toastrService.success(
-            'Zahtev za registraciju je poslat, uskoro će ga administrator obraditi i bićete obavešteni mejlom.',
-            'Uspešno',
-            {
-              timeOut: 4000,
-              extendedTimeOut: 2000,
-              closeButton: true,
-              progressBar: true,
+          const registeredPerson = { email: registration.email, username: registration.username};
+          this.router.navigate(['/check-email'], {
+            queryParams: {
+              email: registeredPerson.email,
+              username: registeredPerson.username,
+              role: "author" 
             }
-          );
-          this.router.navigate(['/']);
+          });
         },
+        error: (err: any)=>{
+          if (err.status === 400 && err.error && err.error.detail.includes("User with supplied username already exists.")) {
+            this.usernameExist = true;
+            this.errorMessage = "Korisničko ime je već zauzeto. Molimo vas da unesete drugo korisničko ime.";
+          }
+        }
       });
     } else {
       this.authService.registerStudent(registration).subscribe({
@@ -84,6 +92,12 @@ export class RegistrationComponent implements OnInit {
             }
           });
         },
+        error: (err: any)=>{
+          if (err.status === 400 && err.error && err.error.detail.includes("User with supplied username already exists.")) {
+            this.usernameExist = true;
+            this.errorMessage = "Korisničko ime je već zauzeto. Molimo vas da unesete drugo korisničko ime.";
+          }
+        }
       });
     }
   }

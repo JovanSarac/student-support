@@ -21,7 +21,7 @@ public class UserDatabaseRepository : IUserRepository
 
     public User? GetActiveByName(string username)
     {
-        return _dbContext.Users.FirstOrDefault(user => user.Username == username && user.IsActive && user.RegisterWithEmail == false);
+        return _dbContext.Users.FirstOrDefault(user => user.Username == username && user.RegisterWithEmail == false);
     }
 
     public User? GetByUsername(string username)

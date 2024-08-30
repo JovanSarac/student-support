@@ -188,7 +188,8 @@
               inputType="text"
               inputId="username"
               label="Korisničko ime:"
-              [customErrorMessages]="{ required: 'Korisničko ime je obavezno polje!' }">
+              [customErrorMessages]="{ required: 'Korisničko ime je obavezno polje!' }"
+              [wrongRedBorder]="usernameExist">
             </xp-input>
 
             <div class="passwords-row">
@@ -212,8 +213,8 @@
                 [wrongRedBorder]="!samePassword">
               </xp-input>
             </div>
-            <p class="wrongPasswords" *ngIf="!samePassword">
-              Unete lozinke moraju biti iste!
+            <p class="wrongPasswords" *ngIf="errorMessage != ''">
+              {{errorMessage}}
             </p>
 
             <div class="form-check checkbox-container">

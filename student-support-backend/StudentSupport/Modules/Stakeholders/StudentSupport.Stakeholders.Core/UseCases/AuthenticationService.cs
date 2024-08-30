@@ -32,7 +32,10 @@ public class AuthenticationService : IAuthenticationService
         if (user == null || credentials.Password != user.Password) return Result.Fail(FailureCode.NotFound);
 
         if (user.EmailVerificationToken != null)
-            return Result.Fail("Email nije verifikovan.");
+            return Result.Fail("Email is not verified.");
+
+        if (!user.IsActive)
+            return Result.Fail("User account is not active.");
 
         long personId;
         try
@@ -77,6 +80,11 @@ public class AuthenticationService : IAuthenticationService
             var user = _userRepository.Create(new User(account.Username, account.Password, UserRole.Author, false, false, false));
             var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email, null, DateOnly.FromDateTime(DateTime.Now), ""));
 
+            var emailVerificationToken = _tokenGenerator.GenerateEmailVerificationToken(person.Email, user.Username, person.Name, person.RegistrationDate.ToString());
+            user.EmailVerificationToken = emailVerificationToken;
+            user = _userRepository.Update(user);
+
+            _emailSendingService.SendVerificationEmail(person.Id, emailVerificationToken, person.Email);
             return Result.Ok().WithSuccess("Author successfully registered.");
         }
         catch (ArgumentException e)
