@@ -259,6 +259,8 @@
   display: flex;
   flex-direction: column;
   width: 80%;
+  height: calc(100% - 8dvh - 10px);
+  position: absolute;
   margin-left: 20%;
   margin-top: 10px;
 }
@@ -351,7 +353,7 @@
 
 .pagination button {
   padding: 10px 20px;
-  margin: 0 10px;
+  margin: 40px 10px;
   border: none;
   background-color: rgb(2, 2, 100);
   color: white;
@@ -366,6 +368,26 @@
 
 .pagination span {
   font-size: 18px;
+}
+
+.empty-page{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.empty-page img{
+  width: 220px;
+  height: 200px;
+}
+
+.empty-page p{
+  text-align: center;
+  max-width: 400px;
 }
 
 /*@media (max-width: 1600px) {

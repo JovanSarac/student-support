@@ -29,6 +29,8 @@ export class EventsPageComponent implements OnInit {
   searchName: string | null = '';
   selectedCheckboxes: string[] = [];
 
+  showEmptySeachPlaceholder: boolean = false;
+
   eventType: { [key: string]: string } = {
     AcademicConferenceAndSeminars: 'Konferencije',
     WorkshopsAndCourses: 'Kursevi',
@@ -136,6 +138,11 @@ export class EventsPageComponent implements OnInit {
           new Date(b.datePublication).getTime() -
           new Date(a.datePublication).getTime()
       );
+
+    this.showEmptySeachPlaceholder = false;
+    if(this.searchName != "" || this.selectedCheckboxes.length + this.selectDate + this.selectPrice > 0 && this.pagedEvents.length == 0){
+      this.showEmptySeachPlaceholder = true;
+    }
   }
 
   nextPage() {
@@ -175,7 +182,7 @@ export class EventsPageComponent implements OnInit {
           this.searchEventsByName(this.searchName);
         },
       });
-    } else if (tab == 'yourEvents') {
+    } else if (tab == 'yourEvents' && this.user.role == 'author') {
       this.service.getYoursEvents(this.user.id).subscribe({
         next: (result: MyEvent[]) => {
           this.events = result;
@@ -184,7 +191,7 @@ export class EventsPageComponent implements OnInit {
           this.searchEventsByName(this.searchName);
         },
       });
-    } else if (tab == 'yourInterests') {
+    } else if (tab == 'yourInterests' && this.user.role == 'student') {
       this.service.getYoursParticipateEvents(this.user.id).subscribe({
         next: (result: MyEvent[]) => {
           this.events = result;
@@ -193,6 +200,11 @@ export class EventsPageComponent implements OnInit {
           this.searchEventsByName(this.searchName);
         },
       });
+    }else{
+      this.activeTab = 'allEvents'
+      const queryParams = this.createQueryParams();
+
+      this.router.navigate(['/events-page'], { queryParams });
     }
   }
 

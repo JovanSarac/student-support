@@ -350,7 +350,7 @@
           Obriši sve filtere
         </p>
       </div>
-      <div class="cards">
+      <div class="cards" *ngIf="pagedEvents.length > 0">
         <xp-event-card
           *ngFor="let event of pagedEvents; let i = index"
           [event]="event"
@@ -359,7 +359,7 @@
         ></xp-event-card>
       </div>
 
-      <div class="pagination">
+      <div class="pagination" *ngIf="pagedEvents.length > 0">
         <button (click)="prevPage()" [disabled]="currentPage === 1">
           Prethodna
         </button>
@@ -367,6 +367,26 @@
         <button (click)="nextPage()" [disabled]="currentPage === totalPages">
           Sledeća
         </button>
+      </div>
+
+      <div class="empty-page" *ngIf="events.length == 0 && activeTab=='allEvents' && !showEmptySeachPlaceholder">
+        <img src="../../../../assets/images/emptycalendar.png" alt="no-picture">
+        <p>Nažalost, trenutno nema događaja koji su dostupni i aktivni.</p>
+      </div>
+
+      <div class="empty-page" *ngIf="events.length == 0 && activeTab=='yourEvents' && !showEmptySeachPlaceholder">
+        <img src="../../../../assets/images/emptycalendar.png" alt="no-picture">
+        <p>Trenutno nemate kreiranih događaja. Započnite kreiranjem novog događaja.</p>
+      </div>
+
+      <div class="empty-page" *ngIf="events.length == 0 && activeTab=='yourInterests' && !showEmptySeachPlaceholder">
+        <img src="../../../../assets/images/emptycalendar.png" alt="no-picture">
+        <p>Ovdje će se prikazati događaji za koje ste se prijavili.</p>
+      </div>
+
+      <div class="empty-page" *ngIf="showEmptySeachPlaceholder">
+        <img src="../../../../assets/images/emptysearch.png" alt="no-picture">
+        <p>Nismo pronašli nijedan događaj. Proverite da li je sve pravilno napisano ili pokušajte sa drugačijim filterima.</p>
       </div>
     </div>
   </div>
