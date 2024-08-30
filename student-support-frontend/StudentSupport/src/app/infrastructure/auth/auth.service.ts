@@ -56,6 +56,12 @@ export class AuthService {
     );
   }
 
+  verifyEmail(token: string): Observable<void> {
+    return this.http.get<void>(`${environment.apiHost}users/verify-email`, {
+      params: { token }
+    });
+  }
+
   activateUser(userId: number): Observable<User> {
     return this.http.put<User>(
       environment.apiHost + 'users/activate_user',

@@ -23,7 +23,6 @@ export class CheckEmailComponent implements OnInit{
       this.role = params['role'] || "";
     });
 
-    console.log(this.role)
     if(this.email == "" || this.username == "" || this.role == ""){
       this.router.navigate(['/'])
     }

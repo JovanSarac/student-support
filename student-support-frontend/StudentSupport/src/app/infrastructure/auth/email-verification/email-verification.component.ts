@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-email-verification',
@@ -15,7 +16,8 @@ export class EmailVerificationComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private service: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -33,9 +35,16 @@ export class EmailVerificationComponent implements OnInit {
   }
 
   verifyEmail(token: string): void {
-    const jwtHelperService = new JwtHelperService();
-    this.email = jwtHelperService.decodeToken(token).email;
-    this.name = jwtHelperService.decodeToken(token).name;
+    this.service.verifyEmail(token).subscribe({
+      next: ()=>{
+        const jwtHelperService = new JwtHelperService();
+        this.email = jwtHelperService.decodeToken(token).email;
+        this.name = jwtHelperService.decodeToken(token).name;
+      },
+      error: (err) => {
+        console.error('Verification failed:', err);
+      }
+    })
 
 
   }

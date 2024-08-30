@@ -83,4 +83,24 @@ public class AuthenticationController : BaseApiController
         var result = _authenticationService.Login(credentials);
         return CreateResponse(result);
     }
+
+    [HttpGet("verify-email")]
+    public IActionResult VerifyEmail([FromQuery] string token)
+    {
+        if (string.IsNullOrEmpty(token))
+        {
+            return BadRequest("Token is required.");
+        }
+
+        var result = _authenticationService.VerifyUser(token);
+
+        if (result.IsSuccess)
+        {
+            return Ok(result.Successes.FirstOrDefault());
+        }
+        else
+        {
+            return BadRequest(result.Errors.FirstOrDefault()?.Message);
+        }
+    }
 }

@@ -40,8 +40,6 @@ export class RegistrationComponent implements OnInit {
       return
     }
 
-    console.log(this.registerForm.value.password)
-    console.log(this.registerForm.value.repeatPassword)
     this.samePassword = true;
     if(this.registerForm.value.password != this.registerForm.value.repeatPassword){
       this.samePassword = false
