@@ -6,6 +6,7 @@ using StudentSupport.Stakeholders.Core.Domain.RepositoryInterfaces;
 using FluentResults;
 using System.Security.Principal;
 using System;
+using StudentSupport.BuildingBlocks.Core.Security;
 
 namespace StudentSupport.Stakeholders.Core.UseCases;
 
@@ -29,7 +30,7 @@ public class AuthenticationService : IAuthenticationService
     public Result<AuthenticationTokensDto> Login(CredentialsDto credentials)
     {
         var user = _userRepository.GetActiveByName(credentials.Username);
-        if (user == null || credentials.Password != user.Password) return Result.Fail(FailureCode.NotFound);
+        if (user == null || !PasswordHasher.VerifyPassword(credentials.Password, user.Password)) return Result.Fail(FailureCode.NotFound);
 
         if (user.EmailVerificationToken != null)
             return Result.Fail("Email is not verified.");
@@ -55,7 +56,7 @@ public class AuthenticationService : IAuthenticationService
 
         try
         {
-            var user = _userRepository.Create(new User(account.Username, account.Password, UserRole.Student, true, false, false));
+            var user = _userRepository.Create(new User(account.Username, PasswordHasher.HashPassword(account.Password), UserRole.Student, true, false, false));
             var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email, null, DateOnly.FromDateTime(DateTime.Now), ""));
 
             var emailVerificationToken = _tokenGenerator.GenerateEmailVerificationToken(person.Email, user.Username, person.Name, person.RegistrationDate.ToString());
@@ -77,7 +78,7 @@ public class AuthenticationService : IAuthenticationService
 
         try
         {
-            var user = _userRepository.Create(new User(account.Username, account.Password, UserRole.Author, false, false, false));
+            var user = _userRepository.Create(new User(account.Username, PasswordHasher.HashPassword(account.Password), UserRole.Author, false, false, false));
             var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email, null, DateOnly.FromDateTime(DateTime.Now), ""));
 
             var emailVerificationToken = _tokenGenerator.GenerateEmailVerificationToken(person.Email, user.Username, person.Name, person.RegistrationDate.ToString());

@@ -1,9 +1,9 @@
 -- Umetanje korisnika
 INSERT INTO stakeholders."Users" ("Id", "Username", "Password", "Role", "IsActive", "RegisterWithEmail", "EmailVerificationToken", "IsVerified")
 VALUES
-(-1, 'jovanj01', 'a', 1, TRUE, FALSE, NULL, TRUE),
-(-2, 'jovans01', 'a', 2, TRUE, FALSE, NULL, TRUE),
-(-3, 'admin', 'a', 0, TRUE, FALSE, NULL, TRUE);
+(-1, 'jovanj01', 'iW30U/yKF3ubo+3B+a/iRVr2KHPZPl3zZaDq66J25WCjq6kOR6WvfRvZun7cKUzMDxyGtuOvNcY+akVDcjWdCyGd4qYQrv6+V/Tqz+kr7wc=', 1, TRUE, FALSE, NULL, TRUE),
+(-2, 'jovans01', 'iW30U/yKF3ubo+3B+a/iRVr2KHPZPl3zZaDq66J25WCjq6kOR6WvfRvZun7cKUzMDxyGtuOvNcY+akVDcjWdCyGd4qYQrv6+V/Tqz+kr7wc=', 2, TRUE, FALSE, NULL, TRUE),
+(-3, 'admin', 'iW30U/yKF3ubo+3B+a/iRVr2KHPZPl3zZaDq66J25WCjq6kOR6WvfRvZun7cKUzMDxyGtuOvNcY+akVDcjWdCyGd4qYQrv6+V/Tqz+kr7wc=', 0, TRUE, FALSE, NULL, TRUE);
 
 -- Umetanje osoba
 INSERT INTO stakeholders."People" ("Id", "UserId", "Name", "Surname", "Email", "ProfilePic", "RegistrationDate", "Address", "PhoneNumber", "BirthDate", "Biography")
