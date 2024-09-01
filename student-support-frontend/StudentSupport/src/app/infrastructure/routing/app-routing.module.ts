@@ -15,6 +15,8 @@ import { SingleClubPageComponent } from 'src/app/feature-modules/clubs/single-cl
 import { ClubsPageComponent } from 'src/app/feature-modules/clubs/clubs-page/clubs-page.component';
 import { EmailVerificationComponent } from '../auth/email-verification/email-verification.component';
 import { CheckEmailComponent } from '../auth/check-email/check-email.component';
+import { AboutUsComponent } from 'src/app/feature-modules/layout/about-us/about-us.component';
+import { ContactUsComponent } from 'src/app/feature-modules/layout/contact-us/contact-us.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -108,6 +110,14 @@ const routes: Routes = [
     data: {
       role: ['student', 'author'],
     },
+  },
+  {
+    path: 'about-us',
+    component: AboutUsComponent,
+  },
+  {
+    path: 'contact-us',
+    component: ContactUsComponent,
   },
   {
     path: 'verify-email',

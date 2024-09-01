@@ -5,8 +5,9 @@
     justify-content: center;
     width: 100%;
     height: calc(100% + 8dvh);
-    background-image: url("../../../../assets/images/background_logreg.png");
+    background-image: url("../../../../assets/images/background_logreg2_2560.png");
     background-size: cover;
+    background-position: center;
     overflow-y: auto;
 }
 
@@ -23,7 +24,7 @@
 .logo-section{
     display: flex;
     width: 100%;
-    height: 80px;
+    height: 100px;
     margin-top: 10px;
 }
 
@@ -44,22 +45,23 @@
 }
 
 .content-section img{
-    width: 180px;
-    height: 180px;
+    width: 190px;
+    height: 190px;
 }
 
 .content-section h2{
     font-weight: 700;
-    font-size: 25px;
-    margin-top: 10px;
+    font-size: 40px;
+    margin-top: 20px;
 }
 
 .content-section p{
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 90px;
+    padding-right: 90px;
     text-align: center;
     margin-top: 5px;
-    font-size: 15px;
+    font-size: 26px;
+    line-height: 1.2;
 }
 
 .email-style{
@@ -88,4 +90,190 @@
     margin-left: 5%;
     margin-right: 5%;
     border-bottom: 2px solid var(--border-light-color);
+}
+
+
+@media (max-width: 2000px) {
+    .logo-section{
+        height: 85px;
+    }
+  
+    .content-section img{
+        width: 170px;
+        height: 170px;
+    }
+
+    .content-section h2{
+        font-size: 33px;
+        margin-top: 20px;
+    }
+
+    .content-section p{
+        font-size: 23px;
+        padding-left: 70px;
+        padding-right: 70px;
+    }
+}
+
+@media (max-width: 1800px) {
+    .logo-section{
+        height: 80px;
+    }
+  
+    .content-section img{
+        width: 160px;
+        height: 160px;
+    }
+
+    .content-section h2{
+        font-size: 30px;
+        margin-top: 15px;
+    }
+
+    .content-section p{
+        font-size: 20px;
+        padding-left: 65px;
+        padding-right: 65px;
+    }
+}
+
+@media (max-width: 1650px) {
+    .logo-section{
+        height: 75px;
+    }
+  
+    .content-section img{
+        width: 150px;
+        height: 150px;
+    }
+
+    .content-section h2{
+        font-size: 28px;
+        margin-top: 12px;
+    }
+
+    .content-section p{
+        font-size: 20px;
+        padding-left: 63px;
+        padding-right: 63px;
+    }
+}
+
+@media (max-width: 1500px) {
+    .logo-section{
+        height: 70px;
+    }
+  
+    .content-section img{
+        width: 140px;
+        height: 140px;
+    }
+
+    .content-section h2{
+        font-size: 25px;
+        margin-top: 10px;
+    }
+
+    .content-section p{
+        font-size: 18px;
+        padding-left: 60px;
+        padding-right: 60px;
+    }
+}
+
+
+@media (max-width: 1050px) {
+    .center-container{
+        width: 70%;
+    }
+
+    .logo-section{
+        height: 50px;
+    }
+  
+    .content-section img{
+        width: 100px;
+        height: 100px;
+    }
+
+    .content-section h2{
+        font-size: 22px;
+        margin-top: 10px;
+    }
+
+    .content-section p{
+        font-size: 14px;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+}
+
+@media (max-width: 780px) {
+    .content-section p{
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+@media (max-width: 500px) {
+    .center-container{
+        width: 90%;
+    }
+
+    .logo-section{
+        height: 50px;
+    }
+  
+    .content-section img{
+        width: 80px;
+        height: 80px;
+    }
+
+    .content-section h2{
+        font-size: 18px;
+        margin-top: 10px;
+    }
+
+    .content-section p{
+        font-size: 12px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+@media (max-width: 400px) {
+    .center-container{
+        width: 95%;
+    }
+
+    .logo-section{
+        height: 45px;
+    }
+  
+    .content-section img{
+        width: 70px;
+        height: 70px;
+    }
+
+    .content-section h2{
+        font-size: 18px;
+        margin-top: 10px;
+    }
+
+    .content-section p{
+        font-size: 12px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+@media (max-width: 350px) {
+    .center-container{
+        width: 97%;
+    }
+
+    .content-section p{
+        padding-left: 3px;
+        padding-right: 3px;
+    }
 }

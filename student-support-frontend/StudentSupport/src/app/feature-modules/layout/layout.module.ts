@@ -12,6 +12,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FooterComponent } from './footer/footer.component';
 import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
 import { MarkdownModule } from 'ngx-markdown';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { MarkdownModule } from 'ngx-markdown';
     MyProfileComponent,
     FooterComponent,
     EditProfileDialogComponent,
+    AboutUsComponent,
   ],
   imports: [
     CommonModule,
