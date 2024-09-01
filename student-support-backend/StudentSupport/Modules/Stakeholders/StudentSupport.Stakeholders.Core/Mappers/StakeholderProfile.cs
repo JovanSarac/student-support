@@ -18,5 +18,7 @@ public class StakeholderProfile : Profile
             .ForMember(dest => dest.ProfilePic, opt => opt.MapFrom(src =>
                 src.ProfilePicBase64 != null ?
                 Convert.FromBase64String(src.ProfilePicBase64.Replace("data:image/webp;base64,", "")) : null));
+
+        CreateMap<ContactMessage, ContactMessageDto>().ReverseMap();
     }
 }

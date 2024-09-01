@@ -30,6 +30,7 @@ public static class StakeholdersStartup
         services.AddScoped<IPersonService, PersonService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IEmailSendingService, EmailSendingService>();
+        services.AddScoped<IContactMessageService, ContactMessageService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
@@ -37,6 +38,7 @@ public static class StakeholdersStartup
         services.AddScoped(typeof(ICrudRepository<Person>), typeof(CrudDatabaseRepository<Person, StakeholdersContext>));
         services.AddScoped<IUserRepository, UserDatabaseRepository>();
         services.AddScoped<IPersonRepository, PersonRepository>();
+        services.AddScoped(typeof(ICrudRepository<ContactMessage>), typeof(CrudDatabaseRepository<ContactMessage, StakeholdersContext>));
 
         services.AddDbContext<StakeholdersContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("stakeholders"),
