@@ -7,6 +7,7 @@
   background-color: var(--background-color);
   align-items: center;
   margin-top: 8dvh;
+  margin-bottom: 5%;
 }
 
 .heading-container {

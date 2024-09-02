@@ -10,6 +10,7 @@
     background-color: var(--background-color);
     background-size: cover;
     background-position: center;
+    margin-bottom: 5%;
 }
 
 .first-section{

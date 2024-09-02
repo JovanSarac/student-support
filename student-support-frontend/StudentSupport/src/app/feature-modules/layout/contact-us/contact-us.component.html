@@ -1,1 +1,71 @@
-<p>contact-us works!</p>
+<div class="full-page-bg">
+    <div class="first-section">
+        <div class="first-content-section">
+            <div class="text-info">
+                <h1>Kontaktirajte nas</h1>
+                <p>Imate pitanje, sugestiju ili želite da saznate više o našim uslugama? Rado ćemo vam pomoći! Molimo vas da popunite kontakt formu ili nas direktno kontaktirajte putem e-maila.</p>
+                <p class="mail"><i class="bi bi-envelope-fill" style="margin-right: 10px;"></i> unstudent&#64;outlook.com</p>
+            </div>
+
+            <div class="form-container">
+                <form [formGroup]="contactForm" class="contact-form">
+                    <div class="name-and-surname">
+                        <xp-input
+                          style="width: 100%;"
+                          [control]="contactForm.controls.name"
+                          inputType="text"
+                          inputId="name"
+                          label="Ime:"
+                          [customErrorMessages]="{ required: 'Ime je obavezno polje!' }">
+                        </xp-input>
+          
+                        <xp-input
+                          style="width: 100%;"
+                          [control]="contactForm.controls.surname"
+                          inputType="text"
+                          inputId="surname"
+                          label="Prezime:"
+                          [customErrorMessages]="{ required: 'Prezime je obavezno polje!' }">
+                        </xp-input>
+                    </div>
+
+                    <xp-input
+                        style="width: 100%; margin-top: 3%;"
+                        [control]="contactForm.controls.email"
+                        inputType="email"
+                        inputId="email"
+                        label="Email:"
+                        [customErrorMessages]="{ required: 'Email je obavezno polje!' }">
+                    </xp-input>
+
+
+                    <div class="message__group field">
+                        <textarea
+                            formControlName="message"
+                            type="input"
+                            class="message__field"
+                            name="message"
+                            id="message"
+                            [ngClass]="{'red-border': contactForm.get('message')?.value === '' && contactForm.get('message')?.touched}"
+                        ></textarea>
+                        <label for="message" class="message__label"
+                            >Poruka:</label>
+
+                        <p class="error-message" *ngIf="contactForm.get('message')?.value === '' && contactForm.get('message')?.touched">Poruka je obavezno polje!</p>
+                    </div>
+
+                    <xp-primary-button
+                        (click)="sendMessage()"
+                        style="width: 100%; margin-top: 5%;"
+                        buttonId="send-button"
+                        buttonType="button"
+                        textValue="Posalji">
+                    </xp-primary-button>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>

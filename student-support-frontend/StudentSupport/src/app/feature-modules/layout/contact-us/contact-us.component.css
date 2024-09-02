@@ -1,0 +1,146 @@
+.full-page-bg{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    margin-top: 8dvh;
+    background-color: var(--background-color);
+    background-size: cover;
+    background-position: center;
+}
+
+.first-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-image: url("../../../../assets/images/aboutus-background.png");
+    background-size: cover;
+    background-position: center;
+    height: 92dvh;
+    position: relative;
+}
+
+.first-content-section{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+}
+
+.text-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    text-align: start;
+
+}
+.text-info h1{
+    color: white;
+    font-size: 45px;
+    font-weight: 900;
+}
+
+.text-info p{
+    color: white;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.4;
+    margin-top: 20px;
+}
+
+
+.form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    text-align: start;
+}
+
+.contact-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    border-radius: 14px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--light-border-color);
+    padding: 5%;
+}
+
+.name-and-surname{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 3%;
+}
+
+.message__group {
+    position: relative;
+    padding: 20px 0 0;
+    margin-top: 2%;
+    width: 100%;
+}
+  
+.message__field {
+    width: 100%;
+    border-radius: 12px;
+    border: 2px solid var(--border-light-color);
+    height: 200px;
+    outline: 0;
+    font-size: clamp(14px, 1vw, 28px);
+    color: var(--text-color);
+    padding: 14px;
+    background: white;
+    transition: border-color 0.2s;
+    resize: none;
+    line-height: 1.5;
+    box-sizing: border-box;
+}
+  
+.message__label {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    display: block;
+    transition: 0.2s;
+    color: var(--text-heading-color);
+    font-size: clamp(14px, 1vw, 28px);
+    margin-bottom: 0.5vh;
+}
+  
+.message__field:focus {
+    border: 2px solid var(--primary-color);
+}
+  
+.message__field:hover {
+    border: 2px solid var(--primary-hover-color);
+}
+  
+.message__field:focus::placeholder {
+    opacity: 0.3;
+}
+
+.mail{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.red-border {
+    border-color: var(--error-color);
+}
+
+.error-message{
+    color: var(--error-color);
+    font-size: smaller;
+    padding-left: 10px;
+}

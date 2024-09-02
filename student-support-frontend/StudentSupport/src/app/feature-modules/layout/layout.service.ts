@@ -6,6 +6,7 @@ import { MyEvent } from '../board/model/myevent.model';
 import { environment } from 'src/env/environment';
 import { Person } from './model/person.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { ContactMessage } from './model/contact-message.model';
 
 @Injectable({
   providedIn: 'root',
@@ -60,5 +61,13 @@ export class LayoutService {
         this.personSubject.next(person);
       },
     });
+  }
+
+  sendContactMessage(message : ContactMessage):Observable<ContactMessage>{
+    return this.http
+      .post<ContactMessage>(
+        environment.apiHost + 'anonymus/contactus' ,
+        message
+      )
   }
 }

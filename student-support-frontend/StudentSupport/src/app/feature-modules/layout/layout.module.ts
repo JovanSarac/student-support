@@ -6,13 +6,14 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { MyProfileComponent } from './my-profile/my-profile.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FooterComponent } from './footer/footer.component';
 import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
     FooterComponent,
     EditProfileDialogComponent,
     AboutUsComponent,
+    ContactUsComponent
   ],
   imports: [
     CommonModule,
