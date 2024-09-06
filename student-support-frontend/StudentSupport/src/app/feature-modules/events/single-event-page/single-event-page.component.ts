@@ -6,7 +6,7 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MyEvent } from '../../board/model/myevent.model';
+import { MyEvent } from '../model/myevent.model';
 import { EventsService } from '../events.service';
 import { Person } from 'src/app/shared/model/person.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
@@ -98,6 +98,12 @@ export class SingleEventPageComponent implements OnInit {
     this.service.getEventById(this.user, this.eventId).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
+
+        if(this.event.userId != this.user.id && this.event.isArchived){
+          this.router.navigate(['events-page'], {
+            queryParams: { activeTab: 'allEvents' },
+          })
+        }
 
         if (this.event.clubId) {
           this.getClubById();

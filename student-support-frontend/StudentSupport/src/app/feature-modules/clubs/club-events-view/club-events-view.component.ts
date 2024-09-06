@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MyEvent } from '../../board/model/myevent.model';
+import { MyEvent } from '../../events/model/myevent.model';
 import { EventsService } from '../../events/events.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';

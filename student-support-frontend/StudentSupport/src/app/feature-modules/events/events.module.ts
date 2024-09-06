@@ -8,17 +8,20 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { SingleEventPageComponent } from './single-event-page/single-event-page.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReportDialogComponent } from './report-dialog/report-dialog.component';
+import { CreateEventComponent } from './create-event/create-event.component';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   declarations: [
     EventsPageComponent,
     SingleEventPageComponent,
-    ReportDialogComponent
+    ReportDialogComponent,
+    CreateEventComponent
   ],
   imports: [
     CommonModule,
@@ -31,6 +34,8 @@ import { ReportDialogComponent } from './report-dialog/report-dialog.component';
     MatExpansionModule,
     MatTooltipModule,
     MaterialModule,
+    PickerModule,
+    MatTooltip
 
   ],
   exports: [EventsPageComponent],

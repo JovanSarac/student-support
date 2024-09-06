@@ -21,11 +21,10 @@ import {
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { marked } from 'marked';
-import { BoardService } from '../board.service';
 import { MyEvent } from '../model/myevent.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MapComponent } from 'src/app/shared/map/map.component';
-import { EventsService } from '../../events/events.service';
+import { EventsService } from '../events.service';
 import { retry } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
@@ -105,7 +104,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
 
   constructor(
     private authService: AuthService,
-    private service: BoardService,
+    private service: EventsService,
     private router: Router,
     private route: ActivatedRoute,
     private eventService: EventsService,
@@ -483,7 +482,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     this.event.eventType = this.eventForm.value.type || '';
     this.event.price = this.eventForm.value.price!;
 
-    this.eventService.updateEvent(this.user, this.event).subscribe({
+    this.eventService.updateEvent(this.event).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
         this.toastr.success(

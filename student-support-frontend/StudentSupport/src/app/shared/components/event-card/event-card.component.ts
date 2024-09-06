@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { MyEvent } from 'src/app/feature-modules/board/model/myevent.model';
+import { MyEvent } from 'src/app/feature-modules/events/model/myevent.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import {
   Participation,

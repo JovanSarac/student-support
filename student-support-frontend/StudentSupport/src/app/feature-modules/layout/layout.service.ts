@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { MyEvent } from '../board/model/myevent.model';
 import { environment } from 'src/env/environment';
 import { Person } from './model/person.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
@@ -17,12 +15,6 @@ export class LayoutService {
   public person$: Observable<Person | null> = this.personSubject.asObservable();
 
   constructor(private http: HttpClient) {}
-
-  getAllEvenets(): Observable<PagedResults<MyEvent>> {
-    return this.http.get<PagedResults<MyEvent>>(
-      environment.apiHost + 'student/events'
-    );
-  }
 
   getPersonByUser(user: User): Observable<Person> {
     return this.http.get<Person>(

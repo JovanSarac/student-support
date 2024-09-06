@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MyEvent } from '../../board/model/myevent.model';
+import { MyEvent } from '../model/myevent.model';
 import { EventsService } from '../events.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';

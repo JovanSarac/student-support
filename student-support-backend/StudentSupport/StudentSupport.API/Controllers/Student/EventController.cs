@@ -20,12 +20,12 @@ namespace StudentSupport.API.Controllers.Student
             _participationService=participationService;
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult<PagedResult<EventDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
         {
             var result = _eventService.GetPaged(page, pageSize);
             return CreateResponse(result);
-        }
+        }*/
 
         [HttpGet("get_all_incoming_events")]
         public ActionResult<PagedResult<EventDto>> GetAllIncomingEvents([FromQuery] int page, [FromQuery] int pageSize)
@@ -74,12 +74,12 @@ namespace StudentSupport.API.Controllers.Student
             return CreateResponse(result);
         }
 
-        [HttpPut]
+        /*[HttpPut]
         public ActionResult<List<EventDto>> Update([FromBody] EventDto eventDto)
         {
             var result = _eventService.Update(eventDto);
             return CreateResponse(result);
-        }
+        }*/
 
         [HttpPost("search_events/{name?}")]
         public ActionResult<List<EventDto>> GetEventsBySearchName([FromBody] List<EventDto> eventDtos, string? name)

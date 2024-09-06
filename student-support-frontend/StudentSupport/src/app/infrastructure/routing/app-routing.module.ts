@@ -4,7 +4,7 @@ import { HomeComponent } from 'src/app/feature-modules/layout/home/home.componen
 import { LoginComponent } from '../auth/login/login.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
-import { CreateEventComponent } from 'src/app/feature-modules/board/create-event/create-event.component';
+import { CreateEventComponent } from 'src/app/feature-modules/events/create-event/create-event.component';
 import { EventsPageComponent } from 'src/app/feature-modules/events/events-page/events-page.component';
 import { SingleEventPageComponent } from 'src/app/feature-modules/events/single-event-page/single-event-page.component';
 import { MyProfileComponent } from 'src/app/feature-modules/layout/my-profile/my-profile.component';

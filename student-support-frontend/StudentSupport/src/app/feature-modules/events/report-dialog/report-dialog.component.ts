@@ -8,7 +8,7 @@ import {
   ReportStatus,
   ReportType,
 } from 'src/app/shared/model/report-model';
-import { MyEvent } from '../../board/model/myevent.model';
+import { MyEvent } from '../model/myevent.model';
 import { ToastrService } from 'ngx-toastr';
 import { Club } from 'src/app/shared/model/club.model';
 import { ClubReport } from 'src/app/shared/model/club-report.model';

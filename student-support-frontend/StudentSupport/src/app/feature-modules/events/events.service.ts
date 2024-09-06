@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { MyEvent } from '../board/model/myevent.model';
+import { MyEvent } from './model/myevent.model';
 import { environment } from 'src/env/environment';
 import { Participation } from 'src/app/shared/model/participation-model';
 import { Person } from 'src/app/shared/model/person.model';
@@ -16,7 +16,7 @@ export class EventsService {
   constructor(private http: HttpClient) {}
 
   getAllEvents(user: User): Observable<PagedResults<MyEvent>> {
-    if (user.role === 'student') {
+    if (user.role === 'student' || user.role === 'author') {
       return this.http.get<PagedResults<MyEvent>>(
         environment.apiHost + user.role + '/events/get_all_incoming_events'
       );
@@ -60,6 +60,10 @@ export class EventsService {
     return this.http.get<MyEvent[]>(
       environment.apiHost + 'author/events/get_yours_events/' + userId
     );
+  }
+
+  createEvent(event: MyEvent): Observable<MyEvent> {
+    return this.http.post<MyEvent>(environment.apiHost + 'author/events', event);
   }
 
   getEventById(user: User, eventId: number): Observable<MyEvent> {
@@ -123,9 +127,9 @@ export class EventsService {
     );
   }
 
-  updateEvent(user: User, event: MyEvent): Observable<MyEvent> {
+  updateEvent(event: MyEvent): Observable<MyEvent> {
     return this.http.put<MyEvent>(
-      environment.apiHost + user.role + '/events',
+      environment.apiHost + 'author/events',
       event
     );
   }

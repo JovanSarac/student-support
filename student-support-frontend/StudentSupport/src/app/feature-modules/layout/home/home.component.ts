@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MyEvent } from '../../board/model/myevent.model';
+import { MyEvent } from '../../events/model/myevent.model';
 import { LayoutService } from '../layout.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { marked } from 'marked';

@@ -13,7 +13,6 @@ import {
 } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BoardModule } from './feature-modules/board/board.module';
 import { IonicModule } from '@ionic/angular';
 import { EventsModule } from './feature-modules/events/events.module';
 import { CalendarModule } from 'primeng/calendar';
@@ -35,7 +34,6 @@ registerLocaleData(localeSrLatn);
     BrowserModule,
     AppRoutingModule,
     LayoutModule,
-    BoardModule,
     EventsModule,
     ClubsModule,
     BrowserAnimationsModule,

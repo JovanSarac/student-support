@@ -5,7 +5,7 @@ import { Report } from 'src/app/shared/model/report-model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Router } from '@angular/router';
 import { EventsService } from 'src/app/feature-modules/events/events.service';
-import { MyEvent } from 'src/app/feature-modules/board/model/myevent.model';
+import { MyEvent } from 'src/app/feature-modules/events/model/myevent.model';
 import { User } from '../../model/user.model';
 import { ClubReport } from 'src/app/shared/model/club-report.model';
 import { Club } from 'src/app/shared/model/club.model';
