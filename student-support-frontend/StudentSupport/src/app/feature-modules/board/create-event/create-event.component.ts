@@ -168,6 +168,11 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     if (id) {
       this.eventService.getEventById(this.user, id).subscribe((event) => {
         this.event = event;
+        if(this.event.userId != this.user.id){
+          this.router.navigate(['events-page'], {
+            queryParams: { activeTab: 'allEvents' },
+          })
+        }
         this.updateFormWithEventData();
         setTimeout(() => {
           this.showSlides(this.slideIndex);

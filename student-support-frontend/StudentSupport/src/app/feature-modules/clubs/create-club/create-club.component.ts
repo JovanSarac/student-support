@@ -139,6 +139,11 @@ export class CreateClubComponent implements OnInit, AfterViewInit {
     if (id) {
       this.service.getClubById(this.user, id).subscribe((club) => {
         this.club = club;
+        if(this.club.ownerId != this.user.id){
+          this.router.navigate(['clubs-page'], {
+            queryParams: { activeTab: 'allClubs' },
+          })
+        }
         this.updateFormWithClubData();
         // setTimeout(() => {
         //   this.showSlides(this.slideIndex);
