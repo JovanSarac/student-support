@@ -5,9 +5,11 @@ using StudentSupport.Events.API.Dtos;
 using StudentSupport.Events.API.Public;
 using StudentSupport.Events.Core.Domain;
 using StudentSupport.Events.Core.Domain.RepositoryInterfaces;
+using StudentSupport.Stakeholders.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,11 +52,18 @@ namespace StudentSupport.Events.Core.UseCases
         }
 
 
-        public Result<EventDto> Archive(int id)
+        public Result<EventDto> Archive(int id, ClaimsPrincipal user)
         {
             try
             {
                 Event eventTemp = _eventRepository.Get(id);
+
+                var loggedInUserId = user.FindFirst("id")?.Value;
+
+                if (eventTemp.UserId.ToString() != loggedInUserId)
+                {
+                    return Result.Fail(FailureCode.Forbidden).WithError("You do not have permission to archive this event.");
+                }
                 eventTemp.Archive();
                 _eventRepository.SaveChanges();
 
@@ -66,11 +75,17 @@ namespace StudentSupport.Events.Core.UseCases
             }
         }
 
-        public Result<EventDto> Publish(int id)
+        public Result<EventDto> Publish(int id, ClaimsPrincipal user)
         {
             try
             {
                 Event eventTemp = _eventRepository.Get(id);
+                var loggedInUserId = user.FindFirst("id")?.Value;
+
+                if (eventTemp.UserId.ToString() != loggedInUserId)
+                {
+                    return Result.Fail(FailureCode.Forbidden).WithError("You do not have permission to publish this event.");
+                }
                 eventTemp.Publish();
                 _eventRepository.SaveChanges();
 

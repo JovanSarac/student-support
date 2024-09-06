@@ -17,7 +17,7 @@ namespace StudentSupport.Stakeholders.Core.UseCases
     public class PersonService : BaseService<PersonDto, Person>, IPersonService, IInternalPersonService
     {
         private readonly IPersonRepository _personRepository;
-        
+
         public PersonService(IPersonRepository personRepository, IMapper mapper) : base(mapper)
         {
             _personRepository = personRepository;;

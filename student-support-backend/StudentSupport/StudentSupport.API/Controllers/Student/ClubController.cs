@@ -17,12 +17,12 @@ namespace StudentSupport.API.Controllers.Student
             _clubService = clubService;
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult<PagedResult<ClubDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
         {
             var result = _clubService.GetPaged(page, pageSize);
             return CreateResponse(result);
-        }
+        }*/
 
         [HttpGet("active_clubs")]
         public ActionResult<PagedResult<ClubDto>> GetAllActiveClubs([FromQuery] int page, [FromQuery] int pageSize)
@@ -52,12 +52,12 @@ namespace StudentSupport.API.Controllers.Student
             return CreateResponse(result);
         }
 
-        [HttpPut]
+        /*[HttpPut]
         public ActionResult<ClubDto> Update([FromBody] ClubDto clubDto)
         {
             var result = _clubService.Update(clubDto);
             return CreateResponse(result);
-        }
+        }*/
 
         [HttpPost("filter_categories")]
         public ActionResult<List<ClubDto>> GetClubsByCategories([FromBody] FilterCategoriesDto request)

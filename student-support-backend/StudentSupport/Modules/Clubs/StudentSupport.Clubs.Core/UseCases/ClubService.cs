@@ -8,6 +8,7 @@ using StudentSupport.Clubs.Core.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,11 +27,17 @@ namespace StudentSupport.Clubs.Core.UseCases
             _membershipService = membershipService;
         }
 
-        public Result<ClubDto> ActivateClub(int id)
+        public Result<ClubDto> ActivateClub(int id, ClaimsPrincipal user)
         {
             try
             {
                 Club club = _clubRepository.Get(id);
+                var loggedInUserId = user.FindFirst("id")?.Value;
+
+                if (loggedInUserId != club.OwnerId.ToString())
+                {
+                    return Result.Fail(FailureCode.Forbidden).WithError("You do not have permission to activate this club.");
+                }
                 club.Activate();
                 _clubRepository.SaveChanges();
 
@@ -42,11 +49,17 @@ namespace StudentSupport.Clubs.Core.UseCases
             }
         }
 
-        public Result<ClubDto> CloseClub(int id)
+        public Result<ClubDto> CloseClub(int id, ClaimsPrincipal user)
         {
             try
             {
                 Club club = _clubRepository.Get(id);
+                var loggedInUserId = user.FindFirst("id")?.Value;
+
+                if (loggedInUserId != club.OwnerId.ToString())
+                {
+                    return Result.Fail(FailureCode.Forbidden).WithError("You do not have permission to close this club.");
+                }
                 club.Close();
                 _clubRepository.SaveChanges();
 

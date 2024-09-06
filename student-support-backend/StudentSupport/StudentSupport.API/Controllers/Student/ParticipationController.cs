@@ -4,6 +4,8 @@ using StudentSupport.BuildingBlocks.Core.UseCases;
 using StudentSupport.Events.API.Dtos;
 using StudentSupport.Events.API.Public;
 using StudentSupport.Events.Core.UseCases;
+using StudentSupport.Stakeholders.Core.Domain;
+using System.Security.Claims;
 
 namespace StudentSupport.API.Controllers.Student
 {
@@ -42,6 +44,12 @@ namespace StudentSupport.API.Controllers.Student
         [HttpPost]
         public ActionResult<ParticipationDto> Create([FromBody] ParticipationDto participationDto)
         {
+            var loggedInUserId = User.FindFirst("id")?.Value;
+
+            if (loggedInUserId != participationDto.StudentId.ToString())
+            {
+                return Forbid();
+            }
             var result = _participationService.CreateWithEmail(participationDto);
             return CreateResponse(result.Result);
         }
@@ -49,6 +57,12 @@ namespace StudentSupport.API.Controllers.Student
         [HttpPut]
         public ActionResult<ParticipationDto> Update([FromBody] ParticipationDto participationDto)
         {
+            var loggedInUserId = User.FindFirst("id")?.Value;
+
+            if (loggedInUserId != participationDto.StudentId.ToString())
+            {
+                return Forbid();
+            }
             var result = _participationService.Update(participationDto);
             return CreateResponse(result);
         }

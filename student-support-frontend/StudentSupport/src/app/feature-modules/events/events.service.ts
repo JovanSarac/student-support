@@ -102,16 +102,16 @@ export class EventsService {
     );
   }
 
-  archiveEvent(user: User, eventId: number): Observable<MyEvent> {
+  archiveEvent(eventId: number): Observable<MyEvent> {
     return this.http.put<MyEvent>(
-      environment.apiHost + user.role + '/events/archive',
+      environment.apiHost + 'author/events/archive',
       eventId
     );
   }
 
-  publishEvent(user: User, eventId: number): Observable<MyEvent> {
+  publishEvent(eventId: number): Observable<MyEvent> {
     return this.http.put<MyEvent>(
-      environment.apiHost + user.role + '/events/publish',
+      environment.apiHost + 'author/events/publish',
       eventId
     );
   }

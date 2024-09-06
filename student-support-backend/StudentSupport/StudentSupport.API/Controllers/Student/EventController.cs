@@ -48,32 +48,6 @@ namespace StudentSupport.API.Controllers.Student
             return CreateResponse(result);
         }
 
-        [HttpPut("archive")]
-        public ActionResult<EventDto> ArchiveEvent([FromBody] int id)
-        {
-            var result = _eventService.Archive(id);
-
-            if (result.IsSuccess)
-            {
-                _participationService.CancelAllByAuthor(id);
-            }
-
-            return CreateResponse(result);
-        }
-
-        [HttpPut("publish")]
-        public ActionResult<EventDto> PublishEvent([FromBody] int id)
-        {
-            var result = _eventService.Publish(id);
-
-            if (result.IsSuccess)
-            {
-                _participationService.SendMailAfterPublishingBack(id);
-            }
-
-            return CreateResponse(result);
-        }
-
         /*[HttpPut]
         public ActionResult<List<EventDto>> Update([FromBody] EventDto eventDto)
         {

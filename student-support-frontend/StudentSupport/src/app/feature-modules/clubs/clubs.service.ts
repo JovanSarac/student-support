@@ -18,7 +18,7 @@ export class ClubsService {
 
   // **************************************CLUBS SECTION**********************************************
   getAllClubs(user: User): Observable<PagedResults<Club>> {
-    if (user.role === 'student') {
+    if (user.role === 'student' || user.role === 'author') {
       return this.http.get<PagedResults<Club>>(
         environment.apiHost + user.role + '/clubs/active_clubs'
       );

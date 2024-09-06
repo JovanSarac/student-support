@@ -5,6 +5,7 @@ using StudentSupport.BuildingBlocks.Core.UseCases;
 using StudentSupport.Clubs.API.Public;
 using StudentSupport.Stakeholders.API.Dtos;
 using StudentSupport.Stakeholders.API.Public;
+using System.Security.Claims;
 
 namespace StudentSupport.API.Controllers.Student
 {
@@ -45,6 +46,12 @@ namespace StudentSupport.API.Controllers.Student
         [HttpPut("{id:int}")]
         public ActionResult<PersonDto> Update([FromBody] PersonDto person)
         {
+            var loggedInPersonId = User.FindFirst("personId")?.Value;
+
+            if (loggedInPersonId != person.Id.ToString())
+            {
+                return Forbid();
+            }
             var result = _personService.Update(person);
             return CreateResponse(result);
         }

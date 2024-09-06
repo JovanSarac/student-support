@@ -225,7 +225,7 @@ export class SingleEventPageComponent implements OnInit {
   }
 
   archiveEvent() {
-    this.service.archiveEvent(this.user, this.event.id).subscribe({
+    this.service.archiveEvent(this.event.id).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
         this.getParticipationsByStudentId();
@@ -245,7 +245,7 @@ export class SingleEventPageComponent implements OnInit {
   }
 
   publishEvent() {
-    this.service.publishEvent(this.user, this.event.id).subscribe({
+    this.service.publishEvent(this.event.id).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
         this.toastrService.success(

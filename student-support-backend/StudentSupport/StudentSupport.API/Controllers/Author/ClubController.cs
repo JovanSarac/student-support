@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using StudentSupport.BuildingBlocks.Core.UseCases;
 using StudentSupport.Clubs.API.Dtos;
 using StudentSupport.Clubs.API.Public;
+using StudentSupport.Events.API.Dtos;
 using StudentSupport.Stakeholders.API.Public;
+using System.Security.Claims;
 
 namespace StudentSupport.API.Controllers.Author
 {
@@ -22,12 +24,12 @@ namespace StudentSupport.API.Controllers.Author
             _personService = personService;
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult<PagedResult<ClubDto>> GetAll([FromQuery] int page, [FromQuery] int pageSize)
         {
             var result = _clubService.GetPaged(page, pageSize);
             return CreateResponse(result);
-        }
+        }*/
 
         [HttpGet("active_clubs")]
         public ActionResult<PagedResult<ClubDto>> GetAllActiveClubs([FromQuery] int page, [FromQuery] int pageSize)
@@ -53,6 +55,12 @@ namespace StudentSupport.API.Controllers.Author
         [HttpGet("created_clubs/{authorId:int}")]
         public ActionResult<PagedResult<ClubDto>> GetCreatedClubs([FromQuery] int page, [FromQuery] int pageSize, int authorId)
         {
+            var loggedInUserId = User.FindFirst("id")?.Value;
+
+            if (loggedInUserId != authorId.ToString())
+            {
+                return Forbid();
+            }
             var result = _clubService.GetCreatedClubsPaged(page, pageSize, authorId);
             return CreateResponse(result);
         }
@@ -81,7 +89,7 @@ namespace StudentSupport.API.Controllers.Author
         [HttpPut("close")]
         public ActionResult<ClubDto> CloseClub([FromBody] int id)
         {
-            var result = _clubService.CloseClub(id);
+            var result = _clubService.CloseClub(id,User);
 
             var members = _personService.GetPeopleByIdsPaged(0,0, result.Value.Memberships.Select(m => m.MemberId).ToList()).Value;
 
@@ -96,7 +104,7 @@ namespace StudentSupport.API.Controllers.Author
         [HttpPut("activate")]
         public ActionResult<ClubDto> ActivateClub([FromBody] int id)
         {
-            var result = _clubService.ActivateClub(id);
+            var result = _clubService.ActivateClub(id, User);
 
             var members = _personService.GetPeopleByIdsPaged(0, 0, result.Value.Memberships.Select(m => m.MemberId).ToList()).Value;
 
@@ -111,6 +119,12 @@ namespace StudentSupport.API.Controllers.Author
         [HttpPut]
         public ActionResult<ClubDto> Update([FromBody] ClubDto clubDto)
         {
+            var loggedInUserId = User.FindFirst("id")?.Value;
+
+            if (loggedInUserId != clubDto.OwnerId.ToString())
+            {
+                return Forbid();
+            }
             var result = _clubService.Update(clubDto);
             return CreateResponse(result);
         }

@@ -24,15 +24,21 @@ namespace StudentSupport.API.Controllers.Student
         [HttpPost]
         public ActionResult<ClubReportDto> Create([FromBody] ClubReportDto reportDto)
         {
+            var loggedInUserId = User.FindFirst("id")?.Value;
+
+            if (loggedInUserId != reportDto.StudentId.ToString())
+            {
+                return Forbid();
+            }
             var result = _clubReportService.Create(reportDto);
             return CreateResponse(result);
         }
 
-        [HttpPut]
+        /*[HttpPut]
         public ActionResult<ClubReportDto> Update([FromBody] ClubReportDto reportDto)
         {
             var result = _clubReportService.Update(reportDto);
             return CreateResponse(result);
-        }
+        }*/
     }
 }

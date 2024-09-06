@@ -227,7 +227,7 @@ export class EventCardComponent implements OnInit {
 
   archiveEvent(event: MyEvent, eventClick: MouseEvent) {
     eventClick.stopPropagation();
-    this.service.archiveEvent(this.user, event.id).subscribe({
+    this.service.archiveEvent(event.id).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
         this.toastrService.success(
@@ -246,7 +246,7 @@ export class EventCardComponent implements OnInit {
 
   publishEvent(event: MyEvent, eventClick: MouseEvent) {
     eventClick.stopPropagation();
-    this.service.publishEvent(this.user, event.id).subscribe({
+    this.service.publishEvent(event.id).subscribe({
       next: (result: MyEvent) => {
         this.event = result;
         this.toastrService.success(

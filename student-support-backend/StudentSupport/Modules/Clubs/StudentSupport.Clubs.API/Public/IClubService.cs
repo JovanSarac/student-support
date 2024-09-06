@@ -4,6 +4,7 @@ using StudentSupport.Clubs.API.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,9 +20,9 @@ namespace StudentSupport.Clubs.API.Public
         Result<ClubDto> Update(ClubDto eventDto);
         Result Delete(int id);
         Result<ClubDto> Get(int id);
-        Result<ClubDto> CloseClub(int id);
+        Result<ClubDto> CloseClub(int id, ClaimsPrincipal user);
         Result<ClubDto> CloseClubByAdmin(int id);
-        Result<ClubDto> ActivateClub(int id);
+        Result<ClubDto> ActivateClub(int id, ClaimsPrincipal user);
         Result<PagedResult<ClubDto>> GetAllActiveClubs(int page, int pageSize);
         Result<List<ClubDto>> GetMostPopularTwoClubs();
         Result<List<ClubDto>> GetClubsBySearchName(List<ClubDto> clubDtos, string? searchName);

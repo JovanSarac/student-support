@@ -50,7 +50,7 @@ namespace StudentSupport.API.Controllers.Author
         [HttpPut("archive")]
         public ActionResult<EventDto> ArchiveEvent([FromBody] int id)
         {
-            var result = _eventService.Archive(id);
+            var result = _eventService.Archive(id, User);
 
             if(result.IsSuccess)
             {
@@ -63,7 +63,7 @@ namespace StudentSupport.API.Controllers.Author
         [HttpPut("publish")]
         public ActionResult<EventDto> PublishEvent([FromBody] int id)
         {
-            var result = _eventService.Publish(id);
+            var result = _eventService.Publish(id, User);
 
             if (result.IsSuccess)
             {
@@ -76,6 +76,12 @@ namespace StudentSupport.API.Controllers.Author
         [HttpGet("get_yours_events/{id:long}")]
         public ActionResult<List<EventDto>> GetYoursEvents(long id)
         {
+            var loggedInUserId = User.FindFirst("id")?.Value;
+
+            if (loggedInUserId != id.ToString())
+            {
+                return Forbid();
+            }
             var result = _eventService.GetYoursEvents(id);
             return CreateResponse(result);
         }
@@ -90,6 +96,12 @@ namespace StudentSupport.API.Controllers.Author
         [HttpPut]
         public ActionResult<List<EventDto>> Update([FromBody] EventDto eventDto)
         {
+            var loggedInUserId = User.FindFirst("id")?.Value;
+
+            if (loggedInUserId != eventDto.UserId.ToString())
+            {
+                return Forbid();
+            }
             var result = _eventService.Update(eventDto);
             return CreateResponse(result);
         }
