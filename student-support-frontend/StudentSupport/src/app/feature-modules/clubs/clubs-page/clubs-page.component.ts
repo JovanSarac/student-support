@@ -84,7 +84,7 @@ export class ClubsPageComponent implements OnInit {
 
           this.totalPages = Math.ceil(this.clubs.length / this.pageSize);
 
-          this.searchClubsByName(this.searchName)
+          this.searchClubsByName(this.searchName);
         },
       });
     } else if (tab == 'yourClubs') {
@@ -96,7 +96,7 @@ export class ClubsPageComponent implements OnInit {
 
             this.totalPages = Math.ceil(this.clubs.length / this.pageSize);
 
-            this.searchClubsByName(this.searchName)
+            this.searchClubsByName(this.searchName);
           },
         });
     } else if (tab == 'yourMemberships') {
@@ -106,36 +106,34 @@ export class ClubsPageComponent implements OnInit {
 
           this.totalPages = Math.ceil(this.clubs.length / this.pageSize);
 
-          this.searchClubsByName(this.searchName)
+          this.searchClubsByName(this.searchName);
         },
       });
     }
   }
 
-  searchClubsByName(name: string | null){
+  searchClubsByName(name: string | null) {
     this.service.getClubssBySearchName(this.clubs, name, this.user).subscribe({
-      next: (result: Club[])=>{
+      next: (result: Club[]) => {
         this.clubsForDisplay = result;
 
         if (this.selectedCheckboxes.length != 0)
           this.filterByCategoriesClub(this.clubsForDisplay);
-        else{
+        else {
           this.updatePagedClubs();
           this.updateCheckboxes();
         }
- 
-      }
-    })
+      },
+    });
   }
 
-  clearSearchName(){
+  clearSearchName() {
     this.searchControl.setValue('');
     this.searchName = '';
     const queryParams = this.createQueryParams();
 
-    this.router.navigate(['/clubs-page'], { queryParams});
+    this.router.navigate(['/clubs-page'], { queryParams });
   }
-
 
   searchClubs(name: string) {
     this.searchName = name;
@@ -143,7 +141,6 @@ export class ClubsPageComponent implements OnInit {
 
     this.router.navigate(['/clubs-page'], { queryParams });
   }
-
 
   onCheckboxChange() {
     this.selectedCheckboxes = this.getCheckedCheckboxes();
@@ -190,7 +187,6 @@ export class ClubsPageComponent implements OnInit {
     this.router.navigate(['/clubs-page'], { queryParams });
   }
 
-
   getCheckedCheckboxes(): string[] {
     const checkedValues: string[] = [];
     const checkboxes = document.querySelectorAll('.club-checkbox:checked');
@@ -209,7 +205,6 @@ export class ClubsPageComponent implements OnInit {
       checkbox.checked = this.selectedCheckboxes.includes(checkbox.value);
     });
   }
-
 
   private createQueryParams(): any {
     const params: any = {};
@@ -256,7 +251,10 @@ export class ClubsPageComponent implements OnInit {
     this.isLoading = false;
 
     this.showEmptySeachPlaceholder = false;
-    if((this.searchName != "" || this.selectedCheckboxes.length > 0) && this.pagedClubs.length == 0){
+    if (
+      (this.searchName != '' || this.selectedCheckboxes.length > 0) &&
+      this.pagedClubs.length == 0
+    ) {
       this.showEmptySeachPlaceholder = true;
     }
   }

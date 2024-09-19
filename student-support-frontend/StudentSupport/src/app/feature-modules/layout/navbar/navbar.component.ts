@@ -52,8 +52,11 @@ export class NavbarComponent implements OnInit {
 
   goToEvents(): void {
     if (this.user.username === '') {
-      document.getElementById('events-section')?.scrollIntoView({ behavior: 'smooth' });
+      document
+        .getElementById('events-section')
+        ?.scrollIntoView({ behavior: 'smooth' });
     } else {
+      this.dropdownOpen = false;
       this.router.navigate(['/events-page'], {
         queryParams: { activeTab: 'allEvents' },
       });
@@ -62,9 +65,11 @@ export class NavbarComponent implements OnInit {
 
   goToClubs(): void {
     if (this.user.username === '') {
-      document.getElementById('clubs-section')?.scrollIntoView({ behavior: 'smooth' });
-
+      document
+        .getElementById('clubs-section')
+        ?.scrollIntoView({ behavior: 'smooth' });
     } else {
+      this.dropdownOpen = false;
       this.router.navigate(['/clubs-page'], {
         queryParams: { activeTab: 'allClubs' },
       });
@@ -72,19 +77,23 @@ export class NavbarComponent implements OnInit {
   }
 
   goToMyProfile(): void {
+    this.dropdownOpen = false;
     this.menuVisible = false;
     this.router.navigate(['/my-profile/' + this.user.id]);
   }
 
   goToAdminPanel(): void {
+    this.dropdownOpen = false;
     this.router.navigate(['/admin-panel']);
   }
 
   goToReports(): void {
+    this.dropdownOpen = false;
     this.router.navigate(['/reports']);
   }
 
   onLogout(): void {
+    this.dropdownOpen = false;
     this.menuVisible = false;
     this.authService.logout();
   }

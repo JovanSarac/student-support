@@ -68,7 +68,7 @@
   background-color: transparent;
 }
 
-.events-section{
+.events-section {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -87,7 +87,7 @@
   height: auto;
 }
 
-.events p{
+.events p {
   display: inline;
   flex-wrap: wrap;
   margin-left: 2%;
@@ -97,15 +97,12 @@
   white-space: normal;
 }
 
-
 .cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   margin: 2%;
 }
-
-
 
 .section-title {
   display: flex;
@@ -122,11 +119,11 @@
   font-size: 40px;
   font-weight: bold;
   text-align: center;
-  white-space: nowrap; 
+  white-space: nowrap;
   color: var(--primary-color);
-  line-height: 1; 
-  margin: 0; 
-  padding: 0; 
+  line-height: 1;
+  margin: 0;
+  padding: 0;
   align-self: center;
 }
 
@@ -146,8 +143,7 @@
   margin-left: 30px;
 }
 
-
-.clubs-section{
+.clubs-section {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -158,8 +154,7 @@
   scroll-margin-top: 8dvh;
 }
 
-
-.show-more{
+.show-more {
   border-radius: 18px;
   background-color: #cecece;
   color: white;
@@ -307,56 +302,6 @@
   }
 }
 
-.dropdown-content {
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  width: 50%;
-  height: auto;
-  margin-right: 3%;
-}
-
-.burger-icon {
-  font-size: 30px;
-  cursor: pointer;
-  color: white;
-}
-
-.dropdown-contentt {
-  display: none;
-  flex-direction: column;
-  position: absolute;
-  top: 85px;
-  background-color: rgba(90, 90, 90, 0.9);
-  border-radius: 15px;
-  padding: 10px;
-  z-index: 1000;
-}
-
-.dropdown-contentt.show {
-  display: flex;
-}
-
-@media (max-width: 850px) {
-  .navbar-button {
-    display: none;
-    /* Sakrivamo stare buttone */
-  }
-
-  .navbar-dropdown {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-  }
-
-  .navbar-dropdown select {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-  }
-}
-
 .banner {
   width: 100%;
   height: 92dvh;
@@ -411,8 +356,7 @@
   opacity: 0;
 }
 
-
-.dots{
+.dots {
   position: relative;
   text-align: center;
   top: 80dvh;
@@ -429,6 +373,48 @@
   transition: background-color 0.3s ease;
 }
 
-.active, .dot:hover {
+.active,
+.dot:hover {
   background-color: var(--secondary-color);
+}
+
+@media (max-width: 450px) {
+  .section-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    margin-top: 2%;
+    margin-bottom: 3%;
+    box-sizing: border-box;
+  }
+
+  .section-title p {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    color: var(--primary-color);
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    align-self: center;
+  }
+
+  .section-title::before,
+  .section-title::after {
+    content: "";
+    flex-grow: 1;
+    height: 0;
+    border-top: 3px dashed #cecece;
+  }
+
+  /* .section-title::before {
+    margin-right: 30px;
+  }
+
+  .section-title::after {
+    margin-left: 30px;
+  } */
 }

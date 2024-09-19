@@ -79,7 +79,7 @@ export class ReportsComponent implements OnInit {
       next: (result: ClubReport) => {
         this.loadClubReports();
         this.toastrService.success(
-          'Uspešno ste označili prijavu kao rešenu i otkazali ovaj događaj.',
+          'Uspešno ste označili prijavu kao rešenu i obrisali ovaj klub.',
           'Uspešno',
           {
             timeOut: 4000, // Trajanje u milisekundama, ovde 10 sekundi

@@ -24,14 +24,6 @@
         <p (click)="goToReports()">Prijave</p>
       </div>
 
-      <!-- <div class="navbar-item">
-                <p>FAQ</p>
-            </div>
-
-            <div class="navbar-item">
-                <p>O nama</p>
-            </div> -->
-
       <xp-primary-button
         *ngIf="user.username === ''"
         class="prijava-button"
@@ -46,9 +38,10 @@
         <div class="pic-image" (click)="vievMenu()">
           <img
             [src]="
-              (person.profilePicBase64 == null || person.profilePicBase64 == 'data:image/webp;base64,')
-              ? defaultProfilePic
-              : person.profilePicBase64
+              person.profilePicBase64 == null ||
+              person.profilePicBase64 == 'data:image/webp;base64,'
+                ? defaultProfilePic
+                : person.profilePicBase64
             "
             width="60"
           />
@@ -84,6 +77,9 @@
         <div class="navbar-item" (click)="goToClubs()">
           <p>Klubovi</p>
         </div>
+        <div class="navbar-item" (click)="goToMyProfile()">
+          <p>Moj Profil</p>
+        </div>
         <div
           *ngIf="user.role === 'administrator'"
           class="navbar-item"
@@ -98,12 +94,6 @@
         >
           <p>Prijave</p>
         </div>
-        <!-- <div class="navbar-item">
-                    <p>FAQ</p>
-                </div>
-                <div class="navbar-item">
-                    <p>O nama</p>
-                </div> -->
         <div
           class="navbar-item"
           *ngIf="user.username === ''"
