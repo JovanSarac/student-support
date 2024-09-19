@@ -167,3 +167,20 @@
   cursor: pointer;
   transform: scale(1.07);
 }
+
+@media (max-width: 450px) {
+  .one-card {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: inherit;
+    height: 300px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 12px;
+    margin-bottom: 30px;
+    margin-right: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+    overflow: hidden;
+    z-index: 1;
+  }
+}

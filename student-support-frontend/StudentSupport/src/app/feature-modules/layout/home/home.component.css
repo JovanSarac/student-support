@@ -104,6 +104,13 @@
   margin: 2%;
 }
 
+.club-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 2%;
+}
+
 .section-title {
   display: flex;
   align-items: center;
@@ -402,19 +409,13 @@
     align-self: center;
   }
 
-  .section-title::before,
-  .section-title::after {
-    content: "";
-    flex-grow: 1;
-    height: 0;
-    border-top: 3px dashed #cecece;
+  .club-cards {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
   }
 
-  /* .section-title::before {
-    margin-right: 30px;
+  xp-club-card {
+    width: 100%;
   }
-
-  .section-title::after {
-    margin-left: 30px;
-  } */
 }

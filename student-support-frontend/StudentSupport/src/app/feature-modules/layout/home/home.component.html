@@ -14,7 +14,6 @@
           buttonType="button"
           textValue="Saznaj više"
           (click)="scrollToEventsSection()"
-          
         >
         </xp-primary-button>
         <xp-primary-button
@@ -29,10 +28,12 @@
       </div>
     </div>
     <div class="dots">
-      <span *ngFor="let dot of images; let i = index" 
-            class="dot" 
-            [ngClass]="{'active': i === currentIndex}" 
-            (click)="setSlide(i)">
+      <span
+        *ngFor="let dot of images; let i = index"
+        class="dot"
+        [ngClass]="{ active: i === currentIndex }"
+        (click)="setSlide(i)"
+      >
       </span>
     </div>
   </div>
@@ -42,33 +43,52 @@
       <p>PREDSTOJEĆI DOGAĐAJI</p>
     </div>
     <div class="events">
-      <p>Na ovoj stranici možete pronaći različite događaje koji su organizovani kako biste se lakše upoznali sa novim ljudima, stekli nova znanja i iskustva. Događaji su prilika da se povežete sa kolegama i zajednicom, a ponuda uključuje razne kategorije događaja – od edukativnih seminara i konferencija, preko društvenih i humanitarnih okupljanja, do raznih sportskih aktivnosti. Ovi događaji predstavljaju odličnu priliku da proširite svoju mrežu kontakata i aktivno učestvujete u raznim aspektima studentskog života.
-        <br><br>
-        U nastavku su prikazani samo neki od predstojećih događaja. Za više događaja i informacija o svakom događaju, kao i o mogućnostima kreiranja sopstvenih događaja kao autor, ili mogućnosti prijavljivanja na događaj kao student, morate izvršiti <a href="http://localhost:4200/login">prijavu.</a>
+      <p>
+        Na ovoj stranici možete pronaći različite događaje koji su organizovani
+        kako biste se lakše upoznali sa novim ljudima, stekli nova znanja i
+        iskustva. Događaji su prilika da se povežete sa kolegama i zajednicom, a
+        ponuda uključuje razne kategorije događaja – od edukativnih seminara i
+        konferencija, preko društvenih i humanitarnih okupljanja, do raznih
+        sportskih aktivnosti. Ovi događaji predstavljaju odličnu priliku da
+        proširite svoju mrežu kontakata i aktivno učestvujete u raznim aspektima
+        studentskog života. <br /><br />
+        U nastavku su prikazani samo neki od predstojećih događaja. Za više
+        događaja i informacija o svakom događaju, kao i o mogućnostima kreiranja
+        sopstvenih događaja kao autor, ili mogućnosti prijavljivanja na događaj
+        kao student, morate izvršiti
+        <a href="http://localhost:4200/login">prijavu.</a>
       </p>
       <div class="cards">
         <xp-event-card *ngFor="let event of events" [event]="event">
         </xp-event-card>
       </div>
     </div>
-
   </div>
   <div class="clubs-section" id="clubs-section">
     <div class="section-title">
       <p>NAJPOPULARNIJI KLUBOVI</p>
     </div>
     <div class="events">
-      <p>UNSStudent takođe nudi raznovrsne klubove u kojima studenti imaju mogućnost članstva i aktivnog učešća. Ovi klubovi pružaju platformu za povezivanje sa istomišljenicima, razmenu interesa i aktivno učešće u različitim aktivnostima. Članovi klubova mogu pratiti najnovija obaveštenja i buduće događaje koji se organizuju u okviru kluba.
-        <br><br>
-        Pored toga, klubovi nude mogućnost autorima da kreiraju i upravljaju obaveštenjima i događajima specifičnim za njihov klub, čime doprinose dinamičnom razvoju studentske zajednice. Upoznajte nove ljude, proširite svoju mrežu kontakata i aktivno učestvujte u klubskim aktivnostima koje će obogatiti vaše studentsko iskustvo.
-        <br><br>
-        U nastavku su prikazani samo neki od najpopularnijih klubova. Za više klubova i informacija o svakom klubu, morate izvršiti <a href="http://localhost:4200/login">prijavu.</a>
+      <p>
+        UNSStudent takođe nudi raznovrsne klubove u kojima studenti imaju
+        mogućnost članstva i aktivnog učešća. Ovi klubovi pružaju platformu za
+        povezivanje sa istomišljenicima, razmenu interesa i aktivno učešće u
+        različitim aktivnostima. Članovi klubova mogu pratiti najnovija
+        obaveštenja i buduće događaje koji se organizuju u okviru kluba.
+        <br /><br />
+        Pored toga, klubovi nude mogućnost autorima da kreiraju i upravljaju
+        obaveštenjima i događajima specifičnim za njihov klub, čime doprinose
+        dinamičnom razvoju studentske zajednice. Upoznajte nove ljude, proširite
+        svoju mrežu kontakata i aktivno učestvujte u klubskim aktivnostima koje
+        će obogatiti vaše studentsko iskustvo.
+        <br /><br />
+        U nastavku su prikazani samo neki od najpopularnijih klubova. Za više
+        klubova i informacija o svakom klubu, morate izvršiti
+        <a href="http://localhost:4200/login">prijavu.</a>
       </p>
-      <div class="cards">
-        <xp-club-card *ngFor="let club of clubs" [club]="club">
-        </xp-club-card>
+      <div class="club-cards">
+        <xp-club-card *ngFor="let club of clubs" [club]="club"> </xp-club-card>
       </div>
     </div>
-
   </div>
 </div>
