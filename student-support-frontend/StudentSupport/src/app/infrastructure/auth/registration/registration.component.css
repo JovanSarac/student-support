@@ -124,6 +124,26 @@
   padding: 0;
 }
 
+.register {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+  width: 100%;
+  color: var(--text-heading-color);
+}
+
+.register-link {
+  text-decoration: underline;
+  font-weight: 500;
+  color: #5271ff;
+  text-align: center;
+}
+
+.register-link:hover {
+  cursor: pointer;
+  color: #c852ff;
+}
+
 @media (max-width: 450px) {
   .full-page-bg {
     display: flex;
