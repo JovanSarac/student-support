@@ -58,7 +58,7 @@
 
 .club-description {
   width: 100%;
-  font-size: 22px;
+  font-size: 20px;
   font-family: "Poppins", "sans-serif";
   line-height: 1.5;
   white-space: pre-wrap;
@@ -211,4 +211,94 @@
 .tabs-container {
   /* background-color: red; */
   width: 50%;
+}
+
+@media (max-width: 450px) {
+  .date-action-button-container {
+    margin-top: 1%;
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0%;
+  }
+
+  .date-action-button-container p {
+    align-self: center;
+  }
+
+  .date-action-button-container xp-secondary-button {
+    justify-self: flex-end;
+  }
+
+  .heading-container {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    /* text-align: center; */
+  }
+
+  .heading-container h1 {
+    color: var(--heading-color);
+    font-family: "Poppins", "sans-serif";
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 1.3;
+  }
+
+  .image-container {
+    width: 95%;
+    height: 37dvh;
+    margin-bottom: 2%;
+    text-align: center;
+    /* background-color: var(--border-light-color); */
+    border-radius: 15px;
+    border: 1px solid var(--border-light-color);
+  }
+
+  .additional-info-container {
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    justify-content: space-between;
+    /* text-align: center; */
+    margin-bottom: 2%;
+  }
+
+  .additional-info-container p {
+    margin-left: 2%;
+    margin-right: 2%;
+    color: var(--text-color);
+    font-size: 18px;
+  }
+
+  .tabs-container {
+    /* background-color: red; */
+    width: 95%;
+  }
+
+  .club-description {
+    width: 100%;
+    font-size: 16px;
+    font-family: "Poppins", "sans-serif";
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow: hidden;
+    margin-top: 2%;
+  }
+
+  .location-map-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .creator-and-number-container {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    text-align: center;
+  }
 }

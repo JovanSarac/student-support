@@ -110,12 +110,11 @@
   font-weight: 700;
 }
 
-.filter-section{
+.filter-section {
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
   margin-top: 5%;
-  
 }
 
 /* Prikazuje scrollbar kada je miš iznad sekcije */
@@ -184,8 +183,7 @@
   cursor: pointer;
 }
 
-
-.filtered{
+.filtered {
   display: flex;
   flex-wrap: wrap;
   font-size: 14px;
@@ -194,23 +192,22 @@
   gap: 10px;
 }
 
-.filtered p{
+.filtered p {
   padding: 10px 5px;
 }
 
-.filtered-type{
+.filtered-type {
   cursor: pointer;
   border-radius: 15px;
   background-color: aliceblue;
 }
 
-
-.filtered-type i:hover{
+.filtered-type i:hover {
   color: var(--error-color);
   transition: 0.5s;
 }
 
-.clear-all{
+.clear-all {
   color: var(--secondary-color);
   font-size: 18px;
   font-weight: 700;
@@ -220,13 +217,13 @@
   cursor: pointer;
 }
 
-.clear-all:hover{
+.clear-all:hover {
   background-color: rgb(240, 240, 255);
   color: var(--secondary-hover-color);
   transition: 0.8s;
 }
 
-.clubs{
+.clubs {
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -236,30 +233,28 @@
   margin-top: 10px;
 }
 
-.searched{
+.searched {
   display: flex;
   flex-direction: row;
   font-size: 14px;
   margin-left: 3%;
   gap: 10px;
-
 }
 
-.searched p{
+.searched p {
   padding: 0px 5px;
 }
 
-.searched i{
+.searched i {
   cursor: pointer;
 }
 
-.searched i:hover{
+.searched i:hover {
   color: var(--error-color);
   transition: 0.5s;
 }
 
-
-.cards{
+.cards {
   display: flex;
   flex-wrap: wrap;
   margin-left: 2%;
@@ -294,8 +289,7 @@
   font-size: 18px;
 }
 
-
-.empty-page{
+.empty-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -305,12 +299,12 @@
   height: 100%;
 }
 
-.empty-page img{
+.empty-page img {
   width: 280px;
   height: 230px;
 }
 
-.empty-page p{
+.empty-page p {
   text-align: center;
   max-width: 400px;
 }
@@ -325,7 +319,7 @@
   margin-top: 10px;
 }
 
-.center-position{
+.center-position {
   display: flex;
   flex-direction: column;
   justify-content: center;

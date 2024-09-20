@@ -55,7 +55,6 @@
       <div class="filter-section">
         <p class="filter-type-title">Kategorije klubova:</p>
         <div class="checkboxs">
-
           <div class="checkbox-input">
             <input
               type="checkbox"
@@ -137,7 +136,6 @@
             />
             <label for="other">Ostali</label>
           </div>
-   
         </div>
       </div>
     </div>
@@ -158,12 +156,7 @@
           (click)="clearSearchName()"
         ></i>
       </div>
-      <div
-        class="filtered"
-        *ngIf="
-          selectedCheckboxes.length != 0
-        "
-      >
+      <div class="filtered" *ngIf="selectedCheckboxes.length != 0">
         <p *ngIf="selectedCheckboxes.length > 0">
           Primjenjeno
           {{ selectedCheckboxes.length }} filtera:
@@ -175,7 +168,6 @@
             class="bi bi-x-circle-fill"
             style="margin-left: 10px"
             matTooltip="Izbriši filter"
-          
           >
           </i>
         </p>
@@ -205,24 +197,55 @@
         </button>
       </div>
 
-      <div class="empty-page" *ngIf="clubs.length == 0 && activeTab=='allClubs' && !showEmptySeachPlaceholder">
-        <img src="../../../../assets/images/emptyclub.png" alt="no-picture">
-        <p style="margin-top: 5px;">Nažalost, trenutno nema klubova koji su dostupni i aktivni.</p>
+      <div
+        class="empty-page"
+        *ngIf="
+          clubs.length == 0 &&
+          activeTab == 'allClubs' &&
+          !showEmptySeachPlaceholder
+        "
+      >
+        <img src="../../../../assets/images/emptyclub.png" alt="no-picture" />
+        <p style="margin-top: 5px">
+          Nažalost, trenutno nema klubova koji su dostupni i aktivni.
+        </p>
       </div>
 
-      <div class="empty-page" *ngIf="clubs.length == 0 && activeTab=='yourClubs' && !showEmptySeachPlaceholder">
-        <img src="../../../../assets/images/emptyclub.png" alt="no-picture">
-        <p style="margin-top: 5px;">Trenutno nemate kreiranih klubova. Započnite kreiranjem novog kluba.</p>
+      <div
+        class="empty-page"
+        *ngIf="
+          clubs.length == 0 &&
+          activeTab == 'yourClubs' &&
+          !showEmptySeachPlaceholder
+        "
+      >
+        <img src="../../../../assets/images/emptyclub.png" alt="no-picture" />
+        <p style="margin-top: 5px">
+          Trenutno nemate kreiranih klubova. Započnite kreiranjem novog kluba.
+        </p>
       </div>
 
-      <div class="empty-page" *ngIf="clubs.length == 0 && activeTab=='yourMemberships' && !showEmptySeachPlaceholder">
-        <img src="../../../../assets/images/emptyclub.png" alt="no-picture">
-        <p style="margin-top: 5px;">Ovdje će se prikazati klubovi čiji ste članovi. Nažalost trenutno nema takvih.</p>
+      <div
+        class="empty-page"
+        *ngIf="
+          clubs.length == 0 &&
+          activeTab == 'yourMemberships' &&
+          !showEmptySeachPlaceholder
+        "
+      >
+        <img src="../../../../assets/images/emptyclub.png" alt="no-picture" />
+        <p style="margin-top: 5px">
+          Ovdje će se prikazati klubovi čiji ste članovi. Nažalost trenutno nema
+          takvih.
+        </p>
       </div>
 
       <div class="empty-page" *ngIf="showEmptySeachPlaceholder">
-        <img src="../../../../assets/images/emptysearch.png" alt="no-picture">
-        <p style="margin-top: 5px;">Nismo pronašli nijedan klub. Proverite da li je sve pravilno napisano ili pokušajte sa drugačijim filterima.</p>
+        <img src="../../../../assets/images/emptysearch.png" alt="no-picture" />
+        <p style="margin-top: 5px">
+          Nismo pronašli nijedan klub. Proverite da li je sve pravilno napisano
+          ili pokušajte sa drugačijim filterima.
+        </p>
       </div>
     </div>
   </div>

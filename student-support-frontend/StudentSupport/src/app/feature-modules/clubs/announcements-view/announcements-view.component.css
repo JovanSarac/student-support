@@ -166,3 +166,61 @@
 .pagination span {
   font-size: 18px;
 }
+
+@media (max-width: 450px) {
+  .announcer-name {
+    margin-bottom: 0;
+    align-self: center;
+    justify-self: center;
+    font-weight: 900;
+    font-size: 16px;
+    color: var(--text-on-secondary-color);
+  }
+
+  .member-type {
+    color: var(--text-on-secondary-color);
+    margin-bottom: 0;
+    align-self: center;
+    font-size: 12px;
+    margin-top: -20px;
+  }
+
+  .publication-date {
+    color: var(--text-placeholder-color);
+    margin-top: 0;
+    font-size: 12px;
+  }
+
+  .image-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 80%;
+    height: 20dvh;
+    border: 1px solid var(--text-on-secondary-color);
+    border-radius: 15px;
+    margin-bottom: 5%;
+    align-self: center;
+    background-color: var(--background-color);
+    margin-top: 2%;
+  }
+
+  .image-container img {
+    height: 100%;
+  }
+
+  .edit-delete-button-container {
+    display: flex;
+    flex-direction: column;
+    align-self: baseline;
+  }
+
+  xp-secondary-button {
+    width: 9em;
+  }
+
+  .name-type-container {
+    display: flex;
+    flex-direction: column;
+  }
+}

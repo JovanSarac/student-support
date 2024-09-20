@@ -281,9 +281,19 @@ export class AnnouncementsViewComponent implements OnInit {
   }
 
   openImageCarouselDialog(images: string[]): void {
+    let width = '48dvw';
+    let height = '70dvh';
+
+    // Proveri da li je širina ekrana manja od 450px
+    if (window.matchMedia('(max-width: 450px)').matches) {
+      width = '95vw'; // nova širina za manje ekrane
+      height = '30vh'; // nova visina za manje ekrane
+    }
+
+    // Otvori dijalog sa odgovarajućim dimenzijama
     let dialogRef = this.dialog.open(AnnouncementImageCarouselComponent, {
-      width: '48dvw',
-      height: '70dvh',
+      width: width,
+      height: height,
       position: {
         top: '10dvh',
       },

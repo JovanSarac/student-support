@@ -15,7 +15,7 @@
     *ngIf="pagedAnnouncements.length === 0 && (isMember() || isAuthor)"
     class="no-announcements"
   >
-    Trenutno nijedan događaj nije organizovan od strane ovog kluba.
+    Trenutno nema nijednog obaveštenja.
   </h1>
 
   <h1 *ngIf="!isMember() && !isAuthor" class="no-announcements">
@@ -55,7 +55,7 @@
             style="margin-right: 10px"
             buttonId="update-announcement"
             buttonType="button"
-            textValue="Izmeni obaveštenje"
+            textValue="Izmeni"
             iconClass="bi bi-pencil-square"
             (click)="openEditAnnouncementDialog(announcement.id)"
           >
@@ -70,7 +70,7 @@
             style="margin-right: 10px"
             buttonId="delete-announcement"
             buttonType="button"
-            textValue="Izbriši obaveštenje"
+            textValue="Izbriši"
             iconClass="bi bi-trash3-fill"
             (click)="deleteAnnouncement(announcement.id)"
           >
