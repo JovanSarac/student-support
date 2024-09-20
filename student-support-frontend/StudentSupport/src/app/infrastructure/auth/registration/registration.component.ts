@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 export class RegistrationComponent implements OnInit {
   samePassword: boolean = true;
   usernameExist: boolean = false;
-  errorMessage: string = ""
+  errorMessage: string = '';
 
   registerForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -35,20 +35,22 @@ export class RegistrationComponent implements OnInit {
     window.scrollTo(0, 0);
   }
 
-  register(){
+  register() {
     this.markAllControlsAsTouched();
 
-    if(this.registerForm.invalid){
-      return
+    if (this.registerForm.invalid) {
+      return;
     }
 
     this.samePassword = true;
     this.usernameExist = false;
-    this.errorMessage = "";
-    if(this.registerForm.value.password != this.registerForm.value.repeatPassword){
-      this.samePassword = false
-      this.errorMessage = "Unete lozinke moraju biti iste!"
-      return
+    this.errorMessage = '';
+    if (
+      this.registerForm.value.password != this.registerForm.value.repeatPassword
+    ) {
+      this.samePassword = false;
+      this.errorMessage = 'Unete lozinke moraju biti iste!';
+      return;
     }
 
     const registration: Registration = {
@@ -60,44 +62,63 @@ export class RegistrationComponent implements OnInit {
       profilePic: '',
     };
 
-
     if (this.registerForm.value.isAuthor) {
       this.authService.registerAuthor(registration).subscribe({
         next: () => {
-          const registeredPerson = { email: registration.email, username: registration.username};
+          const registeredPerson = {
+            email: registration.email,
+            username: registration.username,
+          };
           this.router.navigate(['/check-email'], {
             queryParams: {
               email: registeredPerson.email,
               username: registeredPerson.username,
-              role: "author" 
-            }
+              role: 'author',
+            },
           });
         },
-        error: (err: any)=>{
-          if (err.status === 400 && err.error && err.error.detail.includes("User with supplied username already exists.")) {
+        error: (err: any) => {
+          if (
+            err.status === 400 &&
+            err.error &&
+            err.error.detail.includes(
+              'User with supplied username already exists.'
+            )
+          ) {
             this.usernameExist = true;
-            this.errorMessage = "Korisničko ime je već zauzeto. Molimo vas da unesete drugo korisničko ime.";
+            this.errorMessage =
+              'Korisničko ime je već zauzeto. Molimo vas da unesete drugo korisničko ime.';
           }
-        }
+        },
       });
     } else {
       this.authService.registerStudent(registration).subscribe({
         next: () => {
-          const registeredPerson = { email: registration.email, username: registration.username};
+          const registeredPerson = {
+            email: registration.email,
+            username: registration.username,
+          };
           this.router.navigate(['/check-email'], {
             queryParams: {
               email: registeredPerson.email,
               username: registeredPerson.username,
-              role: "student" 
-            }
+              role: 'student',
+            },
           });
         },
-        error: (err: any)=>{
-          if (err.status === 400 && err.error && err.error.detail.includes("User with supplied username already exists.")) {
+        error: (err: any) => {
+          if (
+            err.status === 400 &&
+            err.error &&
+            err.error.detail.includes(
+              'User with supplied username already exists.'
+            )
+          ) {
             this.usernameExist = true;
-            this.errorMessage = "Korisničko ime je već zauzeto. Molimo vas da unesete drugo korisničko ime.";
+            this.errorMessage =
+              'Korisničko ime je već zauzeto. Molimo vas da unesete drugo korisničko ime.';
           }
-        }
+        },
       });
     }
   }
@@ -108,4 +129,7 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
+  loginClick(): void {
+    this.router.navigate(['/login']);
+  }
 }
