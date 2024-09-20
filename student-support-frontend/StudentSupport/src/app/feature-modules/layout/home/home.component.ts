@@ -60,7 +60,11 @@ export class HomeComponent implements OnInit {
   getFourRandomEvents(): void {
     this.eventService.getRandomFourEvents().subscribe({
       next: (result: MyEvent[]) => {
-        this.events = result;
+        if (window.matchMedia('(max-width: 450px)').matches) {
+          this.events.push(result[0], result[1]);
+        } else {
+          this.events = result;
+        }
       },
     });
   }
@@ -132,11 +136,15 @@ export class HomeComponent implements OnInit {
     this.header2 = this.headers2[this.currentIndex];
   }
 
-  scrollToEventsSection(){
-    document.getElementById('events-section')?.scrollIntoView({ behavior: 'smooth' });
+  scrollToEventsSection() {
+    document
+      .getElementById('events-section')
+      ?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  scrollToClubsSection(){
-    document.getElementById('clubs-section')?.scrollIntoView({ behavior: 'smooth' });
+  scrollToClubsSection() {
+    document
+      .getElementById('clubs-section')
+      ?.scrollIntoView({ behavior: 'smooth' });
   }
 }

@@ -50,3 +50,17 @@
   font-size: 25px;
   color: var(--info-color);
 }
+
+@media (max-width: 450px) {
+  .cards {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  xp-event-card {
+    width: 100%;
+  }
+}

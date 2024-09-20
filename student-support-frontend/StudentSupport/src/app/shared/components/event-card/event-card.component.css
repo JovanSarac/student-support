@@ -130,13 +130,13 @@ svg {
   color: var(--accent-color);
 }
 
-.select-option{
+.select-option {
   display: flex;
   margin-top: 5px;
   margin-right: 5px;
 }
 
-.select-option p{
+.select-option p {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border-radius: 50%;
@@ -149,11 +149,11 @@ svg {
   font-size: 22px;
 }
 
-.select-option p:hover{
+.select-option p:hover {
   background-color: black;
 }
 
-.star{
+.star {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -164,7 +164,7 @@ svg {
   flex-direction: column;
   position: absolute;
   top: 50px;
-  right : 3px;
+  right: 3px;
   background-color: var(--background-color);
   border-radius: 5px;
   border: 2px solid var(--border-light-color);
@@ -172,7 +172,7 @@ svg {
   z-index: 1500;
 }
 
-.menu-item{
+.menu-item {
   display: flex;
   width: 100%;
   height: auto;
@@ -182,7 +182,7 @@ svg {
   cursor: pointer;
 }
 
-.menu-item p{
+.menu-item p {
   display: flex;
   padding: 3px;
   margin: 5px;
@@ -191,7 +191,6 @@ svg {
   font-size: 14px;
   font-family: "Poppins", sans-serif;
   transition: transform 0.3s ease;
-
 }
 
 .menu-item p:hover {
@@ -200,7 +199,7 @@ svg {
   transform: scale(1.07);
 }
 
-.separator{
+.separator {
   width: 100%;
   height: 1px;
   border-bottom: 1px solid var(--border-light-color);
@@ -209,5 +208,23 @@ svg {
 @media (max-width: 1950px) {
   .one-card {
     width: 17.8vw;
+  }
+}
+
+@media (max-width: 450px) {
+  .one-card {
+    position: relative;
+    /* width: calc(25dvw - 20px); */
+    width: inherit;
+    height: 410px;
+    border: 1px solid var(--secondary-color);
+    /* background-size: cover; */
+    /* background-position: center; */
+    border-radius: 12px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+    overflow: hidden;
+    z-index: 1;
   }
 }

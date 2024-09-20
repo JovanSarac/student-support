@@ -418,4 +418,15 @@
   xp-club-card {
     width: 100%;
   }
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 2%;
+  }
+
+  xp-event-card {
+    width: 100%;
+  }
 }
