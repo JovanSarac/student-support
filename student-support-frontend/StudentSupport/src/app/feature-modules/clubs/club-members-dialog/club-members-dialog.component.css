@@ -12,6 +12,10 @@
   margin-left: 4%; */
 }
 
+.actions {
+  width: 55%;
+}
+
 th,
 td {
   padding: 12px;
