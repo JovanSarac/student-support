@@ -68,7 +68,7 @@
             inputId="password"
             label="Lozinka:"
             [customErrorMessages]="{ required: 'Lozinka je obavezno polje!' }"
-            [wrongRedBorder]="!samePassword"
+            [wrongRedBorder]="!samePassword || passwordInvalid"
           >
           </xp-input>
 
@@ -81,7 +81,7 @@
             [customErrorMessages]="{
               required: 'Ponovi lozinku je obavezno polje!'
             }"
-            [wrongRedBorder]="!samePassword"
+            [wrongRedBorder]="!samePassword || passwordInvalid"
           >
           </xp-input>
         </div>

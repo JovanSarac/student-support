@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegistrationComponent implements OnInit {
   samePassword: boolean = true;
+  passwordInvalid: boolean = false
   usernameExist: boolean = false;
   errorMessage: string = '';
 
@@ -44,6 +45,7 @@ export class RegistrationComponent implements OnInit {
 
     this.samePassword = true;
     this.usernameExist = false;
+    this.passwordInvalid = false;
     this.errorMessage = '';
     if (
       this.registerForm.value.password != this.registerForm.value.repeatPassword
@@ -88,6 +90,16 @@ export class RegistrationComponent implements OnInit {
             this.usernameExist = true;
             this.errorMessage =
               'Korisničko ime je već zauzeto. Molimo vas da unesete drugo korisničko ime.';
+          } else if(
+            err.status === 400 &&
+            err.error &&
+            err.error.detail.includes(
+              'Password must be at least 8 characters long, include one uppercase letter, one number, and one special character.'
+            )
+          ){
+            this.passwordInvalid = true;
+            this.errorMessage =
+              'Lozinka mora imati najmanje 8 karaktera, jedno veliko slovo, jedan broj i jedan specijalni karakter (npr. @, #, $).';
           }
         },
       });
@@ -117,6 +129,16 @@ export class RegistrationComponent implements OnInit {
             this.usernameExist = true;
             this.errorMessage =
               'Korisničko ime je već zauzeto. Molimo vas da unesete drugo korisničko ime.';
+          }else if(
+            err.status === 400 &&
+            err.error &&
+            err.error.detail.includes(
+              'Password must be at least 8 characters long, include one uppercase letter, one number, and one special character.'
+            )
+          ){
+            this.passwordInvalid = true;
+            this.errorMessage =
+              'Lozinka mora imati najmanje 8 karaktera, jedno veliko slovo, jedan broj i jedan specijalni karakter (npr. @, #, $).';
           }
         },
       });

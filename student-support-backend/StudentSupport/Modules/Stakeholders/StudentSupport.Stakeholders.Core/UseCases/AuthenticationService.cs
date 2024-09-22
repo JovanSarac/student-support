@@ -7,6 +7,7 @@ using FluentResults;
 using System.Security.Principal;
 using System;
 using StudentSupport.BuildingBlocks.Core.Security;
+using System.Text.RegularExpressions;
 
 namespace StudentSupport.Stakeholders.Core.UseCases;
 
@@ -54,6 +55,12 @@ public class AuthenticationService : IAuthenticationService
     {
         if(_userRepository.Exists(account.Username)) return Result.Fail(FailureCode.NonUniqueUsername);
 
+        var passwordRegex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+
+        if (!passwordRegex.IsMatch(account.Password))
+        {
+            return Result.Fail(FailureCode.InvalidPassword);
+        }
         try
         {
             var user = _userRepository.Create(new User(account.Username, PasswordHasher.HashPassword(account.Password), UserRole.Student, true, false, false));
@@ -76,6 +83,13 @@ public class AuthenticationService : IAuthenticationService
     {
         if (_userRepository.Exists(account.Username)) return Result.Fail(FailureCode.NonUniqueUsername);
 
+        var passwordRegex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+
+
+        if (!passwordRegex.IsMatch(account.Password))
+        {
+            return Result.Fail(FailureCode.InvalidPassword);
+        }
         try
         {
             var user = _userRepository.Create(new User(account.Username, PasswordHasher.HashPassword(account.Password), UserRole.Author, false, false, false));

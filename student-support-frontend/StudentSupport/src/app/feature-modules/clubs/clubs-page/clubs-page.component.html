@@ -1,7 +1,7 @@
 <div class="full-page-bg">
   <div class="page-container">
     <div class="left-bar">
-      <div class="search-events">
+      <div class="search-clubs">
         <xp-input
           class="input-search"
           [inputType]="'text'"
@@ -43,8 +43,8 @@
 
         <xp-primary-button
           *ngIf="user.role === 'author'"
-          class="create-event"
-          buttonId="create-event-button"
+          class="create-club"
+          buttonId="create-club-button"
           buttonType="button"
           textValue="Napravi novi klub"
           (OnClick)="createClub()"
@@ -62,6 +62,7 @@
               value="Sports"
               class="club-checkbox"
               (change)="onCheckboxChange()"
+              [checked]="selectedCheckboxes.includes('Sports')"
             />
             <label for="sports">Sportski</label>
           </div>
@@ -72,6 +73,7 @@
               value="Artistic"
               class="club-checkbox"
               (change)="onCheckboxChange()"
+              [checked]="selectedCheckboxes.includes('Artistic')"
             />
             <label for="artistic">Umetnički</label>
           </div>
@@ -82,6 +84,7 @@
               value="Scientific"
               class="club-checkbox"
               (change)="onCheckboxChange()"
+              [checked]="selectedCheckboxes.includes('Scientific')"
             />
             <label for="scientific">Naučni</label>
           </div>
@@ -92,6 +95,7 @@
               value="Cultural"
               class="club-checkbox"
               (change)="onCheckboxChange()"
+              [checked]="selectedCheckboxes.includes('Cultural')"
             />
             <label for="cultural">Kulturni i književni</label>
           </div>
@@ -102,6 +106,7 @@
               value="Technical"
               class="club-checkbox"
               (change)="onCheckboxChange()"
+              [checked]="selectedCheckboxes.includes('Technical')"
             />
             <label for="technical">Tehnički i inovacioni</label>
           </div>
@@ -113,6 +118,7 @@
               value="Gaming"
               class="club-checkbox"
               (change)="onCheckboxChange()"
+              [checked]="selectedCheckboxes.includes('Gaming')"
             />
             <label for="gaming">Gejmerski</label>
           </div>
@@ -123,6 +129,7 @@
               value="Social"
               class="club-checkbox"
               (change)="onCheckboxChange()"
+              [checked]="selectedCheckboxes.includes('Social')"
             />
             <label for="social">Društveni i humanitarni</label>
           </div>
@@ -133,6 +140,7 @@
               value="Other"
               class="club-checkbox"
               (change)="onCheckboxChange()"
+              [checked]="selectedCheckboxes.includes('Other')"
             />
             <label for="other">Ostali</label>
           </div>
@@ -148,6 +156,157 @@
     </div>
 
     <div class="clubs" *ngIf="!isLoading">
+      <div class="filter-phone-section">
+        <h3 (click)="toggleDropdown()">Pretraži <i *ngIf="!dropdownOpen" class="bi bi-chevron-down" style="margin-left: 5px;"></i> <i *ngIf="dropdownOpen" class="bi bi-chevron-up" style="margin-left: 5px;"></i></h3>
+
+        <div class="dropdown-contentt" [ngClass]="{ show: dropdownOpen }">
+          <div class="search-clubs">
+            <xp-input
+              class="input-search"
+              [inputType]="'text'"
+              [label]="''"
+              [control]="searchControl"
+              inputId="searchInput"
+              placeholderSentence="Pretraži klubove"
+              (keydown.enter)="searchClubs(searchControl.value!)"
+            ></xp-input>
+            <p (click)="searchClubs(searchControl.value!)">
+              <i class="bi bi-search"></i>
+            </p>
+          </div>
+    
+          <div class="buttons-tab">
+            <p
+              [ngClass]="{ active: activeTab === 'allClubs' }"
+              (click)="changeActiveTab('allClubs')"
+            >
+              <i class="bi bi-suit-club-fill" style="margin-right: 10px"></i>Svi
+              klubovi
+            </p>
+            <p
+              [ngClass]="{ active: activeTab === 'yourClubs' }"
+              (click)="changeActiveTab('yourClubs')"
+              *ngIf="user.role === 'author'"
+            >
+              <i class="bi bi-bookmark-star-fill" style="margin-right: 10px"></i
+              >Vaši klubovi
+            </p>
+            <p
+              [ngClass]="{ active: activeTab === 'yourMemberships' }"
+              (click)="changeActiveTab('yourMemberships')"
+              *ngIf="user.role === 'student'"
+            >
+              <i class="bi bi-person-fill-check" style="margin-right: 10px"></i>Vaša
+              članstva
+            </p>
+    
+            <xp-primary-button
+              *ngIf="user.role === 'author'"
+              class="create-club"
+              buttonId="create-club-button"
+              buttonType="button"
+              textValue="Napravi novi klub"
+              (OnClick)="createClub()"
+            >
+            </xp-primary-button>
+          </div>
+    
+          <div class="filter-section">
+            <p class="filter-type-title">Kategorije klubova:</p>
+            <div class="checkboxs">
+              <div class="checkbox-input">
+                <input
+                  type="checkbox"
+                  id="sportss"
+                  value="Sports"
+                  class="club-checkbox"
+                  (change)="onCheckboxChange()"
+                  [checked]="selectedCheckboxes.includes('Sports')"
+                />
+                <label for="sportss">Sportski</label>
+              </div>
+              <div class="checkbox-input">
+                <input
+                  type="checkbox"
+                  id="artisticc"
+                  value="Artistic"
+                  class="club-checkbox"
+                  (change)="onCheckboxChange()"
+                  [checked]="selectedCheckboxes.includes('Artistic')"
+                />
+                <label for="artisticc">Umetnički</label>
+              </div>
+              <div class="checkbox-input">
+                <input
+                  type="checkbox"
+                  id="scientificc"
+                  value="Scientific"
+                  class="club-checkbox"
+                  (change)="onCheckboxChange()"
+                  [checked]="selectedCheckboxes.includes('Scientific')"
+                />
+                <label for="scientificc">Naučni</label>
+              </div>
+              <div class="checkbox-input">
+                <input
+                  type="checkbox"
+                  id="culturall"
+                  value="Cultural"
+                  class="club-checkbox"
+                  (change)="onCheckboxChange()"
+                  [checked]="selectedCheckboxes.includes('Cultural')"
+                />
+                <label for="culturall">Kulturni i književni</label>
+              </div>
+              <div class="checkbox-input">
+                <input
+                  type="checkbox"
+                  id="technicall"
+                  value="Technical"
+                  class="club-checkbox"
+                  (change)="onCheckboxChange()"
+                  [checked]="selectedCheckboxes.includes('Technical')"
+                />
+                <label for="technicall">Tehnički i inovacioni</label>
+              </div>
+    
+              <div class="checkbox-input">
+                <input
+                  type="checkbox"
+                  id="gamingg"
+                  value="Gaming"
+                  class="club-checkbox"
+                  (change)="onCheckboxChange()"
+                  [checked]="selectedCheckboxes.includes('Gaming')"
+                />
+                <label for="gamingg">Gejmerski</label>
+              </div>
+              <div class="checkbox-input">
+                <input
+                  type="checkbox"
+                  id="sociall"
+                  value="Social"
+                  class="club-checkbox"
+                  (change)="onCheckboxChange()"
+                  [checked]="selectedCheckboxes.includes('Social')"
+                />
+                <label for="sociall">Društveni i humanitarni</label>
+              </div>
+              <div class="checkbox-input">
+                <input
+                  type="checkbox"
+                  id="otherr"
+                  value="Other"
+                  class="club-checkbox"
+                  (change)="onCheckboxChange()"
+                  [checked]="selectedCheckboxes.includes('Other')"
+                />
+                <label for="otherr">Ostali</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="searched" *ngIf="searchName != ''">
         <p>Pretražili ste: "{{ searchName }}"</p>
         <i

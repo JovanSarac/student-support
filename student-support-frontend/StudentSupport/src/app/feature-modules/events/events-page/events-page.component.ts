@@ -66,6 +66,9 @@ export class EventsPageComponent implements OnInit {
   selectedPriceFilter: string = '';
   selectPrice: number = 0;
 
+  dropdownOpen = false;
+  public screenWidth: number | undefined;
+
   constructor(
     private router: Router,
     private service: EventsService,
@@ -75,6 +78,7 @@ export class EventsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
+    this.screenWidth = window.innerWidth;
     this.getLoggedUser();
 
     this.route.queryParams.subscribe((params) => {
@@ -83,6 +87,7 @@ export class EventsPageComponent implements OnInit {
   }
 
   handleQueryParamsChange(params: any) {
+    this.dropdownOpen = false
     if (params['activeTab'] != undefined) {
       this.setActiveTab(params['activeTab']);
     } else {
@@ -100,6 +105,7 @@ export class EventsPageComponent implements OnInit {
       : [];
 
     this.selectedDateFilter = params['filterDates'] || '';
+
     this.startDate = params['startDate'] || null;
     this.endDate = params['endDate'] || null;
     this.selectDate = 0;
@@ -141,7 +147,10 @@ export class EventsPageComponent implements OnInit {
           new Date(a.datePublication).getTime()
       );
 
+    this.totalPages = Math.ceil(this.eventsForDisplay.length / this.pageSize);
     this.isLoading = false;
+    
+    window.scrollTo(0, 0);
 
     this.showEmptySeachPlaceholder = false;
     if((this.searchName != "" || this.selectedCheckboxes.length + this.selectDate + this.selectPrice > 0) && this.pagedEvents.length == 0){
@@ -181,8 +190,6 @@ export class EventsPageComponent implements OnInit {
         next: (result: PagedResults<MyEvent>) => {
           this.events = result.results;
 
-          this.totalPages = Math.ceil(this.events.length / this.pageSize);
-
           this.searchEventsByName(this.searchName);
         },
       });
@@ -190,7 +197,6 @@ export class EventsPageComponent implements OnInit {
       this.service.getYoursEvents(this.user.id).subscribe({
         next: (result: MyEvent[]) => {
           this.events = result;
-          this.totalPages = Math.ceil(this.events.length / this.pageSize);
 
           this.searchEventsByName(this.searchName);
         },
@@ -199,7 +205,6 @@ export class EventsPageComponent implements OnInit {
       this.service.getYoursParticipateEvents(this.user.id).subscribe({
         next: (result: MyEvent[]) => {
           this.events = result;
-          this.totalPages = Math.ceil(this.events.length / this.pageSize);
 
           this.searchEventsByName(this.searchName);
         },
@@ -216,7 +221,6 @@ export class EventsPageComponent implements OnInit {
     this.service.getEventsBySearchName(this.events, name, this.user).subscribe({
       next: (result: MyEvent[]) => {
         this.eventsForDisplay = result;
-        this.updateCheckboxes();
 
         if (this.selectedCheckboxes.length != 0)
           this.filterByEventTypes(this.eventsForDisplay);
@@ -252,7 +256,7 @@ export class EventsPageComponent implements OnInit {
   }
 
   filterByEventTypes(eventsForFiltering: MyEvent[]) {
-    this.updateCheckboxes();
+
     this.service
       .getEventsByFiltersTypes(
         eventsForFiltering,
@@ -275,28 +279,24 @@ export class EventsPageComponent implements OnInit {
 
   getCheckedCheckboxes(): string[] {
     const checkedValues: string[] = [];
-    const checkboxes = document.querySelectorAll('.event-checkbox:checked');
-
-    checkboxes.forEach((checkbox: any) => {
-      checkedValues.push(checkbox.value);
-    });
-
+    if (this.screenWidth! > 450){
+      const checkboxes = document.querySelectorAll('.left-bar .event-checkbox:checked');
+      checkboxes.forEach((checkbox: any) => {
+        checkedValues.push(checkbox.value);
+      });
+    }else if(this.screenWidth! <= 450){
+      const checkboxes = document.querySelectorAll('.dropdown-contentt .event-checkbox:checked');
+      checkboxes.forEach((checkbox: any) => {
+        checkedValues.push(checkbox.value);
+      });
+    }
     return checkedValues;
-  }
-
-  updateCheckboxes() {
-    const checkboxes = document.querySelectorAll('.event-checkbox');
-
-    checkboxes.forEach((checkbox: any) => {
-      checkbox.checked = this.selectedCheckboxes.includes(checkbox.value);
-    });
   }
 
   clearTypeFilter(type: string) {
     const index = this.selectedCheckboxes.indexOf(type);
     if (index !== -1) {
       this.selectedCheckboxes.splice(index, 1);
-      this.updateCheckboxes();
 
       setTimeout(() => {
         const queryParams = this.createQueryParams();
@@ -310,6 +310,7 @@ export class EventsPageComponent implements OnInit {
   clearAllFilters() {
     this.selectedCheckboxes = [];
     this.selectedDateFilter = '';
+
     this.startDate = null;
     this.endDate = null;
     this.selectedPriceFilter = '';
@@ -341,6 +342,7 @@ export class EventsPageComponent implements OnInit {
   onDateFilterChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     this.selectedDateFilter = inputElement.value;
+
     if (this.selectedDateFilter != 'pickdate') {
       const queryParams = this.createQueryParams();
 
@@ -452,5 +454,9 @@ export class EventsPageComponent implements OnInit {
 
   onMenuToggle(index: number | null) {
     this.menuVisibleIndex = this.menuVisibleIndex === index ? null : index;
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
   }
 }

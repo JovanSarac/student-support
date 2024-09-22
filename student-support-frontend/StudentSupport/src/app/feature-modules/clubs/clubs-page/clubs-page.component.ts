@@ -41,6 +41,9 @@ export class ClubsPageComponent implements OnInit {
     Other: 'Ostali',
   };
 
+  dropdownOpen = false;
+  public screenWidth: number | undefined;
+
   constructor(
     private service: ClubsService,
     private authService: AuthService,
@@ -50,6 +53,7 @@ export class ClubsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
+    this.screenWidth = window.innerWidth;
     this.user = this.authService.user$.value;
     this.route.queryParams.subscribe((params) => {
       this.handleQueryParamsChange(params);
@@ -57,6 +61,7 @@ export class ClubsPageComponent implements OnInit {
   }
 
   handleQueryParamsChange(params: any) {
+    this.dropdownOpen = false
     if (params['activeTab'] != undefined) {
       this.setActiveTab(params['activeTab']);
     } else {
@@ -121,7 +126,6 @@ export class ClubsPageComponent implements OnInit {
           this.filterByCategoriesClub(this.clubsForDisplay);
         else {
           this.updatePagedClubs();
-          this.updateCheckboxes();
         }
       },
     });
@@ -150,7 +154,6 @@ export class ClubsPageComponent implements OnInit {
   }
 
   filterByCategoriesClub(clubsForFiltering: Club[]) {
-    this.updateCheckboxes();
     this.service
       .getClubsByCategories(
         clubsForFiltering,
@@ -169,7 +172,6 @@ export class ClubsPageComponent implements OnInit {
     const index = this.selectedCheckboxes.indexOf(type);
     if (index !== -1) {
       this.selectedCheckboxes.splice(index, 1);
-      this.updateCheckboxes();
 
       setTimeout(() => {
         const queryParams = this.createQueryParams();
@@ -189,21 +191,21 @@ export class ClubsPageComponent implements OnInit {
 
   getCheckedCheckboxes(): string[] {
     const checkedValues: string[] = [];
-    const checkboxes = document.querySelectorAll('.club-checkbox:checked');
 
-    checkboxes.forEach((checkbox: any) => {
-      checkedValues.push(checkbox.value);
-    });
+    if (this.screenWidth! > 450){
+      const checkboxes = document.querySelectorAll('.left-bar .club-checkbox:checked');
+
+      checkboxes.forEach((checkbox: any) => {
+        checkedValues.push(checkbox.value);
+      });
+    }else if(this.screenWidth! <= 450){
+      const checkboxes = document.querySelectorAll('.dropdown-contentt .club-checkbox:checked');
+      checkboxes.forEach((checkbox: any) => {
+        checkedValues.push(checkbox.value);
+      });
+    }
 
     return checkedValues;
-  }
-
-  updateCheckboxes() {
-    const checkboxes = document.querySelectorAll('.club-checkbox');
-
-    checkboxes.forEach((checkbox: any) => {
-      checkbox.checked = this.selectedCheckboxes.includes(checkbox.value);
-    });
   }
 
   private createQueryParams(): any {
@@ -271,5 +273,9 @@ export class ClubsPageComponent implements OnInit {
       this.currentPage--;
       this.updatePagedClubs();
     }
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
   }
 }

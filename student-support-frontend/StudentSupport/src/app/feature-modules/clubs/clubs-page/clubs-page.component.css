@@ -39,7 +39,7 @@
   margin: 4%;
 }
 
-.search-events {
+.search-clubs {
   display: flex;
   flex-direction: row;
   width: 90%;
@@ -51,7 +51,7 @@
   width: 95%;
 }
 
-.search-events p {
+.search-clubs p {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,7 +65,7 @@
   cursor: pointer;
 }
 
-.search-events p:hover {
+.search-clubs p:hover {
   background-color: var(--secondary-hover-color);
 }
 
@@ -102,7 +102,7 @@
   color: var(--secondary-hover-color);
 }
 
-.create-event {
+.create-club {
   width: 100%;
   margin-top: 3%;
   margin-bottom: 3%;
@@ -337,9 +337,83 @@
   border-left-color: var(--secondary-color);
   animation: spin 1s ease infinite;
 }
+.filter-phone-section{
+  display: none;
+}
+
+.filter-phone-section h3{
+  margin-right: 20px;
+  padding: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid var(--secondary-color);
+}
+
+.filter-phone-section h3:hover{
+  text-decoration: underline;
+}
+
+
+.dropdown-contentt {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  width: 90%;
+  top: 5%;
+  right: 5%;
+  background-color: white;
+  border-radius: 15px;
+  padding: 10px;
+  z-index: 1000;
+  border: 1px solid #ccc;
+}
+
+.dropdown-contentt.show {
+  display: flex;
+}
 
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
+
+
+@media (max-width: 450px) {
+  .left-bar {
+    display: none;
+  }
+
+  .clubs {
+    width: 100%;
+    display: flex;
+    margin-left: 0%;
+    margin-top: 10px;
+  }
+
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 2%;
+  }
+
+  .loading-container {
+    width: 100%;
+    display: flex;
+    margin-left: 0%;
+    margin-top: 10px;
+  }
+
+  .filter-phone-section{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  xp-club-card {
+    width: 100%;
+  }
+}
+

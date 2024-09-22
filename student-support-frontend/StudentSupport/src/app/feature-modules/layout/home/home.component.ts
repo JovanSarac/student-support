@@ -7,6 +7,7 @@ import { marked } from 'marked';
 import { EventsService } from '../../events/events.service';
 import { Club } from 'src/app/shared/model/club.model';
 import { ClubsService } from '../../clubs/clubs.service';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-home',
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private service: LayoutService,
     private eventService: EventsService,
-    private clubService: ClubsService
+    private clubService: ClubsService,
+    private authService : AuthService
   ) {}
 
   selectedTab: string = 'all';
@@ -146,5 +148,11 @@ export class HomeComponent implements OnInit {
     document
       .getElementById('clubs-section')
       ?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  goToLogin(){
+    if(this.authService.user$.value.username == ''){
+      this.router.navigate(['/login']);
+    }
   }
 }

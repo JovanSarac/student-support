@@ -63,6 +63,7 @@
                 value="AcademicConferenceAndSeminars"
                 class="event-checkbox"
                 (change)="onCheckboxChange()"
+                [checked]="selectedCheckboxes.includes('AcademicConferenceAndSeminars')"
               />
               <label for="conference">Konferencije</label>
             </div>
@@ -73,6 +74,7 @@
                 value="WorkshopsAndCourses"
                 class="event-checkbox"
                 (change)="onCheckboxChange()"
+                [checked]="selectedCheckboxes.includes('WorkshopsAndCourses')"
               />
               <label for="courses">Kursevi</label>
             </div>
@@ -83,6 +85,7 @@
                 value="CulturalEvent"
                 class="event-checkbox"
                 (change)="onCheckboxChange()"
+                [checked]="selectedCheckboxes.includes('CulturalEvent')"
               />
               <label for="cultural">Kulturni</label>
             </div>
@@ -93,6 +96,7 @@
                 value="Fair"
                 class="event-checkbox"
                 (change)="onCheckboxChange()"
+                [checked]="selectedCheckboxes.includes('Fair')"
               />
               <label for="fair">Sajamski</label>
             </div>
@@ -103,6 +107,7 @@
                 value="HumanitarianEvent"
                 class="event-checkbox"
                 (change)="onCheckboxChange()"
+                [checked]="selectedCheckboxes.includes('HumanitarianEvent')"
               />
               <label for="humanitarian">Humanitarni</label>
             </div>
@@ -116,6 +121,7 @@
                 value="ArtExhibitionsAndPerformances"
                 class="event-checkbox"
                 (change)="onCheckboxChange()"
+                [checked]="selectedCheckboxes.includes('ArtExhibitionsAndPerformances')"
               />
               <label for="art">Umetnički</label>
             </div>
@@ -126,6 +132,7 @@
                 value="StudentPartiesAndSocialEvents"
                 class="event-checkbox"
                 (change)="onCheckboxChange()"
+                [checked]="selectedCheckboxes.includes('StudentPartiesAndSocialEvents')"
               />
               <label for="social">Društveni</label>
             </div>
@@ -136,6 +143,7 @@
                 value="Competitions"
                 class="event-checkbox"
                 (change)="onCheckboxChange()"
+                [checked]="selectedCheckboxes.includes('Competitions')"
               />
               <label for="competition">Takmičenja</label>
             </div>
@@ -146,6 +154,7 @@
                 value="StudentTrips"
                 class="event-checkbox"
                 (change)="onCheckboxChange()"
+                [checked]="selectedCheckboxes.includes('StudentTrips')"
               />
               <label for="trip">Putovanja</label>
             </div>
@@ -156,6 +165,7 @@
                 value="Other"
                 class="event-checkbox"
                 (change)="onCheckboxChange()"
+                [checked]="selectedCheckboxes.includes('Other')"
               />
               <label for="others">Ostalo</label>
             </div>
@@ -277,6 +287,289 @@
     </div>
 
     <div class="events" *ngIf="!isLoading">
+      <div class="filter-phone-section">
+        <h3 (click)="toggleDropdown()">Pretraži <i *ngIf="!dropdownOpen" class="bi bi-chevron-down" style="margin-left: 5px;"></i> <i *ngIf="dropdownOpen" class="bi bi-chevron-up" style="margin-left: 5px;"></i></h3>
+
+        <div class="dropdown-contentt" [ngClass]="{ show: dropdownOpen }">
+          <div class="search-events">
+            <xp-input
+              class="input-search"
+              [inputType]="'text'"
+              [label]="''"
+              [control]="searchControl"
+              inputId="searchInput"
+              placeholderSentence="Pretraži događaje"
+              (keydown.enter)="searchEvent(searchControl.value!)"
+            ></xp-input>
+            <p (click)="searchEvent(searchControl.value!)">
+              <i class="bi bi-search"></i>
+            </p>
+          </div>
+    
+          <div class="buttons-tab">
+            <p
+              [ngClass]="{ active: activeTab === 'allEvents' }"
+              (click)="changeActiveTab('allEvents')"
+            >
+              <i class="bi bi-calendar-event-fill" style="margin-right: 10px"></i
+              >Svi događaji
+            </p>
+            <p
+              [ngClass]="{ active: activeTab === 'yourEvents' }"
+              (click)="changeActiveTab('yourEvents')"
+              *ngIf="user.role === 'author'"
+            >
+              <i class="bi bi-bookmark-star-fill" style="margin-right: 10px"></i
+              >Vaši događaji
+            </p>
+            <p
+              [ngClass]="{ active: activeTab === 'yourInterests' }"
+              (click)="changeActiveTab('yourInterests')"
+              *ngIf="user.role === 'student'"
+            >
+              <i class="bi bi-star-fill" style="margin-right: 10px"></i>Vaša
+              interesovanja
+            </p>
+    
+            <xp-primary-button
+              *ngIf="user.role === 'author'"
+              class="create-event"
+              buttonId="create-event-button"
+              buttonType="button"
+              textValue="Napravi novi događaj"
+              (OnClick)="createEvent()"
+            >
+            </xp-primary-button>
+          </div>
+    
+          <div class="filter-section">
+            <p class="filter-type-title">Tipovi događaja:</p>
+            <div class="checkboxs">
+              <div class="first-column">
+                <div class="checkbox-input">
+                  <input
+                    type="checkbox"
+                    id="conferencee"
+                    value="AcademicConferenceAndSeminars"
+                    class="event-checkbox"
+                    (change)="onCheckboxChange()"
+                    [checked]="selectedCheckboxes.includes('AcademicConferenceAndSeminars')"
+                  />
+                  <label for="conferencee">Konferencije</label>
+                </div>
+                <div class="checkbox-input">
+                  <input
+                    type="checkbox"
+                    id="coursess"
+                    value="WorkshopsAndCourses"
+                    class="event-checkbox"
+                    (change)="onCheckboxChange()"
+                    [checked]="selectedCheckboxes.includes('WorkshopsAndCourses')"
+                    
+                  />
+                  <label for="coursess">Kursevi</label>
+                </div>
+                <div class="checkbox-input">
+                  <input
+                    type="checkbox"
+                    id="culturall"
+                    value="CulturalEvent"
+                    class="event-checkbox"
+                    (change)="onCheckboxChange()"
+                    [checked]="selectedCheckboxes.includes('CulturalEvent')"
+                  />
+                  <label for="culturall">Kulturni</label>
+                </div>
+                <div class="checkbox-input">
+                  <input
+                    type="checkbox"
+                    id="fairr"
+                    value="Fair"
+                    class="event-checkbox"
+                    (change)="onCheckboxChange()"
+                    [checked]="selectedCheckboxes.includes('Fair')"
+                  />
+                  <label for="fairr">Sajamski</label>
+                </div>
+                <div class="checkbox-input">
+                  <input
+                    type="checkbox"
+                    id="humanitariann"
+                    value="HumanitarianEvent"
+                    class="event-checkbox"
+                    (change)="onCheckboxChange()"
+                    [checked]="selectedCheckboxes.includes('HumanitarianEvent')"
+                  />
+                  <label for="humanitariann">Humanitarni</label>
+                </div>
+              </div>
+    
+              <div class="second-column">
+                <div class="checkbox-input">
+                  <input
+                    type="checkbox"
+                    id="artt"
+                    value="ArtExhibitionsAndPerformances"
+                    class="event-checkbox"
+                    (change)="onCheckboxChange()"
+                    [checked]="selectedCheckboxes.includes('ArtExhibitionsAndPerformances')"
+                  />
+                  <label for="artt">Umetnički</label>
+                </div>
+                <div class="checkbox-input">
+                  <input
+                    type="checkbox"
+                    id="sociall"
+                    value="StudentPartiesAndSocialEvents"
+                    class="event-checkbox"
+                    (change)="onCheckboxChange()"
+                    [checked]="selectedCheckboxes.includes('StudentPartiesAndSocialEvents')"
+                  />
+                  <label for="sociall">Društveni</label>
+                </div>
+                <div class="checkbox-input">
+                  <input
+                    type="checkbox"
+                    id="competitionn"
+                    value="Competitions"
+                    class="event-checkbox"
+                    (change)="onCheckboxChange()"
+                    [checked]="selectedCheckboxes.includes('Competitions')"
+                  />
+                  <label for="competitionn">Takmičenja</label>
+                </div>
+                <div class="checkbox-input">
+                  <input
+                    type="checkbox"
+                    id="tripp"
+                    value="StudentTrips"
+                    class="event-checkbox"
+                    (change)="onCheckboxChange()"
+                    [checked]="selectedCheckboxes.includes('StudentTrips')"
+                  />
+                  <label for="tripp">Putovanja</label>
+                </div>
+                <div class="checkbox-input">
+                  <input
+                    type="checkbox"
+                    id="otherss"
+                    value="Other"
+                    class="event-checkbox"
+                    (change)="onCheckboxChange()"
+                    [checked]="selectedCheckboxes.includes('Other')"
+                  />
+                  <label for="otherss">Ostalo</label>
+                </div>
+              </div>
+            </div>
+    
+            <p class="filter-title">Datum događaja:</p>
+            <div class="date-events">
+              <label>
+                <input
+                  type="radio"
+                  name="dateFilterPhone"
+                  value="today"
+                  (change)="onDateFilterChange($event)"
+                  [(ngModel)]="selectedDateFilter"
+                />
+                Danas
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="dateFilterPhone"
+                  value="tommorow"
+                  (change)="onDateFilterChange($event)"
+                  [(ngModel)]="selectedDateFilter"
+                />
+                Sutra
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="dateFilterPhone"
+                  value="thisweek"
+                  (change)="onDateFilterChange($event)"
+                  [(ngModel)]="selectedDateFilter"
+                />
+                Ove sedmice
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="dateFilterPhone"
+                  value="thismonth"
+                  (change)="onDateFilterChange($event)"
+                  [(ngModel)]="selectedDateFilter"
+                />
+                Ovaj mesec
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="dateFilterPhone"
+                  value="pickdate"
+                  (change)="onDateFilterChange($event)"
+                  [(ngModel)]="selectedDateFilter"
+                />
+                Izaberi opseg...
+              </label>
+    
+              <mat-form-field
+                *ngIf="selectedDateFilter == 'pickdate'"
+                appearance="fill"
+              >
+                <mat-label>Izaberi opseg datuma</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                  <input
+                    matStartDate
+                    placeholder="Početni datum"
+                    [(ngModel)]="startDate"
+                    (ngModelChange)="onStartDateChange($event)"
+                  />
+                  <input
+                    matEndDate
+                    placeholder="Krajni datum"
+                    [(ngModel)]="endDate"
+                    (ngModelChange)="onEndDateChange($event)"
+                  />
+                </mat-date-range-input>
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+            </div>
+    
+            <p class="filter-title">Cena ulaznica (RSD):</p>
+    
+            <div class="price-input">
+              <label>
+                <input
+                  type="radio"
+                  name="priceFilterPhone"
+                  value="free"
+                  (change)="onPriceFilterChange($event)"
+                  [(ngModel)]="selectedPriceFilter"
+                />
+                Besplatno
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="priceFilterPhone"
+                  value="paid"
+                  (change)="onPriceFilterChange($event)"
+                  [(ngModel)]="selectedPriceFilter"
+                />
+                Plaća se ulaz
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="searched" *ngIf="searchName != ''">
         <p>Pretražili ste: "{{ searchName }}"</p>
         <i
@@ -294,7 +587,7 @@
         "
       >
         <p *ngIf="selectedCheckboxes.length + selectDate + selectPrice > 0">
-          Primjenjeno
+          Primenjeno
           {{ selectedCheckboxes.length + selectDate + selectPrice }} filtera:
         </p>
         <p class="filtered-type" *ngFor="let type of selectedCheckboxes">

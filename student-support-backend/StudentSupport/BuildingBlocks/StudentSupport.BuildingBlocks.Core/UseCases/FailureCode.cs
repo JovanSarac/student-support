@@ -21,4 +21,8 @@ public static class FailureCode
     public static readonly IError InvalidTokenData = new Error("Data in the token does not match the records in the database.")
     .WithMetadata("code", 400)
     .WithMetadata("subCode", 2);
+
+    public static readonly IError InvalidPassword = new Error("Password must be at least 8 characters long, include one uppercase letter, one number, and one special character.")
+    .WithMetadata("code", 400)
+    .WithMetadata("subCode", 2);
 }

@@ -385,6 +385,16 @@
   background-color: var(--secondary-color);
 }
 
+.link-style {
+  color: rgb(44, 121, 223);
+  cursor: pointer;
+}
+
+.link-style:hover {
+  color: rgb(29, 29, 110);
+  text-decoration: underline;
+}
+
 @media (max-width: 450px) {
   .section-title {
     display: flex;

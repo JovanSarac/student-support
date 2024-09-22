@@ -9,6 +9,7 @@
 .buttons{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     width: 100%;
     height: auto;
 }
@@ -97,5 +98,18 @@
 .err-message{
     margin-left: 2px;
     color: var(--error-color);
+}
+
+
+
+@media (max-width: 450px) {
+    .textarea-inputs{
+        flex-direction: column;
+    }
+
+    .textarea__group{
+        width: 100%;
+    }
+
 }
   

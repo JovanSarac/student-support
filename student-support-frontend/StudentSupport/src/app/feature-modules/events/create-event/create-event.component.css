@@ -511,3 +511,59 @@
   margin-bottom: 5px;
   height: 40px;
 }
+
+@media (max-width: 450px) {
+  .first-row{
+    flex-direction: column;
+  }
+
+  .text-info {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+  }
+
+  .picture-info{
+    width: 100%;
+  }
+
+  .price-info p{
+    font-size: 12px;
+    margin-left: 10px;
+  }
+
+  .container{
+    height: 300px;
+  }
+
+  .default-container-picture p{
+    font-size: 13px;
+  }
+
+  .row-map-address {
+    flex-direction: column;
+  }
+
+  .map-container {
+    width: 100%;
+  }
+
+  .city-street {
+    margin-top: 60px;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+  }
+
+  .city-street p {
+    font-size: 12px;
+  }
+
+  xp-input{
+    margin-left: 5%;
+  }
+}
+
+
+ 

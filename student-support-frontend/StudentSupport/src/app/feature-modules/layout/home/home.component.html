@@ -56,7 +56,7 @@
         događaja i informacija o svakom događaju, kao i o mogućnostima kreiranja
         sopstvenih događaja kao autor, ili mogućnosti prijavljivanja na događaj
         kao student, morate izvršiti
-        <a href="http://localhost:4200/login">prijavu.</a>
+        <a class="link-style" (click)="goToLogin()">prijavu.</a>
       </p>
       <div class="cards">
         <xp-event-card *ngFor="let event of events" [event]="event">
@@ -84,7 +84,7 @@
         <br /><br />
         U nastavku su prikazani samo neki od najpopularnijih klubova. Za više
         klubova i informacija o svakom klubu, morate izvršiti
-        <a href="http://localhost:4200/login">prijavu.</a>
+        <a class="link-style" (click)="goToLogin()">prijavu.</a>
       </p>
       <div class="club-cards">
         <xp-club-card *ngFor="let club of clubs" [club]="club"> </xp-club-card>
